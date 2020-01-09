@@ -25,7 +25,7 @@
     var Y = canvas.height = window.innerHeight;
 
     // snow
-    var snowNum = 50;
+    var snowNum = 100;
     var snows = [];
 
     // speed
