@@ -104,7 +104,7 @@
     };
 
     Particle.prototype.resize = function () {
-      this.x = rand(0, X);
+      this.x = Math.random() * X / 5 + X / 5 * 2;
     };
 
     Particle.prototype.render = function () {
