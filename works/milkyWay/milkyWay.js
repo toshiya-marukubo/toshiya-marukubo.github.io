@@ -25,7 +25,7 @@
     var Y = canvas.height = window.innerHeight;
 
     // particle
-    var particleNum = 500;
+    var particleNum = 1000;
     var particles = [];
 
     // speed
