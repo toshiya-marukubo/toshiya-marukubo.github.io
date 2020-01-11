@@ -26,6 +26,9 @@
 
     // particle
     var particleNum = 1000;
+    if (X < 768) {
+      particleNum = 500;
+    }
     var particles = [];
 
     // speed
