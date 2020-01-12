@@ -57,7 +57,7 @@
       this.y = y || 0;
       this.v = {
         x: rand(-0.1, 0.1),
-        y: Math.random() * 5
+        y: rand(1, 5)
       };
       this.color = {
         r: rand(102, 255),
@@ -83,7 +83,11 @@
     Fire.prototype.updateParams = function() {
       this.life -= 1;
       if (this.life === 0) {
-        this.init(Math.random() * X / 9 + X / 9 * 4, Math.random() * Y / 9 + Y / 9 * 7, this.radius - 1);
+        //this.init(Math.random() * X / 9 + X / 9 * 4, Math.random() * Y / 9 + Y / 9 * 7, this.radius - 1);
+        this.y = Math.ceil(Math.random() * Y / 9 + Y / 9 * 7);
+        this.x = Math.ceil(Math.random() * X / 9 + X / 9 * 4); 
+        this.startLife = Math.ceil(lifeMax * Math.random());
+        this.life = this.startLife;
       }
     };
 
