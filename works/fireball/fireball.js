@@ -68,6 +68,7 @@
       this.radius = rand(50, 70) || 0;
       this.startLife = Math.ceil(lifeMax * Math.random());
       this.life = this.startLife;
+      this.stoLife = this.startLife;
     };
 
     Fire.prototype.draw = function () {
@@ -84,10 +85,9 @@
       this.life -= 1;
       if (this.life === 0) {
         //this.init(Math.random() * X / 9 + X / 9 * 4, Math.random() * Y / 9 + Y / 9 * 7, this.radius - 1);
+        this.life = this.stoLife;
         this.y = Math.ceil(Math.random() * Y / 9 + Y / 9 * 7);
-        this.x = Math.ceil(Math.random() * X / 9 + X / 9 * 4); 
-        this.startLife = Math.ceil(lifeMax * Math.random());
-        this.life = this.startLife;
+        this.x = Math.random() * X / 9 + X / 9 * 4;;
       }
     };
 
