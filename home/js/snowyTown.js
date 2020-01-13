@@ -23,7 +23,7 @@
     var ctx = canvas.getContext('2d');
     var X = canvas.width = window.innerWidth;
     var Y = canvas.height = window.innerHeight;
-    
+
     // buildings
     var buildings = []; 
     var buildingsBack = [];
@@ -33,7 +33,9 @@
     // snow
     var snowNum = 50;
     var snows = [];
-    
+    if (X < 768) {
+      snowNum = 25;
+    }    
     // speed
     var builSpeed = 0.1;
     var builBackSpeed = 0.01;
