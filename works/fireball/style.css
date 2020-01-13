@@ -1,11 +1,50 @@
+/********************
+  Common
+********************/
+
 html, body {
+  font-family: Helvetica, verdana, monospace;
   color: #FFF;
+  font-size: 100%;
+  background: #000;
   padding: 0;
   margin: 0;
+  letter-spacing: 0.2rem;
   overflow: hidden;
-  background: #000;
 }
 
+a {
+  color: #FFF;
+  text-decoration: none;
+}
+
+h1 {
+  font-size: 1.6rem;
+}
+
+p {
+  padding: 0.8rem 0;
+  font-size: 0.8rem;
+}
+
+div#main {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1.6rem;
+}
+
+p#loading {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 1.6rem;
+}
+
+/********************
+  Contents
+********************/
+
 canvas#canvas {
-  background: #000000;  /* fallback for old browsers */
+  background: #000000;
 }

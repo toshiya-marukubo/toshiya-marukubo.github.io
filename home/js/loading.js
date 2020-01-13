@@ -1,10 +1,9 @@
 (function(){
   'use strict';
   window.addEventListener('load', function() {
-    var ccanvas = document.getElementById('canvas');
+    var contents = document.getElementById('contents');
     var loading = document.getElementById('loading');
     loading.style.display = 'none';
-    canvas.style.visibility = 'visible';
+    contents.style.visibility = 'visible';
   }, false);
 })();
-

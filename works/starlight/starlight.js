@@ -123,5 +123,5 @@
 
   });
   // Author
-  console.log('File Name / starlight.js\nAuthor / Toshiya Marukubo\nCreated Date / 2020.01.09');
+  console.log('File Name / starlight.js\nCreated Date / 2020.01.09\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();

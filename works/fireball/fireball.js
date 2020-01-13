@@ -152,5 +152,5 @@
 
   });
   // Author
-  console.log('File Name / fireball.js\nAuthor / Toshiya Marukubo\nCreated Date / 2020.01.11');
+  console.log('File Name / fireball.js\nCreated Date / 2020.01.11\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();

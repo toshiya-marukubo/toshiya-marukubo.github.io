@@ -150,5 +150,5 @@
 
   });
   // Author
-  console.log('File Name / milkyWay.js\nAuthor / Toshiya Marukubo\nCreated Date / 2020.01.10');
+  console.log('File Name / milkyWay.js\nCreated Date / 2020.01.10\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();

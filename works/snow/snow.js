@@ -55,10 +55,10 @@
 
     Particle.prototype.init = function (x, y) {
       this.ctx = ctx;
-      this.x = x - 0.1 || 0;
+      this.x = x || 0;
       this.y = y || 0;
       this.v = {
-        x: snowSpeed,
+        x: 0,
         y: Math.random() * 1
       };
       this.color = {
@@ -80,7 +80,7 @@
     };
 
     Particle.prototype.updatePosition = function () {
-      this.x += this.v.x + snowSpeed;
+      this.x += this.v.x;
       this.y += this.v.y;
     };
 
@@ -147,5 +147,5 @@
 
   });
   // Author
-  console.log('File Name / snow.js\nAuthor / Toshiya Marukubo\nCreated Date / 2020.01.08');
+  console.log('File Name / snow.js\nCreated Date / 2020.01.08\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();
