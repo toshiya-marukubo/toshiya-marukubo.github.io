@@ -25,9 +25,9 @@
     var Y = canvas.height = window.innerHeight;
 
     // particle
-    var particleNum = 1000;
+    var particleNum = 500;
     if (X < 768) {
-      particleNum = 500;
+      particleNum = 250;
     }
     var particles = [];
 

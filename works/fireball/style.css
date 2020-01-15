@@ -4,6 +4,8 @@
 
 html, body {
   font-family: Helvetica, verdana, monospace;
+  height: 100%;
+  width: 100%;
   color: #FFF;
   font-size: 100%;
   background: #000;
@@ -46,5 +48,5 @@ p#loading {
 ********************/
 
 canvas#canvas {
-  background: #000000;
+  background: #000;
 }
