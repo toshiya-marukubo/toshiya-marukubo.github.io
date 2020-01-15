@@ -33,9 +33,19 @@
     var grassNum = 100;
     var grasses = [];
     var growSpeed = -0.1;
-
+    
+    // mouse
     var mouseX = null;
     var mouseY = null;
+
+    // icon
+    var cloud = document.getElementById('cloud');
+    
+    window.addEventListener('mousemove', function(e){
+      cloud.style.visibility = 'visible';
+      cloud.style.left = - 40 + mouseX + 'px';
+      cloud.style.top = - 70 + mouseY + 'px';
+    }, false);
 
     /********************
       Animation

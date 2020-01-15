@@ -50,3 +50,8 @@ p#loading {
 canvas#canvas {
   background: #95E0BC;
 }
+
+span#cloud {
+  color: #FFFFFF;
+  position: absolute;
+}
