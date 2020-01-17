@@ -147,5 +147,5 @@
 
   });
   // Author
-  console.log('File Name / snow.js\nCreated Date / 2020.01.08\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
+  console.log('File Name / snow.js\nCreated Date / January 8, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();

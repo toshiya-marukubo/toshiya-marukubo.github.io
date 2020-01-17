@@ -226,5 +226,5 @@
 
   });
   // Author
-  console.log('File Name / mellomelloMellow.js\nCreated Date / 2020.01.15\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
+  console.log('File Name / mellomelloMellow.js\nCreated Date / January 15, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();
