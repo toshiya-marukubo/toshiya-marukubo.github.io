@@ -16,10 +16,6 @@ html, body {
   line-height: 1.5;
 }
 
-div#contents {
-  height: 100%;
-}
-
 a {
   color: #FFF;
   text-decoration: none;
