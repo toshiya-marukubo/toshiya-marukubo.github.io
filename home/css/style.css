@@ -5,6 +5,7 @@
 html, body {
   height: 100%;
   width: 100%;
+  position: fixed;
   font-family: Helvetica, verdana, monospace;
   font-size: 100%;
   background: #000;
