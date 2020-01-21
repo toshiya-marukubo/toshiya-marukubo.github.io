@@ -50,3 +50,10 @@ p#loading {
 canvas#canvas {
   background: #FFFFFF;
 }
+
+div.controller {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 1.6rem
+}

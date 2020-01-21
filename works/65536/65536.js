@@ -23,9 +23,12 @@
     var ctx = canvas.getContext('2d');
     var X = canvas.width = window.innerWidth;
     var Y = canvas.height = window.innerHeight;
+    
+    var split = document.getElementById('split');
+    var splitNum = 16;
 
-    var xSplit = X / 16;
-    var ySplit = Y / 16;
+    var xSplit = X / splitNum;
+    var ySplit = Y / splitNum;
 
     /********************
       Animation
@@ -45,8 +48,8 @@
     ********************/
     
     // var
-    var rowMax = 16;
-    var colMax = 16;
+    var rowMax = splitNum;
+    var colMax = splitNum;
     var colors = [];
     
     function Color(ctx, x, y, r, g, b) {
@@ -67,7 +70,6 @@
 
     Color.prototype.draw = function() {
       ctx = this.ctx;
-      ctx.globalAlpha = 0.3;
       ctx.fillStyle = 'rgb(' + this.c.r + ',' + this.c.g + ',' + this.c.b + ')';
       ctx.fillRect(this.x, this.y, xSplit, ySplit);
     };
@@ -105,8 +107,8 @@
     function onResize() {
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
-      xSplit = X / 16;
-      ySplit = Y / 16;
+      xSplit = X / splitNum;
+      ySplit = Y / splitNum;
       colors = [];
       for (var i = 0; i < colMax; i++) {
         for (var j = 0; j < rowMax; j++) {
@@ -116,8 +118,13 @@
       }
     }
 
-    window.addEventListener('mousemove', function(){
+    split.addEventListener('change', function(){
       colors = [];
+      splitNum = this.value;
+      rowMax = this.value;
+      colMax = this.value;
+      xSplit = X / splitNum;
+      ySplit = Y / splitNum;
       for (var i = 0; i < colMax; i++) {
         for (var j = 0; j < rowMax; j++) {
           var color = new Color(ctx, xSplit * i, ySplit * j, rand(0, 255), rand(0, 255), rand(0, 255));
@@ -132,5 +139,5 @@
 
   }); 
   // Author
-  console.log('File Name / 256.js\nCreated Date / January 21, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
+  console.log('File Name / 65536.js\nCreated Date / January 21, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();
