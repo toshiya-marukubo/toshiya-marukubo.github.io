@@ -56,6 +56,8 @@
     var thirdClouds = [];
     var thirdCloudSpeed = 0.025;
 
+    var rainFlg = true;
+
     function Cloud(ctx, x, y, r, c, s) {
       this.ctx = ctx;
       this.init(x, y, r, c, s);
@@ -179,10 +181,6 @@
       this.x = rand(0, X);
     };
 
-    Rain.prototype.changeWindDirection = function(val){
-      this.v.x = val;
-    };
-
     Rain.prototype.render = function() {
       this.updatePosition();
       this.wrapPosition();
@@ -197,10 +195,108 @@
     function changeAmount(val) {
       rains = [];
       rainNum = val;
+      if (rainFlg === false) {
+        startRain();
+      }
+      if (val == 0) {
+        stopRain();
+      }
       for (var i = 0; i < rainNum; i++) {
         var rain = new Rain(ctx, rand(0, X), rand(0, Y), rand(0, 5));
         rains.push(rain);
       }
+    }
+
+    function stopRain() {
+      rainFlg = false;
+      canvas.style.background = '#0052d4';
+      canvas.style.background = '-webkit-gradient(linear, left top, left bottom, from(#2980B9), to(#FFFFFF))';
+      thirdClouds = [];
+      secondClouds = [];
+      firstClouds = [];
+    }
+
+    function startRain() {
+      rainFlg = true;
+      canvas.style.background = '#000000';
+      canvas.style.background = '-webkit-gradient(linear, left top, left bottom, from(#434343), to(#000000))';
+      cloudInt = 0;
+
+      for (var i = 0; i < cloudNum; i++) {
+        var cloud = new Cloud(ctx, cloudInt, 0, rand(50, 80), '#999999', firstCloudSpeed);
+        cloudInt += 80;
+        firstClouds.push(cloud);
+      }
+
+      cloudInt = 0;
+
+      for (var i = 0; i < cloudNum; i++) {
+        var cloud = new Cloud(ctx, cloudInt, 40, rand(50, 80), '#666666', secondCloudSpeed);
+        cloudInt += 80;
+        secondClouds.push(cloud);
+      }
+
+      cloudInt = 0;
+      
+      for (var i = 0; i < cloudNum; i++) {
+        var cloud = new Cloud(ctx, cloudInt, 80, rand(50, 80), '#4d4d4d', thirdCloudSpeed);
+        cloudInt += 80;
+        thirdClouds.push(cloud);
+      }
+    }
+
+    /********************
+      Sun
+    ********************/
+    
+    function drawSun() {
+      ctx.beginPath();
+      ctx.fillStyle = '#F2C94C';
+      ctx.arc(X - 30, 0 + 30, 100, Math.PI * 2, false);
+      ctx.fill();
+      ctx.closePath();
+    }
+
+    var beamNum = 36;
+    var beams = [];
+    
+    function Beam(ctx, x, y, l, r) {
+      this.ctx = ctx;
+      this.init(x, y, l, r);
+    }
+
+    Beam.prototype.init = function(x, y, l, r) {
+      this.ctx = ctx;
+      this.x = x;
+      this.y = y;
+      this.l = l;
+      this.r = r;
+      this.rad = r * Math.PI / 180;
+    };
+
+    Beam.prototype.draw = function() {
+      ctx = this.ctx;
+      ctx.lineWidth = 10;
+      ctx.beginPath();
+      ctx.strokeStyle = '#F2C94C';
+      ctx.moveTo(this.x, this.y);
+      ctx.lineTo(Math.cos(this.rad) * this.l + this.x, this.y - Math.sin(this.rad) * this.l);
+      ctx.stroke();
+      ctx.closePath();
+    };
+
+    Beam.prototype.rotate = function() {
+      this.rad += -0.01;
+    };
+
+    Beam.prototype.render = function() {
+      this.rotate();
+      this.draw();
+    };
+
+    for (var i = 0; i < beamNum; i++) {
+      var beam = new Beam(ctx, X - 30, 0 + 30, 120, i * 10);
+      beams.push(beam);
     }
 
     /********************
@@ -209,6 +305,10 @@
     
     function render(){
       ctx.clearRect(0, 0, X, Y);
+      drawSun();
+      for (var i = 0; i < beams.length; i++) {
+        beams[i].render();
+      }
       for (var i = 0; i < thirdClouds.length; i++) {
         thirdClouds[i].render();
       }
@@ -234,6 +334,9 @@
     function onResize() {
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
+      for (var i = 0; i < beams.length; i++) {
+        beams[i].resize();
+      }
       for (var i = 0; i < firstClouds.length; i++) {
         firstClouds[i].resize();
       }
