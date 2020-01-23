@@ -225,5 +225,5 @@
 
   }); 
   // Author
-  console.log('File Name / fireWorks.js\nCreated Date / January 20, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
+  console.log('File Name / fireworks.js\nCreated Date / January 23, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();
