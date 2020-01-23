@@ -200,7 +200,6 @@
       Event
     ********************/
     
-    // resize
     function onResize() {
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
