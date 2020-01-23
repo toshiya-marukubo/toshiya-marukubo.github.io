@@ -87,7 +87,7 @@
     };
 
     Circle.prototype.updateParams = function(thatR) {
-      this.r += thatR / 3;
+      this.r += thatR / 2;
     };
 
     Circle.prototype.resize = function() {
