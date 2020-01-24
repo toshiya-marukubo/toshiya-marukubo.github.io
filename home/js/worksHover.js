@@ -18,7 +18,6 @@
     }
     function closeIframe() {
       dispWorks.style.display = 'none';
-      console.log('close');
     }
   });
 })();
