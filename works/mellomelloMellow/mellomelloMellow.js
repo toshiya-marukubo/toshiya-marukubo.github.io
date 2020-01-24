@@ -79,6 +79,7 @@
       ctx = this.ctx;
       ctx.restore();
       ctx.fillStyle = 'rgb(251, 125, 175)';
+      ctx.strokeStyle = 'rgb(251, 125, 175)';
       ctx.beginPath();
       ctx.moveTo(this.x2, this.y2);
       ctx.arc(this.cx1, this.cy1, this.chord, (270 + this.a) * rad, (270 + this.a + 225) * rad);
@@ -87,7 +88,7 @@
       ctx.arc(this.cx2, this.cy2, this.chord, (90 + this.a) * rad, (90 + this.a + 135) * rad, true);
       ctx.lineTo(this.x1, this.y1);
       ctx.fill();
-      ctx.closePath();
+      ctx.stroke();
     };
     
     MiniHeart.prototype.wrapPosition = function() {
