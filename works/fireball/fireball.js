@@ -25,9 +25,11 @@
     var Y = canvas.height = window.innerHeight;
 
     // fire
-    var fireNum = 100;
+    var fireNum = 50;
     var fires = [];
-    var lifeMax = 150;
+    var lifeMax = 100;
+
+    var count = document.getElementById('count');
 
     /********************
       Animation
@@ -51,7 +53,7 @@
       this.init(x, y);
     }
 
-    Fire.prototype.init = function (x, y) {
+    Fire.prototype.init = function(x, y) {
       this.ctx = ctx;
       this.x = x || 0;
       this.y = y || 0;
@@ -68,10 +70,10 @@
       this.radius = rand(50, 70) || 0;
       this.startLife = Math.ceil(lifeMax * Math.random());
       this.life = this.startLife;
-      this.stoLife = this.startLife;
+      this.start = this.startLife;
     };
 
-    Fire.prototype.draw = function () {
+    Fire.prototype.draw = function() {
       ctx = this.ctx;
       ctx.beginPath();
       ctx.globalCompositeOperation = 'lighter';
@@ -84,19 +86,18 @@
     Fire.prototype.updateParams = function() {
       this.life -= 1;
       if (this.life === 0) {
-        //this.init(Math.random() * X / 9 + X / 9 * 4, Math.random() * Y / 9 + Y / 9 * 7, this.radius - 1);
-        this.life = this.stoLife;
-        this.y = Math.ceil(Math.random() * Y / 9 + Y / 9 * 7);
+        this.life = this.start;
+        this.y = Math.random() * Y / 9 + Y / 9 * 7;
         this.x = Math.random() * X / 9 + X / 9 * 4;;
       }
     };
 
-    Fire.prototype.updatePosition = function () {
+    Fire.prototype.updatePosition = function() {
       this.x += this.v.x;
       this.y -= this.v.y;
     };
 
-    Fire.prototype.gradient = function () {
+    Fire.prototype.gradient = function() {
       var col = this.color.r + "," + this.color.g + "," + this.color.b;
       var g = this.ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
       g.addColorStop(0, "rgba(" + col + ", " + (this.color.a * 1) + ")");
@@ -105,11 +106,11 @@
       return g;
     };
 
-    Fire.prototype.resize = function () {
+    Fire.prototype.resize = function() {
       this.x = Math.random() * X / 9 + X / 9 * 4;
     };
 
-    Fire.prototype.render = function () {
+    Fire.prototype.render = function() {
       this.updatePosition();
       this.updateParams();
       this.draw();
@@ -146,8 +147,19 @@
       Event
     ********************/
 
-    window.addEventListener('resize', function () {
+    window.addEventListener('resize', function() {
       onResize();
+    });
+
+    count.addEventListener('change', function() {
+      fireNum = this.value;
+      fires = [];
+      for (var i = 0; i < fireNum; i++) {
+        var positionX = Math.random() * X / 9 + X / 9 * 4;
+        var positionY = Math.random() * Y / 9 + Y / 9 * 7;
+        var fire = new Fire(ctx, positionX, positionY);
+        fires.push(fire);
+      }
     });
 
   });

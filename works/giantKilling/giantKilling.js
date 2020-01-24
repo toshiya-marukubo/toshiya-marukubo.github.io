@@ -24,10 +24,14 @@
     var X = canvas.width = window.innerWidth;
     var Y = canvas.height = window.innerHeight;
     
-    var split = document.getElementById('split');
-    var splitNum = 16;
+    var speed = document.getElementById('speed');
 
+    var splitNum = 8;
     var distance = 1;
+
+    if (X < 768) {
+      splitNum = 4;
+    }
 
     var xSplit = X / splitNum;
     var ySplit = Y / splitNum;
@@ -74,7 +78,7 @@
         g: rand(255, 255),
         b: rand(255, 255)
       };
-      this.r = ySplit / 3;
+      this.r = ySplit / 4;
     };
 
     Circle.prototype.draw = function() {
@@ -180,7 +184,15 @@
         circles[i].resize();
       }
     }
-     
+    
+    speed.addEventListener('change', function() {
+      distance = this.value;
+      for (var i = 0; i < circles.length; i++) {
+        circles[i].updatePosition();
+        circles[i].coll(i);
+      }
+    });
+         
     window.addEventListener('mousemove', function(e) {
       var diff = e.clientX;
       distance = diff / 100;
