@@ -207,6 +207,14 @@
       mouseY = e.clientY;
     }, false);
     
+    window.addEventListener('touchmove', function(e) {
+      if (mouseX === null) {
+        render();
+      }
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    }, false); 
+    
     window.addEventListener('resize', function () {
       onResize();
     });
