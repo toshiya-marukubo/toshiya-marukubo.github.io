@@ -104,6 +104,16 @@ div#works > ul > li {
   z-index: 3;
 }
 
+iframe#dispWorks {
+  width: 60%;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #000000;
+}
+
 /********************
   Game
 ********************/
