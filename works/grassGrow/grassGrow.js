@@ -41,12 +41,6 @@
     // icon
     var cloud = document.getElementById('cloud');
     
-    window.addEventListener('mousemove', function(e){
-      cloud.style.visibility = 'visible';
-      cloud.style.left = - 40 + mouseX + 'px';
-      cloud.style.top = - 70 + mouseY + 'px';
-    }, false);
-
     /********************
       Animation
     ********************/
@@ -199,6 +193,18 @@
       Event
     ********************/
 
+    window.addEventListener('mousemove', function(e){
+      cloud.style.visibility = 'visible';
+      cloud.style.left = - 40 + mouseX + 'px';
+      cloud.style.top = - 70 + mouseY + 'px';
+    }, false);
+    
+    window.addEventListener('click', function(e){
+      cloud.style.visibility = 'visible';
+      cloud.style.left = - 40 + mouseX + 'px';
+      cloud.style.top = - 70 + mouseY + 'px';
+    }, false);
+    
     window.addEventListener('mousemove', function(e) {
       if (mouseX === null) {
         render();
@@ -207,13 +213,13 @@
       mouseY = e.clientY;
     }, false);
     
-    window.addEventListener('touchmove', function(e) {
+    window.addEventListener('click', function(e) {
       if (mouseX === null) {
         render();
       }
       mouseX = e.clientX;
       mouseY = e.clientY;
-    }, false); 
+    }, false);
     
     window.addEventListener('resize', function () {
       onResize();
