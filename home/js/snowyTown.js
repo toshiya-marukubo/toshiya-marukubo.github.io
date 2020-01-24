@@ -31,11 +31,9 @@
     var builBackNum = 18;
 
     // snow
-    var snowNum = 50;
+    var snowNum = 100;
     var snows = [];
-    if (X < 768) {
-      snowNum = 25;
-    }    
+    
     // speed
     var builSpeed = 0.1;
     var builBackSpeed = 0.01;
@@ -85,6 +83,11 @@
     };
     */
 
+    if (X < 768) {
+      snowNum = 25;
+      first.style.visibility = 'hidden';
+    }
+        
     /********************
       Animation
     ********************/
@@ -459,6 +462,13 @@
     
     window.addEventListener('resize', function() {
       onResize();
+      if (X < 768) {
+        snowNum = 25;
+        first.style.visibility = 'hidden';
+      } else {
+        snowNum = 100;
+        first.style.visibility = 'visible';
+      }
     });
   
   });
