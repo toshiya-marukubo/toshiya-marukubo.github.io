@@ -45,8 +45,12 @@
     ********************/
     
     // var
-    var backStarNum = 200;
+    var backStarNum = 100;
     var backStars = [];
+
+    if (X < 768) {
+      backStarNum = 50;
+    }
      
     function BackStar(ctx, x, y) {
       this.ctx = ctx;
@@ -125,10 +129,17 @@
     ********************/
     
     // var
-    var starNum = 50;
+    var starNum = 100;
     var stars = [];
     var starColors = ['234, 97, 133', '73, 188, 189', '242, 143, 1', '157, 120, 180', '18, 176, 221'];
     var polygons = [0, 3, 5]; 
+    
+    if (X < 768) {
+      starNum = 25;
+    }
+
+    console.log(starNum);
+    
     function Star(ctx, x, y) {
       this.ctx = ctx;
       this.init(x, y);
