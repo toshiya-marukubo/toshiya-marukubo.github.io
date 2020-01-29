@@ -77,10 +77,11 @@
 
     MiniHeart.prototype.draw = function () {
       ctx = this.ctx;
-      ctx.restore();
+      ctx.save();
+      ctx.beginPath();
       ctx.fillStyle = 'rgb(251, 125, 175)';
       ctx.strokeStyle = 'rgb(251, 125, 175)';
-      ctx.beginPath();
+      ctx.globalAlpha = 0.8;
       ctx.moveTo(this.x2, this.y2);
       ctx.arc(this.cx1, this.cy1, this.chord, (270 + this.a) * rad, (270 + this.a + 225) * rad);
       ctx.lineTo(this.x1, this.y1);
@@ -89,6 +90,7 @@
       ctx.lineTo(this.x1, this.y1);
       ctx.fill();
       ctx.stroke();
+      ctx.restore();
     };
     
     MiniHeart.prototype.wrapPosition = function() {
@@ -162,6 +164,7 @@
       ctx.arc(this.cx2, this.cy2, this.chord, (90 + this.a) * rad, (90 + this.a + 135) * rad, true);
       ctx.lineTo(this.x1, this.y1);
       ctx.fill();
+      ctx.restore();
     };
 
     Heart.prototype.gradient = function () {
@@ -181,14 +184,14 @@
       Create
     ********************/
      
-    for (var i = 0; i < miniHeartNum; i++) {
-      var miniHeart = new MiniHeart(ctx, X / 2, Y / 2, rand(5, 30));
-      miniHearts.push(miniHeart);
-    }
-
     for (var i = 0; i < heartNum; i++) {
       var heart = new Heart(ctx, X / 2, Y / 2, 150);
       hearts.push(heart);
+    }
+
+    for (var i = 0; i < miniHeartNum; i++) {
+      var miniHeart = new MiniHeart(ctx, X / 2, Y / 2, rand(5, 30));
+      miniHearts.push(miniHeart);
     }
 
     /********************
@@ -197,11 +200,11 @@
     
     function render() {
       ctx.clearRect(0, 0, X, Y);
-      for (var i = 0; i < miniHearts.length; i++) {
-        miniHearts[i].render();
-      }
       for (var i = 0; i < hearts.length; i++) {
         hearts[i].render();
+      }
+      for (var i = 0; i < miniHearts.length; i++) {
+        miniHearts[i].render();
       }
       requestAnimationFrame(render);
     }

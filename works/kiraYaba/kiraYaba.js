@@ -129,46 +129,46 @@
     ********************/
     
     // var
-    var starNum = 100;
+    var starNum = 72;
     var stars = [];
     var starColors = ['234, 97, 133', '73, 188, 189', '242, 143, 1', '157, 120, 180', '18, 176, 221'];
     var polygons = [0, 3, 5]; 
     
     if (X < 768) {
-      starNum = 25;
+      starNum = 36;
     }
 
-    console.log(starNum);
-    
-    function Star(ctx, x, y) {
+    function Star(ctx, x, y, a) {
       this.ctx = ctx;
-      this.init(x, y);
+      this.init(x, y, a);
     }
 
-    Star.prototype.init = function(x, y) {
+    Star.prototype.init = function(x, y, a) {
       this.poly = polygons[rand(0, polygons.length - 1)];
       this.rad = Math.PI / this.poly * 4;
       this.x = x;
       this.y = y;
+      this.a = a;
       this.v = {
-        x: -0.5,
-        y: 0.5
+        x: Math.cos(this.a * Math.PI / 180) * 2,
+        y: Math.sin(this.a * Math.PI / 180) * 2
       };
       this.c = starColors[rand(0, starColors.length - 1)];
       this.r = rand(5, 30);
-      this.a = rand(0, 360);
+      this.angle = rand(0, 360);
+      this.l = rand(0, 20);
     };
 
     Star.prototype.draw = function() {
       ctx = this.ctx;
       ctx.save();
       ctx.beginPath();
-      ctx.globalAlpha = 0.7;
+      ctx.globalAlpha = 0.8;
       if (this.poly == 0) {
         ctx.arc(this.x, this.y, this.r, Math.PI * 2, false);
       } else {
         ctx.translate(this.x, this.y);
-        ctx.rotate(this.a * Math.PI / 180);
+        ctx.rotate(this.angle * Math.PI / 180);
         ctx.translate(-this.x, -this.y);
         for (var i = 0; i < 5; i++) {
           var xc = Math.sin(i * this.rad);
@@ -183,26 +183,19 @@
     };
 
     Star.prototype.resize = function() {
-      this.x = rand(0, X);
-      this.y = rand(0, Y);
+      this.x = X / 2;
+      this.y = Y / 2;
     };
 
     Star.prototype.updateParams = function() {
-      this.a += 1;
+      this.angle += 1;
+      this.r += 0.05;
+      this.l -= 0.1;
     };
     
     Star.prototype.wrapPosition = function() {
-      if (this.x - this.r > X) {
-        this.x = 0;
-      }
-      if (this.x + this.r < 0) {
-        this.x = X;
-      }
-      if (this.y - this.r > Y) {
-        this.y = 0;
-      }
-      if (this.y + this.r < 0) {
-        this.y = Y;
+      if (this.l < 0) {
+        this.init(X / 2, Y / 2, this.a);
       }
     };
      
@@ -219,7 +212,7 @@
     };
 
     for (var i = 0; i < starNum; i++) {
-      var star = new Star(ctx, rand(0, X), rand(0, Y));
+      var star = new Star(ctx, X / 2, Y / 2, i * 10);
       stars.push(star);
     }
 
@@ -231,6 +224,10 @@
       var rad = Math.PI / 5 * 4;
       var radius = Y * 0.8;
       ctx.save();
+      ctx.beginPath();
+      ctx.translate(X / 2, Y / 2);
+      ctx.rotate(180 * Math.PI / 180);
+      ctx.translate(-X / 2, -Y / 2);
       ctx.globalAlpha = 0.8;
       ctx.globalCompositeOperation = 'lighter';
       ctx.fillStyle = 'rgb(255, 255, 128)';
@@ -238,14 +235,10 @@
       ctx.shadowOffsetX = 0;
       ctx.shadowOffsetY = 0;
       ctx.shadowBlur = 100;
-      ctx.beginPath();
-      ctx.translate(X, Y / 2);
-      ctx.rotate(180 * Math.PI / 180);
-      ctx.translate(-X, -Y / 2);
       for (var i = 0; i < 5; i++) {
         var xc = Math.sin(i * rad);
         var yc = Math.cos(i * rad);
-        ctx.lineTo(xc * radius + X, yc * radius + Y / 2);
+        ctx.lineTo(xc * radius + X / 2, yc * radius + Y / 2);
       }
       ctx.fill();
       ctx.restore();
@@ -257,14 +250,6 @@
     
     function render(){
       ctx.clearRect(0, 0, X, Y);
-      /*
-      ctx.globalCompositeOperation = "darken";
-      ctx.globalAlpha = 0.05;
-      ctx.fillStyle = "rgb(0,0,0)";
-      ctx.fillRect(0, 0, X, Y);
-      ctx.globalCompositeOperation = "source-over";
-      ctx.globalAlpha = 1;
-      */
       // backStar
       for (var i = 0; i < backStars.length; i++) {
         backStars[i].render();
