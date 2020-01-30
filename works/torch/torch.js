@@ -122,6 +122,7 @@
     /********************
       Clip
     ********************/
+    
     var clipSize = 150;
     
     if (X < 768) {
@@ -183,6 +184,9 @@
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
       if (X < 768) {
+        clipSize = 100;
+      }
+      if (X < 768) {
         fontSize = '32px Arial';
       }
       clip();
@@ -201,8 +205,11 @@
     }, false);
     
     window.addEventListener('touchmove', function(e) {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+      if (e.targetTouches.length === 1) {
+        var touch = event.targetTouches[0];
+        mouseX = touch.pageX;
+        mouseY = touch.pageY;
+      }
     }, false);
 
   });
