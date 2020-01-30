@@ -124,15 +124,17 @@
     ********************/
     
     var clipSize = 150;
+    var clipY = 100;
     
     if (X < 768) {
       clipSize = 100;
+      clipY = 50;
     }
      
     function clip() {
       ctx.save();
       ctx.beginPath();
-      ctx.arc(mouseX, mouseY - 100, clipSize, 0, Math.PI * 2, false);
+      ctx.arc(mouseX, mouseY - clipY, clipSize, 0, Math.PI * 2, false);
       ctx.fill();
       ctx.clip();
       drawText();
@@ -185,6 +187,7 @@
       Y = canvas.height = window.innerHeight;
       if (X < 768) {
         clipSize = 100;
+        clipY = 50;
       }
       if (X < 768) {
         fontSize = '32px Arial';
