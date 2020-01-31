@@ -306,5 +306,5 @@
 
   });
   // Author
-  console.log('File Name / flyfire.js\nCreated Date / January 31, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
+  console.log('File Name / firefly.js\nCreated Date / January 31, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();
