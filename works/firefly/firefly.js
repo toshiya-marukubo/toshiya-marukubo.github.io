@@ -227,7 +227,6 @@
       this.l -= 0.1;
       if (this.l < 0) {
         fires.splice(i, 1);
-        console.log(fires.length);
       }
     };
 
