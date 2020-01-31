@@ -261,7 +261,7 @@
     };
 
     function onFire(c, x, y) {
-      for (var i = 0; i < 10; i++) {
+      for (var i = 0; i < 5; i++) {
         var fire = new Fire(c, x, y, rand(50, 100));
         fires.push(fire);
       }
