@@ -145,11 +145,15 @@
     Firefly.prototype.updateParams = function() {
       this.r += 0.05;
       this.l -= 0.1;
+      /*
       if (this.l < 0) {
         onFire(ctx, this.x, this.y);
         this.init(X / 2, Y / 2, rand(1, 10), this.a);
       }
+      */
     };
+
+    window.addEventListener('click', onFire, false);
 
     Firefly.prototype.updatePosition = function() {
       this.x += this.v.x;
@@ -259,10 +263,13 @@
       this.draw();
     };
 
-    function onFire(c, x, y) {
-      for (var i = 0; i < 5; i++) {
-        var fire = new Fire(c, x, y, rand(50, 100));
-        fires.push(fire);
+    function onFire() {
+      for (var i = 0; i < fireflies.length; i++) {
+        for (var j = 0; j < 5; j++) {
+          var fire = new Fire(ctx, fireflies[i].x, fireflies[i].y, rand(50, 100));
+          fires.push(fire);
+        }
+        fireflies[i].init(X / 2, Y / 2, rand(1, 10), fireflies[i].a);
       }
     }
 
