@@ -265,7 +265,7 @@
 
     function onFire() {
       for (var i = 0; i < fireflies.length; i++) {
-        for (var j = 0; j < 5; j++) {
+        for (var j = 0; j < 2; j++) {
           var fire = new Fire(ctx, fireflies[i].x, fireflies[i].y, rand(50, 100));
           fires.push(fire);
         }
