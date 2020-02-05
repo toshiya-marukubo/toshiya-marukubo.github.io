@@ -50,17 +50,17 @@
       Text
     ********************/
     
-    var fontSize = 3.6;
+    var fontSize = '64px Arial';
     
     if (X < 768) {
-      fontSize =  1.6;  
+      fontSize = '24px Arial';
     }
      
     function drawtext() {
       ctx.fillStyle = 'rgb(255, 3, 131)';
       ctx.globalAlpha = 0.7;
       ctx.textBaseline = 'middle';
-      ctx.font = "bold " + fontSize + "rem Impact";
+      ctx.font = fontSize;
       ctx.textAlign = 'center';
       ctx.fillText("Happy Valentine's Day", X / 2, Y / 2);
     }
@@ -178,7 +178,7 @@
       ctx = this.ctx;
       ctx.save();
       ctx.beginPath();
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 3;
       ctx.fillStyle = this.c;
       ctx.strokeStyle = this.c;
       ctx.globalAlpha = this.alpha;
@@ -246,13 +246,18 @@
     /********************
       Event
     ********************/
+    
+    function onResize() {
+      X = canvas.width = window.innerWidth;
+      Y = canvas.height = window.innerHeight;
+      if (X < 768) {
+        fontSize = '24px Arial';
+      } else {
+        fontSize = '64px Arial';
+      }
+    }
 
     window.addEventListener('resize', function () {
-      if (X < 768) {
-        fontSize =  1.6;  
-      } else {
-        fontSize =  3.6;  
-      }
       onResize();
     });
 
@@ -271,5 +276,5 @@
 
   });
   // Author
-  console.log('File Name / mellomelloMellow.js\nCreated Date / February 5, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
+  console.log('File Name / happyValentine.js\nCreated Date / February 5, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();
