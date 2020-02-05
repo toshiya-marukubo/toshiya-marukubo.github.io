@@ -178,6 +178,7 @@
       ctx = this.ctx;
       ctx.save();
       ctx.beginPath();
+      ctx.lineWidth = 1;
       ctx.fillStyle = this.c;
       ctx.strokeStyle = this.c;
       ctx.globalAlpha = this.alpha;
@@ -241,16 +242,6 @@
     }
 
     render();
-
-    /********************
-      Resize
-    ********************/
-    
-    function onResize() {
-      X = canvas.width = window.innerWidth;
-      Y = canvas.height = window.innerHeight;
-      hearts[0].init(X / 2, Y / 2, 150);
-    }
 
     /********************
       Event
