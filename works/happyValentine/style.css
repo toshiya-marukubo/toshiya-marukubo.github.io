@@ -1,0 +1,56 @@
+/********************
+  Common
+********************/
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: Helvetica, verdana, monospace;
+  color: #FF0383;
+  font-size: 100%;
+  padding: 0;
+  margin: 0;
+  letter-spacing: 0.2rem;
+  overflow: hidden;
+  background: #1E1F27;
+}
+
+a {
+  color: #FF0383;
+  text-decoration: none;
+}
+
+h1 {
+  font-size: 1.6rem;
+}
+
+h2 {
+  padding: 0.8rem 0 0 0;
+}
+
+p {
+  padding: 0.8rem 0;
+  font-size: 0.8rem;
+}
+
+div#main {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1.6rem;
+}
+
+p#loading {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 1.6rem;
+}
+
+/********************
+  Contents
+********************/
+
+canvas#canvas {
+  background: #ffdde1;
+}
