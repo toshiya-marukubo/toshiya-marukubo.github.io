@@ -70,7 +70,7 @@
     ********************/
     
     // var
-    var particleNum = 100;
+    var particleNum = 50;
     var particles = [];
     var particleColors = ['rgb(0, 172, 176)', 'rgb(253, 191, 16)', 'rgb(237, 26, 36)', 'rgb(241, 87, 49)', 'rgb(246, 149, 153)'];
 
@@ -178,7 +178,7 @@
       ctx = this.ctx;
       ctx.save();
       ctx.beginPath();
-      ctx.lineWidth = 1;
+      ctx.lineWidth = 2;
       ctx.fillStyle = this.c;
       ctx.strokeStyle = this.c;
       ctx.globalAlpha = this.alpha;
