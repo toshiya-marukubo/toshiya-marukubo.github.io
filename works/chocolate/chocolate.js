@@ -179,6 +179,11 @@
 
     window.addEventListener('resize', function() {
       onResize();
+      if (X < 768) {
+        fontSize = '24px';
+      } else {
+        fontSize = '64px';
+      }
     });
 
     window.addEventListener('mousemove', function(e) {
