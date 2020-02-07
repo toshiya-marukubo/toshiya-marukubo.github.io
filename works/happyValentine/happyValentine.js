@@ -57,12 +57,14 @@
     }
      
     function drawtext() {
+      ctx.save();
       ctx.fillStyle = 'rgb(255, 3, 131)';
       ctx.globalAlpha = 0.7;
       ctx.textBaseline = 'middle';
       ctx.font = fontSize;
       ctx.textAlign = 'center';
       ctx.fillText("Happy Valentine's Day", X / 2, Y / 2);
+      ctx.restore();
     }
 
     /********************
@@ -180,7 +182,6 @@
       ctx.beginPath();
       ctx.fillStyle = this.c;
       ctx.strokeStyle = this.c;
-      ctx.globalAlpha = this.alpha;
       ctx.moveTo(this.x2, this.y2);
       ctx.arc(this.cx1, this.cy1, this.chord, (270 + this.a) * rad, (270 + this.a + 225) * rad);
       ctx.lineTo(this.x1, this.y1);
