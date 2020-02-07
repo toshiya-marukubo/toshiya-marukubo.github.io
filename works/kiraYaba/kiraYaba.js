@@ -150,13 +150,13 @@
       this.y = y;
       this.a = a;
       this.v = {
-        x: Math.cos(this.a * Math.PI / 180) * 2,
-        y: Math.sin(this.a * Math.PI / 180) * 2
+        x: Math.cos(this.a * Math.PI / 180) * Math.random() * 2,
+        y: Math.sin(this.a * Math.PI / 180) * Math.random() * 2
       };
       this.c = starColors[rand(0, starColors.length - 1)];
       this.r = rand(5, 30);
       this.angle = rand(0, 360);
-      this.l = rand(0, 20);
+      this.l = rand(10, 30);
     };
 
     Star.prototype.draw = function() {
