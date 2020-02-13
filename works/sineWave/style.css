@@ -60,6 +60,7 @@ div#controller {
   background: #0871BC;
   opacity: 0.8;
   overflow-y: scroll;
+  z-index: 3;
 }
 
 div#controller > dl {
@@ -79,4 +80,5 @@ p#openController {
   margin: auto;
   width: 200px;
   text-align: center;
+  z-index: 2;
 }
