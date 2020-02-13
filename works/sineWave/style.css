@@ -54,7 +54,6 @@ canvas#canvas {
 div#controller {
   display: none;
   position: absolute;
-  height: 100%;
   top: 0;
   right: 0;
   padding: 1.6rem;
