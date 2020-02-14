@@ -58,7 +58,7 @@ div#controller {
   top: 0;
   right: 0;
   background: #0871BC;
-  opacity: 0.8;
+  opacity: 0.9;
   overflow-y: scroll;
   z-index: 3;
 }
