@@ -287,6 +287,9 @@
     function onResize() {
       X = canvasThunder.width = canvasRain.width = canvasCloud.width = window.innerWidth;
       Y = canvasThunder.height = canvasRain.height = canvasCloud.height = window.innerHeight;
+      for (var i = 0; i < rains.length; i++) {
+        rains[i].resize();
+      }
     }
 
     window.addEventListener('resize', function() {
