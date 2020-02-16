@@ -44,7 +44,7 @@
       Thunder
     ********************/
     
-    var thunderNum = 10;  
+    var thunderNum = 5;  
     var thunders = [];
      
     function Thunder(ctx, x, y, r) {
@@ -102,7 +102,7 @@
       Rain
     ********************/
     
-    var rainNum = 200;
+    var rainNum = 100;
     var rains = [];
     var rainSpeed = 10;
     
