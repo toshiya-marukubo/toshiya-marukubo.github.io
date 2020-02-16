@@ -285,8 +285,8 @@
     ********************/
     
     function onResize() {
-      X = canvasThunder.width = canvasRain.width = canvasBuilding.width = window.innerWidth;
-      Y = canvasThunder.height = canvasRain.height = canvasBuilding.height = window.innerHeight;
+      X = canvasThunder.width = canvasRain.width = canvasCloud.width = window.innerWidth;
+      Y = canvasThunder.height = canvasRain.height = canvasCloud.height = window.innerHeight;
     }
 
     window.addEventListener('resize', function() {
