@@ -24,6 +24,11 @@
     var X = canvas.width = window.innerWidth;
     var Y = canvas.height = window.innerHeight;
 
+    // speed
+    var builSpeed = 0.1;
+    var builBackSpeed = 0.05;
+    var snowSpeedX = 0.01;
+    
     /********************
       Animation
     ********************/
@@ -92,13 +97,17 @@
 
     Building.prototype.updatePosition = function() {
       if (this.back) {
-        this.x -= 0.05;
+        this.x -= builBackSpeed;
       } else {
-        this.x -= 0.1;  
+        this.x -= builSpeed;  
       }
     };
 
     Building.prototype.wrapPosition = function(i) {
+      var firstX = buildings[0].x;
+      if (firstX > X) {
+        flg = true;
+      }
       if (this.back === true && this.x < 0 - this.bW) {
         buildingsBack.splice(i, 1);
         var builWidth = rand(100, 150);
@@ -161,8 +170,8 @@
       this.y = y || 0;
       this.r = rand(5, 30);
       this.v = {
-        x: 0.01,
-        y: Math.random() * 0.8
+        x: snowSpeedX,
+        y: Math.random() * 0.5
       };
       this.color = {
         r: rand(200, 255),
@@ -185,7 +194,7 @@
     };
 
     Snow.prototype.updatePosition = function() {
-      this.x -= this.v.x;
+      this.x -= snowSpeedX;
       this.y += this.v.y;
     };
 
@@ -278,6 +287,35 @@
     window.addEventListener('resize', function() {
       onResize();
     });
+
+    window.addEventListener('mousemove', function(e) {
+      var mouseX = e.clientX;
+      if (mouseX < X * 0.2) {
+        builSpeed = 0.1;
+        builBackSpeed = 0.05;
+        snowSpeedX = 0.01;
+      } else {
+        builSpeed += mouseX / 100000;
+        builBackSpeed += mouseX / 100000;
+        snowSpeedX += mouseX / 100000;
+      }
+    }, false);
+ 
+   window.addEventListener('touchmove', function(e) {
+      if (e.targetTouches.length === 1) {
+        var touch = event.targetTouches[0];
+        var touchX = touch.pageX;
+        if (touchX < X * 0.2) {
+          builSpeed = 0.1;
+          builBackSpeed = 0.05;
+          snowSpeedX = 0.01;
+        } else {
+          builSpeed += touchX / 100000;
+          builBackSpeed += touchX / 100000;
+          snowSpeedX += touchX / 100000;
+        }
+      }
+    }, false);
   
   });
   // Author
