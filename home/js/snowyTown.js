@@ -171,7 +171,7 @@
       this.r = rand(5, 30);
       this.v = {
         x: snowSpeedX,
-        y: Math.random() * 0.5
+        y: Math.random() * 0.8
       };
       this.color = {
         r: rand(200, 255),
