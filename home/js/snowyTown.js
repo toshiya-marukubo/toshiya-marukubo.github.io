@@ -24,70 +24,6 @@
     var X = canvas.width = window.innerWidth;
     var Y = canvas.height = window.innerHeight;
 
-    // buildings
-    var buildings = []; 
-    var buildingsBack = [];
-    var builNum = 18;
-    var builBackNum = 18;
-
-    // snow
-    var snowNum = 100;
-    var snows = [];
-    
-    // speed
-    var builSpeed = 0.1;
-    var builBackSpeed = 0.01;
-    var snowSpeed = -0.01;
-    var vehicleSpeed = 1;
-    
-    // etc 
-    var selectedVehicle = 'car';
-    var gameStart = false;
-    
-    // get DOM
-    var car = document.getElementById('car');
-    var bicycle = document.getElementById('bicycle');
-    var snowplow = document.getElementById('snowplow');
-    
-    // game
-    var first = document.getElementById('first');
-    var second = document.getElementById('second');
-    var third = document.getElementById('third');
-    var forth = document.getElementById('forth');
-
-    // game second
-    var vehicles = document.getElementById('vehicles');
-    var carBtn = document.getElementById('carBtn');
-    var bicyBtn = document.getElementById('bicyBtn');
-    var snowplowBtn = document.getElementById('snowplowBtn');
-    
-    // game third
-    var go = document.getElementById('go');
-    var back = document.getElementById('back');
-    var speed = document.getElementById('speed');
-    var mater = document.getElementById('mater');
-    var resetBtns = document.getElementsByClassName('reset');    
-    
-    /*
-    var mountainLeft = {
-      x: 0,
-      y: rand(Y / 2, Y) 
-    };
-    var mountainRight = {
-      x: X,
-      y: rand(Y / 2, Y)
-    };
-    var mountainTop = {
-      x: X / 2,
-      y: Y / 2
-    };
-    */
-
-    if (X < 768) {
-      snowNum = 25;
-      first.style.visibility = 'hidden';
-    }
-        
     /********************
       Animation
     ********************/
@@ -105,40 +41,41 @@
       Building
     ********************/
     
-    function Building(ctx, x, y, bW, bH, winSize, r, g, b, winCol, backSpeed) {
+    var buildingsBack = [];
+    var buildings = []; 
+    var builBackNum = Math.ceil(X / 100); 
+    var builNum = Math.ceil(X / 50);   
+    var builOffset = 0;
+      
+    function Building(ctx, x, y, bW, bH, winSize, builCol, winCol, back) {
       this.ctx = ctx;
-      this.init(x, y, bW, bH, winSize, r, g, b, winCol, backSpeed);
+      this.init(x, y, bW, bH, winSize, builCol, winCol, back);
     }
     
-    Building.prototype.init = function(x, y, bW, bH, winSize, r, g, b, winCol, backSpeed) {
-      this.ctx = ctx;
+    Building.prototype.init = function(x, y, bW, bH, winSize, builCol, winCol, back) {
       this.x = x || 0;
       this.y = y || 0;
       this.bW = bW || 0;
       this.bH = bH || 0;
       this.winSize = winSize || 0;
       this.winOffset = winSize;
-      this.color = {
-        r: r,
-        g: g,
-        b: b
-      };
+      this.builCol = builCol;
       this.winCol = winCol;
-      this.backSpeed = backSpeed;
+      this.c = {
+        r: rand(0, 255),
+        g: rand(0, 255),
+        b: rand(0, 255)
+      };
+      this.back = back;
     };
 
     Building.prototype.draw = function() {
-      ctx = this.ctx;
+      var ctx = this.ctx;
+      ctx.save();
       ctx.beginPath();
-      if (this.backSpeed) {
-        this.x += builBackSpeed;
-      }
-      ctx.fillStyle = 'rgb(' + this.color.r + ',' + this.color.g + ',' + this.color.b + ')';
+      ctx.fillStyle = this.builCol;
       ctx.fillRect(this.x, Y - this.bH, this.bW, this.bH);
-      ctx.fillStyle = '#ffffff';
-      if (this.winCol) {
-        ctx.fillStyle = this.winCol;
-      }
+      ctx.fillStyle = this.winCol;
       var winCountX = this.bW / this.winSize - 1;
       var winCountY = this.bH / this.winSize - 2;
       for (var i = 1; i < winCountX; i++) {
@@ -150,256 +87,146 @@
           }
         } 
       }
-      ctx.closePath();
+      ctx.restore();
     };
 
     Building.prototype.updatePosition = function() {
-      this.x -= builSpeed;
-    };
-
-    Building.prototype.wrapPosition = function() {
-      if (this.x < 0 - this.bW) {
-        this.x = X;
-      }
-      if (this.x > X) {
-        this.x = 0 - this.bW;
+      if (this.back) {
+        this.x -= 0.05;
+      } else {
+        this.x -= 0.1;  
       }
     };
 
-    Building.prototype.render = function() {
+    Building.prototype.wrapPosition = function(i) {
+      if (this.back === true && this.x < 0 - this.bW) {
+        buildingsBack.splice(i, 1);
+        var builWidth = rand(100, 150);
+        var lastX = buildingsBack[buildingsBack.length - 1].x;
+        var lastW = buildingsBack[buildingsBack.length - 1].bW;
+        var builBack = new Building(ctx, lastX + lastW + rand(5, 10), 0, builWidth, rand(Y * 0.3, Y * 0.4), rand(5, 10), 'rgb(13, 13, 13)', 'rgb(179, 179, 179)', true);
+        buildingsBack.push(builBack);
+      }
+      if (this.back === false && this.x < 0 - this.bW) {
+        buildings.splice(i, 1);
+        var builWidth = rand(50, 100);
+        var lastX = buildings[buildings.length - 1].x;
+        var lastW = buildings[buildings.length - 1].bW;
+        var buil = new Building(ctx, lastX + lastW + rand(5, 10), 0, builWidth, rand(Y * 0.1, Y * 0.2), rand(5, 15), 'rgb(64, 64, 64)', 'rgb(254, 254, 254)', false);
+        buildings.push(buil);
+      }
+    };
+     
+    Building.prototype.render = function(i) {
       this.updatePosition();
-      this.wrapPosition();
+      this.wrapPosition(i);
       this.draw();
     };
-    
-    Building.prototype.resize = function() {
-      this.x = rand(-50, X);
-    };
-    
-    for (var i = 0; i < builNum; i++) {
-      var buil = new Building(ctx, rand(-50, X), 0, rand(50, 100), rand(Y * 0.1, Y * 0.2), rand(5, 15), rand(77, 77), rand(77, 77), rand(77, 77));
-      var builBack = new Building(ctx, rand(-100, X), 0, rand(100, 150), rand(Y * 0.2, Y * 0.4), rand(5, 10), rand(38, 38), rand(38, 38), rand(38, 38), '#cccccc', true);
-      buildings.push(buil);
+     
+    for (var i = 0; i < builBackNum; i++) {
+      var builWidth = rand(100, 150);
+      var builBack = new Building(ctx, builOffset, 0, builWidth, rand(Y * 0.4, Y * 0.5), rand(5, 10), 'rgb(13, 13, 13)', 'rgb(179, 179, 179)', true);
       buildingsBack.push(builBack);
+      builOffset += builWidth + rand(5, 10);
+    }
+     
+    builOffset = 0;
+
+    for (var i = 0; i < builNum; i++) {
+      var builWidth = rand(50, 100);
+      var buil = new Building(ctx, builOffset, 0, builWidth, rand(Y * 0.2, Y * 0.3), rand(5, 15), 'rgb(64, 64, 64)', 'rgb(254, 254, 254)', false);
+      buildings.push(buil);
+      builOffset += builWidth + rand(5, 10);
     }
 
-    /********************
-      moveCar
-    ********************/
-    
-    function goCar(e) {
-      e.preventDefault();
-      if (!gameStart) {
-        return;
-      }
-      var vehicle = document.getElementById(selectedVehicle).firstElementChild;
-      var curVehicle = vehicle.getBoundingClientRect();
-      vehicleSpeed += 0.1;
-      speed.textContent = vehicleSpeed.toFixed(0).replace('-', '');
-      builSpeed += 0.01;
-      builBackSpeed += 0.001;
-      snowSpeed -= 0.01;
-      //mountainTop.x -= 0.01;
-      if(builSpeed > 0) {
-        vehicle.style.left = curVehicle.left + 1 + 'px';
-        if (curVehicle.left > X - curVehicle.width) {
-          finishGame();
-          return;
-        }
-        if (curVehicle.left > X) {
-          vehicle.style.left = '-' + curVehicle.width + 'px';
-        }
-      }
-    }
-    
-    function backCar(e) {
-      e.preventDefault();
-      if (!gameStart) {
-        return;
-      }
-      var vehicle = document.getElementById(selectedVehicle).firstElementChild;
-      var curVehicle = vehicle.getBoundingClientRect();
-      vehicleSpeed -= 0.1;
-      speed.textContent = vehicleSpeed.toFixed(0).replace('-', '');
-      builSpeed -= 0.01;
-      builBackSpeed -= 0.001;
-      snowSpeed += 0.01;
-      //mountainTop.x += 0.01;
-      if (builSpeed < 0) {
-        vehicle.style.left = curVehicle.left - 1 + 'px';
-        if (curVehicle.left + curVehicle.width < 0) {
-          vehicle.style.left = X + 'px';
-        }
-      }
-    }
-    
     /********************
       Snow
     ********************/
     
-    function Particle(ctx, x, y) {
+    var snowNum = 100;
+    var snows = [];
+
+    if (X < 768) {
+      snowNum = 50;
+    }
+    
+    function Snow(ctx, x, y) {
       this.ctx = ctx;
       this.init(x, y);
     }
 
-    Particle.prototype.init = function(x, y) {
+    Snow.prototype.init = function(x, y) {
       this.ctx = ctx;
-      this.x = x - 0.1 || 0;
+      this.x = x || 0;
       this.y = y || 0;
+      this.r = rand(5, 30);
       this.v = {
-        x: snowSpeed,
-        y: Math.random() * 1
+        x: 0.01,
+        y: Math.random() * 0.8
       };
       this.color = {
-        r: rand(200, 250),
-        g: rand(200, 250),
-        b: rand(200, 250),
+        r: rand(200, 255),
+        g: rand(200, 255),
+        b: rand(200, 255),
         a: 1
       };
-      this.radius = Math.random() * 30;
     };
 
-    Particle.prototype.draw = function() {
-      ctx = this.ctx;
+    Snow.prototype.draw = function() {
+      var ctx = this.ctx;
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
       ctx.beginPath();
       ctx.fillStyle = this.gradient();
-      ctx.arc(this.x, this.y, this.radius, Math.PI * 2, false);
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
       ctx.fill();
       ctx.closePath();
+      ctx.restore();
     };
 
-    Particle.prototype.updatePosition = function() {
-      this.x += this.v.x + snowSpeed;
+    Snow.prototype.updatePosition = function() {
+      this.x -= this.v.x;
       this.y += this.v.y;
     };
 
-    Particle.prototype.wrapPosition = function() {
-      if (this.x < 0) this.x = X;
-      if (this.x > X) this.x = 0;
-      if (this.y < 0) this.y = Y;
-      if (this.y > Y) this.y = 0;
+    Snow.prototype.wrapPosition = function() {
+      if (this.x < 0 - this.r) this.x = X + this.r;
+      if (this.x > X + this.r) this.x = 0 - this.r;
+      if (this.y < 0 - this.r) this.y = Y + this.r;
+      if (this.y > Y + this.r) this.y = 0 - this.r;
     };
 
-    Particle.prototype.gradient = function() {
+    Snow.prototype.gradient = function() {
       var col = this.color.r + "," + this.color.g + "," + this.color.b;
-      var g = this.ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
+      var g = this.ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r);
       g.addColorStop(0, "rgba(" + col + ", " + (this.color.a * 1) + ")");
       g.addColorStop(0.5, "rgba(" + col + ", " + (this.color.a * 0.2) + ")");
       g.addColorStop(1, "rgba(" + col + ", " + (this.color.a * 0) + ")");
       return g;
     };
 
-    Particle.prototype.resize = function() {
-      this.x = rand(0, X);
-    };
-
-    Particle.prototype.render = function() {
+    Snow.prototype.render = function() {
       this.updatePosition();
       this.wrapPosition();
       this.draw();
     };
 
     for (var i = 0; i < snowNum; i++) {
-      var positionX = Math.random() * X;
-      var positionY = Math.random() * Y;
-      var particle = new Particle(ctx, positionX, positionY);
-      snows.push(particle);
+      var snow = new Snow(ctx, rand(0, X), rand(0, Y));
+      snows.push(snow);
     }
 
     /********************
-      Game
+      render
     ********************/
 
-    start.addEventListener('click', function(e) {
-      e.preventDefault();
-      first.style.visibility = 'hidden';
-      second.style.visibility = 'visible';
-      carBtn.firstElementChild.focus();
-    }, false);
-
-    carBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      selectedVehicle = 'car';
-      car.style.display = 'block';
-      bicycle.style.display = 'none';
-      snowplow.style.display = 'none';
-      thirdDisp();
-    }, false);
-
-    bicyBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      selectedVehicle = 'bicycle';
-      car.style.display = 'none';
-      bicycle.style.display = 'block';
-      snowplow.style.display = 'none';
-      thirdDisp();
-    }, false);
-
-    snowplowBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      selectedVehicle = 'snowplow';
-      car.style.display = 'none';
-      bicycle.style.display = 'none';
-      snowplow.style.display = 'block';
-      thirdDisp();
-    }, false);
-
-    function thirdDisp() {
-      second.style.visibility = 'hidden';
-      third.style.visibility = 'visible';
-      gameStart = true;
-      go.firstElementChild.focus();
-    }
-
-    function finishGame() {
-      third.style.visibility = 'hidden';
-      forth.style.visibility = 'visible';
-      gameStart = false;
-    }
-
-    function reset(e) {
-      e.preventDefault();
-      var vehicle = document.getElementById(selectedVehicle).firstElementChild;
-      vehicle.style.left = '1.6' + 'rem';
-      builSpeed = 0.1;
-      builBackSpeed = 0.01;
-      snowSpeed = -0.01;
-      selectedVehicle = 'car';
-      vehicleSpeed = 1;
-      speed.textContent = 1;
-      gameStart = false;
-      forth.style.visibility = 'hidden';
-      third.style.visibility = 'hidden';
-      first.style.visibility = 'visible';
-      start.firstElementChild.focus();
-    }
-    
-    /********************
-      Muuntain
-    ********************/
-    
-    /*
-    function mountain() {
-      ctx.beginPath();
-      ctx.fillStyle = "#000";
-      ctx.moveTo(mountainLeft.x - 0.01, mountainLeft.y);
-      ctx.lineTo(mountainLeft.x - 0.01, Y);
-      ctx.lineTo(mountainRight.x, Y);
-      ctx.lineTo(mountainRight.x, mountainRight.y);
-      ctx.quadraticCurveTo(mountainTop.x, mountainTop.y, mountainLeft.x, mountainLeft.y);
-      ctx.fill();
-    }
-    */
-
-    // render
     function render() {
       ctx.clearRect(0, 0, X, Y);
-      //mountain();
       for (var i = 0; i < buildingsBack.length; i++) {
-        buildingsBack[i].render();
+        buildingsBack[i].render(i);
       }
       for (var i = 0; i < buildings.length; i++) {
-        buildings[i].render();
+        buildings[i].render(i);
       }
       for (var i = 0; i < snows.length; i++) {
         snows[i].render();
@@ -409,66 +236,47 @@
     
     render();
 
-    // resize
-    function onResize() {
-      X = canvas.width = window.innerWidth;
-      Y = canvas.height = window.innerHeight;
-      for (var i = 0; i < buildings.length; i++) {
-        buildings[i].resize();
-      }
-      for (var i = 0; i < buildingsBack.length; i++) {
-        buildingsBack[i].resize();
-      }
-      for (var i = 0; i < snows.length; i++) {
-        snows[i].resize();
-      }
-    }
-
     /********************
       Event
     ********************/
     
-    window.addEventListener('keydown', function(e) {
-      if (e.keyCode === 39) {
-        goCar(e);
+    function onResize() {
+      X = canvas.width = window.innerWidth;
+      Y = canvas.height = window.innerHeight;
+      //buil
+      builOffset = 0;
+      buildingsBack = [];
+      buildings = []; 
+      builBackNum = Math.ceil(X / 100); 
+      builNum = Math.ceil(X / 50);   
+      for (var i = 0; i < builBackNum; i++) {
+        var builWidth = rand(100, 150);
+        var builBack = new Building(ctx, builOffset, 0, builWidth, rand(Y * 0.4, Y * 0.5), rand(5, 10), 'rgb(13, 13, 13)', 'rgb(179, 179, 179)', true);
+        buildingsBack.push(builBack);
+        builOffset += builWidth + rand(5, 10);
       }
-      if (e.keyCode === 37) {
-        backCar(e);
+      builOffset = 0;
+      for (var i = 0; i < builNum; i++) {
+        var builWidth = rand(50, 100);
+        var buil = new Building(ctx, builOffset, 0, builWidth, rand(Y * 0.2, Y * 0.3), rand(5, 15), 'rgb(64, 64, 64)', 'rgb(254, 254, 254)', false);
+        buildings.push(buil);
+        builOffset += builWidth + rand(5, 10);
       }
-      return;
-    });
-
-    go.addEventListener('mouseover', function(e) {
-      goCar(e);
-    });
-
-    go.addEventListener('click', function(e) {
-      goCar(e);
-    }, false);
-    
-    back.addEventListener('mouseover', function(e) {
-      backCar(e);
-    });
-    
-    back.addEventListener('click', function(e) {
-      backCar(e);
-    }, false);
-     
-    for (var i = 0; i < resetBtns.length; i++) {
-      resetBtns[i].addEventListener('click', function(e) {
-        reset(e);
-      }, false);
-    }
-    
-    window.addEventListener('resize', function() {
-      onResize();
+      //snow
+      snows = [];
       if (X < 768) {
-        snowNum = 25;
-        first.style.visibility = 'hidden';
+        snowNum = 50;
       } else {
         snowNum = 100;
-        first.style.visibility = 'visible';
       }
+      for (var i = 0; i < snowNum; i++) {
+        var snow = new Snow(ctx, rand(0, X), rand(0, Y));
+        snows.push(snow);
+      }
+    }
+
+    window.addEventListener('resize', function() {
+      onResize();
     });
   
   });

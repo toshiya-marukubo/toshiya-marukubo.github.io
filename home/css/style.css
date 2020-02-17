@@ -12,7 +12,7 @@ html, body {
   margin: 0;
   letter-spacing: 0.2rem;
   overflow: hidden;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 a {
@@ -42,6 +42,30 @@ h2 {
   bottom: 0;
   left: 1.6rem;
   color: #ff4d4d;
+  -webkit-animation: drive 30s linear infinite;
+          animation: drive 30s linear infinite;
+}
+
+@-webkit-keyframes drive {
+  from, to {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  50% {
+    -webkit-transform: translateX(100px);
+            transform: translateX(100px);
+  }
+}
+
+@keyframes drive {
+  from, to {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  50% {
+    -webkit-transform: translateX(100px);
+            transform: translateX(100px);
+  }
 }
 
 /********************
@@ -57,8 +81,8 @@ div#main {
 }
 
 nav > ul > li {
-  display: inline-block;
-  padding: 0;
+  display: block;
+  padding: 0 0 1.6rem 0;
   font-size: 0.8rem;
   padding-right: 0.8rem;
 }
@@ -108,73 +132,16 @@ div#works > ul > li {
 }
 
 /********************
-  Game
-********************/
-
-div#game {
-  font-size: 0.8rem;
-  color: #777;
-  cursor: pointer;
-  user-select: none;
-}
-
-div#game p {
-  text-align: center;
-  padding: 0;
-}
-
-div#game a {
-  color: #777;
-}
-
-div#game ul {
-  padding: 1.6rem;
-}
-
-div#second {
-  visibility: hidden;
-}
-
-div#second > ul#vehicles > li {
-  display: inline-block;
-  padding: 0 0.8rem;
-}
-
-div#third {
-  visibility: hidden;
-}
-
-div#third ul {
-  text-align: center;
-}
-
-div#third ul li {
-  display: inline-block; 
-  padding: 0 0.8rem;
-}
-
-div#forth {
-  visibility: hidden;
-}
-
-.reset {
-  text-align: center;
-}
-
-.finish {
-  color: #fff;
-  font-size: 1.6rem;
-  padding-bottom: 1.6rem !important;
-}
-
-/********************
   Canvas
 ********************/
 
 canvas#canvas {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
   background: #000000;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to bottom, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to bottom, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: -webkit-linear-gradient(to bottom, #000000, #434343);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #000000, #434343); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 /********************
@@ -183,14 +150,10 @@ canvas#canvas {
 
 @media screen and (min-width: 48rem) {
   
-  nav {
-    display: block;
+  nav > ul > li {
+    display: inline-block;
   }
-
-  .smp {
-    display: none;
-  }
-
+  
   div#works {
     width: 40%;
   }
