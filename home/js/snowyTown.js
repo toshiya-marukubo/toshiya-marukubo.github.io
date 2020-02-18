@@ -28,7 +28,7 @@
     var builSpeed = 0.1;
     var builBackSpeed = 0.05;
     var snowSpeedX = 0.01;
-    
+
     /********************
       Animation
     ********************/
@@ -105,9 +105,6 @@
 
     Building.prototype.wrapPosition = function(i) {
       var firstX = buildings[0].x;
-      if (firstX > X) {
-        flg = true;
-      }
       if (this.back === true && this.x < 0 - this.bW) {
         buildingsBack.splice(i, 1);
         var builWidth = rand(100, 150);
