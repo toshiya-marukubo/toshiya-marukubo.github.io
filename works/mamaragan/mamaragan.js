@@ -228,7 +228,7 @@
 
     function clearCanvasThunder () {
       canvasThunderCtx.globalCompositeOperation = "darken";
-      canvasThunderCtx.globalAlpha = 0.05;
+      canvasThunderCtx.globalAlpha = 0.01;
       canvasThunderCtx.fillStyle = "rgb(19, 16, 65)";
       canvasThunderCtx.fillRect(0, 0, X, Y);
       canvasThunderCtx.globalCompositeOperation = "source-over";
