@@ -70,3 +70,7 @@ canvas#canvasCloud {
 canvas#canvasRain {
   z-index: 3;
 }
+
+canvas#canvasLightning {
+  z-index: 4;
+}

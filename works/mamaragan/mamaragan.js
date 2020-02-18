@@ -57,7 +57,6 @@
       this.y = y;
       this.r = r;
       this.l = rand(Y, Y * 3);
-      this.m = rand(100, 200);
       this.c = 'rgb(201, 162, 198)';
     };
 
@@ -74,15 +73,8 @@
     };
 
     Thunder.prototype.updateParams = function() {
-      this.m -= 1;
       if (this.y > this.l) { 
         this.init(rand(0, X), rand(0, Y / 3), rand(1, 5));
-      }
-      if (this.m < 0) {
-        var ctx = this.ctx;
-        ctx.fillStyle = 'rgb(128, 128, 128)';
-        ctx.fillRect(0, 0, X, Y);
-        this.m = rand(100, 200);
       }
     };
     
@@ -241,6 +233,10 @@
       canvasThunderCtx.fillRect(0, 0, X, Y);
       canvasThunderCtx.globalCompositeOperation = "source-over";
       canvasThunderCtx.globalAlpha = 1;
+      if (Math.random() < 0.01) {
+        canvasThunderCtx.fillStyle = 'rgb(128, 128, 128)';
+        canvasThunderCtx.fillRect(0, 0, X, Y);
+      }
     }
 
     function clearCanvasRain () {
