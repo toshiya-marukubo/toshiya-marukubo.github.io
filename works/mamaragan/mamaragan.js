@@ -44,7 +44,7 @@
       Thunder
     ********************/
     
-    var thunderNum = 5;  
+    var thunderNum = 10;  
     var thunders = [];
      
     function Thunder(ctx, x, y, r) {
@@ -66,8 +66,6 @@
       ctx.beginPath();
       ctx.lineWidth = this.r;
       ctx.strokeStyle = this.c;
-      ctx.shadowColor = this.c;
-      ctx.shadowBlur = 0;
       ctx.moveTo(this.x, this.y);
       this.x += rand(-10, 10);
       this.y += rand(10, 15);
@@ -221,8 +219,6 @@
       ctx.beginPath();
       ctx.globalAlpha = 0.2;
       ctx.fillStyle = this.gradient();
-      ctx.shadowColor = this.c;
-      ctx.shadowBlur = 10;
       ctx.arc(this.x, this.y, this.r, Math.PI * 2, false);
       ctx.fill();
       ctx.scale(0.5, 1);
