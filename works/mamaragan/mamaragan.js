@@ -106,15 +106,15 @@
     var rains = [];
     var rainSpeed = 10;
     
-    function Rain(ctx, x, y, l) {
+    function Rain(ctx, x, y, r) {
       this.ctx = ctx;
-      this.init(x, y, l);
+      this.init(x, y, r);
     }
 
-    Rain.prototype.init = function(x, y, l) {
+    Rain.prototype.init = function(x, y, r) {
       this.x = x;
       this.y = y;
-      this.l = l;
+      this.r = r;
       this.c = 'rgb(179, 203, 255)';
       this.v = {
         y: rainSpeed
@@ -123,13 +123,10 @@
 
     Rain.prototype.draw = function() {
       var ctx = this.ctx;
-      ctx.lineWidth = 1;
       ctx.beginPath();
-      ctx.strokeStyle = this.c;
-      ctx.moveTo(this.x, this.y);
-      ctx.lineTo(this.x, this.y + this.l);
-      ctx.stroke();
-      ctx.closePath();
+      ctx.fillStyle = this.c;
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
+      ctx.fill();
     };
 
     Rain.prototype.updatePosition = function() {
@@ -154,7 +151,7 @@
     };
 
     for (var i = 0; i < rainNum; i++) {
-      var rain = new Rain(canvasRainCtx, rand(0, X), rand(0, Y), 5);
+      var rain = new Rain(canvasRainCtx, rand(0, X), rand(0, Y), 1);
       rains.push(rain);
     }
 
@@ -225,7 +222,7 @@
       ctx.globalAlpha = 0.2;
       ctx.fillStyle = this.gradient();
       ctx.shadowColor = this.c;
-      ctx.shadowBlur = 100;
+      ctx.shadowBlur = 10;
       ctx.arc(this.x, this.y, this.r, Math.PI * 2, false);
       ctx.fill();
       ctx.scale(0.5, 1);
