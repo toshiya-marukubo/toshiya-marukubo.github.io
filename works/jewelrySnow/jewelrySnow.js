@@ -54,7 +54,7 @@
     var snows = [];
     
     if (X < 768) {
-      snowNum = 100;
+      snowNum = 50;
     }
      
     function Snow(ctx, x, y) {
@@ -165,7 +165,7 @@
       }
       snows = [];
       if (X < 768) {
-        snowNum = 100;
+        snowNum = 50;
       } else {
         snowNum = 200;
       }
