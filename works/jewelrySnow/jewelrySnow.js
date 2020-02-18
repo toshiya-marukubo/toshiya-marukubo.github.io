@@ -19,17 +19,19 @@
       Var
     ********************/
 
-    // canvas 
     var ctx = canvas.getContext('2d');
     var X = canvas.width = window.innerWidth;
     var Y = canvas.height = window.innerHeight;
 
-    // snow
-    var snowNum = 100;
-    var snows = [];
-
-    // speed
-    var snowSpeed = -0.01;
+    var dist = 100;
+    var mouseX1;
+    var mouseX2;
+    var mouseY1;
+    var mouseY2;
+    
+    if (X < 768) {
+      dist = 50;
+    }
 
     /********************
       Animation
@@ -48,77 +50,98 @@
       Snow
     ********************/
 
-    function Particle(ctx, x, y) {
+    var snowNum = 200;
+    var snows = [];
+    
+    if (X < 768) {
+      snowNum = 100;
+    }
+     
+    function Snow(ctx, x, y) {
       this.ctx = ctx;
       this.init(x, y);
     }
 
-    Particle.prototype.init = function (x, y) {
-      this.ctx = ctx;
+    Snow.prototype.init = function (x, y) {
       this.x = x || 0;
       this.y = y || 0;
-      this.v = {
-        x: 0,
-        y: Math.random() * 1
-      };
-      this.color = {
+      this.r = rand(10, 20);
+      this.e = this.r;
+      this.c = {
         r: rand(200, 250),
         g: rand(200, 250),
         b: rand(200, 250),
         a: 1
       };
-      this.radius = Math.random() * 30;
+      this.a = 0;
+      this.rad = this.a * Math.PI / 180;
+      this.v = {
+        y: Math.random()
+      };
     };
 
-    Particle.prototype.draw = function () {
-      ctx = this.ctx;
+    Snow.prototype.draw = function () {
+      var ctx = this.ctx;
       ctx.beginPath();
+      ctx.globalCompositeOperation = 'lighter';
       ctx.fillStyle = this.gradient();
-      ctx.arc(this.x, this.y, this.radius, Math.PI * 2, false);
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
       ctx.fill();
-      ctx.closePath();
     };
 
-    Particle.prototype.updatePosition = function () {
-      this.x += this.v.x;
-      this.y += this.v.y;
+    Snow.prototype.updatePosition = function () {
+      this.a += Math.random();
+      this.rad = this.a * Math.PI / 180;
+      this.x += Math.sin(this.rad);
+      this.y += this.v.y + 1;
     };
 
-    Particle.prototype.wrapPosition = function () {
-      if (this.x < 0) this.x = X;
-      if (this.x > X) this.x = 0;
-      if (this.y < 0) this.y = Y;
-      if (this.y > Y) this.y = 0;
+    Snow.prototype.wrapPosition = function() {
+      if (this.x < 0 - this.r) this.x = X + this.r;
+      if (this.x > X + this.r) this.x = 0 - this.r;
+      if (this.y < 0 - this.r) this.y = Y + this.r;
+      if (this.y > Y + this.r) this.y = 0 - this.r;
     };
 
-    Particle.prototype.gradient = function () {
-      var col = this.color.r + "," + this.color.g + "," + this.color.b;
-      var g = this.ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
-      g.addColorStop(0, "rgba(" + col + ", " + (this.color.a * 1) + ")");
-      g.addColorStop(0.5, "rgba(" + col + ", " + (this.color.a * 0.2) + ")");
-      g.addColorStop(1, "rgba(" + col + ", " + (this.color.a * 0) + ")");
+    Snow.prototype.gradient = function () {
+      var col = this.c.r + "," + this.c.g + "," + this.c.b;
+      var g = this.ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r);
+      g.addColorStop(0, "rgba(" + col + ", " + (this.c.a * 1) + ")");
+      g.addColorStop(0.5, "rgba(" + col + ", " + (this.c.a * 0.2) + ")");
+      g.addColorStop(1, "rgba(" + col + ", " + (this.c.a * 0) + ")");
       return g;
     };
 
-    Particle.prototype.resize = function () {
-      this.x = rand(0, X);
+    Snow.prototype.expandSnow = function (i) {
+      if (this.x > mouseX1 && this.x < mouseX2 && this.y > mouseY1 && this.y < mouseY2) {
+        this.r = 100;
+      } else {
+        this.r = this.e;
+      }
     };
 
-    Particle.prototype.render = function () {
+    Snow.prototype.resize = function () {
+      this.x = rand(0, X);
+      this.y = rand(0, Y);
+    };
+
+    Snow.prototype.render = function (i) {
       this.updatePosition();
       this.wrapPosition();
+      this.expandSnow(i);
       this.draw();
     };
 
     for (var i = 0; i < snowNum; i++) {
-      var positionX = Math.random() * X;
-      var positionY = Math.random() * Y;
-      var particle = new Particle(ctx, positionX, positionY);
-      snows.push(particle);
+      var snow = new Snow(ctx, rand(0, X), rand(0, Y));
+      snows.push(snow);
     }
 
-    // render
-    function render() {
+    /********************
+      Event
+    ********************/
+    
+    function render(i) {
       ctx.clearRect(0, 0, X, Y);
       for (var i = 0; i < snows.length; i++) {
         snows[i].render();
@@ -128,24 +151,56 @@
 
     render();
 
-    // resize
-    function onResize() {
-      X = canvas.width = window.innerWidth;
-      Y = canvas.height = window.innerHeight;
-      for (var i = 0; i < snows.length; i++) {
-        snows[i].resize();
-      }
-    }
-
     /********************
       Event
     ********************/
+    
+    function onResize() {
+      X = canvas.width = window.innerWidth;
+      Y = canvas.height = window.innerHeight;
+      if (X < 768) {
+        dist = 50;
+      } else {
+        dist = 100;
+      }
+      snows = [];
+      if (X < 768) {
+        snowNum = 100;
+      } else {
+        snowNum = 200;
+      }
+      for (var i = 0; i < snowNum; i++) {
+        var snow = new Snow(ctx, rand(0, X), rand(0, Y));
+        snows.push(snow);
+      }
+    }
 
     window.addEventListener('resize', function () {
       onResize();
     });
 
+    window,addEventListener('mousemove', function(e) {  
+      var x = e.clientX;
+      var y = e.clientY;
+      mouseX1 = x - dist;
+      mouseX2 = x + dist;
+      mouseY1 = y - dist;
+      mouseY2 = y + dist;
+    }, false);
+
+    window.addEventListener('touchmove', function(e) {
+      if (e.targetTouches.length === 1) {
+        var touch = event.targetTouches[0];
+        var x = touch.pageX;
+        var y = touch.pageY;
+        mouseX1 = x - dist;
+        mouseX2 = x + dist;
+        mouseY1 = y - dist;
+        mouseY2 = y + dist;
+      }
+    }, false);
+    
   });
   // Author
-  console.log('File Name / snow.js\nCreated Date / January 8, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
+  console.log('File Name / jewelrySnow.js\nCreated Date / January 8, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();
