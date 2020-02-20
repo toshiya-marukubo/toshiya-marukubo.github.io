@@ -24,65 +24,59 @@
     var X = canvas.width = window.innerWidth;
     var Y = canvas.height = window.innerHeight;
 
+    /********************
+      Star
+    ********************/
+    
     // star
     var starNum = 200;
     var stars = [];
     var brightNum = 50;
 
-    /********************
-      Star
-    ********************/
-
-    function Particle(ctx, x, y, radius) {
+    function Star(ctx, x, y, r) {
       this.ctx = ctx;
-      this.init(x, y, radius);
+      this.init(x, y, r);
     }
 
-    Particle.prototype.init = function (x, y, radius) {
-      this.ctx = ctx;
+    Star.prototype.init = function (x, y, r) {
       this.x = x || 0;
       this.y = y || 0;
-      this.color = '255, 255, 255';
-      this.radius = radius || Math.random() * 8;
+      this.c = '255, 255, 255';
+      this.r = r || Math.random() * 8;
     };
 
-    Particle.prototype.draw = function () {
-      ctx = this.ctx;
-      ctx.globalCompositeOperation = "lighten";
+    Star.prototype.draw = function () {
+      var ctx = this.ctx;
       ctx.beginPath();
       ctx.fillStyle = this.gradient();
-      ctx.arc(this.x, this.y, this.radius, Math.PI * 2, false);
+      ctx.arc(this.x, this.y, this.r, Math.PI * 2, false);
       ctx.fill();
-      ctx.closePath();
     };
 
-    Particle.prototype.gradient = function () {
-      var col = this.color;
-      var g = this.ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
+    Star.prototype.gradient = function () {
+      var col = this.c;
+      var g = this.ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r);
       g.addColorStop(0, "rgba(" + col + ", " + (1 * 1) + ")");
       g.addColorStop(0.5, "rgba(" + col + ", " + (1 * 0.2) + ")");
       g.addColorStop(1, "rgba(" + col + ", " + (1 * 0) + ")");
       return g;
     };
 
-    Particle.prototype.resize = function () {
+    Star.prototype.resize = function () {
       this.x = rand(0, X);
       this.y = rand(0, Y);
     };
 
-    Particle.prototype.reradius = function () {
-      this.radius = Math.random() * 3;
+    Star.prototype.reradius = function () {
+      this.r = Math.random() * 3;
     }
 
-    Particle.prototype.render = function () {
+    Star.prototype.render = function () {
       this.draw();
     };
 
     for (var i = 0; i < starNum; i++) {
-      var positionX = Math.random() * X;
-      var positionY = Math.random() * Y;
-      var radius = Math.random() * 8;
-      var particle = new Particle(ctx, positionX, positionY, radius);
+      var particle = new Star(ctx, rand(0, X), rand(0, Y), rand(0, 8));
       stars.push(particle);
     }
 
