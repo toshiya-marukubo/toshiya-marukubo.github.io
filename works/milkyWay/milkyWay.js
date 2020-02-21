@@ -25,11 +25,11 @@
     var Y = canvas.height = window.innerHeight;
 
     // particle
-    var particleNum = 500;
+    var starNum = 500;
     if (X < 768) {
-      particleNum = 250;
+      starNum = 250;
     }
-    var particles = [];
+    var stars = [];
 
     // speed
     var particleSpeed = -0.01;
@@ -48,83 +48,75 @@
       };
 
     /********************
-      Particle
+      Star
     ********************/
 
-    function Particle(ctx, x, y) {
+    function Star(ctx, x, y, r) {
       this.ctx = ctx;
-      this.init(x, y);
+      this.init(x, y, r);
     }
 
-    Particle.prototype.init = function (x, y) {
-      this.ctx = ctx;
+    Star.prototype.init = function (x, y, r) {
       this.x = x || 0;
       this.y = y || 0;
+      this.r = r;
       this.v = {
         y: 1
       };
-      this.color = '255, 255, 255';
-      this.radius = Math.random() * 10;
+      this.c = '255, 255, 255';
     };
 
-    Particle.prototype.draw = function () {
-      ctx = this.ctx;
+    Star.prototype.draw = function () {
+      var ctx = this.ctx;
       ctx.beginPath();
-      ctx.globalCompositeOperation = 'lignten';
       ctx.fillStyle = this.gradient();
-      ctx.arc(this.x, this.y, this.radius, Math.PI * 2, false);
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
       ctx.fill();
-      ctx.closePath();
     };
 
-    Particle.prototype.updatePosition = function () {
+    Star.prototype.updatePosition = function () {
       var rad = this.y * Math.PI / 180;
-      this.x -= Math.sin(rad * this.v.y) * 0.1;
+      this.x -= Math.sin(rad) * 0.2;
       this.y -= this.v.y;
-      /*
-      this.x += this.v.x + particleSpeed;
-      this.y -= this.v.y;
-      */
     };
 
-    Particle.prototype.wrapPosition = function () {
-      if (this.x < 0) this.x = X;
-      if (this.x > X) this.x = 0;
-      if (this.y < 0) this.y = Y;
-      if (this.y > Y) this.y = 0;
+    Star.prototype.wrapPosition = function() {
+      if (this.x < 0 - this.r) this.x = X + this.r;
+      if (this.x > X + this.r) this.x = 0 - this.r;
+      if (this.y < 0 - this.r) this.y = Y + this.r;
+      if (this.y > Y + this.r) this.y = 0 - this.r;
     };
 
-    Particle.prototype.gradient = function () {
-      var col = this.color;
-      var g = this.ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
+    Star.prototype.gradient = function () {
+      var col = this.c;
+      var g = this.ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r);
       g.addColorStop(0, "rgba(" + col + ", " + (1 * 1) + ")");
       g.addColorStop(0.5, "rgba(" + col + ", " + (1 * 0.2) + ")");
       g.addColorStop(1, "rgba(" + col + ", " + (1 * 0) + ")");
       return g;
     };
 
-    Particle.prototype.resize = function () {
-      this.x = Math.random() * X / 5 + X / 5 * 2;
+    Star.prototype.resize = function () {
+      this.y = rand(0, Y);
+      this.x = rand(X / 5 + X / 5, X / 5 * 3);
     };
 
-    Particle.prototype.render = function () {
+    Star.prototype.render = function () {
       this.updatePosition();
       this.wrapPosition();
       this.draw();
     };
 
-    for (var i = 0; i < particleNum; i++) {
-      var positionX = Math.random() * X / 5 + X / 5 * 2;
-      var positionY = Math.random() * Y;
-      var particle = new Particle(ctx, positionX, positionY);
-      particles.push(particle);
+    for (var i = 0; i < starNum; i++) {
+      var star = new Star(ctx, rand(X / 5 + X / 5, X / 5 * 3), rand(0, Y), rand(1, 10));
+      stars.push(star);
     }
 
     // render
     function render() {
       ctx.clearRect(0, 0, X, Y);
-      for (var i = 0; i < particles.length; i++) {
-        particles[i].render();
+      for (var i = 0; i < stars.length; i++) {
+        stars[i].render();
       }
       requestAnimationFrame(render);
     }
@@ -135,8 +127,8 @@
     function onResize() {
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
-      for (var i = 0; i < particles.length; i++) {
-        particles[i].resize();
+      for (var i = 0; i < stars.length; i++) {
+        stars[i].resize();
       }
     }
 
