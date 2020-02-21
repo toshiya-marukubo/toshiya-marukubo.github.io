@@ -24,15 +24,12 @@
     var X = canvas.width = window.innerWidth;
     var Y = canvas.height = window.innerHeight;
 
-    // particle
-    var starNum = 500;
+    // star
+    var starNum = 300;
     if (X < 768) {
-      starNum = 250;
+      starNum = 100;
     }
     var stars = [];
-
-    // speed
-    var particleSpeed = -0.01;
 
     /********************
       Animation
@@ -76,7 +73,7 @@
 
     Star.prototype.updatePosition = function () {
       var rad = this.y * Math.PI / 180;
-      this.x -= Math.sin(rad) * 0.2;
+      this.x -= Math.sin(rad) * 0.1;
       this.y -= this.v.y;
     };
 
@@ -94,11 +91,6 @@
       g.addColorStop(0.5, "rgba(" + col + ", " + (1 * 0.2) + ")");
       g.addColorStop(1, "rgba(" + col + ", " + (1 * 0) + ")");
       return g;
-    };
-
-    Star.prototype.resize = function () {
-      this.y = rand(0, Y);
-      this.x = rand(X / 5 + X / 5, X / 5 * 3);
     };
 
     Star.prototype.render = function () {
@@ -127,8 +119,10 @@
     function onResize() {
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
-      for (var i = 0; i < stars.length; i++) {
-        stars[i].resize();
+      stars = [];
+      for (var i = 0; i < starNum; i++) {
+        var star = new Star(ctx, rand(X / 5 + X / 5, X / 5 * 3), rand(0, Y), rand(1, 10));
+        stars.push(star);
       }
     }
 
