@@ -27,9 +27,11 @@
     // fire
     var fireNum = 50;
     var fires = [];
-    var lifeMax = 100;
 
-    var count = document.getElementById('count');
+    var sizeMax = document.getElementById('sizeMax');
+    var colorR = document.getElementById('colorR');
+    var colorG = document.getElementById('colorG');
+    var colorB = document.getElementById('colorB');
 
     /********************
       Animation
@@ -48,47 +50,48 @@
       Snow
     ********************/
 
-    function Fire(ctx, x, y) {
+    function Fire(ctx, x, y, r) {
       this.ctx = ctx;
-      this.init(x, y);
+      this.init(x, y, r);
     }
 
-    Fire.prototype.init = function(x, y) {
-      this.ctx = ctx;
-      this.x = x || 0;
-      this.y = y || 0;
+    Fire.prototype.init = function(x, y, r) {
+      this.x = x;
+      this.y = y;
+      this.r = r;
+      this.l = rand(50, 100);
+      this.startLife = this.l;
       this.v = {
-        x: rand(-0.1, 0.1),
+        x: rand(-0.1, 0.1) * Math.random(),
         y: rand(1, 5)
       };
-      this.color = {
-        r: rand(102, 255),
-        g: rand(0, 128),
-        b: rand(0, 0),
+      this.c = {
+        r: rand(0, Number(colorR.value)),
+        g: rand(0, Number(colorG.value)),
+        b: rand(0, Number(colorB.value)),
         a: 1
       };
-      this.radius = rand(50, 70) || 0;
-      this.startLife = Math.ceil(lifeMax * Math.random());
-      this.life = this.startLife;
-      this.start = this.startLife;
     };
 
     Fire.prototype.draw = function() {
-      ctx = this.ctx;
+      var ctx = this.ctx;
       ctx.beginPath();
       ctx.globalCompositeOperation = 'lighter';
       ctx.fillStyle = this.gradient();
-      ctx.arc(this.x, this.y, this.radius, Math.PI * 2, false);
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
       ctx.fill();
-      ctx.closePath();
     };
 
     Fire.prototype.updateParams = function() {
-      this.life -= 1;
-      if (this.life === 0) {
-        this.life = this.start;
-        this.y = Math.random() * Y / 9 + Y / 9 * 7;
-        this.x = Math.random() * X / 9 + X / 9 * 4;;
+      this.l -= 1;
+      if (this.l < 0) {
+        this.l = this.startLife;
+        this.r = rand(1, Number(sizeMax.value));
+        this.c.r = rand(0, Number(colorR.value));
+        this.c.g = rand(0, Number(colorG.value));
+        this.c.b = rand(0, Number(colorB.value));
+        this.y = Y - Y / 5;
+        this.x = X / 2;
       }
     };
 
@@ -98,16 +101,16 @@
     };
 
     Fire.prototype.gradient = function() {
-      var col = this.color.r + "," + this.color.g + "," + this.color.b;
-      var g = this.ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
-      g.addColorStop(0, "rgba(" + col + ", " + (this.color.a * 1) + ")");
-      g.addColorStop(0.5, "rgba(" + col + ", " + (this.color.a * 0.3) + ")");
-      g.addColorStop(1, "rgba(" + col + ", " + (this.color.a * 0) + ")");
+      var col = this.c.r + "," + this.c.g + "," + this.c.b;
+      var g = this.ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r);
+      g.addColorStop(0, "rgba(" + col + ", " + (this.c.a * 1) + ")");
+      g.addColorStop(0.5, "rgba(" + col + ", " + (this.c.a * 0.3) + ")");
+      g.addColorStop(1, "rgba(" + col + ", " + (this.c.a * 0) + ")");
       return g;
     };
 
     Fire.prototype.resize = function() {
-      this.x = Math.random() * X / 9 + X / 9 * 4;
+      this.x = X / 2;
     };
 
     Fire.prototype.render = function() {
@@ -117,9 +120,7 @@
     };
 
     for (var i = 0; i < fireNum; i++) {
-      var positionX = Math.random() * X / 9 + X / 9 * 4;
-      var positionY = Math.random() * Y / 9 + Y / 9 * 7;
-      var fire = new Fire(ctx, positionX, positionY);
+      var fire = new Fire(ctx, X / 2, Y - Y / 5, rand(1, Number(sizeMax.value)));
       fires.push(fire);
     }
 
@@ -151,16 +152,23 @@
       onResize();
     });
 
-    count.addEventListener('change', function() {
-      fireNum = this.value;
-      fires = [];
-      for (var i = 0; i < fireNum; i++) {
-        var positionX = Math.random() * X / 9 + X / 9 * 4;
-        var positionY = Math.random() * Y / 9 + Y / 9 * 7;
-        var fire = new Fire(ctx, positionX, positionY);
-        fires.push(fire);
-      }
-    });
+    /********************
+      Menu
+    ********************/
+
+    var openController = document.getElementById('openController');
+    var closeController = document.getElementById('closeController');
+    var controller = document.getElementById('controller');
+
+    openController.addEventListener('click', function(e) {
+      e.preventDefault();
+      controller.style.display = 'block';
+    }, false);
+
+    closeController.addEventListener('click', function(e) {
+      e.preventDefault();
+      controller.style.display = 'none';
+    }, false);
 
   });
   // Author

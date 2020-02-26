@@ -51,9 +51,34 @@ canvas#canvas {
   background: #000;
 }
 
-div.controller {
+div#controller {
+  display: none;
+  height: 100%;
   position: absolute;
-  bottom: 0;
+  top: 0;
+  right: 0;
+  background: #0871BC;
+  opacity: 0.9;
+  overflow-y: scroll;
+  z-index: 3;
+}
+
+div#controller > dl {
+  padding: 0 1.6rem;
+}
+
+p#closeController {
+  padding: 1.6rem;
+}
+
+p#openController {
+  background: #0871BC;
+  position: fixed;
+  right: 0;
   left: 0;
-  padding: 1.6rem
+  bottom: 1.6rem;
+  margin: auto;
+  width: 200px;
+  text-align: center;
+  z-index: 2;
 }
