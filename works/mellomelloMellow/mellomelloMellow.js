@@ -63,8 +63,8 @@
       this.a = rand(0, 360);
       this.num = 22.5;
       this.v = {
-        x: rand(-3, 3),
-        y: rand(-3, 3)
+        x: rand(-6, 6) * Math.random(),
+        y: rand(-6, 6) * Math.random()
       };
       this.x2 = this.x1 + this.r * Math.cos(this.a * rad);
       this.y2 = this.y1 + this.r * Math.sin(this.a * rad);
@@ -96,11 +96,11 @@
     };
     
     MiniHeart.prototype.wrapPosition = function() {
-      if (this.y1 > Y) {
+      if (this.y1 > Y || this.x1 < 0 || this.x1 > X) {
         this.init(X / 2, Y / 2, rand(5, 30));
       }
     };
-    
+
     MiniHeart.prototype.updatePosition = function() {
       this.v.y += GRAVITY;
       this.x1 += this.v.x;

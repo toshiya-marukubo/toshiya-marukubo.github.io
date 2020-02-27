@@ -8,11 +8,13 @@ html, body {
   font-family: Helvetica, verdana, monospace;
   color: #FFF;
   font-size: 100%;
-  background: #ee9ca7;
   padding: 0;
   margin: 0;
   letter-spacing: 0.2rem;
   overflow: hidden;
+  background: #ee9ca7;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #ffdde1, #ee9ca7);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #ffdde1, #ee9ca7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 a {
