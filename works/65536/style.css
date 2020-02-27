@@ -8,7 +8,7 @@ html, body {
   font-family: Helvetica, verdana, monospace;
   color: #FFFFFF;
   font-size: 100%;
-  background: #FFFFFF;
+  background: #000;
   padding: 0;
   margin: 0;
   letter-spacing: 0.2rem;
@@ -48,7 +48,7 @@ p#loading {
 ********************/
 
 canvas#canvas {
-  background: #FFFFFF;
+  background: #000;
 }
 
 div.controller {

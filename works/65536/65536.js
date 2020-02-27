@@ -25,7 +25,7 @@
     var Y = canvas.height = window.innerHeight;
     
     var split = document.getElementById('split');
-    var splitNum = 16;
+    var splitNum = split.value;
 
     var xSplit = X / splitNum;
     var ySplit = Y / splitNum;
@@ -58,7 +58,6 @@
     }
 
     Color.prototype.init = function(x, y, r, g, b) {
-      this.ctx = ctx;
       this.x = x;
       this.y = y;
       this.c = {
@@ -69,7 +68,7 @@
     };
 
     Color.prototype.draw = function() {
-      ctx = this.ctx;
+      var ctx = this.ctx;
       ctx.fillStyle = 'rgb(' + this.c.r + ',' + this.c.g + ',' + this.c.b + ')';
       ctx.fillRect(this.x, this.y, xSplit, ySplit);
     };
