@@ -168,6 +168,7 @@
 
     Rain.prototype.resize = function() {
       this.x = rand(0, X);
+      this.y = rand(0, Y);
     };
 
     Rain.prototype.render = function() {
