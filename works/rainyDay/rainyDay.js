@@ -64,7 +64,6 @@
     }
 
     Cloud.prototype.init = function(x, y, r, c, s) {
-      this.ctx = ctx;
       this.x = x;
       this.y = y;
       this.r = r;
@@ -73,12 +72,11 @@
     };
 
     Cloud.prototype.draw = function() {
-      ctx = this.ctx;
+      var ctx = this.ctx;
       ctx.beginPath();
       ctx.fillStyle = this.c;
       ctx.arc(this.x, this.y, this.r, Math.PI * 2, false);
       ctx.fill();
-      ctx.closePath();
     };
 
     Cloud.prototype.updatePosition = function() {
@@ -102,7 +100,7 @@
     };
 
     for (var i = 0; i < cloudNum; i++) {
-      var cloud = new Cloud(ctx, cloudInt, 0, rand(50, 80), '#999999', firstCloudSpeed);
+      var cloud = new Cloud(ctx, cloudInt, 0, rand(50, 80), 'rgb(153, 153, 153)', firstCloudSpeed);
       cloudInt += 80;
       firstClouds.push(cloud);
     }
@@ -110,7 +108,7 @@
     cloudInt = 0;
 
     for (var i = 0; i < cloudNum; i++) {
-      var cloud = new Cloud(ctx, cloudInt, 40, rand(50, 80), '#666666', secondCloudSpeed);
+      var cloud = new Cloud(ctx, cloudInt, 40, rand(50, 80), 'rgb(102, 102, 102)', secondCloudSpeed);
       cloudInt += 80;
       secondClouds.push(cloud);
     }
@@ -118,7 +116,7 @@
     cloudInt = 0;
     
     for (var i = 0; i < cloudNum; i++) {
-      var cloud = new Cloud(ctx, cloudInt, 80, rand(50, 80), '#4d4d4d', thirdCloudSpeed);
+      var cloud = new Cloud(ctx, cloudInt, 80, rand(50, 80), 'rgb(77, 77, 77)', thirdCloudSpeed);
       cloudInt += 80;
       thirdClouds.push(cloud);
     }
@@ -139,7 +137,6 @@
     }
 
     Rain.prototype.init = function(x, y, l) {
-      this.ctx = ctx;
       this.x = x;
       this.y = y;
       this.l = l;
@@ -150,30 +147,22 @@
     };
 
     Rain.prototype.draw = function() {
-      ctx = this.ctx;
-      ctx.lineWidth = 1;
+      var ctx = this.ctx;
       ctx.beginPath();
-      ctx.strokeStyle = '#FFFFFF';
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'rgb(255, 255, 255)';
       ctx.moveTo(this.x, this.y);
       ctx.lineTo(this.x, this.y + this.l);
       ctx.stroke();
-      ctx.closePath();
     };
 
     Rain.prototype.updatePosition = function() {
       this.y += this.v.y;
-      this.x += this.v.x;
     };
 
     Rain.prototype.wrapPosition = function() {
       if (this.y > Y) {
         this.y = 0;
-      }
-      if (this.x > X) {
-        this.x = 0;
-      }
-      if (this.x < 0) {
-        this.x = X
       }
     };
 
@@ -188,7 +177,7 @@
     };
 
     for (var i = 0; i < rainNum; i++) {
-      var rain = new Rain(ctx, rand(0, X), rand(0, Y), rand(0, 5));
+      var rain = new Rain(ctx, rand(0, X), rand(0, Y), rand(1, 10));
       rains.push(rain);
     }
 
@@ -202,7 +191,7 @@
         stopRain();
       }
       for (var i = 0; i < rainNum; i++) {
-        var rain = new Rain(ctx, rand(0, X), rand(0, Y), rand(0, 5));
+        var rain = new Rain(ctx, rand(0, X), rand(0, Y), rand(1, 10));
         rains.push(rain);
       }
     }
@@ -221,7 +210,6 @@
       canvas.style.background = '#000000';
       canvas.style.background = '-webkit-gradient(linear, left top, left bottom, from(#434343), to(#000000))';
       cloudInt = 0;
-
       for (var i = 0; i < cloudNum; i++) {
         var cloud = new Cloud(ctx, cloudInt, 0, rand(50, 80), '#999999', firstCloudSpeed);
         cloudInt += 80;
@@ -251,10 +239,9 @@
     
     function drawSun() {
       ctx.beginPath();
-      ctx.fillStyle = '#F2C94C';
-      ctx.arc(X - 30, 0 + 30, 100, Math.PI * 2, false);
+      ctx.fillStyle = 'rgb(242, 201, 76)';
+      ctx.arc(X - 30, 0 + 30, 100, 0, Math.PI * 2, false);
       ctx.fill();
-      ctx.closePath();
     }
 
     var beamNum = 36;
@@ -282,7 +269,11 @@
       ctx.moveTo(this.x, this.y);
       ctx.lineTo(Math.cos(this.rad) * this.l + this.x, this.y - Math.sin(this.rad) * this.l);
       ctx.stroke();
-      ctx.closePath();
+    };
+
+    Beam.prototype.resize = function() {
+      this.x = X - 30;
+      this.y = 0 + 30;
     };
 
     Beam.prototype.rotate = function() {
@@ -345,6 +336,9 @@
       }
       for (var i = 0; i < thirdClouds.length; i++) {
         thirdClouds[i].resize();
+      }
+      for (var i = 0; i < rains.length; i++) {
+        rains[i].resize();
       }
     }
 
