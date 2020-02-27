@@ -25,7 +25,7 @@
     var Y = canvas.height = window.innerHeight;
 
     // water
-    var waterNum = 200;
+    var waterNum = 500;
     var waters = [];
     var GRAVITY = 0.1;
     
@@ -38,9 +38,6 @@
     var mouseX = null;
     var mouseY = null;
 
-    // icon
-    var cloud = document.getElementById('cloud');
-    
     /********************
       Animation
     ********************/
@@ -55,34 +52,55 @@
       };
 
     /********************
+      Cloud
+    ********************/
+    
+    function drawCloud() {
+      var x = mouseX || X / 2;
+      var y = mouseY || Y / 2;
+      var r = 25;
+      ctx.beginPath();
+      ctx.fillStyle = 'rgb(242, 242, 242)';
+      ctx.arc(x, y - r, r, 0, Math.PI * 2, false);
+      ctx.fill();
+      ctx.arc(x - r * 1.5, y - r, r, 0, Math.PI * 2, false);
+      ctx.fill();
+      ctx.arc(x + r * 1.5, y - r, r, 0, Math.PI * 2, false);
+      ctx.fill();
+      ctx.arc(x - r / 1.5, y - r - r, r, 0, Math.PI * 2, false);
+      ctx.fill();
+      ctx.arc(x + r / 1.5, y - r - r, r, 0, Math.PI * 2, false);
+      ctx.fill();
+    }
+    
+    /********************
       Grass
     ********************/
     
-    function Grass(ctx, x, y) {
+    function Grass(ctx, x, y, h) {
       this.ctx = ctx;
-      this.init(x, y);
+      this.init(x, y, h);
     }
 
-    Grass.prototype.init = function(x, y) {
-      this.ctx = ctx;
+    Grass.prototype.init = function(x, y, h) {
       this.x = x;
       this.y = y;
+      this.h = h;
       this.m = {
         x: rand(5, 15),
         y: rand(-0, -50)
       };
-      this.h = rand(10, 30);
     };
 
     Grass.prototype.draw = function() {
-      ctx = this.ctx;
+      var ctx = this.ctx;
       ctx.beginPath();
-      ctx.fillStyle = '#42A977';
+      ctx.fillStyle = 'rgb(66, 169, 119)';
       ctx.moveTo(this.x, Y);
       ctx.lineTo(this.x + this.m.x, this.y - this.m.y);
       ctx.lineTo(this.x + this.m.x + this.m.x, Y);
-      ctx.fill();
       ctx.closePath();
+      ctx.fill();
     };
 
     Grass.prototype.grow = function() {
@@ -99,7 +117,7 @@
     };
 
     for (var i = 0; i < grassNum; i++) {
-      var grass = new Grass(ctx, rand(0, X), Y);
+      var grass = new Grass(ctx, rand(0, X), Y, rand(10, 30));
       grasses.push(grass);
     }
 
@@ -116,32 +134,23 @@
       this.ctx = ctx;
       this.x = x;
       this.y = y;
+      this.r = 1;
       this.v = {
-        x: rand(-1, 1),
-        y: rand(-1, 1)
+        x: rand(-6, 6) * Math.random(),
+        y: rand(-6, 6) * Math.random()
       };
-      /*
-      this.color = {
-        r: rand(255, 255),
-        g: rand(215, 215),
-        b: rand(0, 0),
-        a: 1
-      };
-      */
-      this.radius = Math.random() * 0.1;
     };
 
     Water.prototype.draw = function() {
-      ctx = this.ctx;
+      var ctx = this.ctx;
       ctx.beginPath();
-      ctx.fillStyle = '#43789B';
-      ctx.arc(this.x, this.y, this.radius, Math.PI * 2, false);
+      ctx.fillStyle = 'rgb(67, 120, 155)';
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
       ctx.fill();
-      ctx.closePath();
     };
 
     Water.prototype.updateParams = function() {
-      this.radius += 0.05;
+      this.r += 0.05;
     };
 
     Water.prototype.updatePosition = function() {
@@ -152,7 +161,10 @@
 
     Water.prototype.wrapPosition = function() {
       if (this.y > Y) {
-        this.init(mouseX, mouseY);
+        this.r = 1;
+        this.v.y = rand(-1, 1);
+        this.x = mouseX || X / 2;
+        this.y = mouseY || Y / 2;
       }
     };
 
@@ -168,19 +180,29 @@
       waters.push(water);
     }
 
+    /********************
+      Render
+    ********************/
+    
     // render
     function render() {
       ctx.clearRect(0, 0, X, Y);
+      drawCloud();
       for (var i = 0; i < grasses.length; i++) {
         grasses[i].render();
       }
       for (var i = 0; i < waters.length; i++) {
-        waters[i].render(i);
+        waters[i].render();
       }
       requestAnimationFrame(render);
     }
 
-    // resize
+    render();
+
+    /********************
+      Event
+    ********************/
+
     function onResize() {
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
@@ -189,43 +211,24 @@
       }
     }
 
-    /********************
-      Event
-    ********************/
-
-    window.addEventListener('mousemove', function(e){
-      cloud.style.visibility = 'visible';
-      cloud.style.left = - 40 + mouseX + 'px';
-      cloud.style.top = - 70 + mouseY + 'px';
-    }, false);
-    
-    window.addEventListener('click', function(e){
-      cloud.style.visibility = 'visible';
-      cloud.style.left = - 40 + mouseX + 'px';
-      cloud.style.top = - 70 + mouseY + 'px';
-    }, false);
-    
     window.addEventListener('mousemove', function(e) {
-      if (mouseX === null) {
-        render();
-      }
       mouseX = e.clientX;
       mouseY = e.clientY;
     }, false);
-    
-    window.addEventListener('click', function(e) {
-      if (mouseX === null) {
-        render();
+
+    window.addEventListener('touchmove', function(e) {
+      if (e.targetTouches.length === 1) {
+        var touch = event.targetTouches[0];
+        mouseX = touch.pageX;
+        mouseY = touch.pageY;
       }
-      mouseX = e.clientX;
-      mouseY = e.clientY;
     }, false);
     
     window.addEventListener('resize', function () {
       onResize();
     });
 
-  });
+  }, false);
   // Author
   console.log('File Name / grassGrow.js\nCreated Date / January 15, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();

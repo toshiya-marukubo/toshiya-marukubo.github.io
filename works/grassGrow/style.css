@@ -9,7 +9,7 @@ html, body {
   overflow: hidden;
   color: #FFF;
   font-size: 100%;
-  background: #000;
+  background: #95E0BC;
   padding: 0;
   margin: 0;
   letter-spacing: 0.2rem;
@@ -49,9 +49,4 @@ p#loading {
 
 canvas#canvas {
   background: #95E0BC;
-}
-
-span#cloud {
-  color: #FFFFFF;
-  position: absolute;
 }
