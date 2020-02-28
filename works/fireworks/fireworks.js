@@ -72,7 +72,7 @@
 
     Ball.prototype.wrapPosition = function() {
       if (this.y < this.bloomY) {
-        bloomFire(ctx, this.x, this.y);
+        bloomFire(ctx, this.x, this.y, getColor(), rand(0.1, 3));
         this.y = Y;
         this.x = rand(0, X);
       }
@@ -104,36 +104,36 @@
     // var
     var fires = [];
     var fireGravity = 0.01;
-     
-    function Fire(ctx, x, y, r) {
+
+    function getColor() {
+      var color = "rgb(" + rand(0, 255) + ',' + rand(0, 255) + ',' + rand(0, 255) + ")";
+      return color;
+    }
+    function Fire(ctx, x, y, c, d, r) {
       this.ctx = ctx;
-      this.init(x, y, r);
+      this.init(x, y, c, d, r);
     }
 
-    Fire.prototype.init = function(x, y, r) {
+    Fire.prototype.init = function(x, y, c, d, r) {
       this.rad = r * Math.PI / 180;
       this.x = x;
       this.y = y;
       this.r = 2;
-      this.l = 20;
+      this.c = c;
+      this.d = d;
+      this.l = rand(10, 20);
       this.v = {
-        x: Math.cos(this.rad),
-        y: Math.sin(this.rad)
-      };
-      this.c = {
-        r: rand(128, 255),
-        g: rand(128, 255),
-        b: rand(128, 255)
+        x: Math.cos(this.rad) * this.d,
+        y: Math.sin(this.rad) * this.d
       };
     };
 
     Fire.prototype.draw = function() {
-      ctx = this.ctx;
+      var ctx = this.ctx;
       ctx.beginPath();
-      ctx.globalAlpha = this.a;
-      ctx.fillStyle = "rgb(" + this.c.r + ',' + this.c.g + ',' + this.c.b + ")";
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.fillStyle = this.c;
       ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
-      ctx.closePath();
       ctx.fill();
     };
 
@@ -145,7 +145,6 @@
 
     Fire.prototype.updateParams = function() {
       this.l -= 0.1;
-      this.a -= 0.1;
     };
 
     Fire.prototype.deleteFire = function(i) {
@@ -153,6 +152,7 @@
          fires.splice(i, 1);
        }
     };
+
     Fire.prototype.resize = function() {
       this.x = rand(0, X);
     };
@@ -164,9 +164,9 @@
       this.draw();
     };
 
-    function bloomFire(c, x, y) {
+    function bloomFire(ctx, x, y, c, d) {
       for (var i = 0; i < 36; i++) {
-        var fire = new Fire(c, x, y, i * 10);
+        var fire = new Fire(ctx, x, y, c, d, i * 10);
         fires.push(fire);
       }
     }
