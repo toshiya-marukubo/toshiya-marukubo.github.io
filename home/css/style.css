@@ -90,8 +90,16 @@ nav > ul {
 
 nav > ul > li {
   display: block;
-  padding: 1.6rem 0 1.6rem 1.6rem;
+  padding: 0.8rem 0 0.8rem 0.8rem;
   font-size: 0.8rem;
+}
+
+nav > ul > li:first-child {
+  padding-top: 1.6rem;
+}
+
+nav > ul > li:last-child {
+  padding-bottom: 1.6rem;
 }
 
 /********************
