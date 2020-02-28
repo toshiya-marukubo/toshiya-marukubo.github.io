@@ -80,26 +80,10 @@ div#main {
   padding: 1.6rem;
 }
 
-nav {
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 1rem;
-}
-
-nav > ul {
-}
-
 nav > ul > li {
   display: block;
-  padding: 0.8rem 0 0.8rem 0.8rem;
-  font-size: 0.8rem;
-}
-
-nav > ul > li:first-child {
-  padding-top: 1.6rem;
-}
-
-nav > ul > li:last-child {
   padding-bottom: 1.6rem;
+  font-size: 0.8rem;
 }
 
 /********************
@@ -165,11 +149,9 @@ canvas#canvas {
 
 @media screen and (min-width: 48rem) {
   
-  nav {
-    background: rgba(0, 0, 0, 0);
-  }
-
   nav > ul > li {
+    display: inline-block;
+    padding-right: 1.6rem;
   }
 
   div#works {
