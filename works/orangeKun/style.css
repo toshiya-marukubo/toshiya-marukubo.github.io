@@ -12,7 +12,7 @@ html, body {
   margin: 0;
   letter-spacing: 0.2rem;
   overflow: hidden;
-  background: #000000; 
+  background: #FFF;
 }
 
 a {
@@ -22,6 +22,10 @@ a {
 
 h1 {
   font-size: 1.6rem;
+}
+
+h2 {
+  padding-top: 0.8rem;
 }
 
 p {
@@ -48,12 +52,14 @@ p#loading {
 ********************/
 
 canvas#canvas {
-  background: #000000; 
+  background: #FFF;
 }
 
-div.controller {
+p#count {
+  color: #FFF;
   position: absolute;
-  bottom: 0;
-  left: 0;
-  padding: 1.6rem
+  bottom: 1.6rem;
+  left: 1.6rem;
+  padding: 1.6rem;
+  background: #3e8e4c;
 }

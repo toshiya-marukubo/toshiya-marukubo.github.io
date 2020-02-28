@@ -78,7 +78,7 @@
     };
 
     Ghost.prototype.draw = function() {
-      ctx = this.ctx;
+      var ctx = this.ctx;
       ctx.strokeStyle = 'rgb(0, 128, 255)';
       ctx.beginPath();
       var xav1 = (this.points[0][0] + this.points[circleSplit - 1][0]) / 2 + this.x;

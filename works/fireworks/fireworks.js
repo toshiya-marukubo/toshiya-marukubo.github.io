@@ -44,7 +44,7 @@
     ********************/
     
     // var
-    var ballNum = 10;
+    var ballNum = 20;
     var balls = [];
      
     function Ball(ctx, x, y) {
@@ -57,17 +57,16 @@
       this.y = y;
       this.r = rand(1, 3);
       this.v = {
-        y: rand(0, -5)
+        y: rand(1, 5)
       };
       this.bloomY = rand(0, Y / 2);
     };
 
     Ball.prototype.draw = function() {
-      ctx = this.ctx;
+      var ctx = this.ctx;
       ctx.beginPath();
       ctx.fillStyle = 'rgb(153, 153, 153)';
-      ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
-      ctx.closePath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
       ctx.fill();
     };
 
@@ -80,7 +79,7 @@
     };
 
     Ball.prototype.updatePosition = function() {
-      this.y += this.v.y;
+      this.y -= this.v.y;
     };
 
     Ball.prototype.resize = function() {
@@ -103,7 +102,6 @@
     ********************/
     
     // var
-    var fireMaxNum = 1000;
     var fires = [];
     var fireGravity = 0.01;
      
@@ -116,11 +114,11 @@
       this.rad = r * Math.PI / 180;
       this.x = x;
       this.y = y;
-      this.r = rand(1, 2);
-      this.l = rand(10, 30);
+      this.r = 2;
+      this.l = 20;
       this.v = {
-        x: Math.cos(this.rad) * 1,
-        y: Math.sin(this.rad) * 1,
+        x: Math.cos(this.rad),
+        y: Math.sin(this.rad)
       };
       this.c = {
         r: rand(128, 255),

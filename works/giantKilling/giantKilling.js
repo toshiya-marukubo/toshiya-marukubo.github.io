@@ -27,7 +27,6 @@
     var speed = document.getElementById('speed');
 
     var splitNum = 8;
-    var distance = 1;
 
     if (X < 768) {
       splitNum = 4;
@@ -67,31 +66,30 @@
       this.ctx = ctx;
       this.x = x;
       this.y = y;
-      /*
+      this.x1 = this.x;
+      this.y1 = this.y;
       this.v = {
-        x: rand(0, 1),
-        y: rand(0, 1)
+        x: rand(-10, 10) * Math.random(),
+        y: rand(-10, 10) * Math.random()
       };
-      */
       this.c = {
-        r: rand(255, 255),
-        g: rand(255, 255),
-        b: rand(255, 255)
+        r: rand(0, 255),
+        g: rand(0, 255),
+        b: rand(0, 255)
       };
       this.r = ySplit / 4;
     };
 
     Circle.prototype.draw = function() {
-      ctx = this.ctx;
+      var ctx = this.ctx;
       ctx.beginPath();
       ctx.fillStyle = 'rgb(' + this.c.r + ',' + this.c.g + ',' + this.c.b + ')';
-      ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+      ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
       ctx.closePath();
       ctx.fill();
     };
 
-    Circle.prototype.updateParams = function(thatR) {
-      this.r += thatR / 2;
+    Circle.prototype.updateParams = function() {
     };
 
     Circle.prototype.resize = function() {
@@ -111,12 +109,12 @@
           a = this.x - circles[i].x;
           b = this.y - circles[i].y;
           c = a * a + b * b;
-          if (c <= sumRadius * sumRadius) {
+          if (c < sumRadius * sumRadius) {
             if (this.r >= thatR) {
-              circles[i].updateParams(thatR);
+              this.updateParams();
               circles.splice(j, 1);
             } else {
-              circles[j].updateParams(thatR);
+              this.updateparams();
               circles.splice(i, 1);
             }
           }
@@ -125,22 +123,22 @@
     };
     
     Circle.prototype.updatePosition = function() {
-      this.x += rand(- distance, distance);
-      this.y += rand(- distance, distance);
+      this.x += this.v.x;
+      this.y += this.v.y;
     };
 
     Circle.prototype.wrapPosition = function() {
-      if (this.x - this.r > X) {
-        this.x = 0;
+      if (this.x - this.r < 0) {
+        this.v.x *= -1;
       }
-      if (this.x + this.r < 0) {
-        this.x = X;
+      if (this.x + this.r > X) {
+        this.v.x *= -1;
       }
-      if (this.y - this.r > Y) {
-        this.y = 0;
+      if (this.y - this.r < 0) {
+        this.v.y *= -1;
       }
-      if (this.y + this.r < 0) {
-        this.y = Y;
+      if (this.y + this.r > Y) {
+        this.v.y *= -1;
       }
     };
 
@@ -194,12 +192,6 @@
     });
          
     window.addEventListener('mousemove', function(e) {
-      var diff = e.clientX;
-      distance = diff / 100;
-      for (var i = 0; i < circles.length; i++) {
-        circles[i].updatePosition();
-        circles[i].coll(i);
-      }
     }, false);
     
     window.addEventListener('resize', function() {
