@@ -80,11 +80,15 @@ div#main {
   padding: 1.6rem;
 }
 
+nav {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 1rem;
+}
+
 nav > ul > li {
   display: block;
-  padding: 0 0 1.6rem 0;
+  padding: 0.8rem;
   font-size: 0.8rem;
-  padding-right: 0.8rem;
 }
 
 /********************
@@ -150,10 +154,13 @@ canvas#canvas {
 
 @media screen and (min-width: 48rem) {
   
-  nav > ul > li {
-    display: inline-block;
+  nav {
+    background: rgba(0, 0, 0, 0);
   }
-  
+
+  nav > ul > li {
+  }
+
   div#works {
     width: 40%;
   }
