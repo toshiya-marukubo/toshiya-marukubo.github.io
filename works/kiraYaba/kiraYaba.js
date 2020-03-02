@@ -63,8 +63,8 @@
       this.r = rand(0, 10);
       this.c = '255, 255, 255';
       this.v = {
-        x: -0.05,
-        y: 0.05
+        x: -1,
+        y: 1
       };
     };
 
@@ -89,13 +89,12 @@
     };
 
     BackStar.prototype.draw = function() {
-      ctx = this.ctx;
+      var ctx = this.ctx;
       ctx.save();
       ctx.beginPath();
       ctx.fillStyle = this.gradient();
       ctx.arc(this.x, this.y, this.r, Math.PI * 2, false);
       ctx.fill();
-      ctx.closePath();
       ctx.restore();
     };
 
@@ -150,17 +149,17 @@
       this.y = y;
       this.a = a;
       this.v = {
-        x: Math.cos(this.a * Math.PI / 180) * Math.random() * 2,
-        y: Math.sin(this.a * Math.PI / 180) * Math.random() * 2
+        x: Math.cos(this.a * Math.PI / 180) * Math.random() * 3,
+        y: Math.sin(this.a * Math.PI / 180) * Math.random() * 3
       };
       this.c = starColors[rand(0, starColors.length - 1)];
       this.r = rand(5, 30);
       this.angle = rand(0, 360);
-      this.l = rand(10, 30);
+      this.l = rand(30, 60);
     };
 
     Star.prototype.draw = function() {
-      ctx = this.ctx;
+      var ctx = this.ctx;
       ctx.save();
       ctx.beginPath();
       ctx.globalAlpha = 0.8;
@@ -191,14 +190,32 @@
       this.angle += 1;
       this.r += 0.05;
       this.l -= 0.1;
+      this.a += 1;
     };
     
     Star.prototype.wrapPosition = function() {
-      if (this.l < 0) {
-        this.init(X / 2, Y / 2, this.a);
+      if (this.x - this.r > X) {
+        this.x = X / 2;
+        this.y = Y / 2;
+        this.r = rand(5, 30);
+      }
+      if (this.x + this.r < 0) {
+        this.x = X / 2;
+        this.y = Y / 2;
+        this.r = rand(5, 30);
+      }
+      if (this.y - this.r > Y) {
+        this.x = X / 2;
+        this.y = Y / 2;
+        this.r = rand(5, 30);
+      }
+      if (this.y + this.r < 0) {
+        this.x = X / 2;
+        this.y = Y / 2;
+        this.r = rand(5, 30);
       }
     };
-     
+
     Star.prototype.updatePosition = function() {
       this.x += this.v.x;
       this.y += this.v.y;
@@ -229,12 +246,7 @@
       ctx.rotate(180 * Math.PI / 180);
       ctx.translate(-X / 2, -Y / 2);
       ctx.globalAlpha = 0.8;
-      ctx.globalCompositeOperation = 'lighter';
       ctx.fillStyle = 'rgb(255, 255, 128)';
-      ctx.shadowColor = 'rgb(255, 255, 128)';
-      ctx.shadowOffsetX = 0;
-      ctx.shadowOffsetY = 0;
-      ctx.shadowBlur = 100;
       for (var i = 0; i < 5; i++) {
         var xc = Math.sin(i * rad);
         var yc = Math.cos(i * rad);

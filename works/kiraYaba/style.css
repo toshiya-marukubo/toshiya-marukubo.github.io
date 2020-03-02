@@ -12,9 +12,7 @@ html, body {
   margin: 0;
   letter-spacing: 0.2rem;
   overflow: hidden;
-  background: #000428;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to bottom, #004e92, #000428);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to bottom, #004e92, #000428); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: rgb(234, 97, 133);
 }
 
 a {
@@ -24,6 +22,10 @@ a {
 
 h1 {
   font-size: 1.6rem;
+}
+
+h2 {
+  padding-top: 0.8rem;
 }
 
 p {
