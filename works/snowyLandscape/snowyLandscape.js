@@ -67,7 +67,7 @@
       g.addColorStop(0.5, "rgba(" + col + ", " + (1 * 0.2) + ")");
       g.addColorStop(1, "rgba(" + col + ", " + (1 * 0) + ")");
       ctx.fillStyle = g;
-      ctx.arc(X / 2, Y / 3, radius, Math.PI * 2, false);
+      ctx.arc(X / 2, Y / 3, radius, 0, Math.PI * 2, false);
       ctx.fill();
       ctx.restore();
     }
@@ -123,13 +123,12 @@
     };
 
     Snow.prototype.draw = function() {
-      ctx = this.ctx;
+      var ctx = this.ctx;
       ctx.save();
       ctx.beginPath();
       ctx.fillStyle = this.gradient();
-      ctx.arc(this.x, this.y, this.r, Math.PI * 2, false);
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
       ctx.fill();
-      ctx.closePath();
       ctx.restore();
     };
 
