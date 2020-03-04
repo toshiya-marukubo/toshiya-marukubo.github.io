@@ -40,6 +40,7 @@
       <p>I'm a non-professional. Neither web dev nor designer.</p>
       <nav>
         <ul>
+          <li id="aboutBtn"><a href="#">About</a></li>
           <li id="worksBtn"><a href="#">Works</a></li>
           <li><a href="https://codepen.io/toshiya-marukubo">CodePen</a></li>
           <li><a href="https://github.com/toshiya-marukubo">GitHub</a></li>
@@ -51,10 +52,40 @@
     <p id="loading">Now Loading...</p>
     <!-- Content -->
     <div id="contents" style="visibility: hidden;">
+      <!-- About -->
+      <div id="about" style="display: none;">
+        <span class="close"><a href="#"><i class="fas fa-times fa-2x"></i></a></span>
+        <p><img src="./home/img/mypicture.jpg" alt="my picture"></p>
+        <ul>
+          <li><a href="https://codepen.io/toshiya-marukubo"><i class="fab fa-codepen fa-2x"></i></a></li>
+          <li><a href="https://github.com/toshiya-marukubo"><i class="fab fa-github fa-2x"></i></a></li>
+          <li><a href="https://twitter.com/toshiyamarukubo"><i class="fab fa-twitter fa-2x"></i></a></li>
+        </ul>
+        <h2>Me</h2>
+        <p>
+          Hi, I'm Toshiya Marukubo.<br>
+          I'm a non-professional. Of course Neither web dev nor designer.<br>
+          Just now it is my hobby to write JavaScript and Node.js.<br>
+          I'm not good at english, so please forgive my mistakes of sentence :)
+        </p>
+        <p>
+          I'm living in Matsuyama, Ehime, Japan where are famous for production of orange.<br>
+          There are many spas near by.<br>
+          Thanks to there are mountains in the south, the north are sea, climate is warm, it does not almost snow.<br>
+          It is a countryside but it is a good place.
+        </p>
+        <h2>This Site</h2>
+        <p>
+          I like canvas especially now, I thought I want to publish works while learning so I made this site.<br>
+          All the works's code here is published on CodePen, GitHub. Please go to see it.<br>
+          Please feel free to message me anytime on twitter, I'm so bored.<br>
+          Thanks!!!
+        </p>
+      </div>
       <!-- Works -->
       <div id="works" style="display: none;">
-        <span id="close"><a href="#"><i class="fas fa-times fa-2x"></i></a></span>
-        <h2>Created by pure JavaScript and canvas.</h2>
+        <span class="close"><a href="#"><i class="fas fa-times fa-2x"></i></a></span>
+        <h2>Created by pure JavaScript, canvas.</h2>
         <ul id="worksList" class="fa-ul">
           <li><a href="./works/jewelrySnow/index.html"><span class="fa-li"><i class="fas fa-snowflake"></i></span>jewelrySnow</a></li>
           <li><a href="./works/starlight/index.html"><span class="fa-li"><i class="fas fa-star"></i></span>starlight</a></li>
@@ -96,6 +127,7 @@
     <script src="./home/js/centerCenter.js"></script>
     <script src="./home/js/loading.js"></script>
     <script src="./home/js/snowyTown.js"></script>
+    <script src="./home/js/aboutOpen.js"></script>
     <script src="./home/js/worksOpen.js"></script>
     <script src="./home/js/worksHover.js"></script>
     <script src="./home/js/comingSoon.js"></script>
