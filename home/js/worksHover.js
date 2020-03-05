@@ -11,13 +11,19 @@
     }
 
     for (var i = 0; i < worksLists.length; i++) {
-      worksLists[i].addEventListener('mouseenter', openIframe, false);
+      worksLists[i].firstElementChild.addEventListener('mouseenter', openIframe, false);
     }
     for (var i = 0; i < worksLists.length; i++) {
-      worksLists[i].addEventListener('mouseleave', closeIframe, false);
+      worksLists[i].firstElementChild.addEventListener('mouseleave', closeIframe, false);
+    }
+    for (var i = 0; i < worksLists.length; i++) {
+      worksLists[i].firstElementChild.addEventListener('focus', openIframe, false);
+    }
+    for (var i = 0; i < worksLists.length; i++) {
+      worksLists[i].firstElementChild.addEventListener('blur', closeIframe, false);
     }
     function openIframe() {
-      var url = this.firstElementChild.href;
+      var url = this.href;
       dispWorks.src = url;
       dispWorks.style.display = 'block';
     }
