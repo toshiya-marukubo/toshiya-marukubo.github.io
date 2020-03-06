@@ -1,6 +1,7 @@
 (function(){
   'use strict';
   window.addEventListener('load', function() {
+    var aboutBtn = document.getElementById('aboutBtn');
     var worksBtn = document.getElementById('worksBtn');
     var works = document.getElementById('works');
     var about = document.getElementById('about');
@@ -22,7 +23,7 @@
       closeBtn[i].addEventListener('click', function(e) {
         e.preventDefault();
         works.style.display = 'none';
-        worksBtn.firstElementChild.focus();
+        aboutBtn.firstElementChild.focus();
       }, false);
     }
      

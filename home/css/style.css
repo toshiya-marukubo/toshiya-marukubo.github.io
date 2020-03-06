@@ -192,16 +192,28 @@ canvas#canvas {
 }
 
 /********************
+  sm
+********************/
+
+.sm {
+  display: none;
+}
+
+/********************
   PC and Tablet
 ********************/
 
 @media screen and (min-width: 48rem) {
   
+  .sm {
+    display: inline-block;
+  }
+
   nav > ul > li {
     display: inline-block;
     padding-right: 1.6rem;
   }
-
+  
   div#about {
     width: 30%;
   }
