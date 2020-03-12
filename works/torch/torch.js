@@ -71,7 +71,7 @@
     };
 
     Fire.prototype.draw = function() {
-      ctx = this.ctx;
+      var ctx = this.ctx;
       ctx.save();
       ctx.beginPath();
       ctx.globalCompositeOperation = 'lighter';
