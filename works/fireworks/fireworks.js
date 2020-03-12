@@ -72,7 +72,7 @@
 
     Ball.prototype.wrapPosition = function() {
       if (this.y < this.bloomY) {
-        bloomFire(ctx, this.x, this.y, getColor(), rand(0.3, 3));
+        bloomFire(ctx, this.x, this.y, getColor(), rand(0.8, 3));
         this.y = Y;
         this.x = rand(0, X);
       }

@@ -10,6 +10,7 @@
       e.preventDefault();
       if (about.style.display === 'none') {
         about.style.display = 'block';
+        about.classList.add('openAbout');
         works.style.display = 'none';
         about.firstElementChild.firstElementChild.focus();
       } else {

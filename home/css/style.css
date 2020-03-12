@@ -119,6 +119,10 @@ div#about {
   z-index: 2;
 }
 
+div#about > p > a{
+  text-decoration: underline;
+}
+
 div#about > ul {
   text-align: center;
   padding: 1.6rem 0 0 0;
@@ -157,9 +161,6 @@ div#works {
   background: rgba(0, 0, 0, 0.8);
   color: #fff;
   z-index: 2;
-}
-
-div#works > p {
 }
 
 div#works > ul {
