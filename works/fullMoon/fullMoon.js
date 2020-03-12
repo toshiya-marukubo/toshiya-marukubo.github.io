@@ -110,16 +110,15 @@
     Cloud.prototype.init = function(x, y) {
       this.x = x;
       this.y = y;
-      this.c = 'rgb(204, 204, 204)';
       this.r = rand(100, 200);
       this.v = {
         x: 0.5,
         y: 0
       };
       this.color = {
-        r: 0,
-        g: 0,
-        b: 0,
+        r: 180,
+        g: 180,
+        b: 180,
         a: 1
       };
     };
@@ -160,8 +159,6 @@
       ctx.beginPath();
       ctx.globalAlpha = 0.3;
       ctx.fillStyle = this.gradient();
-      ctx.shadowColor = 'rgb(204, 204, 204)';
-      ctx.shadowBlur = 100;
       ctx.arc(this.x, this.y, this.r, Math.PI * 2, false);
       ctx.fill();
       ctx.scale(0.5, 1);
