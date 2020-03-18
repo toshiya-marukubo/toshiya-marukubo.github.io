@@ -381,6 +381,7 @@
       }
       if (inLink) {
         window.location = './works/' + linkText + '/index.html';
+        linkText = '';
       }
     }, false);
   
