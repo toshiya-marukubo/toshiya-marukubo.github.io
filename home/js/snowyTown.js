@@ -77,8 +77,8 @@
       'orangeKun',
       'bigBang'
     ];
-    var linkText = false;
-    var inLink = '';
+    var linkText = '';
+    var inLink = false;
       
     function Building(ctx, x, y, bW, bH, winSize, builCol, winCol, back) {
       this.ctx = ctx;
