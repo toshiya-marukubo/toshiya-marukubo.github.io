@@ -23,6 +23,8 @@
     var ctx = canvas.getContext('2d');
     var X = canvas.width = window.innerWidth;
     var Y = canvas.height = window.innerHeight;
+    var mouseX = null;
+    var mouseY = null;
 
     // speed
     var builSpeed = 0.1;
@@ -51,6 +53,32 @@
     var builBackNum = Math.ceil(X / 100); 
     var builNum = Math.ceil(X / 50);   
     var builOffset = 0;
+    var signboardArr = [
+      'jewelrySnow',
+      'starlight',
+      'milkyWay',
+      'fireball',
+      'grassGrow',
+      'mellomelloMellow',
+      'rainyDay',
+      '65536',
+      'fireworks',
+      'kiraYaba',
+      'snowyLandscape',
+      'torch',
+      'firefly',
+      'aquarium',
+      'happyValentine',
+      'chocolate',
+      'fullMoon',
+      'neonWave',
+      'mamaragan',
+      'particleParty',
+      'orangeKun',
+      'bigBang'
+    ];
+    var linkText;
+    var inLink;
       
     function Building(ctx, x, y, bW, bH, winSize, builCol, winCol, back) {
       this.ctx = ctx;
@@ -72,6 +100,8 @@
         b: rand(0, 255)
       };
       this.back = back;
+      this.sign = signboardArr[rand(0, signboardArr.length - 1)];
+      this.signH = rand(30, 80);
     };
 
     Building.prototype.draw = function() {
@@ -93,6 +123,26 @@
         } 
       }
       ctx.restore();
+      if (this.back) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.globalAlpha = 0.6;
+        ctx.shadowColor = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+        ctx.shadowBlur = 5;
+        ctx.fillStyle = 'rgb(0, 0, 0)';
+        ctx.fillRect(this.x, Y - this.bH - this.signH - 5, this.bW, this.signH);
+        ctx.restore();
+        ctx.save();
+        ctx.beginPath();
+        ctx.fillStyle = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
+        ctx.font = '12px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(this.sign, this.x + this.bW / 2, Y - this.bH - this.signH / 2 - 5, this.bW, this.signH);
+        ctx.restore();
+      }
     };
 
     Building.prototype.updatePosition = function() {
@@ -110,7 +160,7 @@
         var builWidth = rand(100, 150);
         var lastX = buildingsBack[buildingsBack.length - 1].x;
         var lastW = buildingsBack[buildingsBack.length - 1].bW;
-        var builBack = new Building(ctx, lastX + lastW + rand(5, 10), 0, builWidth, rand(Y * 0.3, Y * 0.4), rand(5, 10), 'rgb(13, 13, 13)', 'rgb(179, 179, 179)', true);
+        var builBack = new Building(ctx, lastX + lastW + rand(5, 10), 0, builWidth, rand(Y * 0.3, Y * 0.6), rand(5, 10), 'rgb(13, 13, 13)', 'rgb(179, 179, 179)', true);
         buildingsBack.push(builBack);
       }
       if (this.back === false && this.x < 0 - this.bW) {
@@ -118,7 +168,7 @@
         var builWidth = rand(50, 100);
         var lastX = buildings[buildings.length - 1].x;
         var lastW = buildings[buildings.length - 1].bW;
-        var buil = new Building(ctx, lastX + lastW + rand(5, 10), 0, builWidth, rand(Y * 0.1, Y * 0.2), rand(5, 15), 'rgb(64, 64, 64)', 'rgb(254, 254, 254)', false);
+        var buil = new Building(ctx, lastX + lastW + rand(5, 10), 0, builWidth, rand(Y * 0.2, Y * 0.3), rand(5, 15), 'rgb(64, 64, 64)', 'rgb(254, 254, 254)', false);
         buildings.push(buil);
       }
     };
@@ -128,10 +178,17 @@
       this.wrapPosition(i);
       this.draw();
     };
+
+    Building.prototype.isLinks = function() {
+      if (mouseX >= this.x && mouseX <= this.x + this.bW && mouseY >= Y - this.bH - this.signH && mouseY <= Y - this.bH - 5) {
+        linkText = this.sign;
+        inLink = true;
+      }
+    };
      
     for (var i = 0; i < builBackNum; i++) {
       var builWidth = rand(100, 150);
-      var builBack = new Building(ctx, builOffset, 0, builWidth, rand(Y * 0.4, Y * 0.5), rand(5, 10), 'rgb(13, 13, 13)', 'rgb(179, 179, 179)', true);
+      var builBack = new Building(ctx, builOffset, 0, builWidth, rand(Y * 0.3, Y * 0.6), rand(5, 10), 'rgb(13, 13, 13)', 'rgb(179, 179, 179)', true);
       buildingsBack.push(builBack);
       builOffset += builWidth + rand(5, 10);
     }
@@ -257,7 +314,7 @@
       builNum = Math.ceil(X / 50);   
       for (var i = 0; i < builBackNum; i++) {
         var builWidth = rand(100, 150);
-        var builBack = new Building(ctx, builOffset, 0, builWidth, rand(Y * 0.4, Y * 0.5), rand(5, 10), 'rgb(13, 13, 13)', 'rgb(179, 179, 179)', true);
+        var builBack = new Building(ctx, builOffset, 0, builWidth, rand(Y * 0.3, Y * 0.6), rand(5, 10), 'rgb(13, 13, 13)', 'rgb(179, 179, 179)', true);
         buildingsBack.push(builBack);
         builOffset += builWidth + rand(5, 10);
       }
@@ -286,7 +343,8 @@
     });
 
     window.addEventListener('mousemove', function(e) {
-      var mouseX = e.clientX;
+      mouseX = e.clientX;
+      mouseY = e.clientY;
       if (mouseX < X * 0.2) {
         builSpeed = 0.1;
         builBackSpeed = 0.05;
@@ -301,16 +359,34 @@
     window.addEventListener('touchmove', function(e) {
       if (e.targetTouches.length === 1) {
         var touch = event.targetTouches[0];
-        var touchX = touch.pageX;
-        if (touchX < X * 0.2) {
+        mouseX = touch.pageX;
+        mouseY = touch.pageY;
+        for (var i = 0; i < buildingsBack.length; i++) {
+          buildingsBack[i].isLinks();
+        }
+        if (inLink) {
+          window.location = './works/' + linkText + '/index.html';
+        }
+        if (mouseX < X * 0.2) {
           builSpeed = 0.1;
           builBackSpeed = 0.05;
           snowSpeedX = 0.01;
         } else {
-          builSpeed += touchX / 100000;
-          builBackSpeed += touchX / 100000;
-          snowSpeedX += touchX / 100000;
+          builSpeed += mouseX / 100000;
+          builBackSpeed += mouseX / 100000;
+          snowSpeedX += mouseX / 100000;
         }
+      }
+    }, false);
+
+    window.addEventListener('click', function(e) {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      for (var i = 0; i < buildingsBack.length; i++) {
+        buildingsBack[i].isLinks();
+      }
+      if (inLink) {
+        window.location = './works/' + linkText + '/index.html';
       }
     }, false);
   
