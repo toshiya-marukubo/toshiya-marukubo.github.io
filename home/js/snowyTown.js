@@ -361,12 +361,6 @@
         var touch = event.targetTouches[0];
         mouseX = touch.pageX;
         mouseY = touch.pageY;
-        for (var i = 0; i < buildingsBack.length; i++) {
-          buildingsBack[i].isLinks();
-        }
-        if (inLink) {
-          window.location = './works/' + linkText + '/index.html';
-        }
         if (mouseX < X * 0.2) {
           builSpeed = 0.1;
           builBackSpeed = 0.05;
