@@ -365,8 +365,6 @@
           buildingsBack[i].isLinks();
         }
         if (inLink) {
-          inLink = false;
-          linkText = '';
           window.location = './works/' + linkText + '/index.html';
         }
         if (mouseX < X * 0.2) {
@@ -388,8 +386,6 @@
         buildingsBack[i].isLinks();
       }
       if (inLink) {
-        inLink = false;
-        linkText = '';
         window.location = './works/' + linkText + '/index.html';
       }
     }, false);
