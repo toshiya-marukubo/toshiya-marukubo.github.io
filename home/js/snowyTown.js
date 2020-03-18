@@ -77,8 +77,8 @@
       'orangeKun',
       'bigBang'
     ];
-    var linkText;
-    var inLink;
+    var linkText = false;
+    var inLink = '';
       
     function Building(ctx, x, y, bW, bH, winSize, builCol, winCol, back) {
       this.ctx = ctx;
@@ -365,6 +365,8 @@
           buildingsBack[i].isLinks();
         }
         if (inLink) {
+          inLink = false;
+          linkText = '';
           window.location = './works/' + linkText + '/index.html';
         }
         if (mouseX < X * 0.2) {
@@ -386,6 +388,8 @@
         buildingsBack[i].isLinks();
       }
       if (inLink) {
+        inLink = false;
+        linkText = '';
         window.location = './works/' + linkText + '/index.html';
       }
     }, false);
