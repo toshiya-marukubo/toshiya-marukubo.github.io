@@ -376,6 +376,9 @@
     window.addEventListener('click', function(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
+      if (X < 768) {
+        return;
+      }
       for (var i = 0; i < buildingsBack.length; i++) {
         buildingsBack[i].isLinks();
       }
