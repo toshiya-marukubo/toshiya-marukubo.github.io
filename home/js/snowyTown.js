@@ -156,7 +156,7 @@
     };
 
     Building.prototype.updateParams = function() {
-      this.blurNum = Math.random() < 0.05 ? rand(0, 50) : 5;
+      this.blurNum = Math.random() < 0.05 ? rand(0, 30) : 5;
     };
 
     Building.prototype.wrapPosition = function(i) {
@@ -166,7 +166,7 @@
         var builWidth = rand(150, 200);
         var lastX = buildingsBack[buildingsBack.length - 1].x;
         var lastW = buildingsBack[buildingsBack.length - 1].bW;
-        var builBack = new Building(ctx, lastX + lastW + rand(5, 10), 0, builWidth, rand(Y * 0.3, Y * 0.6), rand(5, 10), 'rgb(13, 13, 13)', 'rgb(179, 179, 179)', true);
+        var builBack = new Building(ctx, lastX + lastW + rand(5, 10), 0, builWidth, rand(Y * 0.4, Y * 0.6), rand(5, 10), 'rgb(13, 13, 13)', 'rgb(179, 179, 179)', true);
         buildingsBack.push(builBack);
       }
       if (this.back === false && this.x < 0 - this.bW) {
@@ -205,7 +205,7 @@
 
     for (var i = 0; i < builBackNum; i++) {
       var builWidth = rand(150, 200);
-      var builBack = new Building(ctx, builOffset, 0, builWidth, rand(Y * 0.3, Y * 0.6), rand(5, 10), 'rgb(13, 13, 13)', 'rgb(179, 179, 179)', true);
+      var builBack = new Building(ctx, builOffset, 0, builWidth, rand(Y * 0.4, Y * 0.6), rand(5, 10), 'rgb(13, 13, 13)', 'rgb(179, 179, 179)', true);
       buildingsBack.push(builBack);
       builOffset += builWidth + rand(5, 10);
     }
@@ -331,7 +331,7 @@
       builNum = Math.ceil(X / 50);   
       for (var i = 0; i < builBackNum; i++) {
         var builWidth = rand(150, 200);
-        var builBack = new Building(ctx, builOffset, 0, builWidth, rand(Y * 0.3, Y * 0.6), rand(5, 10), 'rgb(13, 13, 13)', 'rgb(179, 179, 179)', true);
+        var builBack = new Building(ctx, builOffset, 0, builWidth, rand(Y * 0.4, Y * 0.6), rand(5, 10), 'rgb(13, 13, 13)', 'rgb(179, 179, 179)', true);
         buildingsBack.push(builBack);
         builOffset += builWidth + rand(5, 10);
       }
