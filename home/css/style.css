@@ -88,7 +88,7 @@ div#main {
 }
 
 nav > ul > li {
-  display: block;
+  display: inline-block;
   padding-bottom: 1.6rem;
   font-size: 0.8rem;
 }
@@ -216,7 +216,6 @@ canvas#canvas {
   }
 
   nav > ul > li {
-    display: inline-block;
     padding-right: 1.6rem;
   }
   

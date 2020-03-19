@@ -103,6 +103,7 @@
       this.sign = signboardArr[rand(0, signboardArr.length - 1)];
       this.signH = rand(50, 100);
       this.blurNum = 5;
+      this.fontColor = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
     };
 
     Building.prototype.draw = function() {
@@ -137,7 +138,7 @@
         ctx.restore();
         ctx.save();
         ctx.beginPath();
-        ctx.fillStyle = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
+        ctx.fillStyle = this.fontColor;
         ctx.font = '12px sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
@@ -152,6 +153,10 @@
       } else {
         this.x -= builSpeed;  
       }
+    };
+
+    Building.prototype.updateParams = function() {
+      this.blurNum = Math.random() < 0.05 ? rand(0, 50) : 5;
     };
 
     Building.prototype.wrapPosition = function(i) {
@@ -183,14 +188,16 @@
      
     Building.prototype.isHover = function(i) {
       if (mouseX >= this.x && mouseX <= this.x + this.bW && mouseY >= Y - this.bH - this.signH && mouseY <= Y - this.bH - 5) {
-        this.blurNum = 50;
+        this.blurNum = 100;
+        this.fontColor = 'rgb(255, 255, 255)';
       } else {
-        this.blurNum = 5;
+        this.fontColor = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
       }
     };
     
     Building.prototype.render = function(i) {
       this.updatePosition();
+      this.updateParams();
       this.wrapPosition(i);
       this.isHover(i);
       this.draw();
