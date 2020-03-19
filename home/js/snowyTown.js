@@ -139,6 +139,10 @@
         ctx.save();
         ctx.beginPath();
         ctx.fillStyle = this.fontColor;
+        ctx.shadowColor = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+        ctx.shadowBlur = this.blurNum;
         ctx.font = '12px sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
@@ -156,7 +160,7 @@
     };
 
     Building.prototype.updateParams = function() {
-      this.blurNum = Math.random() < 0.05 ? rand(0, 30) : 5;
+      this.blurNum = Math.random() < 0.05 ? rand(10, 30) : 5;
     };
 
     Building.prototype.wrapPosition = function(i) {
@@ -266,7 +270,7 @@
 
     Snow.prototype.updatePosition = function() {
       this.x -= snowSpeedX;
-      this.y += this.v.y;
+      this.y -= this.v.y;
     };
 
     Snow.prototype.wrapPosition = function() {
