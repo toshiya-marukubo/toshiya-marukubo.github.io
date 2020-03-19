@@ -96,8 +96,8 @@
       this.winCol = winCol;
       this.c = {
         r: rand(0, 255),
-        g: rand(0, 255),
-        b: rand(0, 255)
+        g: rand(128, 255),
+        b: rand(128, 255)
       };
       this.back = back;
       this.sign = signboardArr[rand(0, signboardArr.length - 1)];
