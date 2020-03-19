@@ -101,7 +101,7 @@
       };
       this.back = back;
       this.sign = signboardArr[rand(0, signboardArr.length - 1)];
-      this.signH = rand(30, 80);
+      this.signH = rand(50, 100);
       this.blurNum = 5;
     };
 
@@ -158,7 +158,7 @@
       var firstX = buildings[0].x;
       if (this.back === true && this.x < 0 - this.bW) {
         buildingsBack.splice(i, 1);
-        var builWidth = rand(100, 150);
+        var builWidth = rand(150, 200);
         var lastX = buildingsBack[buildingsBack.length - 1].x;
         var lastW = buildingsBack[buildingsBack.length - 1].bW;
         var builBack = new Building(ctx, lastX + lastW + rand(5, 10), 0, builWidth, rand(Y * 0.3, Y * 0.6), rand(5, 10), 'rgb(13, 13, 13)', 'rgb(179, 179, 179)', true);
@@ -197,7 +197,7 @@
     };
 
     for (var i = 0; i < builBackNum; i++) {
-      var builWidth = rand(100, 150);
+      var builWidth = rand(150, 200);
       var builBack = new Building(ctx, builOffset, 0, builWidth, rand(Y * 0.3, Y * 0.6), rand(5, 10), 'rgb(13, 13, 13)', 'rgb(179, 179, 179)', true);
       buildingsBack.push(builBack);
       builOffset += builWidth + rand(5, 10);
@@ -323,7 +323,7 @@
       builBackNum = Math.ceil(X / 100); 
       builNum = Math.ceil(X / 50);   
       for (var i = 0; i < builBackNum; i++) {
-        var builWidth = rand(100, 150);
+        var builWidth = rand(150, 200);
         var builBack = new Building(ctx, builOffset, 0, builWidth, rand(Y * 0.3, Y * 0.6), rand(5, 10), 'rgb(13, 13, 13)', 'rgb(179, 179, 179)', true);
         buildingsBack.push(builBack);
         builOffset += builWidth + rand(5, 10);
