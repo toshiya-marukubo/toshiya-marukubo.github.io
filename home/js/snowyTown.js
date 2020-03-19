@@ -102,6 +102,7 @@
       this.back = back;
       this.sign = signboardArr[rand(0, signboardArr.length - 1)];
       this.signH = rand(30, 80);
+      this.blurNum = 5;
     };
 
     Building.prototype.draw = function() {
@@ -126,11 +127,11 @@
       if (this.back) {
         ctx.save();
         ctx.beginPath();
-        ctx.globalAlpha = 0.6;
+        ctx.globalAlpha = 0.8;
         ctx.shadowColor = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
         ctx.shadowOffsetX = 0;
         ctx.shadowOffsetY = 0;
-        ctx.shadowBlur = 5;
+        ctx.shadowBlur = this.blurNum;
         ctx.fillStyle = 'rgb(0, 0, 0)';
         ctx.fillRect(this.x, Y - this.bH - this.signH - 5, this.bW, this.signH);
         ctx.restore();
@@ -173,12 +174,6 @@
       }
     };
      
-    Building.prototype.render = function(i) {
-      this.updatePosition();
-      this.wrapPosition(i);
-      this.draw();
-    };
-
     Building.prototype.isLinks = function() {
       if (mouseX >= this.x && mouseX <= this.x + this.bW && mouseY >= Y - this.bH - this.signH && mouseY <= Y - this.bH - 5) {
         linkText = this.sign;
@@ -186,6 +181,21 @@
       }
     };
      
+    Building.prototype.isHover = function(i) {
+      if (mouseX >= this.x && mouseX <= this.x + this.bW && mouseY >= Y - this.bH - this.signH && mouseY <= Y - this.bH - 5) {
+        this.blurNum = 50;
+      } else {
+        this.blurNum = 5;
+      }
+    };
+    
+    Building.prototype.render = function(i) {
+      this.updatePosition();
+      this.wrapPosition(i);
+      this.isHover(i);
+      this.draw();
+    };
+
     for (var i = 0; i < builBackNum; i++) {
       var builWidth = rand(100, 150);
       var builBack = new Building(ctx, builOffset, 0, builWidth, rand(Y * 0.3, Y * 0.6), rand(5, 10), 'rgb(13, 13, 13)', 'rgb(179, 179, 179)', true);
