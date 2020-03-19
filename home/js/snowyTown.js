@@ -367,9 +367,9 @@
         builBackSpeed = 0.05;
         snowSpeedX = 0.01;
       } else {
-        builSpeed += mouseX / 100000;
-        builBackSpeed += mouseX / 100000;
-        snowSpeedX += mouseX / 100000;
+        builSpeed += mouseX / 1000000;
+        builBackSpeed += mouseX / 1000000;
+        snowSpeedX += mouseX / 1000000;
       }
     }, false);
  
@@ -383,9 +383,9 @@
           builBackSpeed = 0.05;
           snowSpeedX = 0.01;
         } else {
-          builSpeed += mouseX / 100000;
-          builBackSpeed += mouseX / 100000;
-          snowSpeedX += mouseX / 100000;
+          builSpeed += mouseX / 1000000;
+          builBackSpeed += mouseX / 1000000;
+          snowSpeedX += mouseX / 1000000;
         }
       }
     }, false);
