@@ -84,7 +84,8 @@
       '牛角',
       '来来亭',
       '鳥貴族',
-      '一風堂'
+      '一風堂',
+      '大戸屋'
     ];
     var linkText = '';
     var inLink = false;
@@ -110,7 +111,7 @@
       };
       this.back = back;
       this.sign = this.back === true ? signboardBackArr[rand(0, signboardBackArr.length - 1)] : signboardFrontArr[rand(0, signboardFrontArr.length - 1)];
-      this.signH = this.back === true ? rand(50, 150) : rand(30, 50);
+      this.signH = this.back === true ? rand(50, 125) : rand(30, 50);
       this.blurNum = 5;
       this.font = this.back === true ? '14px sans-serif' : '12px ＭＳ Ｐ明朝';
       this.fontColor = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
@@ -139,7 +140,7 @@
       ctx.restore();
       ctx.save();
       ctx.beginPath();
-      ctx.globalAlpha = 0.8;
+      ctx.globalAlpha = 0.9;
       ctx.shadowColor = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
       ctx.shadowOffsetX = 0;
       ctx.shadowOffsetY = 0;
