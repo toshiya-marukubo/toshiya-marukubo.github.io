@@ -53,7 +53,7 @@
     var builBackNum = Math.ceil(X / 100); 
     var builNum = Math.ceil(X / 50);   
     var builOffset = 0;
-    var signboardArr = [
+    var signboardBackArr = [
       'jewelrySnow',
       'starlight',
       'milkyWay',
@@ -76,6 +76,15 @@
       'particleParty',
       'orangeKun',
       'bigBang'
+    ];
+    var signboardFrontArr = [
+      '吉野家',
+      '松屋',
+      '王将',
+      '牛角',
+      '来来亭',
+      '鳥貴族',
+      '一風堂'
     ];
     var linkText = '';
     var inLink = false;
@@ -100,9 +109,10 @@
         b: rand(128, 255)
       };
       this.back = back;
-      this.sign = signboardArr[rand(0, signboardArr.length - 1)];
-      this.signH = rand(50, 100);
+      this.sign = this.back === true ? signboardBackArr[rand(0, signboardBackArr.length - 1)] : signboardFrontArr[rand(0, signboardFrontArr.length - 1)];
+      this.signH = this.back === true ? rand(50, 150) : rand(30, 50);
       this.blurNum = 5;
+      this.font = this.back === true ? '14px sans-serif' : '12px ＭＳ Ｐ明朝';
       this.fontColor = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
     };
 
@@ -112,6 +122,8 @@
       ctx.beginPath();
       ctx.fillStyle = this.builCol;
       ctx.fillRect(this.x, Y - this.bH, this.bW, this.bH);
+      ctx.restore();
+      ctx.save();
       ctx.fillStyle = this.winCol;
       var winCountX = this.bW / this.winSize - 1;
       var winCountY = this.bH / this.winSize - 2;
@@ -125,30 +137,28 @@
         } 
       }
       ctx.restore();
-      if (this.back) {
-        ctx.save();
-        ctx.beginPath();
-        ctx.globalAlpha = 0.8;
-        ctx.shadowColor = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
-        ctx.shadowOffsetX = 0;
-        ctx.shadowOffsetY = 0;
-        ctx.shadowBlur = this.blurNum;
-        ctx.fillStyle = 'rgb(0, 0, 0)';
-        ctx.fillRect(this.x, Y - this.bH - this.signH - 5, this.bW, this.signH);
-        ctx.restore();
-        ctx.save();
-        ctx.beginPath();
-        ctx.fillStyle = this.fontColor;
-        ctx.shadowColor = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
-        ctx.shadowOffsetX = 0;
-        ctx.shadowOffsetY = 0;
-        ctx.shadowBlur = this.blurNum;
-        ctx.font = '12px sans-serif';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(this.sign, this.x + this.bW / 2, Y - this.bH - this.signH / 2 - 5, this.bW, this.signH);
-        ctx.restore();
-      }
+      ctx.save();
+      ctx.beginPath();
+      ctx.globalAlpha = 0.8;
+      ctx.shadowColor = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+      ctx.shadowBlur = this.blurNum;
+      ctx.fillStyle = 'rgb(0, 0, 0)';
+      ctx.fillRect(this.x, Y - this.bH - this.signH - 5, this.bW, this.signH);
+      ctx.restore();
+      ctx.save();
+      ctx.beginPath();
+      ctx.fillStyle = this.fontColor;
+      ctx.shadowColor = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+      ctx.shadowBlur = this.blurNum;
+      ctx.font = this.font;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(this.sign, this.x + this.bW / 2, Y - this.bH - this.signH / 2 - 5, this.bW);
+      ctx.restore();
     };
 
     Building.prototype.updatePosition = function() {
@@ -160,7 +170,7 @@
     };
 
     Building.prototype.updateParams = function() {
-      this.blurNum = Math.random() < 0.05 ? rand(10, 30) : 5;
+      this.blurNum = Math.random() < 0.03 ? rand(10, 30) : 5;
     };
 
     Building.prototype.wrapPosition = function(i) {
@@ -175,10 +185,10 @@
       }
       if (this.back === false && this.x < 0 - this.bW) {
         buildings.splice(i, 1);
-        var builWidth = rand(50, 100);
+        var builWidth = rand(75, 100);
         var lastX = buildings[buildings.length - 1].x;
         var lastW = buildings[buildings.length - 1].bW;
-        var buil = new Building(ctx, lastX + lastW + rand(5, 10), 0, builWidth, rand(Y * 0.2, Y * 0.3), rand(5, 15), 'rgb(64, 64, 64)', 'rgb(254, 254, 254)', false);
+        var buil = new Building(ctx, lastX + lastW + rand(5, 10), 0, builWidth, rand(Y * 0.2, Y * 0.3), rand(5, 15), 'rgb(39, 39, 39)', 'rgb(254, 254, 254)', false);
         buildings.push(buil);
       }
     };
@@ -217,8 +227,8 @@
     builOffset = 0;
 
     for (var i = 0; i < builNum; i++) {
-      var builWidth = rand(50, 100);
-      var buil = new Building(ctx, builOffset, 0, builWidth, rand(Y * 0.2, Y * 0.3), rand(5, 15), 'rgb(64, 64, 64)', 'rgb(254, 254, 254)', false);
+      var builWidth = rand(75, 100);
+      var buil = new Building(ctx, builOffset, 0, builWidth, rand(Y * 0.2, Y * 0.3), rand(5, 15), 'rgb(39, 39, 39)', 'rgb(254, 254, 254)', false);
       buildings.push(buil);
       builOffset += builWidth + rand(5, 10);
     }
@@ -341,8 +351,8 @@
       }
       builOffset = 0;
       for (var i = 0; i < builNum; i++) {
-        var builWidth = rand(50, 100);
-        var buil = new Building(ctx, builOffset, 0, builWidth, rand(Y * 0.2, Y * 0.3), rand(5, 15), 'rgb(64, 64, 64)', 'rgb(254, 254, 254)', false);
+        var builWidth = rand(75, 100);
+        var buil = new Building(ctx, builOffset, 0, builWidth, rand(Y * 0.2, Y * 0.3), rand(5, 15), 'rgb(39, 39, 39)', 'rgb(254, 254, 254)', false);
         buildings.push(buil);
         builOffset += builWidth + rand(5, 10);
       }
