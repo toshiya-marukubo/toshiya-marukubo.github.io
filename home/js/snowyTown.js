@@ -45,6 +45,29 @@
       };
 
     /********************
+      Moon
+    ********************/
+
+    var radius = 150;
+
+    if (X < 768) {
+      radius = 100;
+    }
+
+    function drawMoon() {
+      ctx.save();
+      ctx.beginPath();
+      ctx.shadowColor = 'rgb(255, 255, 255)';
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+      ctx.shadowBlur = 30;
+      ctx.fillStyle = 'rgb(255, 255, 255)';
+      ctx.arc(X / 2, X < 768 ? Y / 2 : Y / 3, radius, 0, Math.PI * 2, false);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    /********************
       Building
     ********************/
     
@@ -77,16 +100,6 @@
       'orangeKun',
       'bigBang'
     ];
-    var signboardFrontArr = [
-      '吉野家',
-      '松屋',
-      '王将',
-      '牛角',
-      '来来亭',
-      '鳥貴族',
-      '一風堂',
-      '大戸屋'
-    ];
     var linkText = '';
     var inLink = false;
       
@@ -110,10 +123,10 @@
         b: rand(128, 255)
       };
       this.back = back;
-      this.sign = this.back === true ? signboardBackArr[rand(0, signboardBackArr.length - 1)] : signboardFrontArr[rand(0, signboardFrontArr.length - 1)];
-      this.signH = this.back === true ? rand(50, 125) : rand(30, 50);
-      this.blurNum = 5;
-      this.font = this.back === true ? '14px sans-serif' : '12px ＭＳ Ｐ明朝';
+      this.sign = signboardBackArr[rand(0, signboardBackArr.length - 1)];
+      this.signH = rand(this.bH * 0.2, this.bH * 0.3);
+      this.blurNum = 30;
+      this.font = '14px sans-serif';
       this.fontColor = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
     };
 
@@ -138,28 +151,30 @@
         } 
       }
       ctx.restore();
-      ctx.save();
-      ctx.beginPath();
-      ctx.globalAlpha = 0.9;
-      ctx.shadowColor = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
-      ctx.shadowOffsetX = 0;
-      ctx.shadowOffsetY = 0;
-      ctx.shadowBlur = this.blurNum;
-      ctx.fillStyle = 'rgb(0, 0, 0)';
-      ctx.fillRect(this.x, Y - this.bH - this.signH - 5, this.bW, this.signH);
-      ctx.restore();
-      ctx.save();
-      ctx.beginPath();
-      ctx.fillStyle = this.fontColor;
-      ctx.shadowColor = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
-      ctx.shadowOffsetX = 0;
-      ctx.shadowOffsetY = 0;
-      ctx.shadowBlur = this.blurNum;
-      ctx.font = this.font;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(this.sign, this.x + this.bW / 2, Y - this.bH - this.signH / 2 - 5, this.bW);
-      ctx.restore();
+      if (this.back) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.globalAlpha = 0.9;
+        ctx.shadowColor = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+        ctx.shadowBlur = this.blurNum;
+        ctx.fillStyle = 'rgb(0, 0, 0)';
+        ctx.fillRect(this.x, Y - this.bH - this.signH - 5, this.bW, this.signH);
+        ctx.restore();
+        ctx.save();
+        ctx.beginPath();
+        ctx.fillStyle = this.fontColor;
+        ctx.shadowColor = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+        ctx.shadowBlur = this.blurNum;
+        ctx.font = this.font;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(this.sign, this.x + this.bW / 2, Y - this.bH - this.signH / 2 - 5, this.bW);
+        ctx.restore();
+      }
     };
 
     Building.prototype.updatePosition = function() {
@@ -171,7 +186,7 @@
     };
 
     Building.prototype.updateParams = function() {
-      this.blurNum = Math.random() < 0.03 ? rand(10, 30) : 5;
+      this.blurNum = Math.random() < 0.03 ? rand(0, 30) : 30;
     };
 
     Building.prototype.wrapPosition = function(i) {
@@ -317,6 +332,7 @@
 
     function render() {
       ctx.clearRect(0, 0, X, Y);
+      drawMoon();
       for (var i = 0; i < buildingsBack.length; i++) {
         buildingsBack[i].render(i);
       }
