@@ -31,6 +31,9 @@
     var builBackSpeed = 0.05;
     var snowSpeedX = 0.01;
 
+    var about = document.getElementById('about');
+    var works = document.getElementById('works');
+
     /********************
       Animation
     ********************/
@@ -62,7 +65,7 @@
       ctx.shadowOffsetY = 0;
       ctx.shadowBlur = 30;
       ctx.fillStyle = 'rgb(255, 255, 255)';
-      ctx.arc(X / 2, X < 768 ? Y / 2 : Y / 3, radius, 0, Math.PI * 2, false);
+      ctx.arc(X / 2, Y / 3, radius, 0, Math.PI * 2, false);
       ctx.fill();
       ctx.restore();
     }
@@ -424,7 +427,7 @@
     window.addEventListener('click', function(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      if (X < 768) {
+      if (X < 768 && (about.style.display === 'block' || works.style.display === 'block')) {
         return;
       }
       for (var i = 0; i < buildingsBack.length; i++) {
