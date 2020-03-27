@@ -2,6 +2,10 @@
   Common
 ********************/
 
+.sm {
+  display: block;
+}
+
 .cf::after {
   content: "";
   display: block;
@@ -12,21 +16,12 @@ html, body {
   height: 100%;
   width: 100%;
   color: #FFF;
+  background: #000;
   position: fixed;
-  overflow-y: scroll;
   font-family: Helvetica, verdana, monospace;
   font-size: 100%;
-  background: #000;
-  padding: 0;
-  margin: 0;
   line-height: 1.6;
-}
-
-footer {
-  color: #FFF;
-  font-size: 0.8rem;
-  text-align: right;
-  padding: 1.6rem;
+  overflow-y: scroll;
 }
 
 a {
@@ -48,41 +43,13 @@ h1 {
 }
 
 h2 {
-  padding: 1.6rem 1.6rem 0 1.6rem;
   font-size: 1.2rem;
+  padding: 1.6rem 1.6rem 0 1.6rem;
 }
 
 h3 {
+  font-size: 1rem;
   padding: 1.6rem 1.6rem 0 1.6rem;
-  font-size: 1.2rem;
-}
-
-.inner {
-  width: 90%;
-  margin: 0 5%;
-}
-
-/********************
-  Header
-********************/
-
-header {
-  color: #FFF;
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 1.6rem;
-}
-
-nav {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translate(0, -50%);
-}
-
-nav > ul > li{
-  padding: 1.6rem;
 }
 
 /********************
@@ -93,7 +60,66 @@ p#loading {
   position: absolute;
   bottom: 0;
   right: 1.6rem;
-  color: #FFF;
+}
+
+/********************
+  Header
+********************/
+
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1.6rem;
+}
+
+/********************
+  Nav
+********************/
+
+nav {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  -webkit-transform: translate(0, -50%);
+      -ms-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+}
+
+nav > ul > li{
+  padding: 1.6rem;
+}
+
+/********************
+  Works
+********************/
+
+section#works > ul {
+  font-size: 0;
+  padding: 1.6rem 1.6rem 0 1.6rem;
+}
+
+section#works > ul > li > a > img {
+  width: 100%;
+  vertical-align: bottom;
+}
+
+section#works > ul > li {
+  width: 100%;
+  font-size: 0.8rem;
+  text-align: center;
+  opacity: 0.8;
+  -webkit-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s;
+}
+
+section#works > ul > li:hover {
+  opacity: 1;
+}
+
+section#works > ul > li:last-child > p{
+  padding-bottom: 0;
 }
 
 /********************
@@ -101,11 +127,21 @@ p#loading {
 ********************/
 
 section#about {
-  color: #fff;
+  position: relative;
+}
+
+section#about p {
+  padding: 1.6rem 1.6rem 0 1.6rem;
 }
 
 section#about p > a{
   text-decoration: underline;
+}
+
+section#about p > img {
+  width: 40%;
+  margin: 0 30%;
+  border-radius: 50%;
 }
 
 section#about ul {
@@ -118,51 +154,18 @@ section#about ul > li {
   padding: 0 0.8rem;
 }
 
-section#about p > img {
-  width: 40%;
-  margin: 0 30%;
-}
-
-section#about p {
-  padding: 1.6rem 1.6rem 0 1.6rem;
-}
-
-section#about > section.aboutLeft > p {
+section#about > div.aboutLeft > p {
   text-align: center;
 }
 
 /********************
-  Works
+  Footer
 ********************/
 
-section#works {
-  color: #FFF;
-}
-
-section#works > ul {
-  font-size: 0;
-  padding: 1.6rem 1.6rem 0 1.6rem;
-}
-
-section#works img {
-  width: 100%;
-  vertical-align: bottom;
-}
-
-section#works > ul > li {
-  width: 100%;
+footer {
   font-size: 0.8rem;
-  text-align: center;
-  opacity: 0.8;
-  transition: 0.4s;
-}
-
-section#works > ul > li:last-child > p{
-  padding-bottom: 0;
-}
-
-section#works > ul > li:hover {
-  opacity: 1;
+  text-align: right;
+  padding: 1.6rem;
 }
 
 /********************
@@ -177,8 +180,9 @@ canvas#canvas {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: #000000;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to bottom, #000000, #434343);  /* Chrome 10-25, Safari 5.1-6 */
+  background: #000000;  /* fallback for old browsers */  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-gradient(linear, left top, left bottom, from(#000000), to(#434343));
+  background: -o-linear-gradient(top, #000000, #434343);
   background: linear-gradient(to bottom, #000000, #434343); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
@@ -194,35 +198,23 @@ canvas#canvasBack {
 }
 
 /********************
-  sm
-********************/
-
-.sm {
-  display: none;
-}
-
-/********************
   PC and Tablet
 ********************/
 
 @media screen and (min-width: 48rem) {
   
   .sm {
-    display: inline-block;
+    display: none;
   }
 
-  .inner {
-    width: 50%;
-    margin: 0 25%;
-  }
-
-  nav > ul > li{
-  }
-
-  section#about > section.aboutLeft {
+  section#about > div.aboutLeft {
     float: left;
     width: 50%;
-    position: relative;
+    top: 50%;
+    position: absolute;
+    -webkit-transform: translate(0, -50%);
+        -ms-transform: translate(0, -50%);
+            transform: translate(0, -50%);
   }
 
   section#about > section.aboutRight {
@@ -230,7 +222,7 @@ canvas#canvasBack {
     width: 50%;
   }
 
-  section#works img {
+  section#works > ul > li > a > img {
     width: 95%;
   }
 
