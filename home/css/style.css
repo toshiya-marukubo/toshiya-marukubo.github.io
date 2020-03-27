@@ -9,7 +9,11 @@
 }
 
 html, body {
+  height: 100%;
+  width: 100%;
   color: #FFF;
+  position: fixed;
+  overflow-y: scroll;
   font-family: Helvetica, verdana, monospace;
   font-size: 100%;
   background: #000;
@@ -100,10 +104,9 @@ h3 {
 header {
   color: #FFF;
   position: absolute;
-  top: 50%;
+  top: 0;
   left: 0;
   padding: 1.6rem;
-  transform: translate(0, -50%);
 }
 
 nav {
