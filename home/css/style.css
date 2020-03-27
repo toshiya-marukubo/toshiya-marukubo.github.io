@@ -58,8 +58,11 @@ h3 {
 
 p#loading {
   position: absolute;
-  bottom: 0;
-  right: 1.6rem;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 
 /********************
@@ -108,10 +111,6 @@ section#works > ul > li {
   width: 100%;
   font-size: 0.8rem;
   text-align: center;
-  opacity: 0.8;
-  -webkit-transition: 0.4s;
-  -o-transition: 0.4s;
-  transition: 0.4s;
 }
 
 section#works > ul > li:hover {
@@ -125,10 +124,6 @@ section#works > ul > li:last-child > p{
 /********************
   About
 ********************/
-
-section#about {
-  position: relative;
-}
 
 section#about p {
   padding: 1.6rem 1.6rem 0 1.6rem;
@@ -193,7 +188,7 @@ canvas#canvasBack {
   z-index: -1;
   top: 100%;
   overflow: hidden;
-  opacity: 0.3;
+  opacity: 0.4;
   background: #000000;  /* fallback for old browsers */
 }
 
@@ -210,11 +205,6 @@ canvas#canvasBack {
   section#about > div.aboutLeft {
     float: left;
     width: 50%;
-    top: 50%;
-    position: absolute;
-    -webkit-transform: translate(0, -50%);
-        -ms-transform: translate(0, -50%);
-            transform: translate(0, -50%);
   }
 
   section#about > section.aboutRight {
@@ -222,13 +212,17 @@ canvas#canvasBack {
     width: 50%;
   }
 
-  section#works > ul > li > a > img {
-    width: 95%;
-  }
-
   section#works > ul > li {
     display: inline-block;
     width: 33.333%;
+    opacity: 0.8;
+    -webkit-transition: 0.4s;
+    -o-transition: 0.4s;
+    transition: 0.4s;
+  }
+
+  section#works > ul > li > a > img {
+    width: 95%;
   }
 
 }
