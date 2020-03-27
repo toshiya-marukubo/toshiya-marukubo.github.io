@@ -193,6 +193,41 @@ canvas#canvasBack {
 }
 
 /********************
+  Vehicle
+********************/
+
+.vehicle {
+  position: absolute;
+  bottom: 0;
+  left: 45%;
+  color: #ff4d4d;
+  -webkit-animation: drive 30s linear infinite;
+          animation: drive 30s linear infinite;
+}
+
+@-webkit-keyframes drive {
+  from, to {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  50% {
+    -webkit-transform: translateX(100px);
+            transform: translateX(100px);
+  }
+}
+
+@keyframes drive {
+  from, to {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  50% {
+    -webkit-transform: translateX(100px);
+            transform: translateX(100px);
+  }
+}
+
+/********************
   PC and Tablet
 ********************/
 
