@@ -188,6 +188,7 @@ section#works > ul > li {
   width: 100%;
   font-size: 0.8rem;
   text-align: center;
+  opacity: 0.9;
 }
 
 section#works > ul > li:last-child > p{
@@ -195,6 +196,7 @@ section#works > ul > li:last-child > p{
 }
 
 section#works > ul > li:hover {
+  opacity: 1;
 }
 
 /********************
