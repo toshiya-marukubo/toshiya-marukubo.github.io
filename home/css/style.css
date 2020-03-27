@@ -12,7 +12,7 @@ html, body {
   height: 100%;
   width: 100%;
   color: #FFF;
-  position: relative;
+  position: fixed;
   overflow-y: scroll;
   font-family: Helvetica, verdana, monospace;
   font-size: 100%;
