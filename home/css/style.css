@@ -63,41 +63,6 @@ h3 {
 }
 
 /********************
-  Vehicles icon
-********************/
-
-.vehicle {
-  position: absolute;
-  bottom: 0;
-  left: 1.6rem;
-  color: #f2f2f2;
-  -webkit-animation: drive 30s linear infinite;
-          animation: drive 30s linear infinite;
-}
-
-@-webkit-keyframes drive {
-  from, to {
-    -webkit-transform: translateX(0);
-            transform: translateX(0);
-  }
-  50% {
-    -webkit-transform: translateX(100px);
-            transform: translateX(100px);
-  }
-}
-
-@keyframes drive {
-  from, to {
-    -webkit-transform: translateX(0);
-            transform: translateX(0);
-  }
-  50% {
-    -webkit-transform: translateX(100px);
-            transform: translateX(100px);
-  }
-}
-
-/********************
   Header
 ********************/
 
@@ -189,6 +154,7 @@ section#works > ul > li {
   font-size: 0.8rem;
   text-align: center;
   opacity: 0.8;
+  transition: 0.4s;
 }
 
 section#works > ul > li:last-child > p{

@@ -435,5 +435,5 @@
     
   });
   // Author
-  console.log('File Name / snowyTown.js\nCreated Date / 2019.12.10\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
+  console.log('Created Date / 2019.12.10\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();
