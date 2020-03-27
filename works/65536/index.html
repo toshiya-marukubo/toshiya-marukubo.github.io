@@ -34,21 +34,21 @@
     <link rel="stylesheet" href="./style.css">
   </head>
   <body>
-    <!-- Main -->
-    <div id="main">
+    <!-- Loading -->
+    <p id="loading">Now Loading...</p>
+    <!-- Header -->
+    <header id="header">
       <h1>65536</h1>
       <p>Created date / January 21, 2020</p>
       <p><a href="../../index.html">Back</a></p>
-    </div>
-    <!-- Loading -->
-    <p id="loading">Now Loading...</p>
-    <!-- Contents -->
-    <div id="contents" style="visibility: hidden;">
+    </header>
+    <!-- Main -->
+    <main id="main" style="display: none;">
       <canvas id="canvas">This browser cannot use a canvas.</canvas>
       <div class="controller">
         <input type="range" id="split" min="1" max="256" step="4" value="256">
       </div>
-    </div>
+    </main>
     <!-- Script -->
     <script src="../../home/js/loading.js"></script>
     <script src="./65536.js"></script>

@@ -34,106 +34,106 @@
     <link rel="stylesheet" href="./home/css/style.css">
   </head>
   <body>
-    <!-- Main -->
-    <div id="main">
-      <h1><a href="/">Toshiya Marukubo</a></h1>
-      <p>I'm a non-professional. Neither web dev nor designer.</p>
-      <nav>
-        <ul>
-          <li id="aboutBtn"><a href="#">About</a></li>
-          <li id="worksBtn"><a href="#">Works</a></li>
-          <li class="sm"><a href="https://codepen.io/toshiya-marukubo">CodePen</a></li>
-          <li class="sm"><a href="https://github.com/toshiya-marukubo">GitHub</a></li>
-          <li class="sm"><a href="https://twitter.com/toshiyamarukubo">Twitter</a></li>
-          <li><small>&copy 2020 TM.</small></li>
-        </ul>
-      </nav>
-    </div>
     <!-- Loading -->
     <p id="loading">Now Loading...</p>
-    <!-- Content -->
-    <div id="contents" style="visibility: hidden;">
-      <!-- About -->
-      <div id="about" style="display: none;">
-        <span class="close"><a href="#"><i class="fas fa-times fa-2x"></i></a></span>
-        <p><img src="./home/img/mypicture.jpg" alt="my picture"></p>
+    <!-- Header -->
+    <header id="header" class="cf">
+      <h1><a href="/">Toshiya Marukubo</a></h1>
+      <nav>
         <ul>
-          <li><a href="https://codepen.io/toshiya-marukubo"><i class="fab fa-codepen fa-2x"></i></a></li>
-          <li><a href="https://github.com/toshiya-marukubo"><i class="fab fa-github fa-2x"></i></a></li>
-          <li><a href="https://twitter.com/toshiyamarukubo"><i class="fab fa-twitter fa-2x"></i></a></li>
+          <li><a href="https://codepen.io/toshiya-marukubo"><i class="fab fa-codepen fa-lg"></i></a></li>
+          <li><a href="https://github.com/toshiya-marukubo"><i class="fab fa-github fa-lg"></i></a></li>
+          <li><a href="https://twitter.com/toshiyamarukubo"><i class="fab fa-twitter fa-lg"></i></a></li>
         </ul>
-        <h2>Me</h2>
-        <p>
-          Hi, I'm Toshiya Marukubo.<br>
-          I'm a non-professional. Of course Neither web dev nor designer.<br>
-          Just now it is my hobby to write JavaScript and Node.js.<br>
-          I'm not good at english, so please forgive my mistakes of sentence :)
-        </p>
-        <p>
-          I'm living in Matsuyama, Ehime, Japan where are famous for production of orange.<br>
-          There are many spas near by.<br>
-          Thanks to there are mountains in the south, the north are sea, climate is warm, it does not almost snow.<br>
-          It is a countryside but it is a good place.
-        </p>
-        <h2>This Site</h2>
-        <p>
-          I like canvas especially now, I thought I want to publish works while learning so I made this site.<br>
-          All the works's code here is published on <a href="https://codepen.io/toshiya-marukubo">CodePen</a>, <a href="https://github.com/toshiya-marukubo">GitHub</a>. Please go to see it.
-        </p>
-        <h2>You</h2>
-        <p>
-          By the way, Please tell me about you :) You can send message me on <a href="https://twitter.com/toshiyamarukubo">twitter</a>, I'm so bored.
-        </p>
-        <p>Thanks for reading.</p>
-      </div>
+      </nav>
+    </header>
+    <!-- Main -->
+    <main id="main" style="display: none;">
+      <!-- Canvas -->
+      <canvas id="canvas">This browser cannot use a canvas.</canvas>
+      <canvas id="canvasBack">This browser cannot use a canvas.</canvas>
       <!-- Works -->
-      <div id="works" style="display: none;">
-        <span class="close"><a href="#"><i class="fas fa-times fa-2x"></i></a></span>
-        <h2>Canvas 2D.</h2>
-        <ul id="worksList" class="fa-ul">
-          <li><a href="./works/jewelrySnow/index.html"><span class="fa-li"><i class="fas fa-snowflake"></i></span>jewelrySnow</a></li>
-          <li><a href="./works/starlight/index.html"><span class="fa-li"><i class="fas fa-star"></i></span>starlight</a></li>
-          <li><a href="./works/milkyWay/index.html"><span class="fa-li"><i class="far fa-star"></i></span>milkyWay</a></li>
-          <li><a href="./works/fireball/index.html"><span class="fa-li"><i class="fas fa-burn"></i></span>fireball</a></li>
-          <li><a href="./works/grassGrow/index.html"><span class="fa-li"><i class="fas fa-tint"></i></span>grassGrow</a></li>
-          <li><a href="./works/mellomelloMellow/index.html"><span class="fa-li"><i class="fas fa-heart"></i></span>mellomelloMellow</a></li>
-          <li><a href="./works/rainyDay/index.html"><span class="fa-li"><i class="fas fa-umbrella"></i></span>rainyDay</a></li>
-          <li><a href="./works/65536/index.html"><span class="fa-li"><i class="fas fa-palette"></i></span>65536</a></li>
+      <section id="works">
+        <h2>Works</h2>
+        <ul>
+          <li><a href="./works/bigBang/index.html"><img src="./home/img/og/og-bigBang.png" alt="bigBang"></a><p>bigBang / Mar 04, 2020</p></li>
+          <li><a href="./works/orangeKun/index.html"><img src="./home/img/og/og-orangeKun.png" alt="orangeKun"></a><p>orangeKun / Feb 29, 2020</p></li>
+          <li><a href="./works/particleParty/index.html"><img src="./home/img/og/og-particleParty.png" alt="particleParty"></a><p>particleParty / Feb 20, 2020</p></li>
+          <li><a href="./works/mamaragan/index.html"><img src="./home/img/og/og-mamaragan.png" alt="mamaragan"></a><p>mamaragan / Feb 16, 2020</p></li>
+          <li><a href="./works/neonWave/index.html"><img src="./home/img/og/og-neonWave.png" alt="neonWave"></a><p>neonWave / Feb 13, 2020</p></li>
+          <li><a href="./works/fullMoon/index.html"><img src="./home/img/og/og-fullMoon.png" alt="fullMoon"></a><p>fullMoon / Feb 11, 2020</p></li>
+          <li><a href="./works/chocolate/index.html"><img src="./home/img/og/og-chocolate.png" alt="chocolate"></a><p>chocolate / Feb 06, 2020</p></li>
+          <li><a href="./works/happyValentine/index.html"><img src="./home/img/og/og-happyValentine.png" alt="happyValentine"></a><p>happyValentine / Feb 05, 2020</p></li>
+          <li><a href="./works/aquarium/index.html"><img src="./home/img/og/og-aquarium.png" alt="aquarium"></a><p>aquarium / Feb 02, 2020</p></li>
+          <li><a href="./works/firefly/index.html"><img src="./home/img/og/og-firefly.png" alt="firefly"></a><p>firefly / Jan 31, 2020</p></li>
+          <li><a href="./works/torch/index.html"><img src="./home/img/og/og-torch.png" alt="torch"></a><p>torch / Jan 30, 2020</p></li>
+          <li><a href="./works/snowyLandscape/index.html"><img src="./home/img/og/og-snowyLandscape.png" alt="snowyLandscape"></a><p>snowyLandscape / Jan 28, 2020</p></li>
+          <li><a href="./works/kiraYaba/index.html"><img src="./home/img/og/og-kiraYaba.png" alt="kiraYaba"></a><p>kiraYaba / Jan 27, 2020</p></li>
           <!---
           <li><a href="./works/giantKilling/index.html"><span class="fa-li"><i class="fas fa-circle"></i></span>giantKilling</a></li>
           -->
-          <li><a href="./works/fireworks/index.html"><span class="fa-li"><i class="fas fa-fire"></i></span>fireworks</a></li>
+          <li><a href="./works/fireworks/index.html"><img src="./home/img/og/og-fireworks.png" alt="fireworks"></a><p>fireworks / Jan 23, 2020</p></li>
           <!--
           <li><a href="./works/ghost/index.html"><span class="fa-li"><i class="fas fa-ghost"></i></span>ghost</a></li>
           -->
-          <li><a href="./works/kiraYaba/index.html"><span class="fa-li"><i class="fas fa-star-half-alt"></i></span>kiraYaba</a></li>
-          <li><a href="./works/snowyLandscape/index.html"><span class="fa-li"><i class="fas fa-snowflake"></i></span>snowyLandscape</a></li>
-          <li><a href="./works/torch/index.html"><span class="fa-li"><i class="fab fa-gripfire"></i></span>torch</a></li>
-          <li><a href="./works/firefly/index.html"><span class="fa-li"><i class="fas fa-fire-alt"></i></span>firefly</a></li>
-          <li><a href="./works/aquarium/index.html"><span class="fa-li"><i class="fas fa-water"></i></span>aquarium</a></li>
-          <li><a href="./works/happyValentine/index.html"><span class="fa-li"><i class="far fa-heart"></i></span>happyValentine</a></li>
-          <li><a href="./works/chocolate/index.html"><span class="fa-li"><i class="far fa-heart"></i></span>chocolate</a></li>
-          <li><a href="./works/fullMoon/index.html"><span class="fa-li"><i class="fas fa-circle"></i></span>fullMoon</a></li>
-          <li><a href="./works/neonWave/index.html"><span class="fa-li"><i class="fas fa-wave-square"></i></span>neonWave</a></li>
-          <li><a href="./works/mamaragan/index.html"><span class="fa-li"><i class="fas fa-bolt"></i></span>mamaragan</a></li>
-          <li><a href="./works/particleParty/index.html"><span class="fa-li"><i class="fas fa-circle"></i></span>particleParty</a></li>
-          <li><a href="./works/orangeKun/index.html"><span class="fa-li"><i class="fas fa-pencil-alt"></i></span>orangeKun</a></li>
-          <li><a href="./works/bigBang/index.html"><span class="fa-li"><i class="fas fa-bomb"></i></span>bigBang</a></li>
+          <li><a href="./works/65536/index.html"><img src="./home/img/og/og-65536.png" alt="65536"></a><p>65536 / Jan 21, 2020</p></li>
+          <li><a href="./works/rainyDay/index.html"><img src="./home/img/og/og-rainyDay.png" alt="rainyDay"></a><p>rainyDay / Jan 20, 2020</p></li>
+          <li><a href="./works/mellomelloMellow/index.html"><img src="./home/img/og/og-mellomelloMellow.png" alt="mellomelloMellow"></a><p>mellomelloMellow / Jan 15, 2020</p></li>
+          <li><a href="./works/grassGrow/index.html"><img src="./home/img/og/og-grassGrow.png" alt="grassGrow"></a><p>grassGrow / Jan 15, 2020</p></li>
+          <li><a href="./works/fireball/index.html"><img src="./home/img/og/og-fireball.png" alt="fireball"></a><p>fireball / Jan 11, 2020</p></li>
+          <li><a href="./works/milkyWay/index.html"><img src="./home/img/og/og-milkyWay.png" alt="milyWay"></a><p>milkyway / Jan 10, 2020</p></li>
+          <li><a href="./works/starlight/index.html"><img src="./home/img/og/og-starlight.png" alt="starlight"></a><p>starlight / Jan 09, 2020</p></li>
+          <li><a href="./works/jewelrySnow/index.html"><img src="./home/img/og/og-jewelrySnow.png" alt="jewelrySnow"></a><p>jewelrySnow / Jan 08, 2020</p></li>
         </ul>
-      </div>
+      </section>
+      <!-- About -->
+      <section id="about" class="cf">
+        <section class="aboutLeft">
+          <h2>About</h2>
+          <p><img src="./home/img/mypicture.jpg" alt="my picture"></p>
+          <p>It's not that I'm angry especially.</p>
+          <ul>
+            <li><a href="https://codepen.io/toshiya-marukubo"><i class="fab fa-codepen fa-2x"></i></a></li>
+            <li><a href="https://github.com/toshiya-marukubo"><i class="fab fa-github fa-2x"></i></a></li>
+            <li><a href="https://twitter.com/toshiyamarukubo"><i class="fab fa-twitter fa-2x"></i></a></li>
+          </ul>
+        </section>
+        <section class="aboutRight">
+          <h3>Me</h3>
+          <p>
+            Hi, I'm Toshiya Marukubo.<br>
+            I'm a non-professional. Of course Neither web dev nor designer.<br>
+            Just now it is my hobby to write JavaScript and Node.js.<br>
+            I'm not good at english, so please forgive my mistakes of sentence.
+          </p>
+          <p>
+            I'm living in Matsuyama, Ehime, Japan where are famous for production of orange.<br>
+            There are many spas near by.<br>
+            Thanks to there are mountains in the south, the north are sea, climate is warm, it does not almost snow.<br>
+            It is a countryside but it is a good place.
+          </p>
+          <h3>This Site</h3>
+          <p>
+            I like canvas especially now, I thought I want to publish works while learning so I made this site.<br>
+            All the works's code here is published on <a href="https://codepen.io/toshiya-marukubo">Codepen</a>, <a href="https://github.com/toshiya-marukubo">Github</a>. Please go to see it.
+          </p>
+          <h3>You</h3>
+          <p>
+            By the way, please tell me about you. You can send me message on <a href="https://twitter.com/toshiyamarukubo">Twitter</a>, I'm so bored.
+          </p>
+          <p>Thanks for reading.</p>
+        </section>
+      </section>
       <!-- Vehicles -->
       <span id="car" style="display: block;"><i class="vehicle fas fa-car-side fa-3x" data-fa-transform="down-1"></i></span>
-      <!-- Canvas -->
-      <canvas id="canvas">This browser cannot use a canvas.</canvas>
-      <iframe src="#" id="dispWorks" style="display: none;"></iframe>
-    </div>
+    </main>
+    <!-- Footer -->
+    <footer id="footer" style="display: none;">
+      <small>&copy 2020 Toshiya Marukubo.</small>
+    </footer>
     <!-- Script -->
-    <script src="./home/js/centerCenter.js"></script>
     <script src="./home/js/loading.js"></script>
     <script src="./home/js/snowyTown.js"></script>
-    <script src="./home/js/aboutOpen.js"></script>
-    <script src="./home/js/worksOpen.js"></script>
-    <script src="./home/js/worksHover.js"></script>
     <script src="./home/js/comingSoon.js"></script>
     <script src="./home/js/all.min.js"></script>
   </body>

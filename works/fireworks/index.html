@@ -34,21 +34,21 @@
     <link rel="stylesheet" href="./style.css">
   </head>
   <body>
-    <!-- Main -->
-    <div id="main">
+    <!-- Header -->
+    <header id="header">
       <h1>fireworks</h1>
       <p>Created date / January 23, 2020</p>
       <p><a href="../../index.html">Back</a></p>
-    </div>
+    </header>
     <!-- Loading -->
     <p id="loading">Now Loading...</p>
-    <!-- Contents -->
-    <div id="contents" style="visibility: hidden;">
+    <!-- main -->
+    <main id="main" style="display: none;">
       <canvas id="canvas">This browser cannot use a canvas.</canvas>
       <div class="controller">
         <input type="range" id="count" min="0" max="50" step="1" value="30">
       </div>
-    </div>
+    </main>
     <!-- Script -->
     <script src="../../home/js/loading.js"></script>
     <script src="./fireworks.js"></script>

@@ -33,7 +33,7 @@ p {
   font-size: 0.8rem;
 }
 
-div#main {
+header#header {
   position: absolute;
   top: 0;
   left: 0;

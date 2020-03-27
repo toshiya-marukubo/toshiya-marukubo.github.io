@@ -2,6 +2,7 @@
   'use strict';
   window.addEventListener('load', function() {
     var canvas = document.getElementById('canvas');
+    var canvasBack = document.getElementById('canvasBack');
 
     if (!canvas || !canvas.getContext) {
       return false;
@@ -21,8 +22,10 @@
     
     // canvas 
     var ctx = canvas.getContext('2d');
-    var X = canvas.width = window.innerWidth;
-    var Y = canvas.height = window.innerHeight;
+    var ctxBack = canvasBack.getContext('2d');
+    var car = document.getElementById('car');
+    var X = canvas.width = canvasBack.width = window.innerWidth;
+    var Y = canvas.height = canvasBack.height = window.innerHeight;
     var mouseX = null;
     var mouseY = null;
 
@@ -333,8 +336,12 @@
       render
     ********************/
 
+    ctxBack.translate(X, Y);
+    ctxBack.rotate(180 / 180 * Math.PI);
+    
     function render() {
       ctx.clearRect(0, 0, X, Y);
+      ctxBack.clearRect(0, 0, X, Y);
       drawMoon();
       for (var i = 0; i < buildingsBack.length; i++) {
         buildingsBack[i].render(i);
@@ -344,6 +351,9 @@
       }
       for (var i = 0; i < snows.length; i++) {
         snows[i].render();
+      }
+      if (canvas.height !== 0) {
+        ctxBack.drawImage(canvas, 0, 0);
       }
       requestAnimationFrame(render);
     }
@@ -355,8 +365,8 @@
     ********************/
     
     function onResize() {
-      X = canvas.width = window.innerWidth;
-      Y = canvas.height = window.innerHeight;
+      X = canvas.width = canvasBack.width = window.innerWidth;
+      Y = canvas.height = canvasBack.height = window.innerHeight;
       //buil
       builOffset = 0;
       buildingsBack = [];
@@ -387,6 +397,8 @@
         var snow = new Snow(ctx, rand(0, X), rand(0, Y));
         snows.push(snow);
       }
+      ctxBack.translate(X, Y);
+      ctxBack.rotate(180 / 180 * Math.PI);
     }
 
     window.addEventListener('resize', function() {
@@ -396,15 +408,6 @@
     window.addEventListener('mousemove', function(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      if (mouseX < X * 0.2) {
-        builSpeed = 0.1;
-        builBackSpeed = 0.05;
-        snowSpeedX = 0.01;
-      } else {
-        builSpeed += mouseX / 1000000;
-        builBackSpeed += mouseX / 1000000;
-        snowSpeedX += mouseX / 1000000;
-      }
     }, false);
  
     window.addEventListener('touchmove', function(e) {
@@ -412,15 +415,6 @@
         var touch = event.targetTouches[0];
         mouseX = touch.pageX;
         mouseY = touch.pageY;
-        if (mouseX < X * 0.2) {
-          builSpeed = 0.1;
-          builBackSpeed = 0.05;
-          snowSpeedX = 0.01;
-        } else {
-          builSpeed += mouseX / 1000000;
-          builBackSpeed += mouseX / 1000000;
-          snowSpeedX += mouseX / 1000000;
-        }
       }
     }, false);
 
@@ -438,7 +432,7 @@
         linkText = '';
       }
     }, false);
-  
+    
   });
   // Author
   console.log('File Name / snowyTown.js\nCreated Date / 2019.12.10\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
