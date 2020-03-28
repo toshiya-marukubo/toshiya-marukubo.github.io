@@ -2,13 +2,12 @@
   'use strict';
   window.addEventListener('load', function() {
     var X = window.innerWidth;
-    var dispWorks = document.getElementById('dispWorks');
-    var body = document.getElementsByTagName('body');
-    var dispWorksChildren = dispWorks.children;
-
     if(X < 768) {
       return;
     }
+    var dispWorks = document.getElementById('dispWorks');
+    var body = document.getElementsByTagName('body');
+    var dispWorksChildren = dispWorks.children;
 
     for (var i = 0; i < dispWorksChildren.length; i++) {
       dispWorksChildren[i].firstElementChild.addEventListener('mouseenter', openIframe, false);
@@ -31,7 +30,6 @@
       var url = this.href;
       iframe.src = url;
     }
-
     function closeIframe() {
       body[0].removeChild(iframe);
     }
