@@ -85,9 +85,9 @@
     var signboardBackArr = [
       'Wash your hands.',
       'Wear a mask.',
-      'Stay home.',
       'Let\'s overcome.',
-      'Stop panic buy.'
+      'Stop panic-buy.',
+      'Avoid a mass.'
     ];
     var linkText = '';
     var inLink = false;

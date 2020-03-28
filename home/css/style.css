@@ -138,8 +138,13 @@ section#works button {
   color: #09BEFF;
   border: solid 2px #09BEFF;
   border-radius: 3px;
+  box-shadow: 0 0 10px #09BEFF;
   transition: .4s;
 }
+
+section#works button:hover {
+  box-shadow: 0 0 100px #09BEFF;
+} 
 
 /********************
   About
