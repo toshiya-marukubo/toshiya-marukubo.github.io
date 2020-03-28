@@ -24,13 +24,24 @@
     }
     */
     function openIframe() {
+      this.parentNode.setAttribute('class', 'opend');
+      for (var i = 0; i < dispWorksChildren.length; i++) {
+        if (dispWorksChildren[i].className !== 'opend') {
+          dispWorksChildren[i].style.opacity = '0';
+        }
+      }
       var iframe = document.createElement('iframe');
       iframe.setAttribute('id', 'iframe');
       body[0].appendChild(iframe);
-      var url = this.href;
-      iframe.src = url;
+      iframe.src = this.href;
     }
     function closeIframe() {
+      this.parentNode.removeAttribute('class');
+      for (var i = 0; i < dispWorksChildren.length; i++) {
+        if (dispWorksChildren[i].className !== 'opend') {
+          dispWorksChildren[i].style.opacity = '0.8';
+        }
+      }
       body[0].removeChild(iframe);
     }
   });
