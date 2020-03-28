@@ -83,28 +83,11 @@
     var builNum = Math.ceil(X / 50);   
     var builOffset = 0;
     var signboardBackArr = [
-      'jewelrySnow',
-      'starlight',
-      'milkyWay',
-      'fireball',
-      'grassGrow',
-      'mellomelloMellow',
-      'rainyDay',
-      '65536',
-      'fireworks',
-      'kiraYaba',
-      'snowyLandscape',
-      'torch',
-      'firefly',
-      'aquarium',
-      'happyValentine',
-      'chocolate',
-      'fullMoon',
-      'neonWave',
-      'mamaragan',
-      'particleParty',
-      'orangeKun',
-      'bigBang'
+      'Wash your hands.',
+      'Wear a mask.',
+      'Stay home.',
+      'Let\'s overcome.',
+      'Stop panic buy.'
     ];
     var linkText = '';
     var inLink = false;
@@ -421,6 +404,7 @@
     window.addEventListener('click', function(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
+      /*
       if (X < 768) {
         return;
       }
@@ -431,6 +415,7 @@
         window.location = './works/' + linkText + '/index.html';
         linkText = '';
       }
+      */
     }, false);
     
   });
