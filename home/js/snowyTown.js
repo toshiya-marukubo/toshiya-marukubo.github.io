@@ -218,7 +218,7 @@
       this.updatePosition();
       this.updateParams();
       this.wrapPosition(i);
-      this.isHover(i);
+      //this.isHover(i);
       this.draw();
     };
 
