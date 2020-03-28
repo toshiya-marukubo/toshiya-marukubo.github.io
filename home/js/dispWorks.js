@@ -21,6 +21,7 @@
           for(var i = 0; i < dispWorksChildren.length; i++) {
             dispWorksChildren[i].style.display = 'inline-block';
           }
+          dispWorksChildren[dispNum].firstElementChild.focus();
           moreBtn.textContent = 'Close';
           open = true;
         } else {
