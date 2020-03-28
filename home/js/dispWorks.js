@@ -17,18 +17,18 @@
       moreBtn.disabled = true;
       setTimeout(function() {
         if (open === false) {
+          moreBtn.disabled = false;
           for(var i = 0; i < dispWorksChildren.length; i++) {
             dispWorksChildren[i].style.display = 'inline-block';
           }
           moreBtn.textContent = 'Close';
-          moreBtn.disabled = false;
           open = true;
         } else {
+          moreBtn.disabled = false;
           for(var i = dispNum; i < dispWorksChildren.length; i++) {
             dispWorksChildren[i].style.display = 'none';
           }
           moreBtn.textContent = 'See More';
-          moreBtn.disabled = false;
           open = false;
         }
       }, 400);
