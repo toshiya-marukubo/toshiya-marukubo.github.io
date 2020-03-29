@@ -7,8 +7,8 @@
     }
     var dispWorks = document.getElementById('dispWorks');
     var body = document.getElementsByTagName('body');
+    var loading = document.getElementById('loading');
     var dispWorksChildren = dispWorks.children;
-
     for (var i = 0; i < dispWorksChildren.length; i++) {
       dispWorksChildren[i].firstElementChild.addEventListener('mouseenter', openIframe, false);
     }
@@ -24,6 +24,7 @@
     }
     */
     function openIframe() {
+      loading.style.display = 'block';
       this.parentNode.setAttribute('class', 'opened');
       for (var i = 0; i < dispWorksChildren.length; i++) {
         if (dispWorksChildren[i].className !== 'opened') {
@@ -34,8 +35,12 @@
       iframe.setAttribute('id', 'iframe');
       body[0].appendChild(iframe);
       iframe.src = this.href;
+      iframe.addEventListener('load', function() {
+        loading.style.display = 'none';
+      });
     }
     function closeIframe() {
+      loading.style.display = 'none';
       this.parentNode.removeAttribute('class');
       for (var i = 0; i < dispWorksChildren.length; i++) {
         if (dispWorksChildren[i].className !== 'opened') {
