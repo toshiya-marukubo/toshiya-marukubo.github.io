@@ -36,7 +36,9 @@
       body[0].appendChild(iframe);
       iframe.src = this.href;
       iframe.addEventListener('load', function() {
-        loading.style.display = 'none';
+        setTimeout(function() {
+          loading.style.display = 'none';
+        }, 1000);
       });
     }
     function closeIframe() {
