@@ -27,7 +27,7 @@
       this.parentNode.setAttribute('class', 'opend');
       for (var i = 0; i < dispWorksChildren.length; i++) {
         if (dispWorksChildren[i].className !== 'opend') {
-          dispWorksChildren[i].style.opacity = '0.1';
+          dispWorksChildren[i].style.opacity = '0.3';
         }
       }
       var iframe = document.createElement('iframe');
