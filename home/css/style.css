@@ -65,6 +65,13 @@ iframe#iframe {
   Loading
 ********************/
 
+div#loading > div > p {
+  margin: 1.6rem;
+  -webkit-transform: rotate(-45deg);
+      -ms-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+
 .lds-heart {
   z-index: 1; 
   display: block;
