@@ -73,6 +73,7 @@ div#loading > div > p {
 }
 
 .lds-heart {
+  opacity: 0.8;
   z-index: 1; 
   display: block;
   position: fixed;
