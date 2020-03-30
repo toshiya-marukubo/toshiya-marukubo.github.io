@@ -13,7 +13,7 @@
         req.responseType = 'document';
         req.send(null);
         req.addEventListener('load', function() {
-          document.getElementsByTagName('html')[0].innerHTML = req;
+          document.getElementsByTagName('html')[0].innerHTML = req.response;
         }, false);
       }, false);
     }
