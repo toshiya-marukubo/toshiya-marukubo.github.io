@@ -207,6 +207,13 @@ nav > ul > li{
   Works
 ********************/
 
+section#works {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
 section#works > ul {
   font-size: 0;
   padding: 1.6rem;

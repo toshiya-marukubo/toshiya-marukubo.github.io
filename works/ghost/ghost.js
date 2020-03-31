@@ -48,7 +48,7 @@
     ********************/
     
     // var
-    var ghostNum = 25;
+    var ghostNum = 1;
     var ghosts = [];
     var circleSplit = 12;
      

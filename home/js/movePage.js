@@ -8,9 +8,8 @@
       dispWorksChildren[i].firstElementChild.addEventListener('mouseenter', function() {
         var req = new XMLHttpRequest();
         openHref = this.href;
-        console.log(openHref);
         req.open('GET', openHref);
-        req.responseType = 'document';
+        //req.responseType = 'document';
         req.send(null);
         req.addEventListener('load', function() {
           document.getElementsByTagName('html')[0].innerHTML = req.response;
