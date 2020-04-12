@@ -18,8 +18,8 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Toshiya Marukubo | Homepage">
     <meta property="og:url" content="https://toshiya-marukubo.github.io/">
-    <meta property="og:title" content="Toshiya Marukubo | Homepage | giantKilling">
-    <meta property="og:image" content="https://toshiya-marukubo.github.io/home/img/og/og-giantKilling.png">
+    <meta property="og:title" content="Toshiya Marukubo | Homepage | stayHome">
+    <meta property="og:image" content="https://toshiya-marukubo.github.io/home/img/og/og-stayHome.png">
     <meta property="og:description" content="I'm a non-professional. Neither web dev nor designer.">
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
@@ -28,7 +28,7 @@
     <!-- Icons -->
     <link rel="icon" href="https://toshiya-marukubo.github.io/home/img/favicon.svg" sizes="any" type="image/svg+xml">
     <!-- Title -->
-    <title>Toshiya Marukubo | Homepage | giantKilling</title>
+    <title>Toshiya Marukubo | Homepage | stayHome</title>
     <!-- CSS -->
     <link rel="stylesheet" href="../../home/css/reset.css">
     <link rel="stylesheet" href="./style.css">
@@ -36,9 +36,8 @@
   <body>
     <!-- Header -->
     <header id="header">
-      <h1>giantKilling</h1>
-      <p>Small is better than large.</p>
-      <p>Created date / January 22, 2020</p>
+      <h1>stayHome</h1>
+      <p>Created date / April 12, 2020</p>
       <p><a href="../../index.html">Back</a></p>
     </header>
     <!-- Loading -->
@@ -47,12 +46,14 @@
     <main id="main" style="diaplay: none;">
       <canvas id="canvas">This browser cannot use a canvas.</canvas>
       <div class="controller">
-        <input type="range" id="speed" min="0" max="30" value="1">
+        <p>Healthy <span id="countHealthy">63</span> / Sick <span id="countSick">1</span></p>
+        <button id="resetBtn">Reset</button>
+        <button id="stayBtn">Stay Home</button>
       </div>
     </main>
     <!-- Script -->
     <script src="../../home/js/loading.js"></script>
-    <script src="./giantKilling.js"></script>
+    <script src="./stayHome.js"></script>
   </body>
 </html>
 

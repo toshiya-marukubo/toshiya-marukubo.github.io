@@ -19,21 +19,25 @@
       Var
     ********************/
 
+    var resetBtn = document.getElementById('resetBtn');
+    var stayBtn = document.getElementById('stayBtn');
+    var stay = false;
+    var countSick = document.getElementById('countSick'); 
     // canvas 
     var ctx = canvas.getContext('2d');
     var X = canvas.width = window.innerWidth;
     var Y = canvas.height = window.innerHeight;
     
-    var speed = document.getElementById('speed');
-
-    var splitNum = 8;
+    var splitNum = 16;
 
     if (X < 768) {
-      splitNum = 4;
+      splitNum = 8;
     }
 
     var xSplit = X / splitNum;
     var ySplit = Y / splitNum;
+    var sick = 1;
+    var healthy = splitNum * splitNum - 1;
 
     /********************
       Animation
@@ -57,40 +61,49 @@
     var colMax = splitNum;
     var circles = [];
     
-    function Circle(ctx, x, y) {
+    function Circle(ctx, x, y, c) {
       this.ctx = ctx;
-      this.init(x, y);
+      this.init(x, y, c);
     }
 
-    Circle.prototype.init = function(x, y) {
+    Circle.prototype.init = function(x, y, c) {
       this.ctx = ctx;
       this.x = x;
       this.y = y;
       this.x1 = this.x;
       this.y1 = this.y;
       this.v = {
-        x: rand(-10, 10) * Math.random(),
-        y: rand(-10, 10) * Math.random()
+        x: rand(-1, 1),
+        y: rand(-1, 1)
       };
-      this.c = {
-        r: rand(0, 255),
-        g: rand(0, 255),
-        b: rand(0, 255)
-      };
-      this.r = ySplit / 4;
+      this.c = c;
+      this.r = ySplit / 8;
     };
 
     Circle.prototype.draw = function() {
       var ctx = this.ctx;
       ctx.beginPath();
-      ctx.fillStyle = 'rgb(' + this.c.r + ',' + this.c.g + ',' + this.c.b + ')';
+      ctx.fillStyle = this.c;
       ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
       ctx.closePath();
       ctx.fill();
     };
 
-    Circle.prototype.updateParams = function() {
+    Circle.prototype.stayHome = function() {
+      this.v.x = 0;
+      this.v.y = 0;
     };
+
+    function countSickSick() {
+      for (var i = 0; i < circles.length; i++) {
+        if (circles[i].c == 'rgb(255, 57, 57)') {
+          countSick.textContent = sick;
+          countHealthy.textContent = healthy;
+          sick++;
+          healthy--;
+        }
+      }
+    }
 
     Circle.prototype.resize = function() {
       this.x = rand(0, X);
@@ -105,18 +118,17 @@
           var b;
           var c;
           var thatR = circles[i].r;
+          var thatC = circles[i].c;
           var sumRadius = this.r + thatR;
           a = this.x - circles[i].x;
           b = this.y - circles[i].y;
           c = a * a + b * b;
           if (c < sumRadius * sumRadius) {
-            if (this.r >= thatR) {
-              this.updateParams();
-              circles.splice(j, 1);
-            } else {
-              this.updateparams();
-              circles.splice(i, 1);
+            if (this.c !== thatC) {
+              this.c = 'rgb(255, 57, 57)';
             }
+            this.v.x *= -1;
+            this.v.y *= -1;
           }
         }
       }
@@ -142,7 +154,9 @@
       }
     };
 
+
     Circle.prototype.render = function(i) {
+      if (stay === true) this.stayHome();
       this.updatePosition();
       this.coll(i);
       this.wrapPosition();
@@ -151,7 +165,9 @@
 
     for (var i = 0; i < colMax; i++) {
       for (var j = 0; j < rowMax; j++) {
-        var circle = new Circle(ctx, xSplit * i + xSplit / 2, ySplit * j + ySplit / 2);
+        var color;
+        i === colMax / 2  && j === rowMax  / 2 ? color = 'rgb(255, 57, 57)' : color = 'rgb(193, 242, 95)';
+        var circle = new Circle(ctx, xSplit * i + xSplit / 2, ySplit * j + ySplit / 2, color);
         circles.push(circle);
       }
     }
@@ -165,6 +181,9 @@
       for (var i = 0; i < circles.length; i++) {
         circles[i].render(i);
       }
+      countSickSick();
+      sick = 1;
+      healthy = splitNum * splitNum - 1;
       requestAnimationFrame(render);
     }
 
@@ -183,22 +202,38 @@
       }
     }
     
-    speed.addEventListener('change', function() {
-      distance = this.value;
-      for (var i = 0; i < circles.length; i++) {
-        circles[i].updatePosition();
-        circles[i].coll(i);
-      }
-    });
-         
-    window.addEventListener('mousemove', function(e) {
-    }, false);
-    
     window.addEventListener('resize', function() {
       onResize();
     });
 
+    resetBtn.addEventListener('click', function() {
+      circles = [];
+      stay = false; 
+      for (var i = 0; i < colMax; i++) {
+        for (var j = 0; j < rowMax; j++) {
+          var color;
+          i === colMax / 2  && j === rowMax  / 2 ? color = 'rgb(255, 57, 57)' : color = 'rgb(193, 242, 95)';
+          var circle = new Circle(ctx, xSplit * i + xSplit / 2, ySplit * j + ySplit / 2, color);
+          circles.push(circle);
+        }
+      }
+    }, false);
+
+    stayBtn.addEventListener('click', function() {
+      if (stay === true) {
+        stay = false;
+        stayBtn.textContent = 'Stay Home';
+        for (var i = 0; i < circles.length; i++) {
+          circles[i].v.x = rand(-1, 1);
+          circles[i].v.y = rand(-1, 1);
+        }
+      } else {
+        stay = true;
+        stayBtn.textContent = 'Go Out';
+      }
+    }, false);
+
   }); 
   // Author
-  console.log('File Name / giantKilling.js\nCreated Date / January 22, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
+  console.log('File Name / stayHome.js\nCreated Date / April 12, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();
