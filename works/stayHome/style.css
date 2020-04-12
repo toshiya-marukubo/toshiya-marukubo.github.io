@@ -56,3 +56,7 @@ div.controller {
   bottom: 1.6rem;
   left: 1.6rem;
 }
+
+div.controller > p {
+  font-size: 2.6rem;
+}
