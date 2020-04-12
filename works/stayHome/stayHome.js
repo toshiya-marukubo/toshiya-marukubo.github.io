@@ -209,6 +209,7 @@
     resetBtn.addEventListener('click', function() {
       circles = [];
       stay = false; 
+      stayBtn.textContent = 'Stay Home';
       for (var i = 0; i < colMax; i++) {
         for (var j = 0; j < rowMax; j++) {
           var color;
