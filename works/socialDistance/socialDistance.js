@@ -50,8 +50,8 @@
       this.y1 = this.y;
       this.r = r;
       this.v = {
-        x: rand(-2, 2) * Math.random() / 2,
-        y: rand(-2, 2) * Math.random() / 2
+        x: rand(-2, 2) * Math.random() / 1.5,
+        y: rand(-2, 2) * Math.random() / 1.5
       };
       this.c = {
         circle: 'rgb(161, 214, 226)',
@@ -100,7 +100,7 @@
           if (c < sumRadius * sumRadius) {
             particles.splice(j, 1);
           }
-          if (c < sumRadius * sumRadius * 2) {
+          if (c < sumRadius * sumRadius * 1.5) {
             this.v.x *= -1;
             this.v.y *= -1;
           }
@@ -196,7 +196,7 @@
     window.addEventListener('click', function(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      var particle = new Particle(ctx, mouseX, mouseY, rand(20, 80));
+      var particle = new Particle(ctx, mouseX, mouseY, rand(20, 50));
       particles.push(particle);
     }, false);
 
