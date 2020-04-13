@@ -158,7 +158,7 @@
       ctx.font = '16px "sans-serif"';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText('Please click the vacant space.', X / 2, Y / 2);
+      ctx.fillText('Please click vacant space.', X / 2, Y / 2);
     }
 
     /********************
