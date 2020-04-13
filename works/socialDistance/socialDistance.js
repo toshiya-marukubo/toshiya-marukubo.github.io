@@ -50,8 +50,8 @@
       this.y1 = this.y;
       this.r = r;
       this.v = {
-        x: rand(-2, 2) * Math.random(),
-        y: rand(-2, 2) * Math.random()
+        x: rand(-2, 2) * Math.random() / 2,
+        y: rand(-2, 2) * Math.random() / 2
       };
       this.c = {
         circle: 'rgb(161, 214, 226)',
