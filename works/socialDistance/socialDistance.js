@@ -70,15 +70,13 @@
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
       ctx.fill();
       ctx.restore();
-      /*
       ctx.save();
       ctx.fillStyle = this.c.text;
       ctx.font = '8px "sans-serif"';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText('X:' + Math.floor(this.x) + ' Y:' + Math.floor(this.y), this.x, this.y, this.r * 2);
+      ctx.fillText('r:' + this.r, this.x, this.y, this.r * 2);
       ctx.restore();
-      */
     };
 
     Particle.prototype.updatePosition = function () {
