@@ -31,11 +31,13 @@
       Particle
     ********************/
     
-    var particleNum = 2;
+    var particleNum = 10;
     var particles = [];
 
+    var colors = ['rgb(157, 195, 226)', 'rgb(157, 210, 216)', 'rgb(255, 181, 204)', 'rgb(226, 137, 219)'];
+
     if (X < 768) {
-      particleNum = 2;
+      particleNum = 10;
     }
 
     function Particle(ctx, x, y, r) {
@@ -50,11 +52,11 @@
       this.y1 = this.y;
       this.r = r;
       this.v = {
-        x: rand(-2, 2) * Math.random() / 1.5,
-        y: rand(-2, 2) * Math.random() / 1.5
+        x: rand(-2, 2) * Math.random() / 2,
+        y: rand(-2, 2) * Math.random() / 2
       };
       this.c = {
-        circle: 'rgb(161, 214, 226)',
+        circle: colors[rand(0, colors.length - 1)],
         text: 'rgb(25, 149, 173)'
       };
       this.ga = Math.random();
@@ -64,18 +66,10 @@
       var ctx = this.ctx;
       ctx.save();
       ctx.beginPath();
-      //ctx.globalCompositeOperation = 'xor';
       ctx.globalAlpha = this.ga;
       ctx.fillStyle = this.c.circle;
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
       ctx.fill();
-      ctx.restore();
-      ctx.save();
-      ctx.fillStyle = this.c.text;
-      ctx.font = '8px "sans-serif"';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText('X:' + Math.floor(this.x) + ' Y:' + Math.floor(this.y), this.x, this.y, this.r * 2);
       ctx.restore();
     };
 
@@ -84,18 +78,6 @@
       this.y += this.v.y;
     };
 
-    Particle.prototype.drawLines = function() {
-      ctx.save();
-      ctx.strokeStyle = 'rgb(161, 214, 226)';
-      for (var i = 0; i < particles.length; i++) {
-        ctx.beginPath();
-        ctx.moveTo(this.x, this.y);
-        ctx.lineTo(particles[i].x, particles[i].y);
-        ctx.stroke();
-      }
-      ctx.restore();
-    };
-  
     Particle.prototype.coll = function(i) {
       var j = i;
       for (var i = 0; i < particles.length; i++) {
@@ -110,11 +92,7 @@
           b = this.y - particles[i].y;
           c = a * a + b * b;
           if (c < sumRadius * sumRadius) {
-            particles.splice(j, 1);
-          }
-          if (c < sumRadius * sumRadius * 2) {
-            this.v.x *= -1;
-            this.v.y *= -1;
+            this.init(rand(0 + 80, X - 80), rand(0 + 80, Y - 80), rand(20, 50));
           }
         }
       }
@@ -143,19 +121,20 @@
     Particle.prototype.render = function (i) {
       this.updatePosition();
       this.wrapPosition();
-      this.coll(i);
-      this.drawLines();
+      //this.coll(i);
       this.draw();
     };
     
-    particles.push(new Particle(ctx, X / 2, Y / 3, rand(50, 50)));
-    particles.push(new Particle(ctx, X / 2, Y - Y / 3, rand(50, 50)));
-    
-    /* 
+    for (var i = 0; i < particleNum; i++) {
+      var particle = new Particle(ctx, rand(0 + 80, X - 80), rand(0 + 80, Y - 80), rand(10, 50));
+      particles.push(particle);
+    }
+     
     function drawLine() {
       ctx.save();
       ctx.lineWidth = 1;
       ctx.strokeStyle = 'rgb(161, 214, 226)';
+      ctx.globalAlpha = 0.8;
       ctx.beginPath();
       ctx.moveTo(particles[0].x, particles[0].y);
       for (var i = 0; i < particles.length; i++) {
@@ -165,7 +144,6 @@
       ctx.stroke();
       ctx.restore();
     }
-    */
 
     function drawText() {
       ctx.save();
@@ -173,7 +151,7 @@
       ctx.font = '16px "sans-serif"';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText('Please click vacant space.', X / 2, Y / 2);
+      ctx.fillText('Please click the window.', X / 2, Y / 2);
     }
 
     /********************
@@ -185,7 +163,7 @@
       for (var i = 0; i < particles.length; i++) {
         particles[i].render(i);
       }
-      //drawLine();
+      drawLine();
       drawText();
       requestAnimationFrame(render);
     }
@@ -211,8 +189,11 @@
     window.addEventListener('click', function(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      var particle = new Particle(ctx, mouseX, mouseY, rand(20, 50));
-      particles.push(particle);
+      var num = rand(1, 20);
+      for (var i = 0; i < num; i++) {
+        var particle = new Particle(ctx, rand(mouseX - 50, mouseX + 50), rand(mouseY - 50, mouseY + 50), rand(10, 50));
+        particles.push(particle);
+      }
     }, false);
 
     window.addEventListener('touchmove', function(e) {
@@ -220,12 +201,15 @@
         var touch = event.targetTouches[0];
         mouseX = touch.pageX;
         mouseY = touch.pageY;
-        var particle = new Particle(ctx, mouseX, mouseY, rand(20, 50));
-        particles.push(particle);
+        var num = rand(1, 20);
+        for (var i = 0; i < num; i++) {
+          var particle = new Particle(ctx, rand(mouseX - 50, mouseX + 50), rand(mouseY - 50, mouseY + 50), rand(10, 50));
+          particles.push(particle);
+        }
       }
     }, false);
 
   });
   // Author
-  console.log('File Name / socialDistance.js\nCreated Date / April 13, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
+  console.log('File Name / link.js\nCreated Date / April 14, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();
