@@ -168,8 +168,8 @@
       this.draw();
     };
     
-    particles.push(new Particle(ctx, X / 2, Y / 3, rand(50, 50)));
-    particles.push(new Particle(ctx, X / 2, Y - Y / 3, rand(50, 50)));
+    particles.push(new Particle(ctx, X / 2, Y / 3, rand(20, 50)));
+    particles.push(new Particle(ctx, X / 2, Y - Y / 3, rand(20, 50)));
     
     /* 
     function drawLine() {
