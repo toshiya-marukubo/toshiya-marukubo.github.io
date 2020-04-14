@@ -83,6 +83,18 @@
       this.x += this.v.x;
       this.y += this.v.y;
     };
+
+    Particle.prototype.drawLines = function() {
+      ctx.save();
+      ctx.strokeStyle = 'rgb(161, 214, 226)';
+      for (var i = 0; i < particles.length; i++) {
+        ctx.beginPath();
+        ctx.moveTo(this.x, this.y);
+        ctx.lineTo(particles[i].x, particles[i].y);
+        ctx.stroke();
+      }
+      ctx.restore();
+    };
   
     Particle.prototype.coll = function(i) {
       var j = i;
@@ -100,7 +112,7 @@
           if (c < sumRadius * sumRadius) {
             particles.splice(j, 1);
           }
-          if (c < sumRadius * sumRadius * 1.5) {
+          if (c < sumRadius * sumRadius * 2) {
             this.v.x *= -1;
             this.v.y *= -1;
           }
@@ -132,12 +144,14 @@
       this.updatePosition();
       this.wrapPosition();
       this.coll(i);
+      this.drawLines();
       this.draw();
     };
     
     particles.push(new Particle(ctx, X / 2, Y / 3, rand(50, 50)));
     particles.push(new Particle(ctx, X / 2, Y - Y / 3, rand(50, 50)));
     
+    /* 
     function drawLine() {
       ctx.save();
       ctx.lineWidth = 1;
@@ -151,6 +165,7 @@
       ctx.stroke();
       ctx.restore();
     }
+    */
 
     function drawText() {
       ctx.save();
@@ -170,7 +185,7 @@
       for (var i = 0; i < particles.length; i++) {
         particles[i].render(i);
       }
-      drawLine();
+      //drawLine();
       drawText();
       requestAnimationFrame(render);
     }
