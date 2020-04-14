@@ -31,7 +31,7 @@
       Particle
     ********************/
     
-    var particleNum = 10;
+    var particleNum = 20;
     var particles = [];
 
     var colors = ['rgb(157, 195, 226)', 'rgb(157, 210, 216)', 'rgb(255, 181, 204)', 'rgb(226, 137, 219)'];
@@ -126,7 +126,7 @@
     };
     
     for (var i = 0; i < particleNum; i++) {
-      var particle = new Particle(ctx, rand(0 + 80, X - 80), rand(0 + 80, Y - 80), rand(10, 50));
+      var particle = new Particle(ctx, X / 2, Y / 2, rand(10, 50));
       particles.push(particle);
     }
      
