@@ -70,6 +70,7 @@
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
       ctx.fill();
       ctx.restore();
+      /*
       ctx.save();
       ctx.fillStyle = this.c.text;
       ctx.font = '8px "sans-serif"';
@@ -77,6 +78,7 @@
       ctx.textBaseline = 'middle';
       ctx.fillText('X:' + Math.floor(this.x) + ' Y:' + Math.floor(this.y), this.x, this.y, this.r * 2);
       ctx.restore();
+      */
     };
 
     Particle.prototype.updatePosition = function () {
@@ -92,6 +94,25 @@
         ctx.moveTo(this.x, this.y);
         ctx.lineTo(particles[i].x, particles[i].y);
         ctx.stroke();
+      }
+      ctx.restore();
+    };
+
+    Particle.prototype.distance = function(i) {
+      var j = i;
+      ctx.save();
+      ctx.fillStyle = this.c.text;
+      ctx.font = '8px "sans-serif"';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      for (var i = 0; i < particles.length; i++) {
+        if (j !== i) {
+          var x = Math.abs(this.x - particles[i].x);
+          var y = Math.abs(this.y - particles[i].y);
+          var h = x * x + y * y;
+          var distance = Math.floor(Math.sqrt(h));
+          ctx.fillText(distance, this.x - (this.x - particles[i].x) / 2, this.y - (this.y - particles[i].y) / 2, this.r * 2);
+        }
       }
       ctx.restore();
     };
@@ -145,6 +166,7 @@
       this.wrapPosition();
       this.coll(i);
       this.drawLines();
+      this.distance(i);
       this.draw();
     };
     
