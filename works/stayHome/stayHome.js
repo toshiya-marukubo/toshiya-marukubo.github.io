@@ -78,6 +78,7 @@
       };
       this.c = c;
       this.r = ySplit / 8;
+      this.l = rand(5, 30);
     };
 
     Circle.prototype.draw = function() {
@@ -87,6 +88,15 @@
       ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
       ctx.closePath();
       ctx.fill();
+    };
+
+    Circle.prototype.updateParam = function() {
+      this.l -= 0.1;
+      if(this.l < 0 && stay === false) {
+        this.v.x = rand(-1, 1);
+        this.v.y = rand(-1, 1);
+        this.l = rand(1, 10);
+      }
     };
 
     Circle.prototype.stayHome = function() {
@@ -157,6 +167,7 @@
 
     Circle.prototype.render = function(i) {
       if (stay === true) this.stayHome();
+      this.updateParam();
       this.updatePosition();
       this.coll(i);
       this.wrapPosition();

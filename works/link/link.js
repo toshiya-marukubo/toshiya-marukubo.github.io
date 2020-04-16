@@ -62,7 +62,7 @@
       this.ga = Math.random();
     };
 
-    Particle.prototype.draw = function () {
+    Particle.prototype.draw = function (i) {
       var ctx = this.ctx;
       ctx.save();
       ctx.beginPath();
@@ -70,6 +70,14 @@
       ctx.fillStyle = this.c.circle;
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
       ctx.fill();
+      ctx.restore();
+      ctx.save();
+      ctx.beginPath();
+      ctx.fillStyle = this.c.text;
+      ctx.font = '10px "sans-serif"';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(i + 1, this.x, this.y);
       ctx.restore();
     };
 
@@ -122,7 +130,7 @@
       this.updatePosition();
       this.wrapPosition();
       //this.coll(i);
-      this.draw();
+      this.draw(i);
     };
     
     for (var i = 0; i < particleNum; i++) {

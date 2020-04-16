@@ -57,7 +57,7 @@
         circle: 'rgb(161, 214, 226)',
         text: 'rgb(25, 149, 173)'
       };
-      this.ga = Math.random();
+      this.ga = Math.random() + 0.1;
     };
 
     Particle.prototype.draw = function () {
