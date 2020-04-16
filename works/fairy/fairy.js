@@ -118,9 +118,6 @@
       }
       this.l -= 0.1;
       if (this.l < 0) {
-        if (fairies.length < 10) {
-          return;
-        }
         fairies.splice(i, 1);
       }
     };
