@@ -23,7 +23,6 @@
     var ctx = canvas.getContext('2d');
     var X = canvas.width = window.innerWidth;
     var Y = canvas.height = window.innerHeight;
-    var flg = true;
     var mouseX = X / 2;
     var mouseY = Y / 2;
 
@@ -46,10 +45,10 @@
     
     var moonNum = 1;
     var moons = [];
-    var radius = 150;
+    var radius = X / 2;
 
     if (X < 768) {
-      radius = 100;
+      radius = X / 2;
     }
 
     function Moon(ctx, x, y) {
@@ -61,13 +60,13 @@
       this.x = x;
       this.y = y;
       this.c = '255, 255, 255';
-      this.r = 100;
+      this.r = radius;
     };
     
     Moon.prototype.resize = function() {
       this.x = X / 2;
       this.y = Y / 2;
-      this.r = 100;
+      this.r = radius;
     };
 
     Moon.prototype.render = function() {
@@ -90,7 +89,7 @@
     };
 
     for (var i = 0; i < moonNum; i++) {
-      var moon = new Moon(ctx, X / 2, Y / 2);
+      var moon = new Moon(ctx, 0, 0);
       moons.push(moon);
     }
 
@@ -103,7 +102,7 @@
     var maxParticles = 1;
 
     if (X < 768) {
-      particleNum = 2000;
+      particleNum = 1000;
     }
 
     function Particle(ctx, x, y, r) {
@@ -115,6 +114,7 @@
       this.x = x;
       this.y = y;
       this.r = r;
+      this.s = 0.1;
       this.v = {
         x: 0,
         y: 0
@@ -124,29 +124,9 @@
         g: rand(0, 255),
         b: rand(0, 255)
       };
-      this.s = 0.1;
     };
 
     Particle.prototype.closest = function(i){
-      /*
-      var j = i;
-      var dist = Number.MAX_VALUE;
-      var closestI = 0;
-      for (var i = 0; i < particles.length; i++) {
-        if (j != i) {
-          var x = Math.abs(this.x - particles[i].x);
-          var y = Math.abs(this.y - particles[i].y);
-          var d = x * x + y * y;
-          var newDist = Math.floor(Math.sqrt(d));
-          if (newDist < dist) {
-            dist = newDist;
-            closestI = i;
-          }
-        }
-      }
-      var x = particles[closestI].x - this.x;
-      var y = particles[closestI].y - this.y;
-      */
       var x = this.x - mouseX;
       var y = this.y - mouseY;
       var d = x * x + y * y;
@@ -154,56 +134,31 @@
       this.v.x = x / newDist * (1 + this.s);
       this.v.y = y / newDist * (1 + this.s);
       this.r += 0.05;
-      if (flg === true) {
-        this.x += this.v.x;
-        this.y += this.v.y;
-        if (Math.abs(this.x - mouseX) < 10 && Math.abs(this.y - mouseY) < 10) {
-          this.x = rand(0, X);
-          this.y = rand(0, Y);
-          this.s = 0.1;
-          this.r = 1;
-        }
-        if (this.x < 0) {
-          this.x = rand(0, X);
-          this.s = 0.1;
-          this.r = 1;
-        }
-        if (this.x > X) {
-          this.x = rand(0, X);
-          this.s = 0.1;
-          this.r = 1;
-          
-        }
-        if (this.y < 0) {
-          this.y = rand(0, Y);
-          this.s = 0.1;
-          this.r = 1;
-        }
-        if (this.y > Y) {
-          this.y = rand(0, Y);
-          this.s = 0.1;
-          this.r = 1;
-        }
+      this.x += this.v.x;
+      this.y += this.v.y;
+      if (Math.abs(this.x - mouseX) < 10 && Math.abs(this.y - mouseY) < 10) {
+        this.x = rand(0, X);
+        this.y = rand(0, Y);
+        this.s = 0.1;
+        this.r = 1;
       }
-      /*
-      if (flg === false) {
-        this.x -= this.v.x;
-        this.y -= this.v.y;
-        if (this.r > 1) {
-          this.r -= 0.1;
-        }
-        if (Math.abs(this.x - mouseX) < 10 && Math.abs(this.y - mouseY) < 10) {
-          this.s = 0;
-        }
+      if (this.x < 0 || this.x > X) {
+        this.x = rand(0, X);
+        this.s = 0.1;
+        this.r = 1;
       }
-      */
+      if (this.y < 0 || this.y > Y) {
+        this.y = rand(0, Y);
+        this.s = 0.1;
+        this.r = 1;
+      }
     };
 
     Particle.prototype.updateParams = function() {
       this.s += 0.05;
     };
     
-    Particle.prototype.draw = function () {
+    Particle.prototype.draw = function() {
       var ctx = this.ctx;
       ctx.save();
       ctx.beginPath();
@@ -220,17 +175,23 @@
     };
 
     for (var i = 0; i < particleNum; i++) {
-      var particle = new Particle(ctx, rand(0, X), rand(0, Y), rand(1, 2));
+      var particle = new Particle(ctx, rand(0, X), rand(0, Y), 1);
       particles.push(particle);
     }
     
+    /********************
+      Text
+    ********************/
+    
+    var text = 'Please holding down the mouse.';
+
     function drawText() {
       ctx.save();
       ctx.fillStyle = 'rgb(25, 149, 173)';
       ctx.font = '16px "sans-serif"';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText('Please keep mouse down.', X / 2, Y / 2);
+      ctx.fillText(text, X / 2, Y / 2);
     }
 
     /********************
@@ -239,16 +200,14 @@
     
     function render() {
       ctx.clearRect(0, 0, X, Y);
-      //drawText();
-      for (var i = 0; i < moons.length; i++) {
-        moons[i].render();
-      }
+      moons[0].render();
+      drawText();
       for (var i = 0; i < particles.length; i++) {
         particles[i].render(i);
       }
-      //addParticle();
       requestAnimationFrame(render);
     }
+
     render();
 
     /********************
@@ -263,14 +222,6 @@
       }
     }
 
-    /*
-    window.addEventListener('click', function(e) {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      flg === true ? flg = false : flg = true;
-    }, false);
-    */
-
     window.addEventListener('resize', function() {
       onResize();
     });
@@ -283,12 +234,14 @@
           particles[i].s += 1;
           particles[i].r += 2;
         }
+        text = 'Warp';
         moons[0].r += 1;
       }, 20);
     });
 
     window.addEventListener('mouseup', function() {
       clearInterval(clearId);
+      text = 'Please holding down the mouse.';
     });
 
     window.addEventListener('mousemove', function(e) {
@@ -297,27 +250,25 @@
     });
 
     window.addEventListener('touchstart', function(e) {
-      if (e.targetTouches.length === 1) {
-        var touch = event.targetTouches[0];
-        mouseX = touch.pageX;
-        mouseY = touch.pageY;
-        clearId = setInterval(function() {
-          for (var i = 0; i < particles.length; i++) {
-            particles[i].s += 1;
-            particles[i].r += 3;
-          }
-        }, 20);
-      }
+      var touch = event.targetTouches[0];
+      mouseX = touch.pageX;
+      mouseY = touch.pageY;
+      clearId = setInterval(function() {
+        for (var i = 0; i < particles.length; i++) {
+          particles[i].s += 1;
+          particles[i].r += 3;
+        }
+        text = 'Warp';
+        moons[0].r += 1;
+      }, 20);
     }, false);
 
-    document.addEventListener('touchend', function(e) {
-      if (e.targetTouches.length === 1) {
-        clearInterval(clearId);
-        console.log('touchend');
-      }
+    window.addEventListener('touchend', function(e) {
+      clearInterval(clearId);
+      text = 'Please holding down the mouse.';
     });
 
   });
   // Author
-  console.log('File Name / spaceTravel.js\nCreated Date / April 19, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
+  console.log('File Name / goToTheMoon.js\nCreated Date / April 19, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();
