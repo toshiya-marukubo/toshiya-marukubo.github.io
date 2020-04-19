@@ -101,6 +101,8 @@
     var particles = [];
     var maxParticles = 1;
 
+    var colors = ['rgb(54, 38, 112)', 'rgb(98, 98, 159)', 'rgb(0, 137, 190)', 'rgb(0, 108, 154)'];
+
     if (X < 768) {
       particleNum = 1000;
     }
@@ -115,15 +117,19 @@
       this.y = y;
       this.r = r;
       this.s = 0.1;
+      this.ga = rand(0, 1) + 0.1;
       this.v = {
         x: 0,
         y: 0
       };
+      /*
       this.c = {
         r: rand(0, 255),
         g: rand(0, 255),
         b: rand(0, 255)
       };
+      */
+      this.c = colors[rand(0, colors.length - 1)];
     };
 
     Particle.prototype.closest = function(i){
@@ -167,7 +173,10 @@
       var ctx = this.ctx;
       ctx.save();
       ctx.beginPath();
-      ctx.fillStyle = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
+      ctx.globalAlpha = this.ga;
+      ctx.fillStyle = this.c;
+      ctx.globalCompositeOperation = 'lighter';
+      //ctx.fillStyle = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
       ctx.fill();
       ctx.restore();
@@ -192,7 +201,7 @@
 
     function drawText() {
       ctx.save();
-      ctx.fillStyle = 'rgb(25, 149, 173)';
+      ctx.fillStyle = 'rgb(0, 137, 190)';
       ctx.font = '16px "sans-serif"';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
