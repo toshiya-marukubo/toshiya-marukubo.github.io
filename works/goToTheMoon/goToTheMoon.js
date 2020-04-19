@@ -217,9 +217,6 @@
     function onResize() {
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
-      for (var i = 0; i < particles.length; i++) {
-        particles[i].resize();
-      }
     }
 
     window.addEventListener('resize', function() {
