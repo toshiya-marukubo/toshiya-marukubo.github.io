@@ -250,7 +250,7 @@
           particles[i].r += 2;
         }
         text = 'Warp';
-        moons[0].r += 1;
+        moons[0].r += 0.5;
       }, 20);
     });
 
@@ -274,7 +274,7 @@
           particles[i].r += 3;
         }
         text = 'Warp';
-        moons[0].r += 1;
+        moons[0].r += 0.5;
       }, 20);
     }, false);
 
