@@ -76,6 +76,7 @@
     };
 
     Particle.prototype.closest = function(i){
+      /*
       var j = i;
       var dist = Number.MAX_VALUE;
       var closestI = 0;
@@ -83,7 +84,7 @@
         if (j != i) {
           var x = Math.abs(this.x - particles[i].x);
           var y = Math.abs(this.y - particles[i].y);
-          var d = x * x + y + y;
+          var d = x * x + y * y;
           var newDist = Math.floor(Math.sqrt(d));
           if (newDist < dist) {
             dist = newDist;
@@ -93,18 +94,26 @@
       }
       var x = particles[closestI].x - this.x;
       var y = particles[closestI].y - this.y;
-      var newDist = Math.sqrt(x ** 2 + y ** 2);
-      this.v.x = x / newDist * 5;
-      this.v.y = y / newDist * 5;
-      if (Math.abs(this.x - particles[closestI].x) < Math.abs(particles[closestI].r + this.r) && Math.abs(this.y - particles[closestI].y) < Math.abs(particles[closestI].r + this.r)) {
+      */
+      var x = this.x - X / 2;
+      var y = this.y - Y / 2;
+      var d = x * x + y * y;
+      var newDist = Math.sqrt(d);
+      this.v.x = x / newDist * 1;
+      this.v.y = y / newDist * 1;
+      this.x -= this.v.x;
+      this.y -= this.v.y;
+      /*
+      if (Math.abs(this.x - particles[closestI].x) < this.r + particles[closestI].r && Math.abs(this.y - particles[closestI].y) < this.r + particles[closestI].r) {
         this.v.x = 0;
         this.v.y = 0;
-      } else {
+        } else {
         this.x += this.v.x;
         this.y += this.v.y;
       }
+      */
     };
-
+    
     Particle.prototype.draw = function () {
       var ctx = this.ctx;
       ctx.save();
@@ -118,12 +127,11 @@
 
     Particle.prototype.render = function (i) {
       this.closest(i);
-      //this.updatePosition();
       this.draw();
     };
 
     for (var i = 0; i < particleNum; i++) {
-      var particle = new Particle(ctx, X / 2, Y / 2, rand(5, 10));
+      var particle = new Particle(ctx, rand(0, X), rand(0, Y), rand(5, 10));
       particles.push(particle);
     }
     
@@ -144,7 +152,6 @@
       //addParticle();
       requestAnimationFrame(render);
     }
-    
     render();
 
     /********************
@@ -161,7 +168,7 @@
     window.addEventListener('click', function(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      var particle = new Particle(ctx, rand(0, X), rand(0, Y), rand(10, 10));
+      var particle = new Particle(ctx, mouseX, mouseY, rand(5, 20));
       particles.push(particle);
     }, false);
 
@@ -172,6 +179,8 @@
     window.addEventListener('mousemove', function(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
+      var particle = new Particle(ctx, mouseX, mouseY, rand(1, 5));
+      particles.push(particle);
     });
 
     window.addEventListener('touchmove', function(e) {
