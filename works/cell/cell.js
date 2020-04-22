@@ -101,13 +101,13 @@
     }
 
     Particle.prototype.updatePosition = function() {
-        this.v.y += 0.1;
-        this.x += this.v.x;
-        this.y += this.v.y;
-        if (this.y > Y - this.r) {
-          this.v.y *= -0.5;
-          this.y = Y - this.r;
-        }
+      this.v.y += 0.1;
+      this.x += this.v.x;
+      this.y += this.v.y;
+      if (this.y > Y - this.r) {
+        this.v.y *= -0.5;
+        this.y = Y - this.r;
+      }
     };
 
     Particle.prototype.draw = function () {
