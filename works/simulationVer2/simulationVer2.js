@@ -85,8 +85,10 @@
         var x = this.x - this.x1;
         var y = this.y - this.y1;
         if (Math.abs(x) < 10 && Math.abs(y) < 10) {
-          this.v.x = 0;
-          this.v.y = 0;
+          this.v.x = rand(-1, 1);
+          this.v.y = rand(-1, 1);
+          this.x += this.v.x;
+          this.y += this.v.y;
           this.s = Math.random();
           this.r = 50;
           this.rotate = false;
