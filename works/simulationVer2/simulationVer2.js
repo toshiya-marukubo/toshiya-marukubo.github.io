@@ -142,7 +142,7 @@
       }
       ctx.globalCompositeOperation = 'lighter';
       ctx.fillStyle = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
-      ctx.font = this.r + 'px sans-serif';
+      ctx.font = this.r + 'px sans';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(this.character, this.x, this.y);
