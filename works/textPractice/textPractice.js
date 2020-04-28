@@ -25,22 +25,18 @@
     var Y = canvas.height = window.innerHeight;
     var mouseX = X / 2;
     var mouseY = Y / 2;
-    var main = document.getElementById('main');
-    var bgColor = document.getElementById('bgColor');
-    var textColor = document.getElementById('textColor');
-    var changeText = document.getElementById('changeText');
-    var text = 'Toshiya Marukubo ';
-    var fontType = 'sans-serif';
-    var fontSize = '16px';
-    var fontColor = 'rgb(0, 0, 0)';
-    var textArea;
+    var text = 'Please wait a moment. ';
+    var textNum = text.length;
+    var texts = [];
+    var startAngle = Math.PI * 2;
+    var endAngle = 0;
+    var angleSplit = (startAngle - endAngle) / text.length;
+    var radius = X / 10;
     var flg = false;
-   
-    for (var i = 0; i < 10; i++) {
-      var str = String.fromCharCode(rand(0, 100000000));
-      console.log(str);
+    
+    if (X < 768) {
+      radius = X / 3;
     } 
-
     /********************
       Animation
     ********************/
@@ -57,57 +53,126 @@
     /********************
       Text
     ********************/
-    
-    function drawText(mouseX, mouseY) {
+
+    function drawText() {
       ctx.save();
-      ctx.fillStyle = fontColor;
-      ctx.font = fontSize + ' ' + fontType;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText(text, mouseX, mouseY);
+      ctx.fillStyle = 'rgb(30, 30, 30)';
+      ctx.font = '12px "sans-selif"';
+      ctx.fillText('Now Loading.', X / 2, Y / 2);
+      ctx.restore();
+    }
+
+    /********************
+      Text
+    ********************/
+    
+    function drawTextOnCircle(ctx, text, angleSplit, radius, index, x, y) {
+      this.ctx = ctx;
+      this.init(text, angleSplit, radius, index, x, y);
+    }
+
+    drawTextOnCircle.prototype.init = function(text, angleSplit, radius, index, x, y) {
+      this.text = text;
+      this.radius = radius;
+      this.index = index;
+      this.x = x;
+      this.y = y;
+      this.x1 = X / textNum * (index + 1);
+      this.y1 = Y / 2;
+      this.x2 = this.x;
+      this.y2 = this.y;
+      this.angle = angleSplit;
+      this.v = {
+        x: 0,
+        y: 0
+      };
+      this.rad = rand(0, 360) * Math.PI / 180;
+    };
+
+    drawTextOnCircle.prototype.draw = function(){
+      var ctx = this.ctx;
+      ctx.save();
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = 'rgb(30, 30, 30)';
+      ctx.font = '16px "sans-selif"';
+      ctx.translate(this.x + Math.cos(this.angle) * this.radius, this.y - Math.sin(this.angle) * this.radius);
+      if (flg === false) ctx.rotate(Math.PI / 2 - this.angle);
+      ctx.fillText(this.text, 0, 0);
       ctx.restore();
     };
 
-    function drawTextOnCircle(string, startAngle, endAngle, radius) {
-      var radius = radius;
-      var angleDec = (startAngle - endAngle) / (string.length);
-      var angle = parseFloat(startAngle);
-      var character;
-      ctx.save();
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillStyle = 'rgb(0, 0, 0)';
-      ctx.strokeStyle = 'rgb(50, 50, 50)';
-      ctx.font = fontSize + ' ' + 'px sans-selif';
-      for (var i = 0; i < string.length; i++) {
-        character = string.charAt(i);
-        ctx.save();
-        ctx.beginPath();
-        ctx.translate(mouseX + Math.cos(angle) * radius, mouseY - Math.sin(angle) * radius);
-        ctx.rotate(Math.PI / 2 - angle);
-        ctx.fillText(character, 0, 0);
-        ctx.strokeText(character, 0, 0);
-        angle -= angleDec;
-        ctx.restore();
+    drawTextOnCircle.prototype.updateParams = function() {
+      this.angle -= 0.02;
+      this.rad -= 0.02;
+    };
+
+    drawTextOnCircle.prototype.updatePosition = function() {
+      var x = this.x - this.x1;
+      var y = this.y - this.y1;
+      var d = x * x + y * y;
+      if (Math.abs(x) < 5 && Math.abs(y) < 5) {
+        this.v.x = 0;
+        this.v.y = 0;
+      } else {
+        var newDist = Math.sqrt(d);
+        this.v.x = x / newDist * 5;
+        this.v.y = y / newDist * 5;
+        this.x = Math.sin(this.rad) * 1 + this.x;
+        this.y = Math.cos(this.rad) * 1 + this.y;
+        this.x -= this.v.x;
+        this.y -= this.v.y;
       }
-      ctx.restore();
+    };
+
+    var returnFlg = false;
+
+    drawTextOnCircle.prototype.returnPosition = function() {
+      var x = this.x - this.x2;
+      var y = this.y - this.y2;
+      var d = x * x + y * y;
+      if (Math.abs(x) <= 2 && Math.abs(y) <= 2) {
+        this.v.x = 0;
+        this.v.y = 0;
+      } else {
+        var newDist = Math.sqrt(d);
+        this.v.x = x / newDist * 5;
+        this.v.y = y / newDist * 5;
+        this.x = Math.sin(this.rad) * 1 + this.x;
+        this.y = Math.cos(this.rad) * 1 + this.y;
+        this.x -= this.v.x;
+        this.y -= this.v.y;
+      }
+    };
+
+    drawTextOnCircle.prototype.render = function() {
+      this.draw();
+      this.updateParams();
+      if (flg === true) {
+        this.updatePosition();
+      }
+      if (returnFlg === true) {
+        this.returnPosition();
+      }
+    };
+
+    for (var i = 0; i < text.length; i++) {
+      var t = new drawTextOnCircle(ctx, text[i], -angleSplit * i, radius, i, mouseX, mouseY);
+      texts.push(t);
     }
 
     /********************
       Render
     ********************/
    
-    var start = Math.PI * 2;
-    var end = 0;
-    var radius = 100;
     function render() {
-      if (flg === false) {
-        ctx.clearRect(0, 0, X, Y);
+      ctx.clearRect(0, 0, X, Y);
+      drawText();
+      for (var i = 0; i < texts.length; i++) {
+        texts[i].render();
       }
-      //drawText(X / 2, mouseY);
-      drawTextOnCircle(text, start, end, radius);
-      start -= 0.02;
-      end -= 0.02;
       requestAnimationFrame(render);
     }
 
@@ -126,35 +191,22 @@
       onResize();
     });
     
-    window.addEventListener('click', function(){
-      if (!document.getElementsByTagName('textarea').length) {
-        text = '';
-        textArea = document.createElement('textarea');
-        textArea.setAttribute('placeholder', 'Please input text and push enter key.');
-        main.appendChild(textArea).focus();
-        document.getElementsByTagName('textarea')[0].style.fontSize = fontSize;
-      }
-    }, false);
-   
-    window.addEventListener('keyup', function(e){
-      var textArea = document.getElementsByTagName('textarea')[0];
-      if (e.keyCode === 13) {
-        text = textArea.value.slice(0, -1);
-        document.getElementById('main').removeChild(textArea);
-      }
-    });
-
     window.addEventListener('mousemove', function(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      fontSize = mouseX / 8 + 16 + 'px';
-      radius = mouseX / 5 + 100;
-      if (document.getElementsByTagName('textarea').length) {
-        document.getElementsByTagName('textarea')[0].style.fontSize = fontSize;
-      }
     });
+
+    window.addEventListener('click', function() {
+      if (flg === true) {
+        flg = false;
+        returnFlg = true;
+      } else {
+        flg = true;
+        returnFlg = false;
+      }
+    }, false);
 
   });
   // Author
-  console.log('File Name / simulationVer1.js\nCreated Date / April 22, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
+  console.log('File Name / loadingText.js\nCreated Date / April 25, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();
