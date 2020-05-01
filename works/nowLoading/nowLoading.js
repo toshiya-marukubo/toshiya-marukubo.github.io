@@ -183,7 +183,7 @@
    
     function render() {
       ctx.clearRect(0, 0, X, Y);
-      drawText();
+      if (Math.random() < 0.1) drawText();
       for (var i = 0; i < texts.length; i++) {
         texts[i].render();
       }
