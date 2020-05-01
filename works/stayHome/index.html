@@ -37,14 +37,17 @@
     <!-- Header -->
     <header id="header">
       <h1>stayHome</h1>
-      <p>Created date / April 12, 2020</p>
-      <p><a href="../../index.html">Back</a></p>
+      <ul>
+        <li><a href="https://twitter.com/toshiyamarukubo">@toshiyamarukubo</a></li>
+        <li id="other">Other</li>
+        <li><a href="../../index.html">Home</a></li>
+      </ul>    
     </header>
     <!-- Loading -->
     <p id="loading">Now Loading...</p>
     <!-- Contents -->
     <main id="main" style="diaplay: none;">
-      <canvas id="canvas">This browser cannot use a canvas.</canvas>
+      <canvas id="canvas">Canvas not supported.</canvas>
       <div class="controller">
         <p>Healthy <span id="countHealthy">63</span><br>Sick <span id="countSick">1</span></p>
         <button id="resetBtn">Reset</button>
@@ -53,6 +56,7 @@
     </main>
     <!-- Script -->
     <script src="../../home/js/loading.js"></script>
+    <script src="../../home/js/other.js"></script>
     <script src="./stayHome.js"></script>
   </body>
 </html>

@@ -37,20 +37,24 @@
     <!-- Header -->
     <header id="header">
       <h1>rainyDay</h1>
-      <p>Created date / January 20, 2020</p>
-      <p><a href="../../index.html">Back</a></p>
+      <ul>
+        <li><a href="https://twitter.com/toshiyamarukubo">@toshiyamarukubo</a></li>
+        <li id="other">Other</li>
+        <li><a href="../../index.html">Home</a></li>
+      </ul>
     </header>
     <!-- Loading -->
     <p id="loading">Now Loading...</p>
     <!-- Main -->
     <main id="main" style="display: none;">
-      <canvas id="canvas">This browser cannot use a canvas.</canvas>
+      <canvas id="canvas">Canvas not supported.</canvas>
       <div class="controller">
           <input type="range" id="amount" min="0" max="2000" value="500">
       </div>
     </main>
     <!-- Script -->
     <script src="../../home/js/loading.js"></script>
+    <script src="../../home/js/other.js"></script>
     <script src="./rainyDay.js"></script>
   </body>
 </html>

@@ -175,7 +175,7 @@
     ********************/
     
     // var
-    var grassNum = 100;
+    var grassNum = 200;
     var grasses = [];
 
     function Grass(ctx, x, y, w, t) {

@@ -6,17 +6,17 @@ html, body {
   height: 100%;
   width: 100%;
   font-family: Helvetica, verdana, monospace;
-  color: #000;
+  color: #17dbac;
   font-size: 100%;
   padding: 0;
   margin: 0;
   letter-spacing: 0.2rem;
   overflow: hidden;
-  background: #FFF;
+  background: #000;
 }
 
 a {
-  color: #FFF;
+  color: #17dbac;
   text-decoration: none;
 }
 
@@ -52,35 +52,5 @@ p#loading {
 ********************/
 
 canvas#canvas {
-  background: #FFF;
-}
-
-div#controller {
-  position: fixed;
-  bottom: 0%;
-  left: 50%;
   background: #000;
-  opacity: 0.8;
-  color: #FFF;
-  padding: 1.6rem;
-  -webkit-transform: translate(-50%, 0%);
-          transform: translate(-50%, 0%);
-}
-
-textarea {
-  position: fixed;
-  width: 100%;
-  font-size: 30px;
-  text-align: center;
-  border-bottom: 10px #000;
-  top: 50%;
-  left: 50%;
-  padding: 0;
-  border: none;
-  border-radius: 0;
-  border-bottom: solid 5px #000;
-  outline: none;
-  background: none;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
 }

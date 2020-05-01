@@ -202,7 +202,7 @@
     function drawText() {
       ctx.save();
       ctx.fillStyle = 'rgb(0, 137, 190)';
-      ctx.font = '16px "sans-serif"';
+      ctx.font = '12px "arial black"';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(text, X / 2, Y / 2);

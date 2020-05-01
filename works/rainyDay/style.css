@@ -5,16 +5,24 @@
 html, body {
   height: 100%;
   width: 100%;
-  font-family: Helvetica, verdana, monospace;
-  color: #FFFFFF;
+  font-family: 'arial black', Helvetica, verdana, monospace;
+  color: #FFF;
   font-size: 100%;
   padding: 0;
   margin: 0;
   letter-spacing: 0.2rem;
   overflow: hidden;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   background: #000000;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to bottom, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to bottom, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+body {
+  position:  relative;
 }
 
 a {
@@ -23,12 +31,11 @@ a {
 }
 
 h1 {
-  font-size: 1.6rem;
+  font-size: 2.4rem;
 }
 
-p {
-  padding: 0.8rem 0;
-  font-size: 0.8rem;
+ul > li {
+  padding-top: 1.6rem;
 }
 
 header#header {

@@ -50,10 +50,10 @@
       Text
     ********************/
     
-    var fontSize = '64px Arial';
+    var fontSize = '56px "arial black"';
     
     if (X < 768) {
-      fontSize = '24px Arial';
+      fontSize = '16px "arial black"';
     }
      
     function drawtext() {

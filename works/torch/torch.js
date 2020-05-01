@@ -145,7 +145,7 @@
       Text
     ********************/
     
-    var fontSize = '64px Arial';
+    var fontSize = '64px "arial black"';
     
     if (X < 768) {
       fontSize = '32px Arial';

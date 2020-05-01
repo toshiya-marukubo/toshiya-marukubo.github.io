@@ -3,7 +3,7 @@
 ********************/
 
 html, body {
-  font-family: Helvetica, verdana, monospace;
+  font-family: 'arial black', Helvetica, verdana, monospace;
   height: 100%;
   width: 100%;
   overflow: hidden;
@@ -13,6 +13,14 @@ html, body {
   padding: 0;
   margin: 0;
   letter-spacing: 0.2rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+body {
+  position:  relative;
 }
 
 a {
@@ -21,12 +29,11 @@ a {
 }
 
 h1 {
-  font-size: 1.6rem;
+  font-size: 2.4rem;
 }
 
-p {
-  padding: 0.8rem 0;
-  font-size: 0.8rem;
+ul > li {
+  padding-top: 1.6rem;
 }
 
 header#header {

@@ -187,15 +187,6 @@
     }
     */
 
-    function drawText() {
-      ctx.save();
-      ctx.fillStyle = 'rgb(25, 149, 173)';
-      ctx.font = '16px "sans-serif"';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText('Please click vacant space.', X / 2, Y / 2);
-    }
-
     /********************
       Render
     ********************/
@@ -206,7 +197,6 @@
         particles[i].render(i);
       }
       //drawLine();
-      drawText();
       requestAnimationFrame(render);
     }
 

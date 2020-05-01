@@ -26,6 +26,7 @@
     var mouseX = X / 2;
     var mouseY = Y / 2;
     var text = 'Please wait a moment. ';
+    var textColor = 'rgb(4, 255, 210)';
     var textNum = text.length;
     var texts = [];
     var startAngle = Math.PI * 2;
@@ -56,10 +57,13 @@
 
     function drawText() {
       ctx.save();
+      ctx.shadowColor = textColor;
+      ctx.shadowBlur = 10;
+      ctx.globalCompositeOperation = 'lighter';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillStyle = 'rgb(30, 30, 30)';
-      ctx.font = '12px "sans-selif"';
+      ctx.fillStyle = textColor;
+      ctx.font = '16px "arial black"';
       ctx.fillText('Now Loading.', X / 2, Y / 2);
       ctx.restore();
     }
@@ -94,10 +98,13 @@
     drawTextOnCircle.prototype.draw = function(){
       var ctx = this.ctx;
       ctx.save();
+      ctx.shadowColor = textColor;
+      ctx.shadowBlur = 1;
+      ctx.globalCompositeOperation = 'lighter';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillStyle = 'rgb(30, 30, 30)';
-      ctx.font = '16px "sans-selif"';
+      ctx.fillStyle = textColor;
+      ctx.font = '16px "arial black"';
       ctx.translate(this.x + Math.cos(this.angle) * this.radius, this.y - Math.sin(this.angle) * this.radius);
       if (flg === false) ctx.rotate(Math.PI / 2 - this.angle);
       ctx.fillText(this.text, 0, 0);
@@ -105,8 +112,8 @@
     };
 
     drawTextOnCircle.prototype.updateParams = function() {
-      this.angle -= 0.02;
-      this.rad -= 0.02;
+      this.angle -= 0.01;
+      this.rad -= 0.01;
     };
 
     drawTextOnCircle.prototype.updatePosition = function() {
@@ -147,6 +154,13 @@
       }
     };
 
+    drawTextOnCircle.prototype.resize = function() {
+      this.x = X / 2;
+      this.y = Y / 2;
+      this.x2 = this.x;
+      this.y2 = this.y;
+    };
+
     drawTextOnCircle.prototype.render = function() {
       this.draw();
       this.updateParams();
@@ -185,6 +199,11 @@
     function onResize() {
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
+      for (var i = 0; i < texts.length; i++) {
+        texts[i].resize();
+        texts[i].x1 = X / textNum * (i + 1);
+        texts[i].y1 = Y / 2;
+      }
     }
 
     window.addEventListener('resize', function(){

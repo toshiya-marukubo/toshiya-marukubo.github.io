@@ -18,7 +18,7 @@ html, body {
   color: #FFF;
   background: #000;
   position: fixed;
-  font-family: Helvetica, verdana, monospace;
+  font-family: 'arial black', Helvetica, verdana, monospace;
   font-size: 100%;
   line-height: 1.6;
   overflow-y: scroll;
@@ -39,7 +39,7 @@ p {
 }
 
 h1 {
-  font-size: 1.6rem;
+  font-size: 2.4rem;
 }
 
 h2 {
@@ -376,6 +376,11 @@ canvas#canvasBack {
 
 @media screen and (min-width: 48rem) {
   
+  main {
+    max-width: 96rem;
+    margin: 0 auto;
+  }
+    
   .sm {
     display: none;
   }
@@ -399,17 +404,18 @@ canvas#canvasBack {
     transition: 0.4s;
   }
 
-  section#works > ul > li:hover {
+  section#works > ul > li > a > img {
+    width: 95%;
+    -webkit-transition: 0.4s;
+         -o-transition: 0.4s;
+            transition: 0.4s;
+  }
+  
+  section#works > ul > li > a > img:hover {
     opacity: 0.9;
-    -webkit-box-shadow: 0 0 10px #333;
-            box-shadow: 0 0 10px #333;
     -webkit-transform: scale(1.1);
         -ms-transform: scale(1.1);
             transform: scale(1.1);
-  }
-
-  section#works > ul > li > a > img {
-    width: 95%;
   }
 
 }

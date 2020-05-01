@@ -27,12 +27,10 @@
     var mouseY = Y / 2;
     var lightMin = 150;
     var lightMax = 200;
-    var textSize = 80;
 
     if (X < 768) {
       lightMin = 100;
       lightMax = 150;
-      textSize = 60;
     }
 
     /********************
@@ -48,25 +46,6 @@
         setTimeout(cb, 17);
       };
 
-    /********************
-      Text
-    ********************/
-    
-    var textColor = 'rgb(' + rand(0, 255) + ', ' + rand(0, 255) + ', ' + rand(0, 255) + ')';
-     
-    function drawText(i) {
-      ctx.save();
-      ctx.fillStyle = textColor;
-      ctx.globalCompositeOperation = 'lighter';
-      ctx.shadowColor = textColor;
-      ctx.shadowBlur = 10;
-      ctx.font = textSize + 'px "sans-serif"';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText('Light Ball', X / 2 + i * 2, Y - Y / 8 - i * 2);
-      ctx.restore();
-    }
-    
     /********************
       Ball
     ********************/
@@ -177,9 +156,6 @@
       for (var i = 0; i < balls.length; i++) {
         balls[i].render(i);
       }
-      for (var i = 0; i < 3; i++) {
-        drawText(i);
-      }
       requestAnimationFrame(render);
     }
 
@@ -204,7 +180,6 @@
     window.addEventListener('click', function(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      textColor = 'rgb(' + rand(0, 255) + ', ' + rand(0, 255) + ', ' + rand(0, 255) + ')';
       for (var i = 0; i < balls.length; i++) {
         balls[i].changeColor();
       }
@@ -214,7 +189,6 @@
       var touch = event.targetTouches[0];
       mouseX = touch.pageX;
       mouseY = touch.pageY;
-      textColor = 'rgb(' + rand(0, 255) + ', ' + rand(0, 255) + ', ' + rand(0, 255) + ')';
       for (var i = 0; i < balls.length; i++) {
         balls[i].changeColor();
       }
