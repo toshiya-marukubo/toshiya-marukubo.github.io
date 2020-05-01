@@ -8,7 +8,7 @@
     var urlArray = [
       'jewelrySnow',
       'starlight',
-      'milkyway',
+      'milkyWay',
       'fireball',
       'grassGrow',
       'mellomelloMellow',
