@@ -13,15 +13,11 @@
 }
 
 html, body {
-  height: 100%;
-  width: 100%;
   color: #FFF;
   background: #000;
-  position: fixed;
   font-family: 'arial black', Helvetica, verdana, monospace;
   font-size: 100%;
   line-height: 1.6;
-  overflow-y: scroll;
 }
 
 a {
@@ -50,15 +46,6 @@ h2 {
 h3 {
   font-size: 1rem;
   padding: 1.6rem 1.6rem 0 1.6rem;
-}
-
-iframe#iframe {
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
 }
 
 /********************
@@ -206,6 +193,11 @@ nav > ul > li{
   Works
 ********************/
 
+div#content {
+  position: absolute;
+  top: 100%;
+}
+
 section#works {
   background-position: center;
   background-repeat: no-repeat;
@@ -315,8 +307,6 @@ canvas {
 }
 
 canvas#canvas {
-  width: 100%;
-  height: 100%;
   overflow: hidden;
   background: #000000;  /* fallback for old browsers */  /* Chrome 10-25, Safari 5.1-6 */
   background: -webkit-gradient(linear, left top, left bottom, from(#000000), to(#434343));
@@ -325,11 +315,6 @@ canvas#canvas {
 }
 
 canvas#canvasBack {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  z-index: -2;
-  top: 100%;
   overflow: hidden;
   opacity: 0.4;
   background: #000000;  /* fallback for old browsers */
