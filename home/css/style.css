@@ -13,6 +13,10 @@
 }
 
 html, body {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
   color: #FFF;
   background: #000;
   font-family: 'arial black', Helvetica, verdana, monospace;
@@ -193,7 +197,7 @@ nav > ul > li{
   Works
 ********************/
 
-div#content {
+div#main {
   position: absolute;
   top: 100%;
 }
@@ -304,14 +308,13 @@ footer {
 
 canvas {
   display: block;
+  height: 100%;
+  width: 100%;
 }
 
 canvas#canvas {
   overflow: hidden;
   background: #000000;  /* fallback for old browsers */  /* Chrome 10-25, Safari 5.1-6 */
-  background: -webkit-gradient(linear, left top, left bottom, from(#000000), to(#434343));
-  background: -o-linear-gradient(top, #000000, #434343);
-  background: linear-gradient(to bottom, #000000, #434343); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 canvas#canvasBack {
