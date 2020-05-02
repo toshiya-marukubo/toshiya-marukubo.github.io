@@ -28,7 +28,7 @@
       this.parentNode.setAttribute('class', 'opened');
       for (var i = 0; i < dispWorksChildren.length; i++) {
         if (dispWorksChildren[i].className !== 'opened') {
-          dispWorksChildren[i].style.opacity = '0.2';
+          dispWorksChildren[i].style.opacity = '0.1';
         }
       }
       var src = this.firstElementChild.src;

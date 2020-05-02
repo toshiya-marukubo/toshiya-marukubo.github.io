@@ -1,6 +1,6 @@
 (function(){
   'use strict';
-  window.addEventListener('load', function() {
+  window.addEventListener('DOMContentLoaded', function() {
     var main = document.getElementById('main');
     var footer = document.getElementById('footer');
     var loading = document.getElementById('loading');

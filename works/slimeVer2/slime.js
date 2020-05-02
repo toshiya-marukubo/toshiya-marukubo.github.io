@@ -63,7 +63,7 @@
       this.y = y;
       this.c = colors[rand(0, colors.length - 1)];
       this.r = r;
-      this.f = rand(1, 3);
+      this.f = rand(5, 8);
       this.rad = this.a * Math.PI / 180;
       this.points = [];
       this.setPoints();
@@ -152,10 +152,18 @@
       this.y -= this.v.y;
       if (newDist < this.r + slimes[closestIndex].r) {
         if (this.r > slimes[closestIndex].r) {
+          this.points = this.points.concat(slimes[closestIndex].points);
+          circleSplit = 24;
+          this.r += slimes[closestIndex].r;
+          this.setPoints();
+          console.log(this.points);
+          slimes.splice(closestIndex, 1);
+          /*
           slimes.splice(closestIndex, 1);
           this.r *= 1.1;
           this.points = [];
           this.setPoints();
+          */
         }
       }
     };
@@ -182,15 +190,15 @@
     Slime.prototype.render = function(i) {
       this.transform();
       if (slimes.length > 1) this.updatePosition(i);
-      this.wrapPosition();
+      //this.wrapPosition();
       this.draw();
     };
-
+    
     for (var i = 0; i < slimeNum; i++) {
-      var slime = new Slime(ctx, rand(0, X), rand(0, Y), rand(100, 150));
+      var slime = new Slime(ctx, rand(0, X), rand(0, Y), rand(30, 50));
       slimes.push(slime);
     }
-
+    
     /********************
       Render
     ********************/
