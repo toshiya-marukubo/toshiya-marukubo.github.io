@@ -91,6 +91,13 @@
       this.y += this.v.y;
     };
 
+    Particle.prototype.spreadParticle = function() {
+      this.v = {
+        x: rand(-5, 5) * Math.random(),
+        y: rand(-5, 5) * Math.random()
+      };
+    };
+    
     Particle.prototype.updateParams = function(i) {
       this.l -= 0.1;
       if (this.l < 0) {
@@ -247,6 +254,9 @@
     window.addEventListener('click', function(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
+      for (var i = 0; i < particles.length; i++) {
+        particles[i].spreadParticle();
+      }
     }, false);
 
   }); 
