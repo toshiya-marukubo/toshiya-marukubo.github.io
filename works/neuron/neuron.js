@@ -31,7 +31,7 @@
       Particle
     ********************/
     
-    var particleNum = 150;
+    var particleNum = 100;
     var particles = [];
 
     if (X < 768) {
