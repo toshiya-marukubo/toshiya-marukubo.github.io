@@ -126,7 +126,7 @@
     };
     
     for (var i = 0; i < particleNum; i++) {
-      var particle = new Particle(ctx, X / 2, Y / 2, rand(10, 50));
+      var particle = new Particle(ctx, X / 2, Y / 2, rand(50, 100));
       particles.push(particle);
     }
      
@@ -181,7 +181,7 @@
       mouseY = e.clientY;
       var num = rand(1, 20);
       for (var i = 0; i < num; i++) {
-        var particle = new Particle(ctx, rand(mouseX - 50, mouseX + 50), rand(mouseY - 50, mouseY + 50), rand(10, 50));
+        var particle = new Particle(ctx, rand(mouseX - 50, mouseX + 50), rand(mouseY - 50, mouseY + 50), rand(50, 100));
         particles.push(particle);
       }
     }, false);
@@ -193,7 +193,7 @@
         mouseY = touch.pageY;
         var num = rand(1, 20);
         for (var i = 0; i < num; i++) {
-          var particle = new Particle(ctx, rand(mouseX - 50, mouseX + 50), rand(mouseY - 50, mouseY + 50), rand(10, 50));
+          var particle = new Particle(ctx, rand(mouseX - 50, mouseX + 50), rand(mouseY - 50, mouseY + 50), rand(50, 100));
           particles.push(particle);
         }
       }
