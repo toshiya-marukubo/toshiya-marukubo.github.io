@@ -38,7 +38,10 @@
       'nowLoading',
       'kanji',
       'slime',
-      'lightBall'
+      'lightBall',
+      'gap',
+      'neuron',
+      'loop'
     ];
     var a = document.createElement('a');
     other.textContent = '';
