@@ -1,10 +1,11 @@
 (function() {
   'use strict';
   window.addEventListener('load', function() {
+    // Random Number
     function rand(min, max) {
       return Math.floor(Math.random() * (max - min + 1) + min);
     }
-    var other = document.getElementById('other');
+    // var 
     var urlArray = [
       'jewelrySnow',
       'starlight',
@@ -43,10 +44,16 @@
       'neuron',
       'loop'
     ];
+    var pathname = location.pathname;
+    var pathArr = pathname.split('/');
+    var pageName = pathArr.splice(-2, 1);
+    var resultIndex = urlArray.indexOf(pageName[0]);
     var a = document.createElement('a');
+
+    resultIndex === urlArray.length - 1 ? resultIndex = 0 : resultIndex += 1;
     other.textContent = '';
     a.textContent = 'Other';
-    a.setAttribute('href', '../' + urlArray[rand(0, urlArray.length - 1)] + '/index.html');
+    a.setAttribute('href', '../' + urlArray[resultIndex] + '/index.html');
     other.appendChild(a);
   });
 })();
