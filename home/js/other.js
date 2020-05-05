@@ -7,7 +7,7 @@
     }
     // var 
     var urlArray = [
-      'loop'
+      'loop',
       'neuron',
       'gap',
       'lightBall',
