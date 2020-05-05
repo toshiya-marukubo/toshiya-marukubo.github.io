@@ -187,11 +187,14 @@ footer {
   }
   section#works > ul > li > a > img {
     width: 95%;
-    -webkit-transition: 0.4s;
-         -o-transition: 0.4s;
-            transition: 0.4s;
+    -webkit-transition: 0.2s;
+         -o-transition: 0.2s;
+            transition: 0.2s;
   }
   section#works > ul > li > a > img:hover {
+    -webkit-transform: scale(1.1, 1.1);
+        -ms-transform: scale(1.1, 1.1);
+            transform: scale(1.1, 1.1);
   }
 
   section#about > div.aboutLeft {
@@ -203,7 +206,7 @@ footer {
     margin: 0 30%;
   }
   section#about > div.aboutLeft > ul > li{
-    width; 40%;
+    width: 40%;
     margin: 0 30%;
   }
 
