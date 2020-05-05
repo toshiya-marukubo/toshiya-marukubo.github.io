@@ -2,10 +2,6 @@
   Common
 ********************/
 
-.sm {
-  display: block;
-}
-
 .cf::after {
   content: "";
   display: block;
@@ -16,10 +12,9 @@ html, body {
   position: relative;
   height: 100%;
   width: 100%;
-  overflow: scroll;
   color: #FFF;
-  background: #000;
-  font-family: 'arial black', Helvetica, verdana, monospace;
+  background: #1E1F27;
+  font-family: 'arial black', verdana, Helvetica, monospace;
   font-size: 100%;
   line-height: 1.6;
 }
@@ -28,7 +23,6 @@ a {
   color: #FFF;
   text-decoration: none;
 }
-
 a:hover {
   text-decoration: underline;
 }
@@ -43,126 +37,12 @@ h1 {
 }
 
 h2 {
-  font-size: 1.2rem;
-  padding: 1.6rem 1.6rem 0 1.6rem;
+  font-size: 1.6rem;
 }
 
 h3 {
-  font-size: 1rem;
-  padding: 1.6rem 1.6rem 0 1.6rem;
-}
-
-/********************
-  Loading
-********************/
-
-div#loading > div > p {
-  margin: 1.6rem;
-  -webkit-transform: rotate(-45deg);
-      -ms-transform: rotate(-45deg);
-          transform: rotate(-45deg);
-}
-
-.lds-heart {
-  z-index: 1; 
-  display: block;
-  position: fixed;
-  width: 80px;
-  height: 80px;
-  -webkit-transform-origin: 40px 40px;
-      -ms-transform-origin: 40px 40px;
-          transform-origin: 40px 40px;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%) rotate(45deg);
-      -ms-transform: translate(-50%, -50%) rotate(45deg);
-          transform: translate(-50%, -50%) rotate(45deg);
-  pointer-events: none;
-}
-
-.lds-heart div {
-  top: 32px;
-  left: 32px;
-  position: absolute;
-  width: 32px;
-  height: 32px;
-  background: #ff4d4d;
-  -webkit-animation: lds-heart 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
-          animation: lds-heart 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
-}
-
-.lds-heart div:after,
-.lds-heart div:before {
-  content: " ";
-  position: absolute;
-  display: block;
-  width: 32px;
-  height: 32px;
-  background: #ff4d4d;
-}
-
-.lds-heart div:before {
-  left: -24px;
-  border-radius: 50% 0 0 50%;
-}
-
-.lds-heart div:after {
-  top: -24px;
-  border-radius: 50% 50% 0 0;
-}
-
-@-webkit-keyframes lds-heart {
-  0% {
-    -webkit-transform: scale(0.95);
-            transform: scale(0.95);
-  }
-  5% {
-    -webkit-transform: scale(1.1);
-            transform: scale(1.1);
-  }
-  39% {
-    -webkit-transform: scale(0.85);
-            transform: scale(0.85);
-  }
-  45% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  60% {
-    -webkit-transform: scale(0.95);
-            transform: scale(0.95);
-  }
-  100% {
-    -webkit-transform: scale(0.9);
-            transform: scale(0.9);
-  }
-}
-
-@keyframes lds-heart {
-  0% {
-    -webkit-transform: scale(0.95);
-            transform: scale(0.95);
-  }
-  5% {
-    -webkit-transform: scale(1.1);
-            transform: scale(1.1);
-  }
-  39% {
-    -webkit-transform: scale(0.85);
-            transform: scale(0.85);
-  }
-  45% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  60% {
-    -webkit-transform: scale(0.95);
-            transform: scale(0.95);
-  }
-  100% {
-    -webkit-transform: scale(0.9);
-            transform: scale(0.9);
-  }
+  font-size: 1.6rem;
+  padding: 1.6rem 0 0 0;
 }
 
 /********************
@@ -171,125 +51,90 @@ div#loading > div > p {
 
 header {
   position: absolute;
-  top: 0;
-  left: 0;
   padding: 1.6rem;
+  z-index: 1;
 }
 
 /********************
-  Nav
+  Main Image
 ********************/
 
-nav {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  -webkit-transform: translate(0, -50%);
-      -ms-transform: translate(0, -50%);
-          transform: translate(0, -50%);
+#mainImage {
+  overflow: hidden;
+}
+#mainImage > img{
+  width: 200%;
+  margin: 0 -50% 0 -50%;
+  opacity: 0.5;
 }
 
-nav > ul > li{
-  padding: 1.6rem;
+/********************
+  Content
+********************/
+
+div#content {
+  position: absolute;
+  top: 30%;
+  text-align: left;
+  padding: 0 1.6rem;
+}
+
+
+/********************
+  Message
+********************/
+
+section#message > nav {
+  padding: 1.6rem 0 0 0;
+}
+section#message > nav > ul > li {
+  list-style: disc;
+  list-style-position: inside;
 }
 
 /********************
   Works
 ********************/
 
-div#main {
-  position: absolute;
-  top: 100%;
-}
-
-section#works {
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-}
-
 section#works > ul {
   font-size: 0;
-  padding: 1.6rem;
+  padding-top: 1.6rem;
 }
-
-section#works > ul > li > a > img {
-  width: 100%;
-  vertical-align: bottom;
-}
-
 section#works > ul > li {
   width: 100%;
   font-size: 0.8rem;
   text-align: center;
 }
-
+section#works > ul > li > a > img {
+  width: 100%;
+  vertical-align: bottom;
+}
 section#works > ul > li:last-child > p{
   padding-bottom: 0;
 }
-
-button{
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  outline: none;
-  padding: 0;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-}
-
-section#works button {
-  display: block;
-  margin: 0 auto;
-  padding: 0.8rem 1.6rem;
-  text-decoration: none;
-  color: #09BEFF;
-  border: solid 2px #09BEFF;
-  border-radius: 3px;
-  -webkit-box-shadow: 0 0 10px #09BEFF;
-          box-shadow: 0 0 10px #09BEFF;
-  -webkit-transition: .4s;
-  -o-transition: .4s;
-  transition: .4s;
-}
-
-section#works button:hover {
-  -webkit-box-shadow: 0 0 100px #09BEFF;
-          box-shadow: 0 0 100px #09BEFF;
-} 
 
 /********************
   About
 ********************/
 
 section#about p {
-  padding: 1.6rem 1.6rem 0 1.6rem;
+  padding: 1.6rem 0 0 0;
 }
-
 section#about p > a{
   text-decoration: underline;
 }
-
 section#about p > img {
-  width: 40%;
-  margin: 0 30%;
+  width: 70%;
+  margin: 0 15%;
   border-radius: 50%;
 }
 
 section#about ul {
-  text-align: center;
   padding: 1.6rem 0 0 0;
 }
-
 section#about ul > li {
-  display: inline-block;
-  padding: 0 0.8rem;
-}
-
-section#about > div.aboutLeft > p {
-  text-align: center;
+  list-style: disc;
+  list-style-position: inside;
 }
 
 /********************
@@ -299,63 +144,7 @@ section#about > div.aboutLeft > p {
 footer {
   font-size: 0.8rem;
   text-align: right;
-  padding: 1.6rem;
-}
-
-/********************
-  Canvas
-********************/
-
-canvas {
-  display: block;
-  height: 100%;
-  width: 100%;
-}
-
-canvas#canvas {
-  overflow: hidden;
-  background: #000000;  /* fallback for old browsers */  /* Chrome 10-25, Safari 5.1-6 */
-}
-
-canvas#canvasBack {
-  overflow: hidden;
-  opacity: 0.4;
-  background: #000000;  /* fallback for old browsers */
-}
-
-/********************
-  Vehicle
-********************/
-
-.vehicle {
-  position: absolute;
-  bottom: 0;
-  left: 45%;
-  color: #ff4d4d;
-  -webkit-animation: drive 30s linear infinite;
-          animation: drive 30s linear infinite;
-}
-
-@-webkit-keyframes drive {
-  from, to {
-    -webkit-transform: translateX(0);
-            transform: translateX(0);
-  }
-  50% {
-    -webkit-transform: translateX(100px);
-            transform: translateX(100px);
-  }
-}
-
-@keyframes drive {
-  from, to {
-    -webkit-transform: translateX(0);
-            transform: translateX(0);
-  }
-  50% {
-    -webkit-transform: translateX(100px);
-            transform: translateX(100px);
-  }
+  padding: 1.6rem 0;
 }
 
 /********************
@@ -364,23 +153,28 @@ canvas#canvasBack {
 
 @media screen and (min-width: 48rem) {
   
-  main {
+  #mainImage > img{
+    width: 100%;
+    margin: 0 0 0 0;
+  }
+
+  div#content {
     max-width: 96rem;
     margin: 0 auto;
+    position: absolute;
+    top: 50%;
+  }
+
+  h2 {
+    font-size: 2.4rem;
   }
     
-  .sm {
-    display: none;
+  section#message {
+    text-align: center;
   }
-
-  section#about > div.aboutLeft {
-    float: left;
-    width: 50%;
-  }
-
-  section#about > section.aboutRight {
-    float: right;
-    width: 50%;
+  section#message > nav > ul > li {
+    display: inline;
+    padding-left: 0.8rem;
   }
 
   section#works > ul > li {
@@ -391,19 +185,31 @@ canvas#canvasBack {
     -o-transition: 0.4s;
     transition: 0.4s;
   }
-
   section#works > ul > li > a > img {
     width: 95%;
     -webkit-transition: 0.4s;
          -o-transition: 0.4s;
             transition: 0.4s;
   }
-  
   section#works > ul > li > a > img:hover {
-    opacity: 0.9;
-    -webkit-transform: scale(1.1);
-        -ms-transform: scale(1.1);
-            transform: scale(1.1);
+  }
+
+  section#about > div.aboutLeft {
+    float: left;
+    width: 50%;
+  }
+  section#about > div.aboutLeft > p > img {
+    width: 40%;
+    margin: 0 30%;
+  }
+  section#about > div.aboutLeft > ul > li{
+    width; 40%;
+    margin: 0 30%;
+  }
+
+  section#about > section.aboutRight {
+    float: right;
+    width: 50%;
   }
 
 }

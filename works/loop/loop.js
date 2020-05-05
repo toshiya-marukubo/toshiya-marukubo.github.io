@@ -261,5 +261,5 @@
 
   }); 
   // Author
-  console.log('File Name / slime.js\nCreated Date / April 28, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
+  console.log('File Name / loop.js\nCreated Date / May 04, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();
