@@ -1,4 +1,21 @@
 /********************
+  fadeIn
+********************/
+
+.fadeIn {
+  -webkit-animation: fadeIn 1s ease 0s 1 normal;
+          animation: fadeIn 1s ease 0s 1 normal;
+}
+@keyframes fadeIn {
+    0% {opacity: 0}
+    100% {opacity: 1}
+}
+@-webkit-keyframes fadeIn {
+    0% {opacity: 0}
+    100% {opacity: 1}
+}
+
+/********************
   Common
 ********************/
 
@@ -161,7 +178,7 @@ footer {
 
   div#content {
     width: 100%;
-    top: 50%;
+    top: 45%;
   }
 
   h2 {
