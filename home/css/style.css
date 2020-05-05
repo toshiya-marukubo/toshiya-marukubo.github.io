@@ -76,10 +76,11 @@ div#content {
   position: absolute;
   top: 40%;
   text-align: left;
-  padding: 0 1.6rem;
 }
 
-
+main {
+  padding: 0 1.6rem;
+}
 /********************
   Message
 ********************/
@@ -159,6 +160,7 @@ footer {
   }
 
   div#content {
+    width: 100%;
     top: 50%;
   }
 
