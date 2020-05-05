@@ -73,7 +73,6 @@ header {
 ********************/
 
 div#content {
-  width: 100%;
   position: absolute;
   top: 40%;
   text-align: left;
