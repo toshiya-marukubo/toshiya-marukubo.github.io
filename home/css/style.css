@@ -73,6 +73,7 @@ header {
 ********************/
 
 div#content {
+  width: 100%;
   position: absolute;
   top: 40%;
   text-align: left;
@@ -159,9 +160,6 @@ footer {
   }
 
   div#content {
-    max-width: 96rem;
-    margin: 0 auto;
-    position: absolute;
     top: 50%;
   }
 
