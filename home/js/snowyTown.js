@@ -336,8 +336,8 @@
     ********************/
     
     function onResize() {
-      X = canvas.width = canvasBack.width = window.innerWidth;
-      Y = canvas.height = canvasBack.height = window.innerHeight;
+      X = canvas.width = window.innerWidth;
+      Y = canvas.height = window.innerHeight;
       //buil
       builOffset = 0;
       buildingsBack = [];
