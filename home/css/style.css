@@ -79,10 +79,10 @@ header {
 #mainImage {
   overflow: hidden;
 }
-#mainImage > img{
-  width: 300%;
-  margin: 0 -100% 0 -100%;
-  opacity: 0.3;
+#mainImage > canvas#canvas{
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
 }
 
 /********************
@@ -171,14 +171,9 @@ footer {
 
 @media screen and (min-width: 48rem) {
   
-  #mainImage > img{
-    width: 100%;
-    margin: 0 0 0 0;
-  }
-
   div#content {
     width: 100%;
-    top: 45%;
+    top: 50%;
   }
 
   h2 {

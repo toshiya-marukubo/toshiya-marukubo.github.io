@@ -2,7 +2,6 @@
   'use strict';
   window.addEventListener('load', function() {
     var canvas = document.getElementById('canvas');
-    var canvasBack = document.getElementById('canvasBack');
 
     if (!canvas || !canvas.getContext) {
       return false;
@@ -22,10 +21,9 @@
     
     // canvas 
     var ctx = canvas.getContext('2d');
-    var ctxBack = canvasBack.getContext('2d');
     var car = document.getElementById('car');
-    var X = canvas.width = canvasBack.width = window.innerWidth;
-    var Y = canvas.height = canvasBack.height = window.innerHeight;
+    var X = canvas.width = window.innerWidth;
+    var Y = canvas.height = window.innerHeight;
     var mouseX = null;
     var mouseY = null;
 
@@ -33,9 +31,6 @@
     var builSpeed = 0.1;
     var builBackSpeed = 0.05;
     var snowSpeedX = 0.01;
-
-    var about = document.getElementById('about');
-    var works = document.getElementById('works');
 
     /********************
       Animation
@@ -319,12 +314,8 @@
       render
     ********************/
 
-    ctxBack.translate(X, Y);
-    ctxBack.rotate(180 / 180 * Math.PI);
-    
     function render() {
       ctx.clearRect(0, 0, X, Y);
-      ctxBack.clearRect(0, 0, X, Y);
       drawMoon();
       for (var i = 0; i < buildingsBack.length; i++) {
         buildingsBack[i].render(i);
@@ -334,9 +325,6 @@
       }
       for (var i = 0; i < snows.length; i++) {
         snows[i].render();
-      }
-      if (canvas.height !== 0) {
-        ctxBack.drawImage(canvas, 0, 0);
       }
       requestAnimationFrame(render);
     }
@@ -380,8 +368,6 @@
         var snow = new Snow(ctx, rand(0, X), rand(0, Y));
         snows.push(snow);
       }
-      ctxBack.translate(X, Y);
-      ctxBack.rotate(180 / 180 * Math.PI);
     }
 
     window.addEventListener('resize', function() {
