@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  window.addEventListener('load', function() {
+  window.addEventListener('DOMContentLoaded', function() {
     var canvas = document.getElementById('canvas');
 
     if (!canvas || !canvas.getContext) {
