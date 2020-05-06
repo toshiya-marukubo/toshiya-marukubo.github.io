@@ -370,7 +370,13 @@
       }
     }
 
+    var lastHeight = Y;
+
     window.addEventListener('resize', function() {
+      if (lastHeight !== window.innerHeight) {
+        lastHeight = window.innerHeight;
+        return;
+      }
       onResize();
     });
 
