@@ -80,8 +80,8 @@ header {
   overflow: hidden;
 }
 #mainImage > canvas#canvas{
-  width: 150%;
-  margin: -25% -25% -25% -25%;
+  width: 200%;
+  margin: -50% -50% -50% -50%;
   opacity: 0.5;
 }
 
