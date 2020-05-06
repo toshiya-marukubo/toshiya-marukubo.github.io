@@ -80,8 +80,8 @@ header {
   overflow: hidden;
 }
 #mainImage > canvas#canvas{
-  width: 100%;
-  height: 100%;
+  width: 150%;
+  margin: -25% -25% -25% -25%;
   opacity: 0.5;
 }
 
@@ -178,6 +178,11 @@ footer {
 
   h2 {
     font-size: 2.4rem;
+  }
+
+  #mainImage > canvas#canvas{
+    width: 100%;
+    margin: 0;
   }
     
   section#message {
