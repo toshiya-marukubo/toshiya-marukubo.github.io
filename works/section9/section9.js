@@ -239,6 +239,8 @@
     function onResize() {
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
+      mouseX = X / 2;
+      mouseY = Y / 2;
     }
 
     window.addEventListener('resize', function() {
