@@ -281,7 +281,7 @@
     /********************
       Message
     ********************/
-    var textWidth = X / 9 + 1;
+    var textWidth = X / 8 + 1;
     function inputMessage() {
       var text = '';
       for (var i = 0; i < textWidth; i++) {
@@ -325,7 +325,7 @@
     function onResize() {
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
-      textWidth = X / 9 + 1;
+      textWidth = X / 8 + 1;
       for (var i = 0; i < circles.length; i++) {
         circles[i].resize();
       }
