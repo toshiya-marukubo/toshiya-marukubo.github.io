@@ -25,6 +25,7 @@
     var Y = canvas.height = window.innerHeight;
     var mouseX = X / 2;
     var mouseY = Y / 2;
+    var color = 'rgb(71, 255, 255)';
      
     /********************
       Animation
@@ -44,7 +45,7 @@
     ********************/
     
     var text = '#9'; 
-    var textSize = '48px';
+    var textSize = '56px';
     function drawText() {
       ctx.save();
       ctx.fillStyle = color;
@@ -59,20 +60,74 @@
       Line
     ********************/
     
-    function drawLine() {
+    var linesNum = 5;
+    var lines = [];
+
+    function Line(ctx, x, y) {
+      this.ctx = ctx;
+      this.init(x, y);
+    }
+
+    Line.prototype.init = function(x, y) {
+      this.x = x;
+      this.y = y;
+      this.c = color;
+      this.l = rand(10, 50);
+      this.lw = 1;
+      this.v = {
+        x: rand(-5, 5) * Math.random(),
+        y: rand(-5, 5) * Math.random()
+      };
+    };
+
+    Line.prototype.draw = function() {
+      var ctx = this.ctx;
       ctx.save();
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = color;
+      ctx.lineWidth = this.lw;
+      ctx.strokeStyle = this.c;
       ctx.beginPath();
-      ctx.moveTo(0, mouseY);
-      ctx.lineTo(X, mouseY);
+      ctx.moveTo(0, this.y);
+      ctx.lineTo(X, this.y);
       ctx.stroke();
-      ctx.lineWidth = 3;
+      ctx.lineWidth = this.lw;
       ctx.beginPath();
-      ctx.moveTo(mouseX, 0);
-      ctx.lineTo(mouseX, Y);
+      ctx.moveTo(this.x, 0);
+      ctx.lineTo(this.x, Y);
       ctx.stroke();
       ctx.restore();
+    };
+
+    Line.prototype.updatePosition = function() {
+      this.x += this.v.x;
+      this.y += this.v.y;
+    }; 
+
+    Line.prototype.wrapPosition = function() {
+      if (this.x < 0) this.x = X;
+      if (this.x > X) this.x = 0;
+      if (this.y < 0) this.y = Y;
+      if (this.y > Y) this.y = 0;
+    };
+
+    Line.prototype.updateParams = function() {
+      this.l -= 0.1;
+      if (this.l < 0) {
+        this.v.x = rand(-5, 5) * Math.random();
+        this.v.y = rand(-5, 5) * Math.random();
+        this.l = rand(10, 50);
+      }
+    };
+
+    Line.prototype.render = function() {
+      this.updatePosition();
+      this.wrapPosition();
+      this.updateParams();
+      this.draw();
+    };
+
+    for (var i = 0; i < linesNum; i++) {
+      var line = new Line(ctx, rand(0, X), rand(0, Y));
+      lines.push(line);
     }
 
     /********************
@@ -85,10 +140,10 @@
     var diff = radius / 100;
     var lw = 5;
     var blur = 10;
-    var color = 'rgb(71, 255, 255)';
+    
     if (X < 768) {
       radius = 50;
-      textSize = '24px';
+      textSize = '32px';
       lw = 3;
     }
      
@@ -116,6 +171,11 @@
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
       ctx.stroke();
       ctx.restore();
+    };
+
+    Circle.prototype.resize = function() {
+      this.x = X / 2;
+      this.y = Y / 2;
     };
 
     Circle.prototype.render = function() {
@@ -177,9 +237,14 @@
       ctx.stroke();
       ctx.restore();
     };
+
+    Rect.prototype.resize = function() {
+      this.x = X / 2;
+      this.y = Y / 2;
+    };
     
     Rect.prototype.upSpeed = function() {
-      this.s *= 10;
+      this.flg === true ? this.s = -30: this.s = 30;
     };
     
     Rect.prototype.resetSpeed = function() {
@@ -208,9 +273,27 @@
       var rect = new Rect(ctx, mouseX, mouseY, lw * 1.5, radius * 2, true);
       rects.push(rect);
     }
-    for (var i = 0; i < 6; i++) {
+    for (var i = 0; i < 9; i++) {
       var rect = new Rect(ctx, mouseX, mouseY, lw * 10, radius * 2.5, false);
       rects.push(rect);
+    }
+
+    /********************
+      Message
+    ********************/
+    var textWidth = X / 9 + 1;
+    function inputMessage() {
+      var text = '';
+      for (var i = 0; i < textWidth; i++) {
+        text += String.fromCharCode(20000 + Math.random() * 33);
+      }
+      ctx.save();
+      ctx.fillStyle = color;
+      ctx.font = '16px "impact"';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(text, 0, Y / 2);
+      ctx.restore();
     }
 
     /********************
@@ -220,7 +303,10 @@
     function render(){
       ctx.clearRect(0, 0, X, Y);
       drawText();
-      drawLine();
+      inputMessage();
+      for (var i = 0; i < lines.length; i++) {
+        lines[i].render();
+      }
       for (var i = 0; i < circles.length; i++) {
         circles[i].render();
       }
@@ -239,8 +325,13 @@
     function onResize() {
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
-      mouseX = X / 2;
-      mouseY = Y / 2;
+      textWidth = X / 9 + 1;
+      for (var i = 0; i < circles.length; i++) {
+        circles[i].resize();
+      }
+      for (var i = 0; i < rects.length; i++) {
+        rects[i].resize();
+      }
     }
 
     window.addEventListener('resize', function() {
@@ -251,7 +342,7 @@
     window.addEventListener('mousedown', function() {
       clearId = setInterval(function() {
         for (var i = 0; i < rects.length; i++) {
-          rects[i].s = rects[i].s * 2;
+          rects[i].upSpeed();
         }
         text = '#' + rand(0, 100);
       }, 80);
@@ -275,7 +366,7 @@
       mouseY = touch.pageY;
       clearId = setInterval(function() {
         for (var i = 0; i < rects.length; i++) {
-          rects[i].s = rects[i].s * 2;
+          rects[i].upSpeed();
         }
         text = '#' + rand(0, 100);
       }, 80);
@@ -283,6 +374,9 @@
 
     window.addEventListener('touchend', function(e) {
       clearInterval(clearId);
+      for (var i = 0; i < rects.length; i++) {
+        rects[i].resetSpeed();
+      }
     });
 
   }); 
