@@ -264,7 +264,6 @@
         }
       }
       if (overlap === true) {
-        addParticle();
         return;
       }
       var orange = new Orange(ctx, X / 2, Y / 2, setR, setX, setY);
@@ -322,5 +321,5 @@
 
   }); 
   // Author
-  console.log('File Name / particle.js\nCreated Date / April 28, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
+  console.log('File Name / gap.js\nCreated Date / May 02, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();
