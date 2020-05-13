@@ -63,6 +63,8 @@
       this.x1 = this.x;
       this.y1 = this.y;
       this.r = rand(5, 30);
+      this.a = rand(0, 360);
+      this.rad = this.a * Math.PI / 180;
       this.v = {
         x: 0,
         y: 0,
@@ -81,6 +83,12 @@
       ctx.fillStyle = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
+      ctx.fill();
+      ctx.restore();
+      ctx.save();
+      ctx.fillStyle = 'rgb(230, 230, 230)';
+      ctx.beginPath();
+      ctx.arc(Math.cos(this.rad) * this.r * 0.6 + this.x, Math.sin(this.rad) * this.r * 0.6 + this.y, this.r * 0.2, 0, Math.PI * 2, false);
       ctx.fill();
       ctx.restore();
     };

@@ -56,4 +56,5 @@ p#loading {
 
 canvas#canvas {
   background: #092745;
+  cursor: pointer;
 }
