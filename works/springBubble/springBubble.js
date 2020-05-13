@@ -162,7 +162,7 @@
       mouseX = e.clientX;
       mouseY = e.clientY;
     });
-    window.addEventListener('click', function(e) {
+    window.addEventListener('mousedown', function(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
       flg === true ? flg = false : flg = true;
