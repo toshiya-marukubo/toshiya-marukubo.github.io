@@ -36,6 +36,10 @@ html, body {
   line-height: 1.6;
 }
 
+img {
+  display: none;
+}
+
 a {
   color: #FFF;
   text-decoration: none;
