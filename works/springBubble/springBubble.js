@@ -167,11 +167,6 @@
       mouseY = e.clientY;
       flg === true ? flg = false : flg = true;
     });
-    window.addEventListener('touchstart', function(e) {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      flg === true ? flg = false : flg = true;
-    });
 
   }); 
   // Author
