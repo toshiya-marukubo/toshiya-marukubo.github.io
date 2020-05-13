@@ -28,6 +28,7 @@
     var ease = 0.2;
     var friction = 0.9;
     var flg = false;
+    var radius = 300;
      
     /********************
       Animation
@@ -46,11 +47,11 @@
       Particle
     ********************/
     
-    var particleNum = 200;
+    var particleNum = 1;
     var particles = [];
 
     if (X < 768) {
-      particleNum = 100;
+      particleNum = 1;
     }
 
     function Particle(ctx, x, y) {
@@ -58,16 +59,16 @@
       this.init(x, y);
     }
     Particle.prototype.init = function(x, y) {
+      this.a = rand(0, 360);
+      this.rad = this.a * Math.PI / 180;
       this.x = x;
       this.y = y;
       this.x1 = this.x;
       this.y1 = this.y;
-      this.r = rand(5, 30);
+      this.r = rand(5, 10);
       this.v = {
         x: 0,
-        y: 0,
-        x1: rand(-100, 100),
-        y1: rand(-100, 100)
+        y: 0
       };
       this.c = {
         r: rand(0, 255),
@@ -84,9 +85,11 @@
       ctx.fill();
       ctx.restore();
     };
+    var mouseX1;
+    var mouseY1;
     Particle.prototype.updatePosition = function(i) {
-      this.v.x += (mouseX - this.x) * ease;
-      this.v.y += (mouseY - this.y) * ease;
+      this.v.x += (mouseX1 - this.x) * ease;
+      this.v.y += (mouseY1 - this.y) * ease;
       this.v.x *= friction;
       this.v.y *= friction;
       this.x += this.v.x;
@@ -100,23 +103,14 @@
       this.x += this.v.x;
       this.y += this.v.y;
     };
-    Particle.prototype.move = function() {
-      this.x += this.v.x1;
-      this.y += this.v.y1;
-    };
     Particle.prototype.resize =function() {
       this.x = rand(0, X);
       this.y = rand(0, Y);
       this.x1 = this.x;
       this.y1 = this.y;
-    }; 
+    };
     Particle.prototype.render = function(i) {
-      if (flg === true) {
-        this.updatePosition(i);
-      } else {
-        this.move();
-        this.returnPosition();
-      }
+      if (flg === true) this.updatePosition(i);
       this.draw();
     };
 
@@ -162,10 +156,19 @@
       mouseX = e.clientX;
       mouseY = e.clientY;
     });
+    window.addEventListener('mousedown', function(e) {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      flg = false;
+    });
+    window.addEventListener('mouseup', function(e) {
+      mouseX1 = e.clientX;
+      mouseY1 = e.clientY;
+      flg = true;
+    });
     window.addEventListener('click', function(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      flg === true ? flg = false : flg = true;
     });
 
   }); 
