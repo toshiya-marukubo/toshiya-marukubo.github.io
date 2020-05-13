@@ -153,7 +153,7 @@
     window.addEventListener('click', function(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      var num = rand(1, 20);
+      var num = rand(1, 10);
       for (var i = 0; i < num; i++) {
         var particle = new Particle(ctx, rand(mouseX - 5, mouseX + 5), rand(mouseY - 5, mouseY + 5), 5);
         particles.push(particle);
