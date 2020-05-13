@@ -178,5 +178,5 @@
 
   }); 
   // Author
-  console.log('File Name / springBubble.js\nCreated Date / May 13, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
+  console.log('File Name / poppingBall.js\nCreated Date / May 13, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();
