@@ -12,7 +12,7 @@ html, body {
   margin: 0;
   letter-spacing: 0.2rem;
   overflow: hidden;
-  background: #000;
+  background: #092745;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -55,5 +55,5 @@ p#loading {
 ********************/
 
 canvas#canvas {
-  background: #000;
+  background: #092745;
 }
