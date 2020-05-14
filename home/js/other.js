@@ -7,6 +7,7 @@
     }
     // var 
     var urlArray = [
+      'fog',
       'poppingBall',
       'flock',
       'section9',
