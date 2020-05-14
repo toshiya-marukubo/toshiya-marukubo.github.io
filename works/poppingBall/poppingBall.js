@@ -178,7 +178,7 @@
       mouseX = e.clientX;
       mouseY = e.clientY;
     });
-    window.addEventListener('click', function(e) {
+    canvas.addEventListener('click', function(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
       flg === true ? flg = false : flg = true;
