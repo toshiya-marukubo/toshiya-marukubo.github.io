@@ -7,6 +7,9 @@
     }
     // var 
     var urlArray = [
+      'poppingBall',
+      'flock',
+      'section9',
       'loop',
       'neuron',
       'gap',
