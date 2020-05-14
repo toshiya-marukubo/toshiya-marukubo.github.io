@@ -202,7 +202,7 @@
       mouseY = e.clientY;
     });
     
-    window.addEventListener('click', function() {
+    canvas.addEventListener('click', function() {
       flg === false ? flg = true : flg = false;
     }, false);
 
@@ -210,10 +210,10 @@
       var touch = event.targetTouches[0];
       mouseX = touch.pageX;
       mouseY = touch.pageY;
-      flg === false ? flg = true : flg = false;
+      //flg === false ? flg = true : flg = false;
     }, false);
 
   });
   // Author
-  console.log('File Name / simulationVer1.js\nCreated Date / April 22, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
+  console.log('File Name / pug.js\nCreated Date / April 22, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();

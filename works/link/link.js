@@ -35,7 +35,7 @@
     var colors = ['rgb(157, 195, 226)', 'rgb(157, 210, 216)', 'rgb(255, 181, 204)', 'rgb(226, 137, 219)'];
 
     if (X < 768) {
-      particleNum = 100;
+      particleNum = 50;
     }
 
     function Particle(ctx, x, y, r) {

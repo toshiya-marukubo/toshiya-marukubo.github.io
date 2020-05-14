@@ -162,7 +162,7 @@
       Y = canvas.height = window.innerHeight;
     }
 
-    window.addEventListener('click', function(e) {
+    canvas.addEventListener('click', function(e) {
       if (flg !== true) {
         flg = true;
       } else {
@@ -178,13 +178,11 @@
     });
 
     window.addEventListener('touchmove', function(e) {
-      if (e.targetTouches.length === 1) {
-        var touch = event.targetTouches[0];
-        mouseX = touch.pageX;
-        mouseY = touch.pageY;
-        var fairy = new Fairy(ctx, mouseX, mouseY);
-        fairies.push(fairy);
-      }
+      var touch = event.targetTouches[0];
+      mouseX = touch.pageX;
+      mouseY = touch.pageY;
+      var fairy = new Fairy(ctx, mouseX, mouseY);
+      fairies.push(fairy);
     }, false);
 
     window.addEventListener('resize', function() {

@@ -172,11 +172,6 @@
     /********************
       Event
     ********************/
-    
-    function onResize() {
-      X = canvas.width = window.innerWidth;
-      Y = canvas.height = window.innerHeight;
-    }
 
     window.addEventListener('resize', function() {
       onResize();

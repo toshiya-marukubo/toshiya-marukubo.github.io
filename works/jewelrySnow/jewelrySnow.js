@@ -179,9 +179,19 @@
       onResize();
     });
 
-    canvas.addEventListener('mousemove', function(e) {  
+    window.addEventListener('mousemove', function(e) {  
       var x = e.clientX;
       var y = e.clientY;
+      mouseX1 = x - dist;
+      mouseX2 = x + dist;
+      mouseY1 = y - dist;
+      mouseY2 = y + dist;
+    }, false);
+    
+    window.addEventListener('touchmove', function(e) {
+      var touch = event.targetTouches[0];
+      mouseX = touch.pageX;
+      mouseY = touch.pageY;
       mouseX1 = x - dist;
       mouseX2 = x + dist;
       mouseY1 = y - dist;

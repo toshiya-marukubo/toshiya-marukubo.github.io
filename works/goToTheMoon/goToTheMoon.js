@@ -263,6 +263,12 @@
       mouseX = e.clientX;
       mouseY = e.clientY;
     });
+    
+    window.addEventListener('touchmove', function(e) {
+      var touch = event.targetTouches[0];
+      mouseX = touch.pageX;
+      mouseY = touch.pageY;
+    }, false);
 
     window.addEventListener('touchstart', function(e) {
       var touch = event.targetTouches[0];

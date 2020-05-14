@@ -208,11 +208,9 @@
     }, false);
     
     window.addEventListener('touchmove', function(e) {
-      if (e.targetTouches.length === 1) {
-        var touch = event.targetTouches[0];
-        mouseX = touch.pageX;
-        mouseY = touch.pageY;
-      }
+      var touch = event.targetTouches[0];
+      mouseX = touch.pageX;
+      mouseY = touch.pageY;
     }, false);
 
   });

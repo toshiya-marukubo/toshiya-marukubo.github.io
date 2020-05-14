@@ -222,7 +222,7 @@
       mouseY = e.clientY;
     });
     
-    window.addEventListener('click', function() {
+    canvas.addEventListener('click', function() {
       flg === false ? flg = true : flg = false;
       for (var i = 0; i < particles.length; i++) {
         if (particles[i].rotate === false) {
@@ -236,16 +236,9 @@
       var touch = event.targetTouches[0];
       mouseX = touch.pageX;
       mouseY = touch.pageY;
-      flg === false ? flg = true : flg = false;
-      for (var i = 0; i < particles.length; i++) {
-        if (particles[i].rotate === false) {
-          particles[i].rotate = true;
-          particles[i].r = rand(10, 30);
-        }
-      }
     }, false);
 
   });
   // Author
-  console.log('File Name / simulationVer2.js\nCreated Date / April 24, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
+  console.log('File Name / kanji.js\nCreated Date / April 24, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();

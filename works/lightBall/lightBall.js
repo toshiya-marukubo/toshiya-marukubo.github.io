@@ -177,18 +177,9 @@
       onResize();
     });
 
-    window.addEventListener('click', function(e) {
+    canvas.addEventListener('click', function(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      for (var i = 0; i < balls.length; i++) {
-        balls[i].changeColor();
-      }
-    }, false);
-
-    window.addEventListener('touchmove', function(e) {
-      var touch = event.targetTouches[0];
-      mouseX = touch.pageX;
-      mouseY = touch.pageY;
       for (var i = 0; i < balls.length; i++) {
         balls[i].changeColor();
       }
