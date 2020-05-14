@@ -9,7 +9,7 @@
     var imgs = document.getElementsByTagName('img');
     for (var i = 0; i < imgs.length; i++) {
       imgs[i].style.display = 'block';
-      imgs[i].setAttribute('class', 'faseIn');
+      imgs[i].setAttribute('class', 'fadeIn');
     }
   });
 })();
