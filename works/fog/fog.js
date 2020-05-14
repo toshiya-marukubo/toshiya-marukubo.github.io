@@ -49,7 +49,7 @@
     var radiusMax = 300;
 
     if (X < 768) {
-      cloudNum = 50;
+      cloudNum = 100;
       radiusMin = 100;
       radiusMax = 150;
     }
