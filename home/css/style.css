@@ -37,7 +37,7 @@ html, body {
 }
 
 img {
-  display: none;
+  visibility: hidden;
 }
 
 a {
@@ -102,6 +102,7 @@ div#content {
 main {
   padding: 0 1.6rem;
 }
+
 /********************
   Message
 ********************/
