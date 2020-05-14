@@ -108,7 +108,7 @@ main {
 ********************/
 
 section#message > p {
-  font-size: 0.8rem;
+  font-size: 1rem;
 }
 
 section#message > nav {
@@ -198,7 +198,7 @@ footer {
   }
   section#message > nav > ul > li {
     display: inline;
-    padding-left: 0.8rem;
+    padding: 0 0.8rem;
   }
 
   section#works > ul > li {
