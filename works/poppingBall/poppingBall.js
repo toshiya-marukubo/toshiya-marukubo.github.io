@@ -63,6 +63,7 @@
       this.x1 = this.x;
       this.y1 = this.y;
       this.r = rand(5, 30);
+      this.lw = this.r / 4;
       this.a = rand(0, 360);
       this.rad = this.a * Math.PI / 180;
       this.v = {
@@ -76,6 +77,11 @@
         g: rand(0, 255),
         b: rand(200, 255)
       };
+      this.gc = {
+        r: this.c.r * 1.5,
+        g: this.c.g * 1.5,
+        b: this.c.b * 1.5
+      };
     };
     Particle.prototype.draw = function() {
       var ctx = this.ctx;
@@ -86,10 +92,12 @@
       ctx.fill();
       ctx.restore();
       ctx.save();
-      ctx.fillStyle = 'rgb(230, 230, 230)';
+      ctx.strokeStyle = 'rgb(' + this.gc.r + ', ' + this.gc.g + ', ' + this.gc.b + ')';
+      ctx.lineCap = 'round';
+      ctx.lineWidth = this.lw;
       ctx.beginPath();
-      ctx.arc(Math.cos(this.rad) * this.r * 0.6 + this.x, Math.sin(this.rad) * this.r * 0.6 + this.y, this.r * 0.2, 0, Math.PI * 2, false);
-      ctx.fill();
+      ctx.arc(this.x, this.y, this.r * 0.7, this.rad, this.rad + 1, false);
+      ctx.stroke();
       ctx.restore();
     };
     Particle.prototype.updatePosition = function(i) {
