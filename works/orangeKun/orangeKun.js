@@ -360,7 +360,7 @@
       onResize();
     });
 
-    window.addEventListener('click', function() {
+    canvas.addEventListener('click', function() {
       for (var i = 0; i < rand(1, 10); i++) {
         var orange = new Orange(ctx, rand(0, X), rand(0, Y / 2), rand(10, 100));
         oranges.push(orange);
@@ -368,19 +368,6 @@
         countNum.textContent = num;
       }
     });
-
-    window.addEventListener('mousemove', function(e) {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-
-    window.addEventListener('touchmove', function(e) {
-      if (e.targetTouches.length === 1) {
-        var touch = event.targetTouches[0];
-        mouseX = touch.pageX;
-        mouseY = touch.pageY;
-      }
-    }, false);
 
   });
   // Author

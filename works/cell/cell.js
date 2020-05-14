@@ -168,7 +168,7 @@
       ctxBack.rotate(180 / 180 * Math.PI);
     }
 
-    window.addEventListener('click', function() {
+    canvas.addEventListener('click', function() {
       particles = [];
       for (var i = 0; i < particleNum; i++) {
         var particle = new Particle(ctx, X / 2, Y / 2, rand(5, 10));
@@ -176,22 +176,17 @@
       }
     }, false);
     
+    canvasBack.addEventListener('click', function() {
+      particles = [];
+      for (var i = 0; i < particleNum; i++) {
+        var particle = new Particle(ctx, X / 2, Y / 2, rand(5, 10));
+        particles.push(particle);
+      }
+    }, false);
+
     window.addEventListener('resize', function() {
       onResize();
     });
-
-    window.addEventListener('mousemove', function(e) {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-
-    window.addEventListener('touchmove', function(e) {
-      if (e.targetTouches.length === 1) {
-        var touch = event.targetTouches[0];
-        mouseX = touch.pageX;
-        mouseY = touch.pageY;
-      }
-    }, false);
 
   });
   // Author

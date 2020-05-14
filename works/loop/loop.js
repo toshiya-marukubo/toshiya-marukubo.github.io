@@ -251,7 +251,7 @@
       onResize();
     });
 
-    window.addEventListener('click', function(e) {
+    canvas.addEventListener('click', function(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
       for (var i = 0; i < particles.length; i++) {

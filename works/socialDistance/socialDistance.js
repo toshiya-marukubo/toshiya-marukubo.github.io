@@ -218,21 +218,11 @@
       onResize();
     });
 
-    window.addEventListener('click', function(e) {
+    canvas.addEventListener('click', function(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
       var particle = new Particle(ctx, mouseX, mouseY, rand(20, 50));
       particles.push(particle);
-    }, false);
-
-    window.addEventListener('touchmove', function(e) {
-      if (e.targetTouches.length === 1) {
-        var touch = event.targetTouches[0];
-        mouseX = touch.pageX;
-        mouseY = touch.pageY;
-        var particle = new Particle(ctx, mouseX, mouseY, rand(20, 50));
-        particles.push(particle);
-      }
     }, false);
 
   });

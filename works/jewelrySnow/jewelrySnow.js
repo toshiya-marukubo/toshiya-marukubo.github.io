@@ -179,7 +179,7 @@
       onResize();
     });
 
-    window,addEventListener('mousemove', function(e) {  
+    canvas.addEventListener('mousemove', function(e) {  
       var x = e.clientX;
       var y = e.clientY;
       mouseX1 = x - dist;
@@ -188,18 +188,6 @@
       mouseY2 = y + dist;
     }, false);
 
-    window.addEventListener('touchmove', function(e) {
-      if (e.targetTouches.length === 1) {
-        var touch = event.targetTouches[0];
-        var x = touch.pageX;
-        var y = touch.pageY;
-        mouseX1 = x - dist;
-        mouseX2 = x + dist;
-        mouseY1 = y - dist;
-        mouseY2 = y + dist;
-      }
-    }, false);
-    
   });
   // Author
   console.log('File Name / jewelrySnow.js\nCreated Date / January 8, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');

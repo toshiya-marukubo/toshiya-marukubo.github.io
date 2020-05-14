@@ -215,7 +215,7 @@
       mouseY = e.clientY;
     });
 
-    window.addEventListener('click', function() {
+    canvas.addEventListener('click', function() {
       if (flg === true) {
         flg = false;
         returnFlg = true;

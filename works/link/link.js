@@ -150,7 +150,7 @@
       onResize();
     });
 
-    window.addEventListener('click', function(e) {
+    canvas.addEventListener('click', function(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
       var num = rand(1, 10);

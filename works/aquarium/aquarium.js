@@ -360,7 +360,7 @@
       onResize();
     });
 
-    window.addEventListener('click', function(e) {
+    canvas.addEventListener('click', function(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
       var fish = new Fish(ctx, mouseX, mouseY, rand(5, 15), fishDir[rand(0, 1)], fishColors[rand(0, fishColors.length - 1)]);

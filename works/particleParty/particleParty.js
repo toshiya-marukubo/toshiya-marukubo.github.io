@@ -147,7 +147,7 @@
       onResize();
     });
 
-    window.addEventListener('click', function(e) {
+    canvas.addEventListener('click', function(e) {
       if (flg) {
         flg = false;
       } else {
@@ -155,18 +155,10 @@
       }
     }, false);
 
-    window.addEventListener('mousemove', function(e) {
+    canvas.addEventListener('mousemove', function(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
     });
-
-    window.addEventListener('touchmove', function(e) {
-      if (e.targetTouches.length === 1) {
-        var touch = event.targetTouches[0];
-        mouseX = touch.pageX;
-        mouseY = touch.pageY;
-      }
-    }, false);
 
   });
   // Author
