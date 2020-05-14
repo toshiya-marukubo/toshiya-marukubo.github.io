@@ -107,8 +107,12 @@ main {
   Message
 ********************/
 
+section#message > p {
+  font-size: 0.8rem;
+}
+
 section#message > nav {
-  padding: 1.6rem 0 0 0;
+  padding: 0;
 }
 section#message > nav > ul > li {
   list-style: disc;
