@@ -65,8 +65,8 @@
       this.r = rand(radiusMin, radiusMax);
       this.l = rand(50, 100);
       this.v = {
-        x: rand(-1, 1) * Math.random(),
-        y: rand(-1, 1) * Math.random()
+        x: rand(-2, 2) * Math.random(),
+        y: rand(-2, 2) * Math.random()
       };
       this.c = {
         r: rand(0, 255),
@@ -99,8 +99,8 @@
     Cloud.prototype.updateParams = function() {
       this.l -= 0.1;
       if (this.l < 0) {
-        this.v.x = rand(-1, 1) * Math.random();
-        this.v.y = rand(-1, 1) * Math.random();
+        this.v.x = rand(-2, 2) * Math.random();
+        this.v.y = rand(-2, 2) * Math.random();
         this.l = rand(50, 100);
       }
     };
@@ -150,7 +150,7 @@
       ctx.save();
       ctx.fillStyle = 'black';
       ctx.globalAlpha = 0.3;
-      ctx.font = '200px impact';
+      ctx.font = '100px impact';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText('FOG', X / 2, Y / 2);
