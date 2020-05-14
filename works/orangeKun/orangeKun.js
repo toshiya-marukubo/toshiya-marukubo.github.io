@@ -254,7 +254,7 @@
     };
 
     Orange.prototype.render = function(i) {
-      this.updateParams(i);
+      //this.updateParams(i);
       this.updatePosition();
       this.draw();
     };
