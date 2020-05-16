@@ -21,6 +21,7 @@
 
     // canvas 
     var ctx = canvas.getContext('2d');
+    var count = document.getElementById('count');
     var X = canvas.width = window.innerWidth;
     var Y = canvas.height = window.innerHeight;
     var mouseX = X / 2;
@@ -46,7 +47,7 @@
       Particle
     ********************/
     
-    var particleNum = 200;
+    var particleNum = count.value;
     var particles = [];
 
     if (X < 768) {
@@ -161,12 +162,6 @@
     function onResize() {
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
-      X < 768 ? particleNum = 100 : particleNum = 200;
-      particles = [];
-      for (var i = 0; i < particleNum; i++) {
-        var particle = new Particle(ctx, rand(0, X), rand(0, Y));
-        particles.push(particle);
-      }
       for (var i = 0; i < particles.length; i++) {
         particles[i].resize();
       }
@@ -182,6 +177,15 @@
       mouseX = e.clientX;
       mouseY = e.clientY;
       flg === true ? flg = false : flg = true;
+    });
+    count.addEventListener('change', function() {
+      particles = [];
+      var val = this.value;
+      particleNum = val;
+      for (var i = 0; i < particleNum; i++) {
+        var particle = new Particle(ctx, rand(0, X), rand(0, Y));
+        particles.push(particle);
+      }
     });
 
   }); 
