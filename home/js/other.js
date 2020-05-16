@@ -7,6 +7,7 @@
     }
     // var 
     var urlArray = [
+      'shapeOfUniverse',
       'fog',
       'poppingBall',
       'flock',
