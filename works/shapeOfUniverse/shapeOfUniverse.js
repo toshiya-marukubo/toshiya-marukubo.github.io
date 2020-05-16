@@ -252,11 +252,35 @@
         var shape = new Shape(ctx, X / 2, Y / 2, i * 20, selectShapeNum);
         shapes.push(shape);
       }
-    });
-    canvas.addEventListener('mousewheel', function(e){
+    }, false);
+    canvas.addEventListener('wheel', function(e){
       rotateSpeed += e.deltaY / 100;
       increaseR += e.deltaX / 500;
-    });
+    }, false);
+
+    var touchStart;
+    var touchMove;
+    var touchEnd;
+    canvas.addEventListener('touchstart', function(e) {
+      var touch = e.targetTouches[0];
+      touchStart = touch.pageY;
+      console.log(touchStart);
+    }, false);
+    canvas.addEventListener('touchmove', function(e) {
+      var touch = e.targetTouches[0];
+      touchMove = touch.pageY;
+    }, false);
+    canvas.addEventListener('touchend', function(e) {
+      touchEnd = touchStart - touchMove;
+      console.log(touchEnd);
+      if (touchEnd > 50) {
+        rotateSpeed += 1;
+      }
+      if (touchEnd < -50) {
+        rotateSpeed -= 1;
+      }
+    }, false);
+
     range.addEventListener('change', function() {
       shapeNum = this.value;
       shapes = [];
@@ -265,7 +289,7 @@
         var shape = new Shape(ctx, X / 2, Y / 2, i * 20, n);
         shapes.push(shape);
       }
-    });
+    }, false);
   });
        
   // Author
