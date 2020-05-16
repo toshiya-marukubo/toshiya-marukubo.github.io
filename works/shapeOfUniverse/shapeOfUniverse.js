@@ -109,7 +109,7 @@
     };
     Shape.prototype.resize = function() {
       this.x = X / 2;
-      this.y + Y / 2;
+      this.y = Y / 2;
     };
     Shape.prototype.rect = function() {
       text = 'SQUARE';
