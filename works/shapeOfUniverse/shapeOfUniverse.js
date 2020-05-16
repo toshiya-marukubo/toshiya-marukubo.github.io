@@ -253,7 +253,7 @@
         shapes.push(shape);
       }
     });
-    canvas.addEventListener('wheel', function(e){
+    window.addEventListener('wheel', function(e){
       rotateSpeed += e.deltaY / 100;
       increaseR += e.deltaX / 500;
     });
