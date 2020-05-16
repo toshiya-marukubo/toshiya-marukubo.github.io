@@ -253,7 +253,7 @@
         shapes.push(shape);
       }
     });
-    canvas.addEventListener('wheel', function(e){
+    canvas.addEventListener('mousewheel', function(e){
       rotateSpeed += e.deltaY / 100;
       increaseR += e.deltaX / 500;
     });
