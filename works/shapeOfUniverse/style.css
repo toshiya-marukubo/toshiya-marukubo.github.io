@@ -74,7 +74,7 @@ ul#navigation > li {
   display: inline-block;
 }
 
-p.left {
+p.right {
   font-size: 0.8rem;
   position: absolute;
   right: 0;
