@@ -258,26 +258,33 @@
       increaseR += e.deltaX / 500;
     }, false);
 
-    var touchStart;
-    var touchMove;
-    var touchEnd;
+    var touchStartY;
+    var touchMoveY;
+    var touchEndY;
+    var touchStartX;
+    var touchMoveX;
+    var touchEndX;
     canvas.addEventListener('touchstart', function(e) {
       var touch = e.targetTouches[0];
-      touchStart = touch.pageY;
-      console.log(touchStart);
+      touchStartY = touch.pageY;
+      touchStartX = touch.pageX;
     }, false);
     canvas.addEventListener('touchmove', function(e) {
       var touch = e.targetTouches[0];
-      touchMove = touch.pageY;
+      touchMoveY = touch.pageY;
+      touchMoveX = touch.pageX;
     }, false);
     canvas.addEventListener('touchend', function(e) {
-      touchEnd = touchStart - touchMove;
-      console.log(touchEnd);
-      if (touchEnd > 50) {
+      touchEndY = touchStartY - touchMoveY;
+      touchEndX = touchStartX - touchMoveX;
+      if (touchEndY > 50) {
         rotateSpeed += 1;
       }
-      if (touchEnd < -50) {
+      if (touchEndY < -50) {
         rotateSpeed -= 1;
+      }
+      if (touchEndX > 50) {
+        increaseR += 1;
       }
     }, false);
 
