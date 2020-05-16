@@ -63,9 +63,11 @@ ul#navigation {
   height: 100%;
   top: 0;
   right: 0;
-  writing-mode: vertical-rl;
+  -webkit-writing-mode: vertical-rl;
+      -ms-writing-mode: tb-rl;
+          writing-mode: vertical-rl;
   text-align: center;
-  padding-right: 1.6rem;
+  margin-right: 1.6rem;
   font-size: 0.8rem;
 }
 ul#navigation > li {
