@@ -240,6 +240,17 @@
         shapes[i].resize();
       }
     }
+    // select different number.
+    function repRandomNum() {
+      var beforeNum = selectShapeNum;
+      var newNum = rand(1, 6);
+      if (newNum === beforeNum) {
+        repRandomNum();
+      } else {
+        selectShapeNum = newNum;
+      }
+    }
+
     window.addEventListener('resize', function() {
       onResize();
     });
@@ -247,7 +258,7 @@
       increaseR = 2;
       rotateSpeed = 5;
       shapes = [];
-      var selectShapeNum = rand(1, 6);
+      repRandomNum();
       for (var i = 0; i < shapeNum; i++) {
         var shape = new Shape(ctx, X / 2, Y / 2, i * 20, selectShapeNum);
         shapes.push(shape);
