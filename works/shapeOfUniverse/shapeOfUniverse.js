@@ -27,7 +27,7 @@
     var Y = canvas.height = window.innerHeight;
     var mouseX = X / 2;
     var mouseY = Y / 2;
-    var rotateSpeed = 0.5;
+    var rotateSpeed = 5;
     var rMax = Y;
     var increaseR = 2;
     var text = 'STAR';
@@ -245,7 +245,7 @@
     });
     canvas.addEventListener('click', function(e) {
       increaseR = 2;
-      rotateSpeed = 0.5;
+      rotateSpeed = 5;
       shapes = [];
       var selectShapeNum = rand(1, 6);
       for (var i = 0; i < shapeNum; i++) {
