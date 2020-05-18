@@ -60,9 +60,9 @@
       this.dist = 0;
       this.r = maxRadius / 2;
       this.c = {
-        r: 1,
-        g: 145,
-        b: 155
+        r: rand(0, 255),
+        g: rand(0, 255),
+        b: rand(0, 255)
       };
       this.flg = false;
     };
@@ -88,12 +88,22 @@
         this.dist += maxRadius * 0.005;
         this.a += maxRadius * 0.005;
       }
-      if (this.flg ===true) {
+      if (this.flg === true) {
         this.r -= maxRadius * 0.01 * 0.25;
         this.dist -= maxRadius * 0.005;
         this.a -= maxRadius * 0.005;
       }
+      if (this.dist < 0) {
+        this.changeColor();
+      }
       this.rad = this.a * Math.PI / 180;
+    };
+    Flower.prototype.changeColor = function() {
+      this.c = {
+        r: rand(0, 255),
+        g: rand(0, 255),
+        b: rand(0, 255)
+      };
     };
     Flower.prototype.render = function() {
       this.updateParams();
@@ -111,27 +121,6 @@
         flowers.push(flower);
       } 
     }
-
-    /********************
-      ChangeColor
-    ********************/
-    
-    function changeColor() {
-      var time = rand(1000, 5000);
-      var r = rand(0, 255);
-      var g = rand(0, 255);
-      var b = rand(0, 255);
-      for (var i = 0; i < flowers.length; i++) {
-        flowers[i].c  = {
-          r: r,
-          g: g,
-          b: b,
-        };
-      }
-      setTimeout(changeColor, time);
-    }
-
-    changeColor();
 
     /********************
       Render
