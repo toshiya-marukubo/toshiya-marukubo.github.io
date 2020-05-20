@@ -1,9 +1,11 @@
 /********************
 
-  I wanted to make a tree, but I was lacking in ability.
-  I referenced this book. I have almost understood... maybe...
+  I wanted to make a tree from before, but I was lacking in ability.
+  I have referenced the following book. almost understood... maybe...
   
-  "Supercharged JavaScript Graphics / Raffaele Cecco" Thanks for genius.
+  "Supercharged JavaScript Graphics / Raffaele Cecco / O'Reilly"
+  
+  Thanks for genius.
 
 ********************/
 
