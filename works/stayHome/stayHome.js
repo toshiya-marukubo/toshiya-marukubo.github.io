@@ -124,17 +124,12 @@
       var j = i;
       for (var i = 0; i < circles.length; i++) {
         if (j !== i) {
-          var a;
-          var b;
-          var c;
-          var thatR = circles[i].r;
-          var thatC = circles[i].c;
-          var sumRadius = this.r + thatR;
-          a = this.x - circles[i].x;
-          b = this.y - circles[i].y;
-          c = a * a + b * b;
+          var sumRadius = this.r + circles[i].r;
+          var a = this.x - circles[i].x;
+          var b = this.y - circles[i].y;
+          var c = a * a + b * b;
           if (c < sumRadius * sumRadius) {
-            if (this.c !== thatC) {
+            if (this.c !== circles[i].c) {
               this.c = 'rgb(255, 57, 57)';
             }
             this.v.x *= -1;
