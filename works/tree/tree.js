@@ -119,16 +119,12 @@
         (function(j) {
           setTimeout(function() {
             that.draw(endX, endY, newLength, newAngle, newDepth, newBranchWidth); 
-          }, j * 400);
+          }, j * 800);
         })(i);
       }
 
       ctx.restore();
     }
-    Tree.prototype.resize = function() {
-      this.x = rand(0 - 50, X + 50);
-      this.y = Y;
-    };
     Tree.prototype.render = function() {
       this.draw();
     };
@@ -150,11 +146,6 @@
     function onResize() {
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
-      
-      for (var i = 0; i < trees.length; i++) {
-        trees[i].resize();
-        trees[i].render();
-      }
     }
     
     window.addEventListener('resize', function() {
