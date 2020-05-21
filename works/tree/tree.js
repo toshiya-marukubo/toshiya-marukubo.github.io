@@ -68,7 +68,7 @@
     Tree.prototype.init = function(x, y) {
       this.x = x;
       this.y = y;
-      this.l = rand(Y / 10, Y / 8);
+      this.l = rand(Y / 20, Y / 10);
       this.a = -Math.PI / 2;
       this.d = 12;
       this.lw = 14;
@@ -89,7 +89,6 @@
       var maxBranch = 3;
       var maxAngle = 2 * Math.PI / 8;
       var subBranches;
-
       ctx.save();
       ctx.beginPath();
       ctx.moveTo(endX, endY);
@@ -113,11 +112,15 @@
 
       subBranches = (Math.random() * maxBranch - 1) + 1;
       newBranchWidth *= 0.7;
-      
+      var that = this; 
       for (var i = 0; i < subBranches; i++) {
         newAngle = newAngle + Math.random() * maxAngle - maxAngle * 0.5;
         newLength = newLength * (0.7 + Math.random() * 0.3);
-        this.draw(endX, endY, newLength, newAngle, newDepth, newBranchWidth);
+        (function(j) {
+          setTimeout(function() {
+            that.draw(endX, endY, newLength, newAngle, newDepth, newBranchWidth); 
+          }, j * 400);
+        })(i);
       }
 
       ctx.restore();
@@ -140,25 +143,6 @@
     }
 
     /********************
-      Render
-    ********************/
-    
-    function render() {
-      ctx.clearRect(0, 0, X, Y);
-      trees = [];
-      for (var i = 0; i < treeNum; i++) {
-        var tree = new Tree(ctx, rand(-50, X + 50), Y);
-        trees.push(tree);
-      }
-      for (var i = 0; i < trees.length; i++) {
-        trees[i].render();
-      }
-      var time = rand(1000, 3000); 
-      setTimeout(render, time);
-    } 
-    render();
-    
-    /********************
       Event
     ********************/
     
@@ -176,7 +160,7 @@
     window.addEventListener('resize', function() {
       onResize();
     });
-
+    
   });
   // Author
   console.log('File Name / tree.js\nCreated Date / May 20, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
