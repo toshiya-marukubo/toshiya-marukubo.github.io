@@ -88,7 +88,7 @@
       ctx.strokeStyle = this.gradient();
       ctx.fillStyle = 'black';
       ctx.lineWidth = lineWidth;
-      if (motionNum === 1) ctx.lineWidth = Math.sin(this.rad) * lineWidth + lineWidth + 5;
+      if (motionNum === 1) ctx.lineWidth = Math.tan(this.rad) * 0.2 * lineWidth + lineWidth + 5;
       ctx.font = fontSize + 'px Impact';
       // fill stroke
       ctx.strokeText(this.t, this.x, this.y);
@@ -153,7 +153,7 @@
     };
 
     Text.prototype.fallMotion = function() {
-      this.y += 20;
+      this.y += 30;
     }
 
     Text.prototype.render = function() {
@@ -229,7 +229,6 @@
     });
 
     canvas.addEventListener('click', function(e){
-      //repRandomNum();
       motionNum++;
       if (motionNum === 7) {
         motionNum = 0;
