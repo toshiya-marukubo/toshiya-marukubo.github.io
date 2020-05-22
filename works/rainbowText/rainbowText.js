@@ -241,7 +241,7 @@
         texts[i].a -= e.deltaX;
       }
     });
-
+    /*
     var touchStartY;
     var touchMoveY;
     var touchEndY;
@@ -271,7 +271,7 @@
         texts[i].a -= touchEndX;
       }
     }, false);
-
+    */
   });
   // Author
   console.log('File Name / rainbowText.js\nCreated Date / May 22, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
