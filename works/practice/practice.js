@@ -42,75 +42,140 @@
     /********************
       Practice
     ********************/
-    var range = document.getElementById('range');
-    var offscreenCanvas = document.createElement('canvas');
-    var offscreenContext = offscreenCanvas.getContext('2d');
-    offscreenCanvas.width = X;
-    offscreenCanvas.height = Y;
+    var resetButton = document.getElementById('resetButton');
     var image = new Image();
-    var scale = range.value;
-    scale = 1;
-    var maxScale = 3;
-    var minScale = 1;
+    var imageData;
+    var mousedown = {};
+    var rubberbandRectangle = {};
+    var dragging = false;
 
-    // function
-    function drawScaled() {
-      var sw = X * scale;
-      var sh = Y * scale;
-      ctx.drawImage(offscreenCanvas,
-        0, 
-        0, 
-        offscreenCanvas.width,
-        offscreenCanvas.height,
-        -sw / 2 + X / 2,
-        -sh / 2 + Y / 2,
-        sw,
-        sh
+    function windowToCanvas(canvas, x, y) {
+      var canvasRectangle = canvas.getBoundingClientRect();
+      return {
+        x: x - canvasRectangle.left,
+        y: y - canvasRectangle.top
+      };
+    }
+
+    function captureRubberbandPixels() {
+      imageData = ctx.getImageData(
+        0,
+        0,
+        canvas.width,
+        canvas.height
       );
     }
-    function drawWatermark(ctx) {
-      var lineOne = 'Copyright';
-      var lineTwo = 'Inc,';
-      var textMetrics = null;
-      var fontHeight = 128;
-      ctx.save();
-      ctx.fillStyle = 'rgba(100, 140, 230, 0.5)';
-      ctx.strokeStyle = 'yellow';
-      ctx.shadowColor = 'rgba(50, 50, 50, 1.0)';
-      ctx.shadowOffsetX = 5;
-      ctx.shadowOffsetY = 5;
-      ctx.shadowBlur = 10;
-      ctx.font = fontHeight + 'px Arial';
-      textMetrics = ctx.measureText(lineOne);
-      ctx.translate(X / 2, Y / 2);
-      ctx.fillText(lineOne, -textMetrics.width / 2, 0);
-      ctx.strokeText(lineOne, -textMetrics.width / 2, 0);
-      textMetrics = ctx.measureText(lineTwo);
-      ctx.fillText(lineTwo, -textMetrics.width / 2, fontHeight);
-      ctx.strokeText(lineTwo, -textMetrics.width / 2, fontHeight);
-      ctx.restore();
-    }
     
-    range.addEventListener('change', function(e) {
-      scale = this.value;
-      drawScaled();
-    });
+    function restoreRubberbandPixels() {
+      var deviceWidthOverCSSPixels = imageData.width / canvas.width;
+      var deviceHeightOverCSSPixels = imageData.height / canvas.height;
+      ctx.putImageData(
+        imageData,
+        0,
+        0,
+        rubberbandRectangle.left,
+        rubberbandRectangle.top,
+        rubberbandRectangle.width * deviceWidthOverCSSPixels,
+        rubberbandRectangle.height * deviceHeightOverCSSPixels
+      );
+    }
+
+    function drawRubberband() {
+      ctx.strokeRect(
+        rubberbandRectangle.left + ctx.lineWidth,
+        rubberbandRectangle.top + ctx.lineWidth,
+        rubberbandRectangle.width - 2 * ctx.lineWidth,
+        rubberbandRectangle.height - 2 * ctx.lineWidth,
+      );
+    }
+
+    function setRubberbandRectangle(x, y) {
+      rubberbandRectangle.left = Math.min(x, mousedown.x);
+      rubberbandRectangle.top = Math.min(y, mousedown.y);
+      rubberbandRectangle.width = Math.abs(x - mousedown.x);
+      rubberbandRectangle.height = Math.abs(y - mousedown.y);
+    }
+
+    function updateRubberband() {
+      captureRubberbandPixels();
+      drawRubberband();
+    }
+
+    function rubberbandStart(x, y) {
+      mousedown.x = x;
+      mousedown.y = y;
+      rubberbandRectangle.left = mousedown.x;
+      rubberbandRectangle.top = mousedown.y;
+      dragging = true;
+    }
+
+    function rubberbandStretch(x, y) {
+      if (rubberbandRectangle.width > 2 * ctx.lineWidth && rubberbandRectangle.height > 2 * ctx.lineWidth) {
+        if (imageData !== undefined) {
+          restoreRubberbandPixels();
+        }
+      }
+      setRubberbandRectangle(x, y);
+
+      if (rubberbandRectangle.width > 2 * ctx.lineWidth && rubberbandRectangle.height > 2 * ctx.lineWidth) {
+        updateRubberband();
+      }
+    }
+
+    function rubberbandEnd() {
+      ctx.drawImage(
+        canvas,
+        rubberbandRectangle.left + ctx.lineWidth * 2,
+        rubberbandRectangle.top + ctx.lineWidth * 2,
+        rubberbandRectangle.width - 4 * ctx.lineWidth,
+        rubberbandRectangle.height - 4 * ctx.lineWidth,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+      dragging = false;
+      imageData = undefined;
+    }
+
+    // event
+
+    canvas.onmousedown = function(e) {
+      var loc = windowToCanvas(canvas, e.clientX, e.clientY);
+      e.preventDefault();
+      rubberbandStart(loc.x, loc.y);
+    };
+    canvas.onmousemove = function(e) {
+      var loc;
+      if(dragging) {
+        loc = windowToCanvas(canvas, e.clientX, e.clientY);
+        rubberbandStretch(loc.x, loc.y);
+      }
+    };
+
+    canvas.onmouseup = function(e) {
+      rubberbandEnd();
+    };
 
     image.src = 'og-shapeOfUniverse.png';
-    image.addEventListener('load', function() {
-      ctx.drawImage(image, 0, 0, X, Y);
-      offscreenContext.drawImage(image, 0, 0, X, Y);
-      drawWatermark(ctx);
-      drawWatermark(offscreenContext);
-    });
-
+    image.onload = function() {
+      ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+    };
+    
+    resetButton.onclick = function(e) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+    };
+    
+    ctx.strokeStyle = 'yellow';
+    ctx.lineWidth = 2;
+    
     /********************
       Render
     ********************/
     
     function render(){
       ctx.clearRect(0, 0, X, Y);
-      drawScale();
       requestAnimationFrame(render);
     }
 
