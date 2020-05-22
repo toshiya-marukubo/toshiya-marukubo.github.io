@@ -181,12 +181,15 @@
     ********************/
    
     function render() {
+      ctx.clearRect(0, 0, X, Y);
+      /*
       ctx.globalCompositeOperation = "darken";
       ctx.globalAlpha = 0.1;
       ctx.fillStyle = "rgb(0,0,0)";
       ctx.fillRect(0, 0, X, Y);
       ctx.globalCompositeOperation = "source-over";
       ctx.globalAlpha = 1;
+      */
       for (var i = 0; i < texts.length; i++) {
         texts[i].render();
       }
