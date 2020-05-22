@@ -111,7 +111,7 @@
     };
 
     Text.prototype.updateParams = function() {
-      this.a -= 3;
+      this.a -= 1;
       this.rad = this.a * Math.PI / 180;
     };
 
