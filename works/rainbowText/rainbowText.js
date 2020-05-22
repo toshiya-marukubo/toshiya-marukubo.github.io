@@ -96,10 +96,11 @@
       ctx.textBaseline = 'middle';
       ctx.strokeStyle = gradient;
       ctx.fillStyle = 'black';
-      ctx.lineWidth = Math.sin(this.rad) * lineWidth + lineWidth + 5;
+      ctx.lineWidth = lineWidth;
+      if (motionNum === 1) ctx.lineWidth = Math.sin(this.rad) * lineWidth + lineWidth + 5;
       ctx.font = fontSize + 'px Impact';
       // motion 4
-      if (motionNum === 4) {
+      if (motionNum === 5) {
         ctx.translate(this.x, this.y);
         ctx.rotate(this.rad);
         ctx.translate(-this.x, -this.y);
@@ -161,11 +162,11 @@
     Text.prototype.render = function() {
       this.updateParams();
       if (motionNum === 0) this.initialPosition();
-      if (motionNum === 1) this.verticalMotion();
-      if (motionNum === 2) this.sideMotion();
-      if (motionNum === 3) this.circleMotion();
-      if (motionNum === 5) this.vibeMotion();
-      if (motionNum === 6) this.fallMotion();
+      if (motionNum === 2) this.verticalMotion();
+      if (motionNum === 3) this.sideMotion();
+      if (motionNum === 4) this.circleMotion();
+      if (motionNum === 6) this.vibeMotion();
+      if (motionNum === 7) this.fallMotion();
       this.wrapPosition();
       this.draw();
     };
@@ -230,7 +231,7 @@
     canvas.addEventListener('click', function(e){
       //repRandomNum();
       motionNum++;
-      if (motionNum === 7) {
+      if (motionNum === 8) {
         motionNum = 0;
       }
     }, false);
