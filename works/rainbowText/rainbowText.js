@@ -94,8 +94,8 @@
       // settings
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.strokeStyle = gradient;
-      ctx.fillStyle = 'black';
+      //ctx.strokeStyle = gradient;
+      ctx.fillStyle = gradient;
       ctx.lineWidth = lineWidth;
       if (motionNum === 1) ctx.lineWidth = Math.sin(this.rad) * lineWidth + lineWidth + 5;
       ctx.font = fontSize + 'px Impact';
@@ -106,7 +106,7 @@
         ctx.translate(-this.x, -this.y);
       }
       // fill stroke
-      ctx.strokeText(this.t, this.x, this.y);
+      //ctx.strokeText(this.t, this.x, this.y);
       ctx.fillText(this.t, this.x, this.y);
       ctx.restore();
     };
