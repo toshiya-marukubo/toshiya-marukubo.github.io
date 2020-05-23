@@ -27,7 +27,7 @@
     var mouseY = Y / 2;
     var text = '@toshiya-marukubo ';
     var textNum = text.length;
-    var xSplit = X / textNum;
+    var xSplit = Math.floor(X / textNum);
     var texts = [];
     var fontSize = 56;
     var lineWidth = 20;
@@ -88,7 +88,7 @@
       ctx.strokeStyle = this.gradient();
       ctx.fillStyle = 'black';
       ctx.lineWidth = lineWidth;
-      if (motionNum === 1) ctx.lineWidth = Math.tan(this.rad) * 0.2 * lineWidth + lineWidth + 5;
+      if (motionNum === 1) ctx.lineWidth = Math.floor(Math.tan(this.rad) * 0.2 * lineWidth + lineWidth + 5);
       ctx.font = fontSize + 'px Impact';
       // fill stroke
       ctx.strokeText(this.t, this.x, this.y);
@@ -124,7 +124,7 @@
       var x = this.xi - this.x;
       var y = this.yi - this.y;
       var d = x * x + y * y;
-      var dist = Math.sqrt(d);
+      var dist = Math.floor(Math.sqrt(d));
       if (dist < 5) {
         return;
       }
@@ -135,16 +135,16 @@
     };
 
     Text.prototype.verticalMotion = function() {
-      this.y = Math.tan(this.rad) * 10 + this.y;
+      this.y = Math.floor(Math.tan(this.rad) * 10 + this.y);
     }
 
     Text.prototype.sideMotion = function() {
-      this.x = Math.tan(this.rad) * 10 + this.x;
+      this.x = Math.floor(Math.tan(this.rad) * 10 + this.x);
     }
 
     Text.prototype.circleMotion = function() {
-      this.x = Math.cos(this.rad) * 20 + this.x;
-      this.y = Math.sin(this.rad) * 20 + this.y;
+      this.x = Math.floor(Math.cos(this.rad) * 20 + this.x);
+      this.y = Math.floor(Math.sin(this.rad) * 20 + this.y);
     }
 
     Text.prototype.vibeMotion = function() {
