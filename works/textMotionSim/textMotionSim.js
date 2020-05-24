@@ -91,7 +91,7 @@
       ctx.strokeStyle = 'yellow';
       ctx.fillStyle = 'black';
       ctx.lineWidth = lineWidth;
-      ctx.lineWidth = Math.tan(this.rad) * 0.05 * lineWidth + lineWidth + 5;
+      ctx.lineWidth = Math.sin(this.rad) * lineWidth + lineWidth + 10;
       ctx.font = fontSize + 'px Impact';
       // rotate
       if (motionNum === 1) {
@@ -106,7 +106,7 @@
     };
 
     Text.prototype.updateParams = function() {
-      this.a -= 1;
+      this.a -= 3;
       this.rad = this.a * Math.PI / 180;
     };
 
