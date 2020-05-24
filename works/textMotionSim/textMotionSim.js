@@ -113,14 +113,8 @@
     Text.prototype.wrapPosition = function() {
       if (this.x < 0) this.x = X;
       if (this.x > X) this.x = 0;
-      if (this.y < 0) {
-        this.y = Y;
-        fontSize -= 1;
-      }
-      if (this.y > Y) {
-        this.y = 0; 
-        fontSize += 1;
-      };
+      if (this.y < 0) this.y = Y;
+      if (this.y > Y) this.y = 0;
     };
     
     Text.prototype.initialPosition = function() {
@@ -157,6 +151,7 @@
 
     Text.prototype.fallMotion = function() {
       this.y += 30;
+      fontSize += 0.05;
     }
 
     Text.prototype.render = function() {
