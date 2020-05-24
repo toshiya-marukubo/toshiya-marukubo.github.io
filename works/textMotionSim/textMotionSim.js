@@ -35,6 +35,9 @@
     var motionNum = 0;
 
     if (X < 768) {
+      text = '@toshiya ';
+      textNum = text.length;
+      xSplit = Math.floor(X / textNum);
       fontSize = 28;
       lineWidth = 10;
     }
@@ -85,28 +88,22 @@
       // settings
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.strokeStyle = this.gradient();
+      ctx.strokeStyle = 'yellow';
       ctx.fillStyle = 'black';
       ctx.lineWidth = lineWidth;
-      if (motionNum === 1) ctx.lineWidth = Math.floor(Math.tan(this.rad) * 0.2 * lineWidth + lineWidth + 5);
+      ctx.lineWidth = Math.tan(this.rad) * 0.05 * lineWidth + lineWidth + 5;
       ctx.font = fontSize + 'px Impact';
+      // rotate
+      if (motionNum === 1) {
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rad);
+        ctx.translate(-this.x, -this.y);
+      }
       // fill stroke
       ctx.strokeText(this.t, this.x, this.y);
       ctx.fillText(this.t, this.x, this.y);
       ctx.restore();
     };
-
-    Text.prototype.gradient = function() {
-      var g = ctx.createLinearGradient(0, 0, X, 0);
-      g.addColorStop(0, "rgba(255, 0, 0, 1)");
-      g.addColorStop(0.15, "rgba(255, 255, 0, 1)");
-      g.addColorStop(0.3, "rgba(0, 255, 0, 1)");
-      g.addColorStop(0.45, "rgba(0, 255, 255, 1)");
-      g.addColorStop(0.7, "rgba(0, 0, 255, 1)");
-      g.addColorStop(0.85, "rgba(255, 0, 255, 1)");
-      g.addColorStop(1, "rgba(255, 0, 0, 1)");
-      return g;
-    }
 
     Text.prototype.updateParams = function() {
       this.a -= 1;
@@ -116,35 +113,41 @@
     Text.prototype.wrapPosition = function() {
       if (this.x < 0) this.x = X;
       if (this.x > X) this.x = 0;
-      if (this.y < 0) this.y = Y;
-      if (this.y > Y) this.y = 0;
+      if (this.y < 0) {
+        this.y = Y;
+        fontSize -= 1;
+      }
+      if (this.y > Y) {
+        this.y = 0; 
+        fontSize += 1;
+      };
     };
     
     Text.prototype.initialPosition = function() {
       var x = this.xi - this.x;
       var y = this.yi - this.y;
       var d = x * x + y * y;
-      var dist = Math.floor(Math.sqrt(d));
-      if (dist < 5) {
+      var dist = Math.sqrt(d);
+      if (dist < 3) {
         return;
       }
-      this.v.x = x / dist * 10;
-      this.v.y = y / dist * 10;
+      this.v.x = x / dist * 5;
+      this.v.y = y / dist * 5;
       this.x += this.v.x;
       this.y += this.v.y;
     };
 
     Text.prototype.verticalMotion = function() {
-      this.y = Math.floor(Math.tan(this.rad) * 10 + this.y);
+      this.y = Math.tan(this.rad) * 10 + this.y;
     }
 
     Text.prototype.sideMotion = function() {
-      this.x = Math.floor(Math.tan(this.rad) * 10 + this.x);
+      this.x = Math.tan(this.rad) * 10 + this.x;
     }
 
     Text.prototype.circleMotion = function() {
-      this.x = Math.floor(Math.cos(this.rad) * 20 + this.x);
-      this.y = Math.floor(Math.sin(this.rad) * 20 + this.y);
+      this.x = Math.cos(this.rad) * 20 + this.x;
+      this.y = Math.sin(this.rad) * 20 + this.y;
     }
 
     Text.prototype.vibeMotion = function() {
@@ -178,15 +181,13 @@
     ********************/
    
     function render() {
-      ctx.clearRect(0, 0, X, Y);
-      /*
+      //ctx.clearRect(0, 0, X, Y);
       ctx.globalCompositeOperation = "darken";
       ctx.globalAlpha = 0.1;
       ctx.fillStyle = "rgb(0,0,0)";
       ctx.fillRect(0, 0, X, Y);
       ctx.globalCompositeOperation = "source-over";
       ctx.globalAlpha = 1;
-      */
       for (var i = 0; i < texts.length; i++) {
         texts[i].render();
       }
@@ -208,10 +209,14 @@
     window.addEventListener('resize', function(){
       onResize();
       if (X < 768) {
+        text = '@toshiya ';
+        textNum = text.length;
+        xSplit = X / textNum;
         fontSize = 28;
         lineWidth = 10;
-        xSplit = X / textNum;
       } else {
+        text = '@toshiya-marukubo ';
+        textNum = text.length;
         fontSize = 56;
         lineWidth = 20;
         xSplit = X / textNum;
@@ -232,6 +237,7 @@
       motionNum++;
       if (motionNum === 7) {
         motionNum = 0;
+        X < 768 ? fontSize = 28 : fontSize = 56; 
       }
     }, false);
 
@@ -241,13 +247,14 @@
         texts[i].a -= e.deltaX;
       }
     });
-    /*
+    
     var touchStartY;
     var touchMoveY;
     var touchEndY;
     var touchStartX;
     var touchMoveX;
     var touchEndX;
+
     canvas.addEventListener('touchstart', function(e) {
       var touch = e.targetTouches[0];
       touchStartY = touch.pageY;
@@ -263,16 +270,11 @@
       touchEndX = touchStartX - touchMoveX;
       for (var i = 0; i < texts.length; i++) {
         texts[i].y -= touchEndY;
-      }
-      for (var i = 0; i < texts.length; i++) {
-        texts[i].y += touchEndY;
-      }
-      for (var i = 0; i < texts.length; i++) {
         texts[i].a -= touchEndX;
       }
     }, false);
-    */
+  
   });
   // Author
-  console.log('File Name / rainbowText.js\nCreated Date / May 22, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
+  console.log('File Name / textMotionSim.js\nCreated Date / May 24, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();

@@ -5,7 +5,7 @@
 html, body {
   height: 100%;
   width: 100%;
-  font-family: 'arial black', Helvetica, verdana, monospace;
+  font-family: 'arial black', Helvetica, verdana, monospace, sans-serif;
   color: #FFF;
   font-size: 100%;
   padding: 0;
