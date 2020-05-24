@@ -266,11 +266,17 @@
       touchMoveX = touch.pageX;
     }, false);
     canvas.addEventListener('touchend', function(e) {
-      touchEndY = touchStartY - touchMoveY;
-      touchEndX = touchStartX - touchMoveX;
-      for (var i = 0; i < texts.length; i++) {
-        texts[i].y -= touchEndY;
-        texts[i].a -= touchEndX;
+      touchEndY = Math.abs(touchStartY - touchMoveY);
+      touchEndX = Math.abs(touchStartX - touchMoveX);
+      if (touchEndY > 50) {
+        for (var i = 0; i < texts.length; i++) {
+          texts[i].y -= touchEndY;
+        }
+      }
+      if (touchEndX > 50) {
+        for (var i = 0; i < texts.length; i++) {
+          texts[i].a -= touchEndX;
+        }
       }
     }, false);
   
