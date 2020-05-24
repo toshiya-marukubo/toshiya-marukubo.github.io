@@ -248,38 +248,6 @@
       }
     });
     
-    var touchStartY;
-    var touchMoveY;
-    var touchEndY;
-    var touchStartX;
-    var touchMoveX;
-    var touchEndX;
-
-    canvas.addEventListener('touchstart', function(e) {
-      var touch = e.targetTouches[0];
-      touchStartY = touch.pageY;
-      touchStartX = touch.pageX;
-    }, false);
-    canvas.addEventListener('touchmove', function(e) {
-      var touch = e.targetTouches[0];
-      touchMoveY = touch.pageY;
-      touchMoveX = touch.pageX;
-    }, false);
-    canvas.addEventListener('touchend', function(e) {
-      touchEndY = Math.abs(touchStartY - touchMoveY);
-      touchEndX = Math.abs(touchStartX - touchMoveX);
-      if (touchEndY > 50) {
-        for (var i = 0; i < texts.length; i++) {
-          texts[i].y -= touchEndY;
-        }
-      }
-      if (touchEndX > 50) {
-        for (var i = 0; i < texts.length; i++) {
-          texts[i].a -= touchEndX;
-        }
-      }
-    }, false);
-  
   });
   // Author
   console.log('File Name / textMotionSim.js\nCreated Date / May 24, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
