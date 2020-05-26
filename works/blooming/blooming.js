@@ -88,6 +88,7 @@
       var ctx  = this.ctx;
       ctx.save();
       ctx.fillStyle = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
+      ctx.strokeStyle = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
       ctx.globalCompositeOperation = 'lighter';
       var preX = this.x;
       var preY = this.y;
@@ -97,6 +98,10 @@
         ctx.beginPath();
         ctx.arc(x, y, this.r, 0, Math.PI * 2, false);
         ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(preX, preY);
+        ctx.lineTo(x, y);
+        ctx.stroke();
         preX = x;
         preY = y;
       }
