@@ -30,6 +30,7 @@
     var jointNum = 8 + 2;
     var minRadius = 100;
     var maxRadius = 130;
+    var flg = true;
 
     if (X < 768) {
       minRadius = 70;
@@ -98,10 +99,12 @@
         ctx.beginPath();
         ctx.arc(x, y, this.r, 0, Math.PI * 2, false);
         ctx.fill();
-        ctx.beginPath();
-        ctx.moveTo(preX, preY);
-        ctx.lineTo(x, y);
-        ctx.stroke();
+        if (flg === true && i !== 1) {
+          ctx.beginPath();
+          ctx.moveTo(preX, preY);
+          ctx.lineTo(x, y);
+          ctx.stroke();
+        }
         preX = x;
         preY = y;
       }
@@ -166,6 +169,13 @@
     window.addEventListener('resize', function(){
       onResize();
     });
+    canvas.addEventListener('click', function(e){
+      if (flg === false) {
+        flg = true;
+      } else {
+        flg = false;
+      }
+    }, false); 
     
     canvas.addEventListener('mousemove', function(e) {
       mouseX = e.clientX;
