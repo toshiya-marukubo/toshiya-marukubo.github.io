@@ -30,7 +30,7 @@
     var jointNum = 8 + 2;
     var minRadius = 100;
     var maxRadius = 130;
-    var flg = true;
+    var flg = false;
 
     if (X < 768) {
       minRadius = 70;
