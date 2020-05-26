@@ -25,7 +25,7 @@
     var Y = canvas.height = window.innerHeight;
     var mouseX = X / 2;
     var mouseY = Y / 2;
-    var text = 'TikTok ';
+    var text = 'Toshiya ';
     var textNum = text.length;
     var xSplit = Math.floor(X / textNum);
     var texts = [];
@@ -60,8 +60,8 @@
       this.t = t;
       this.x = x;
       this.y = y;
-      this.sX = 0;
-      this.sY = 0;
+      this.sX = this.x;
+      this.sY = this.y;
       this.v = {
         x: 0,
         y: 0
@@ -79,13 +79,31 @@
       // fill stroke
       ctx.globalCompositeOperation = 'lighter';
       ctx.fillStyle = 'rgb(254, 44, 85)';
-      ctx.fillText(this.t, this.x + this.sX, this.y + this.sY);
+      ctx.fillText(this.t, this.sX, this.sY);
       ctx.fillStyle = 'rgb(7, 239, 232)';
       ctx.fillText(this.t, this.x, this.y);
       ctx.restore();
     };
 
+    Text.prototype.updateParams = function() {
+      this.a += 1;
+      this.rad = this.a * Math.PI / 180;
+    };
+    
+    Text.prototype.updatePosition = function() {
+      var x = this.sX - mouseX;
+      var y = this.sY - mouseY;
+      var d = x * x + y * y;
+      var dist = Math.sqrt(d);
+      this.v.x = x / dist;
+      this.v.y = y / dist;
+      this.sX += this.v.x;
+      this.sY += this.v.y;
+    };
+
     Text.prototype.render = function() {
+      //this.updateParams();
+      this.updatePosition();
       this.draw();
     };
     
