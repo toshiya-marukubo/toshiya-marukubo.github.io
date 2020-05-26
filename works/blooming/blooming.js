@@ -113,19 +113,8 @@
       }
     };
 
-    Bloom.prototype.removeBloom = function(i) {
-      if (this.x < 0) {
-        blooms.splice(i, 1);
-        console.log(blooms.length);
-      }
-      if (this.x > X) blooms.splice(i, 1);
-      if (this.y < 0) blooms.splice(i, 1);
-      if (this.y > Y) blooms.splice(i, 1);
-    };
-
     Bloom.prototype.render = function(i) {
       this.updateParams();
-      this.removeBloom(i);
       this.draw();
     };
     
