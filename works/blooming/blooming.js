@@ -26,7 +26,7 @@
     var mouseX = X / 2;
     var mouseY = Y / 2;
     var blooms = [];
-    var bloomNum = 80;
+    var bloomNum = 100;
     var jointNum = 8 + 2;
     var minRadius = 100;
     var maxRadius = 130;
