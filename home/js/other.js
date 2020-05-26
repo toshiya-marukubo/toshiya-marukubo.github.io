@@ -7,6 +7,8 @@
     }
     // var 
     var urlArray = [
+      'blooming',
+      'textMotionSim',
       'tree',
       'flowers',
       'shapeOfUniverse',
