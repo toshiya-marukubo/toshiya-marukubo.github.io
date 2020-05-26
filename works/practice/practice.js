@@ -47,6 +47,7 @@
     var negativeButton = document.getElementById('negativeButton');
     
     negativeButton.onclick = function() {
+      var i = 0;
       var imagedata = ctx.getImageData(0, 0, canvas.width, canvas.height);
       var data = imagedata.data;
       for (i = 0; i <= data.length - 4; i += 4) {
