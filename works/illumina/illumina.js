@@ -139,13 +139,22 @@
       onResize();
     });
     
-    window.addEventListener('mousemove', function(e) {
+    canvas.addEventListener('mousemove', function(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
       for (var i = 0; i < ellipses.length; i++) {
         ellipses[i].y += rand(-5, 5);
       }
     });
+
+    canvas.addEventListener('touchmove', function(e) {
+      var touch = event.targetTouches[0];
+      mouseX = touch.pageX;
+      mouseY = touch.pageY;
+      for (var i = 0; i < ellipses.length; i++) {
+        ellipses[i].y += rand(-5, 5);
+      }
+    }, false);
 
     canvas.addEventListener('wheel', function(e) {
       for (var i = 0; i < ellipses.length; i++) {
