@@ -74,7 +74,7 @@
       ctx.globalCompositeOperation = 'lighter';
       ctx.beginPath();
       ctx.translate(this.x, this.y);
-      ctx.scale(1.2, 20);
+      ctx.scale(1, 20);
       ctx.fillStyle = this.gradient();
       ctx.translate(-this.x, -this.y);
       ctx.arc(Math.cos(this.rad) * 20 + this.x, Math.sin(this.rad) * 1 + this.y, this.r, 0, Math.PI * 2, false);
@@ -84,7 +84,7 @@
 
     Ellipse.prototype.gradient = function () {
       var col = this.c.r + "," + this.c.g + "," + this.c.b;
-      var g = this.ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r);
+      var g = this.ctx.createRadialGradient(this.x, this.y, 0, this.x, Math.sin(this.rad) * 1 + this.y, this.r);
       g.addColorStop(0, "rgba(" + col + ", " + (this.c.a * 1) + ")");
       g.addColorStop(0.5, "rgba(" + col + ", " + (this.c.a * 0.7) + ")");
       g.addColorStop(1, "rgba(" + col + ", " + (this.c.a * 0) + ")");
