@@ -44,32 +44,66 @@
     ********************/
 
     var image = new Image();
-    var negativeButton = document.getElementById('negativeButton');
-    
-    negativeButton.onclick = function() {
-      var i = 0;
-      var imagedata = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      var data = imagedata.data;
-      for (i = 0; i <= data.length - 4; i += 4) {
-        data[i] = 255 - data[i];
-        data[i + 1] = 255 - data[i + 1];
-        data[i + 2] = 255 - data[i + 2];
+    var embossButton = document.getElementById('embossButton');
+    var embossed = false;
+
+    // function
+
+    function emboss() {
+      var imagedata, data, length, width, index=3;
+
+      imagedata = ctx.getImageData(0, 0, X, Y);
+      data = imagedata.data;
+      width = imagedata.width;
+      length = data.length;
+
+      for (var i = 0; i < length; i++) {
+        if (i < length - width * 4) {
+          if ((i + 1) % 4 !== 0) {
+            if ((i + 4) % (width * 4) == 0) {
+              data[i] = data[i - 4];
+              data[i + 1] = data[i - 3];
+              data[i + 2] = data[i - 2];
+              data[i + 3] = data[i - 1];
+              i += 3;
+            } else {
+              data[i] = 255 / 2 + 2 * data[i] - data[i + 4] - data[i + width * 4];
+            }
+          }
+        } else {
+          if ((i + 1) % 4 !== 0) {
+            data[i] = data[i - width * 4];
+          }
+        }
       }
       ctx.putImageData(imagedata, 0, 0);
+    }
+
+    function drawOriginalImage() {
+      ctx.drawImage(
+        image, 0,  0,
+        image.width, image.height,
+        0, 0, X, Y
+      );
+    }
+
+    embossButton.onclick = function() {
+      if (embossed) {
+        embossButton.value = 'Emboss';
+        drawOriginaImage();
+        embossed = false;
+      } else {
+        embossButton.value = 'Original Image';
+        emboss();
+        embossed = true;
+      }
     };
+
+    // init
+
     image.src = 'image.jpeg';
     image.onload = function() {
-      ctx.drawImage(
-        image,
-        0,
-        0,
-        image.width,
-        image.height,
-        0,
-        0,
-        ctx.canvas.width,
-        ctx.canvas.height
-      );
+      drawOriginalImage();
     };
 
     /********************
