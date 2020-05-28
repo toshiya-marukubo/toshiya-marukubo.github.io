@@ -46,27 +46,39 @@
       Rect
     ********************/
     
-    function Rect(ctx, x, y) {
+    function Rect(ctx, x, y, i) {
       this.ctx = ctx;
-      this.init(x, y);
+      this.init(x, y, i);
     }
 
-    Rect.prototype.init = function(x, y) {
+    Rect.prototype.init = function(x, y, i) {
       this.x = x;
       this.y = y;
+      this.i = i;
       this.a = 0;
       this.rad = this.a * Math.PI / 180;
+      
     };
 
     Rect.prototype.draw = function() {
       var ctx  = this.ctx;
       ctx.save();
+      ctx.globalAlpha = 0.8;
       ctx.lineWidth = 5;
-      ctx.fillStyle = this.gradient();
       ctx.strokeStyle = 'black';
-      ctx.translate(this.x, this.y);
+      ctx.fillStyle = this.gradient();
+      /*
+      if (this.i === 1) ctx.fillStyle = 'rgb(255, 0, 0)';
+      if (this.i === 2) ctx.fillStyle = 'rgb(255, 255, 0)';
+      if (this.i === 3) ctx.fillStyle = 'rgb(0, 255, 0)';
+      if (this.i === 4) ctx.fillStyle = 'rgb(0, 255, 255)';
+      if (this.i === 5) ctx.fillStyle = 'rgb(0, 0, 255)';
+      if (this.i === 6) ctx.fillStyle = 'rgb(255, 0, 255)';
+      if (this.i === 7) ctx.fillStyle = 'rgb(255, 0, 0)';
+      */
+      ctx.translate(this.x + xSplit / 2, this.y + ySplit / 2);
       ctx.rotate(this.rad);
-      ctx.translate(-this.x, -this.y);
+      ctx.translate(-this.x - xSplit / 2, -this.y - ySplit / 2);
       ctx.fillRect(this.x, this.y, xSplit, ySplit);
       ctx.strokeRect(this.x, this.y, xSplit, ySplit);
       ctx.restore();
@@ -96,7 +108,7 @@
     
     for (var i = 0; i < splitNum; i++) {
       for (var j = 0; j < splitNum; j++) {
-        var rect = new Rect(ctx, xSplit * i, ySplit * j);
+        var rect = new Rect(ctx, xSplit * i, ySplit * j, i);
         rects.push(rect);
       }
     }
