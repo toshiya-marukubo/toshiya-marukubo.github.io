@@ -1,4 +1,4 @@
-(function)({
+(function(){
   'use strict';
   window.addEventListener('load', function() {
     onmessage = function(event) {
