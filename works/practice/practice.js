@@ -90,7 +90,7 @@
     embossButton.onclick = function() {
       if (embossed) {
         embossButton.value = 'Emboss';
-        drawOriginaImage();
+        drawOriginalImage();
         embossed = false;
       } else {
         embossButton.value = 'Original Image';
