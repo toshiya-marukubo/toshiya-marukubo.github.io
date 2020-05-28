@@ -153,6 +153,15 @@
     function onResize() {
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
+      rects = [];
+      xSplit = X / splitNum;
+      ySplit = Y / splitNum;
+      for (var i = 0; i < splitNum; i++) {
+        for (var j = 0; j < splitNum; j++) {
+          var rect = new Rect(ctx, xSplit * i, ySplit * j, i);
+          rects.push(rect);
+        }
+      }
     }
 
     window.addEventListener('resize', function(){
