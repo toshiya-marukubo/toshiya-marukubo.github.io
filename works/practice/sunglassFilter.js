@@ -7,7 +7,7 @@
           length = data.length,
           width = imagedata.width;
       for (var i = 0; i < length; i++) {
-        if (var i = 0; i < length; i++) {
+        if (i = 0; i < length; i++) {
           if ((i + 1) % 4 != 0) {
             if ((i + 4) % (width * 4) == 0) {
               data[i] = data[i - 4];
