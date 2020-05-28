@@ -7,6 +7,7 @@
     }
     // var 
     var urlArray = [
+      'crazyRect',
       'illumina',
       'blooming',
       'textMotionSim',
