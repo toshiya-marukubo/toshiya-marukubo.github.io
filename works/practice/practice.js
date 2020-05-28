@@ -45,7 +45,7 @@
 
     var image = new Image(),
         sunglassButton = document.getElementById('sunglassButton'),
-        sunglassesOn = false;
+        sunglassesOn = false,
         sunglassFilter = new Worker('sunglassFilter.js');
     
     // function
