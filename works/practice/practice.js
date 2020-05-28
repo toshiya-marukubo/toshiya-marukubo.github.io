@@ -43,59 +43,41 @@
       Practice
     ********************/
 
-    var image = new Image();
-    var embossButton = document.getElementById('embossButton');
-    var embossed = false;
-
+    var image = new Image(),
+        sunglassButton = document.getElementById('sunglassButton'),
+        sunglassesOn = false;
+        sungrassFilter = new Worker('sunglassFilter.js');
+    
     // function
-
-    function emboss() {
-      var imagedata, data, length, width, index=3;
-
-      imagedata = ctx.getImageData(0, 0, X, Y);
-      data = imagedata.data;
-      width = imagedata.width;
-      length = data.length;
-
-      for (var i = 0; i < length; i++) {
-        if (i < length - width * 4) {
-          if ((i + 1) % 4 !== 0) {
-            if ((i + 4) % (width * 4) == 0) {
-              data[i] = data[i - 4];
-              data[i + 1] = data[i - 3];
-              data[i + 2] = data[i - 2];
-              data[i + 3] = data[i - 1];
-              i += 3;
-            } else {
-              data[i] = 255 / 2 + 2 * data[i] - data[i + 4] - data[i + width * 4];
-            }
-          }
-        } else {
-          if ((i + 1) % 4 !== 0) {
-            data[i] = data[i - width * 4];
-          }
-        }
-      }
-      ctx.putImageData(imagedata, 0, 0);
+    
+    function putSunglassesOn () {
+      sunglassFilter.postMessage(
+        ctx.getImageData(0, 0, X, Y)
+      );
+      sunglassFilter.onmessage = function(event) {
+        ctx.putImageData(event.data, 0, 0);
+      };
     }
 
     function drawOriginalImage() {
       ctx.drawImage(
-        image, 0,  0,
-        image.width, image.height,
-        0, 0, X, Y
+        image, 0, 0,
+        image.width, image.height, 0, 0,
+        X, Y
       );
     }
 
-    embossButton.onclick = function() {
-      if (embossed) {
-        embossButton.value = 'Emboss';
+    // event
+
+    sunglassButton.onclick = function() {
+      if (sunglassesOn) {
+        sunglassButton.value = 'Sunglasses';
         drawOriginalImage();
-        embossed = false;
+        sunglassesOn = false;
       } else {
-        embossButton.value = 'Original Image';
-        emboss();
-        embossed = true;
+        sunglassButton.value = 'Original picture';
+        putSunglassesOn();
+        sunglassesOn = true;
       }
     };
 
