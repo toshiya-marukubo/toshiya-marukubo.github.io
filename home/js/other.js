@@ -7,6 +7,7 @@
     }
     // var 
     var urlArray = [
+      'flare',
       'crazyRect',
       'illumina',
       'blooming',
