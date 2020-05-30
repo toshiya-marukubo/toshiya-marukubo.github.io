@@ -25,7 +25,7 @@
     var mouseX = X / 2;
     var mouseY = Y / 2;
     var lines = [];
-    var splitNum = 256;
+    var splitNum = 512;
     var xSplit = X / splitNum;
     var ySplit = Y / splitNum;
     var flg = true;
@@ -112,13 +112,8 @@
     };
 
     Line.prototype.updateParams = function(i) {
-      if (i % 2 === 0) {
-        this.a -= 1;
-        this.rad = this.a * Math.PI / 180;
-      } else {
-        this.a += 1;
-        this.rad = this.a * Math.PI / 180;
-      }
+      this.a += 1;
+      this.rad = this.a * Math.PI / 180;
     };
 
     Line.prototype.render = function(i) {
