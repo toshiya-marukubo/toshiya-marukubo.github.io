@@ -55,7 +55,7 @@ p#loading {
 ********************/
 
 canvas#canvas {
-  background: #FFF;
+  background: #000;
 }
 
 @media screen and (min-width: 48rem) {
