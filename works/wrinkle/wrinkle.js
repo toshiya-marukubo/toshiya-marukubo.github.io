@@ -80,11 +80,11 @@
       ctx.strokeStyle = 'gray';
       ctx.beginPath();
       ctx.moveTo(0, Math.cos(this.rad) * dim + this.y);
-      ctx.quadraticCurveTo(Math.cos(this.rad) * dim + this.cx, Math.sin(this.rad) * dim + this.cy, X, this.y);
+      ctx.quadraticCurveTo(Math.cos(this.rad) * dim + this.cx, Math.sin(this.rad) * dim + this.cy, X, Math.cos(this.rad) * dim + this.y);
       ctx.stroke();
       ctx.beginPath();
-      ctx.moveTo(Math.sin(this.rad) * dim + this.x, 0);
-      ctx.quadraticCurveTo(Math.cos(this.rad) * dim + this.cx, Math.sin(this.rad) * dim + this.cy, this.x, Y);
+      ctx.moveTo(Math.cos(this.rad) * dim + this.x, 0);
+      ctx.quadraticCurveTo(Math.cos(this.rad) * dim + this.cx, Math.sin(this.rad) * dim + this.cy, Math.sin(this.rad) * dim + this.x, Y);
       ctx.stroke();
       ctx.restore();
     };
@@ -179,29 +179,14 @@
       var touch = e.targetTouches[0];
       mouseX = touch.pageX;
       mouseY = touch.pageY;
-      touchStartY = touch.pageY;
     }, false);
     canvas.addEventListener('touchmove', function(e) {
       var touch = e.targetTouches[0];
       mouseX = touch.pageX;
       mouseY = touch.pageY;
-      touchMoveY = touch.pageY;
     }, false);
     canvas.addEventListener('touchend', function(e) {
       dragging = false;
-      touchEndY = touchStartY - touchMoveY;
-      if (touchEndY > 10) {
-        dim += touchEndY / 10;
-        for (var i = 0; i < lines.length; i++) {
-          lines[i].a += touchEndY;
-        }
-      }
-      if (touchEndY < -10) {
-        dim -= touchEndY / 10;
-        for (var i = 0; i < lines.length; i++) {
-          lines[i].a -= touchEndY;
-        }
-      }
     }, false);
 
     canvas.addEventListener('wheel', function(e) {
