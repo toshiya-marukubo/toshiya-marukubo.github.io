@@ -76,15 +76,23 @@
       ctx.lineWidth = 0.1;
       ctx.strokeStyle = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
       if (flg === true) {
-        ctx.translate(this.x, this.y);
-        ctx.rotate(Math.sin(this.rad));
-        ctx.scale(Math.cos(this.rad) * 3, Math.sin(this.rad) * 3);
-        ctx.translate(-this.x, -this.y);
+        ctx.translate(X / 2, this.y);
+        ctx.rotate(this.rad);
+        ctx.translate(- X / 2, -this.y);
       }
       ctx.beginPath();
       ctx.moveTo(0, this.y);
       ctx.quadraticCurveTo(Math.cos(this.rad) * 100 + this.cx, Math.sin(this.rad) * 100 + this.cy, X, this.y);
       ctx.stroke();
+      ctx.restore();
+      ctx.save();
+      ctx.lineWidth = 0.1;
+      ctx.strokeStyle = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
+      if (flg === true) {
+        ctx.translate(this.x, Y / 2);
+        ctx.rotate(this.rad);
+        ctx.translate(-this.x, - Y / 2);
+      }
       ctx.beginPath();
       ctx.moveTo(this.x, 0);
       ctx.quadraticCurveTo(Math.cos(this.rad) * 100 + this.cx, Math.sin(this.rad) * 100 + this.cy, this.x, Y);
