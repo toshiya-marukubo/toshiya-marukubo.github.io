@@ -180,6 +180,7 @@
     var touchEndY;
 
     canvas.addEventListener('touchstart', function(e) {
+      dragging = true;
       var touch = e.targetTouches[0];
       touchStartY = touch.pageY;
     }, false);
@@ -188,6 +189,7 @@
       touchMoveY = touch.pageY;
     }, false);
     canvas.addEventListener('touchend', function(e) {
+      dragging = false;
       touchEndY = touchStartY - touchMoveY;
       if (touchEndY > 50) {
         dim += touchEndY / 10;
