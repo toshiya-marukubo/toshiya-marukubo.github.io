@@ -29,6 +29,12 @@
     var xSplit = X / splitNum;
     var ySplit = Y / splitNum;
     var flg = true;
+
+    if (X < 768) {
+      splitNum = 256;
+      xSplit = X / splitNum;
+      ySplit = Y / splitNum;
+    }
     
     /********************
       Animation
@@ -174,8 +180,15 @@
     function onResize() {
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
-      xSplit = X / splitNum;
-      ySplit = Y / splitNum;
+      if (X < 768) {
+        splitNum = 256;
+        xSplit = X / splitNum;
+        ySplit = Y / splitNum;
+      } else {
+        splitNum = 512;
+        xSplit = X / splitNum;
+        ySplit = Y / splitNum;
+      }
       lines = [];
       for (var i = 1; i < splitNum; i++) {
         var line = new Line(ctx, xSplit * i, ySplit * i, i);

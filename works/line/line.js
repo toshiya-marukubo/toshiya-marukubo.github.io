@@ -25,18 +25,10 @@
     var mouseX = null;
     var mouseY = null;
     var lines = [];
-    var splitNum = 512;
+    var splitNum = 128;
     var xSplit = X / splitNum;
     var ySplit = Y / splitNum;
-    var dragging = false;
-    var dim = 50;
 
-    if (X < 768) {
-      splitNum = 256;
-      xSplit = X / splitNum;
-      ySplit = Y / splitNum;
-    }
-    
     /********************
       Animation
     ********************/
@@ -76,38 +68,43 @@
     Line.prototype.draw = function() {
       var ctx  = this.ctx;
       ctx.save();
-      ctx.lineWidth = 0.3;
+      ctx.lineWidth = 1;
       ctx.strokeStyle = 'gray';
+      ctx.translate(X / 2, this.y);
+      ctx.rotate(this.rad);
+      //ctx.scale(Math.cos(this.rad) * 1, Math.sin(this.rad) * 1);
+      ctx.translate(- X / 2, -this.y);
       ctx.beginPath();
-      ctx.moveTo(0, Math.cos(this.rad) * dim + this.y);
-      ctx.quadraticCurveTo(Math.cos(this.rad) * dim + this.cx, Math.sin(this.rad) * dim + this.cy, X, this.y);
+      ctx.moveTo(0, this.y);
+      ctx.lineTo(X, this.y);
       ctx.stroke();
+      ctx.restore();
+      ctx.save();
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'gray';
+      ctx.translate(this.x, Y / 2);
+      ctx.rotate(this.rad);
+      //ctx.scale(Math.cos(this.rad) * 5 + 5, Math.sin(this.rad) * 5 + 5);
+      ctx.translate(- this.x, - Y / 2);
       ctx.beginPath();
-      ctx.moveTo(Math.sin(this.rad) * dim + this.x, 0);
-      ctx.quadraticCurveTo(Math.cos(this.rad) * dim + this.cx, Math.sin(this.rad) * dim + this.cy, this.x, Y);
+      ctx.moveTo(this.x, 0);
+      ctx.lineTo(this.x, Y);
       ctx.stroke();
       ctx.restore();
     };
 
-    Line.prototype.extendLine = function() {
-      var x = mouseX - this.cx;
-      var y = mouseY - this.cy;
-      var d = x * x + y * y;
-      var dist = Math.sqrt(d);
-      this.v.x = x / dist * 3;
-      this.v.y = y / dist * 3;
-      this.cx += this.v.x;
-      this.cy += this.v.y;
-    };
-
     Line.prototype.updateParams = function(i) {
-      this.a += 1;
-      this.rad = this.a * Math.PI / 180;
+      if (i % 2 === 0) {
+        this.a -= 1;
+        this.rad = this.a * Math.PI / 180;
+      } else {
+        this.a += 1;
+        this.rad = this.a * Math.PI / 180;
+      }
     };
 
     Line.prototype.render = function(i) {
       this.updateParams(i);
-      if (dragging === true) this.extendLine();
       this.draw();
     };
     
@@ -137,20 +134,6 @@
     function onResize() {
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
-      lines = [];
-      if (X < 768) {
-        splitNum = 256;
-        xSplit = X / splitNum;
-        ySplit = Y / splitNum;
-      } else {
-        splitNum = 512;
-        xSplit = X / splitNum;
-        ySplit = Y / splitNum;
-      }
-      for (var i = 1; i < splitNum; i++) {
-        var line = new Line(ctx, xSplit * i, ySplit * i, i);
-        lines.push(line);
-      }
     }
 
     window.addEventListener('resize', function(){
@@ -162,51 +145,8 @@
       mouseY = e.clientY;
     });
 
-    canvas.addEventListener('mousedown', function(e) {
-      dragging = true;
-    });
-
-    canvas.addEventListener('mouseup', function(e) {
-      dragging = false;
-    });
-
-    var touchStartY;
-    var touchMoveY;
-    var touchEndY;
-
-    canvas.addEventListener('touchstart', function(e) {
-      dragging = true;
-      var touch = e.targetTouches[0];
-      mouseX = touch.pageX;
-      mouseY = touch.pageY;
-      touchStartY = touch.pageY;
-    }, false);
-    canvas.addEventListener('touchmove', function(e) {
-      var touch = e.targetTouches[0];
-      mouseX = touch.pageX;
-      mouseY = touch.pageY;
-      touchMoveY = touch.pageY;
-    }, false);
-    canvas.addEventListener('touchend', function(e) {
-      dragging = false;
-      touchEndY = touchStartY - touchMoveY;
-      if (touchEndY > 10) {
-        dim += touchEndY / 10;
-        for (var i = 0; i < lines.length; i++) {
-          lines[i].a += touchEndY;
-        }
-      }
-      if (touchEndY < -10) {
-        dim -= touchEndY / 10;
-        for (var i = 0; i < lines.length; i++) {
-          lines[i].a -= touchEndY;
-        }
-      }
-    }, false);
-
     canvas.addEventListener('wheel', function(e) {
       var y = e.deltaY / 10;
-      dim -= y;
       for (var i = 0; i < lines.length; i++) {
         lines[i].a -= y;
       }
