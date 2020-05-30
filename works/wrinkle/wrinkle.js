@@ -101,13 +101,8 @@
     };
 
     Line.prototype.updateParams = function(i) {
-      if (i % 2 === 0) {
-        this.a -= 1;
-        this.rad = this.a * Math.PI / 180;
-      } else {
-        this.a += 1;
-        this.rad = this.a * Math.PI / 180;
-      }
+      this.a += 1;
+      this.rad = this.a * Math.PI / 180;
     };
 
     Line.prototype.render = function(i) {
