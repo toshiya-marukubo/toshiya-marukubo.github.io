@@ -25,10 +25,17 @@
     var mouseX = null;
     var mouseY = null;
     var lines = [];
-    var splitNum = 256;
+    var splitNum = 512;
     var xSplit = X / splitNum;
     var ySplit = Y / splitNum;
     var dragging = false;
+    var dim = 50;
+
+    if (X < 768) {
+      splitNum = 256;
+      xSplit = X / splitNum;
+      ySplit = Y / splitNum;
+    }
     
     /********************
       Animation
@@ -62,42 +69,22 @@
         x: 0,
         y: 0
       };
-      this.c = {
-        r: rand(0, 255),
-        g: rand(0, 255),
-        b: rand(0, 255)
-      };
-      this.a = i * 1;
+      this.a = this.i * 1;
       this.rad = this.a * Math.PI / 180;   
     };
 
     Line.prototype.draw = function() {
       var ctx  = this.ctx;
       ctx.save();
-      ctx.lineWidth = 0.5;
-      ctx.strokeStyle = 'black';
-      //ctx.strokeStyle = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
-      /*
+      ctx.lineWidth = 0.3;
+      ctx.strokeStyle = 'gray';
       ctx.beginPath();
-      ctx.moveTo(0, this.y);
-      ctx.quadraticCurveTo(Math.cos(this.rad) * 100 + this.x, Math.sin(this.rad) * 100 + this.y, X, this.y);
+      ctx.moveTo(0, Math.cos(this.rad) * dim + this.y);
+      ctx.quadraticCurveTo(Math.cos(this.rad) * dim + this.cx, Math.sin(this.rad) * dim + this.cy, X, this.y);
       ctx.stroke();
       ctx.beginPath();
-      ctx.moveTo(this.x, 0);
-      ctx.quadraticCurveTo(Math.cos(this.rad) * 100 + this.x, Math.sin(this.rad) * 100 + this.y, this.x, Y);
-      ctx.stroke();
-      */
-      ctx.translate(this.x, this.y);
-      //ctx.rotate(Math.cos(this.rad) * 10);
-      //ctx.scale(Math.cos(this.rad) * 5, Math.sin(this.rad) * 5);
-      ctx.translate(-this.x, -this.y);
-      ctx.beginPath();
-      ctx.moveTo(0, this.y);
-      ctx.quadraticCurveTo(Math.cos(this.rad) * 1 + this.cx, Math.sin(this.rad) * 1 + this.cy, X, this.y);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(this.x, 0);
-      ctx.quadraticCurveTo(Math.cos(this.rad) * 1 + this.cx, Math.sin(this.rad) * 1 + this.cy, this.x, Y);
+      ctx.moveTo(Math.sin(this.rad) * dim + this.x, 0);
+      ctx.quadraticCurveTo(Math.cos(this.rad) * dim + this.cx, Math.sin(this.rad) * dim + this.cy, this.x, Y);
       ctx.stroke();
       ctx.restore();
     };
@@ -107,8 +94,8 @@
       var y = mouseY - this.cy;
       var d = x * x + y * y;
       var dist = Math.sqrt(d);
-      this.v.x = x / dist * 5;
-      this.v.y = y / dist * 5;
+      this.v.x = x / dist * 3;
+      this.v.y = y / dist * 3;
       this.cx += this.v.x;
       this.cy += this.v.y;
     };
@@ -155,6 +142,20 @@
     function onResize() {
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
+      lines = [];
+      if (X < 768) {
+        splitNum = 256;
+        xSplit = X / splitNum;
+        ySplit = Y / splitNum;
+      } else {
+        splitNum = 512;
+        xSplit = X / splitNum;
+        ySplit = Y / splitNum;
+      }
+      for (var i = 1; i < splitNum; i++) {
+        var line = new Line(ctx, xSplit * i, ySplit * i, i);
+        lines.push(line);
+      }
     }
 
     window.addEventListener('resize', function(){
@@ -174,13 +175,43 @@
       dragging = false;
     });
 
+    var touchStartY;
+    var touchMoveY;
+    var touchEndY;
+
+    canvas.addEventListener('touchstart', function(e) {
+      var touch = e.targetTouches[0];
+      touchStartY = touch.pageY;
+    }, false);
+    canvas.addEventListener('touchmove', function(e) {
+      var touch = e.targetTouches[0];
+      touchMoveY = touch.pageY;
+    }, false);
+    canvas.addEventListener('touchend', function(e) {
+      touchEndY = touchStartY - touchMoveY;
+      if (touchEndY > 50) {
+        dim += touchEndY / 10;
+        for (var i = 0; i < lines.length; i++) {
+          lines[i].a += touchEndY;
+        }
+      }
+      if (touchEndY < -50) {
+        dim -= touchEndY / 10;
+        for (var i = 0; i < lines.length; i++) {
+          lines[i].a -= touchEndY;
+        }
+      }
+    }, false);
+
     canvas.addEventListener('wheel', function(e) {
+      var y = e.deltaY / 10;
+      dim -= y;
       for (var i = 0; i < lines.length; i++) {
-        lines[i].a -= e.deltaY;
+        lines[i].a -= y;
       }
     });
 
   });
   // Author
-  console.log('File Name / crazyLine.js\nCreated Date / May 29, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
+  console.log('File Name / wrinkle.js\nCreated Date / May 30, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();
