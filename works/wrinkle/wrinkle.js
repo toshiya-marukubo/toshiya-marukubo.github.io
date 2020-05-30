@@ -182,10 +182,14 @@
     canvas.addEventListener('touchstart', function(e) {
       dragging = true;
       var touch = e.targetTouches[0];
+      mouseX = touch.pageX;
+      mouseY = touch.pageY;
       touchStartY = touch.pageY;
     }, false);
     canvas.addEventListener('touchmove', function(e) {
       var touch = e.targetTouches[0];
+      mouseX = touch.pageX;
+      mouseY = touch.pageY;
       touchMoveY = touch.pageY;
     }, false);
     canvas.addEventListener('touchend', function(e) {
