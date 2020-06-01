@@ -61,7 +61,7 @@
         g: rand(100, 255),
         b: rand(200, 255)
       };
-      this.a = this.i * 0;
+      this.a = this.i * 3;
       this.rad = this.a * Math.PI / 180; 
       this.points = this.getPoints();  
     };
