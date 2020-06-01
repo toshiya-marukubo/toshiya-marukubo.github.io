@@ -196,28 +196,26 @@
     var touchStartY;
     var touchMoveY;
     var touchEndY;
-    var touchStartX;
-    var touchMoveX;
-    var touchEndX;
     canvas.addEventListener('touchstart', function(e) {
       var touch = e.targetTouches[0];
       touchStartY = touch.pageY;
-      touchStartX = touch.pageX;
     }, false);
     canvas.addEventListener('touchmove', function(e) {
       var touch = e.targetTouches[0];
       touchMoveY = touch.pageY;
-      touchMoveX = touch.pageX;
     }, false);
     canvas.addEventListener('touchend', function(e) {
       touchEndY = touchStartY - touchMoveY;
-      touchEndX = touchStartX - touchMoveX;
-      if (touchEndY > 50) {
-        var bloom = new Bloom(ctx, X / 2, Y / 2, i);
-        blooms.push(bloom);
+      if (touchEndY < 0) {
+        for (var i = 0; i < Math.abs(touchEndY / 10); i++) {
+          var bloom = new Bloom(ctx, X / 2, Y / 2, i);
+          blooms.push(bloom);
+        }
       }
-      if (touchEndY < -50) {
-        blooms.pop();
+      if (touchEndY > 0) {
+        for (var i = 0; i < Math.abs(touchEndY / 10); i++) {
+          blooms.pop();
+        }
       }
     }, false);
 
