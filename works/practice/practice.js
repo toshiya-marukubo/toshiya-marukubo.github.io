@@ -71,7 +71,7 @@
       }
     }
 
-    function fadeOut(ctx, imagedatam, x, y, steps, millisecondsPerStep) {
+    function fadeOut(ctx, imagedata, x, y, steps, millisecondsPerStep) {
       var frame = 0,
           length = imagedata.data.length;
 
