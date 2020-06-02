@@ -55,7 +55,7 @@
     function increaseTransparency(imagedata, steps) {
       var alpha, currentAlpha, step, length = imagedata.data.length;
 
-      for (var i = 0; i < length; i += 4) {
+      for (var i = 3; i < length; i += 4) {
         alpha = originalImageData.data[i];
 
         if (alpha > 0 && imagedata.data[i] > 0) {
