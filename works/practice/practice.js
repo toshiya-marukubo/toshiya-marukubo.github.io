@@ -44,50 +44,66 @@
     ********************/
 
     var image = new Image(),
-        sunglassButton = document.getElementById('sunglassButton'),
-        sunglassesOn = false,
-        sunglassFilter = new Worker('sunglassFilter.js');
-    
-    // function
-    
-    function putSunglassesOn () {
-      sunglassFilter.postMessage(
-        ctx.getImageData(0, 0, X, Y)
-      );
-      sunglassFilter.onmessage = function(event) {
-        ctx.putImageData(event.data, 0, 0);
-      };
-    }
+        fadeButton = document.getElementById('fadeButton'),
+        originalImageData = null,
+        interval = null;
 
-    function drawOriginalImage() {
-      ctx.drawImage(
-        image, 0, 0,
-        image.width, image.height, 0, 0,
-        X, Y
-      );
-    }
+    /*
+      function
+    */
 
-    // event
+    function increaseTransparency(imagedata, steps) {
+      var alpha, currentAlpham, step, length = imagedata.data.length;
 
-    sunglassButton.onclick = function() {
-      if (sunglassesOn) {
-        sunglassButton.value = 'Sunglasses';
-        drawOriginalImage();
-        sunglassesOn = false;
-      } else {
-        sunglassButton.value = 'Original picture';
-        putSunglassesOn();
-        sunglassesOn = true;
+      for (var i = 0; i < length; i += 4) {
+        alpha = originalImageData.data[i];
+
+        if (alpha > 0 && imagedata.data[i] > 0) {
+          currentAlpha = imagedata.data[i];
+          step = Math.ceil(alpha / steps);
+
+          if (curreentAlpha - step > 0) {
+            imagedata.data[i] -= step;
+          } else {
+            imagedata.data[i] = 0;
+          }
+        }
       }
-    };
+    }
 
-    // init
+    function fadeOut(ctx, imagedatam, x, y, steps, millisecondsPerStep) {
+      var frame = 0,
+          length = imagedata.data.length;
+
+      interval = setInterval(function() {
+        frame++;
+
+        if (frame > steps) {
+          clearInterval(interval);
+          animationComplete();
+        } else {
+          increaseTransparency(imagedata, steps);
+          ctx.putImageData(imagedata, x, y);
+        }
+      }, millisecondsPerStep);
+    }
+
+    function animationComplete() {
+      setTimeout(function() {
+        ctx.drawImage(image, 0, 0, X, Y);
+      }, 1000);
+    }
+
+    fadeButton.onclick = function() {
+      fadeOut(ctx, ctx.getImageData(0, 0, X, Y), 0, 0, 20, 1000 /60);
+    };
 
     image.src = 'image.jpeg';
     image.onload = function() {
-      drawOriginalImage();
+      ctx.drawImage(image, 0, 0, X, Y);
+      originalImageData = ctx.getImageData(0, 0, X, Y);
     };
-
+    
     /********************
       Render
     ********************/
