@@ -58,6 +58,13 @@ canvas#canvas {
   background: #000;
 }
 
+p.count {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 1.6rem;
+}
+
 @media screen and (min-width: 48rem) {
 
   h1 {

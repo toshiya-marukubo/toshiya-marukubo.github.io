@@ -19,13 +19,14 @@
       Var
     ********************/
 
+    var range = document.getElementById('range');
     var ctx = canvas.getContext('2d');
     var X = canvas.width = window.innerWidth;
     var Y = canvas.height = window.innerHeight;
     var mouseX = null;
     var mouseY = null;
     var triangles = [];
-    var triangleNum = 12;
+    var triangleNum = range.value;
     var angle = 120;
     var radian = angle * Math.PI / 180;
     var ease = 0.5;
@@ -219,7 +220,16 @@
       }
     }, false);
 
+    range.addEventListener('change', function() {
+      triangleNum = this.value;
+      triangles = [];
+      for (var i = 0; i < triangleNum; i++) {
+        var t = new Triangle(ctx, X / 2, Y / 2, i);
+        triangles.push(t);
+      }
+    }, false);
+
   });
   // Author
-  console.log('File Name / fake3dTriangle.js\nCreated Date / Jun 01, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
+  console.log('File Name / fake3dTriangle.js\nCreated Date / Jun 03, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();
