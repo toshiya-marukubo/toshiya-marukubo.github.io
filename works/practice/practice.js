@@ -44,64 +44,64 @@
     ********************/
 
     var image = new Image(),
+        offscreenCanvas = document.createElement('canvas'),
+        offscreenContext = offscreenCanvas.getContext('2d'),
         fadeButton = document.getElementById('fadeButton'),
-        originalImageData = null,
+        imageData,
+        imagedataOffscreen,
         interval = null;
 
-    /*
-      function
-    */
-
     function increaseTransparency(imagedata, steps) {
-      var alpha, currentAlpha, step, length = imagedata.data.length;
+      var alpha,
+          currentAlpha,
+          steps,
+          length = imagedata.data.length;
+      for (var i = 3; i < length; i+=4) {
+        alpha = imagedataOffscreen.data[i];
 
-      for (var i = 3; i < length; i += 4) {
-        alpha = originalImageData.data[i];
-
-        if (alpha > 0 && imagedata.data[i] > 0) {
+        if (alpha > 0) {
           currentAlpha = imagedata.data[i];
-          step = Math.ceil(alpha / steps);
-
-          if (currentAlpha - step > 0) {
-            imagedata.data[i] -= step;
+          steps = Math.ceil(alpha / steps);
+          
+          if (currentAlpha + steps <= alpha) {
+            imagedata.data[i] += steps;
           } else {
-            imagedata.data[i] = 0;
+            imagedata.data[i] = alpha;
           }
         }
       }
     }
 
-    function fadeOut(ctx, imagedata, x, y, steps, millisecondsPerStep) {
-      var frame = 0,
-          length = imagedata.data.length;
+    function fadeIn (ctx, imagedata, steps, millisecondsPerStep) {
+      var frame = 0;
+
+      for (var i = 0; i < imagedata.data.length; i+=4) {
+        imagedata.data[i] = 0;
+      }
 
       interval = setInterval(function() {
         frame++;
 
         if (frame > steps) {
           clearInterval(interval);
-          animationComplete();
         } else {
-          increaseTransparency(imagedata, steps);
-          ctx.putImageData(imagedata, x, y);
+         increaseTransparency(imagedata, steps);
+         ctx.putImageData(imagedata, 0, 0); 
         }
       }, millisecondsPerStep);
     }
 
-    function animationComplete() {
-      setTimeout(function() {
-        ctx.drawImage(image, 0, 0, X, Y);
-      }, 1000);
-    }
-
     fadeButton.onclick = function() {
-      fadeOut(ctx, ctx.getImageData(0, 0, X, Y), 0, 0, 20, 1000 /60);
-    };
+      imagedataOffscreen = offscreenContext.getImageData(0, 0, X, Y);
 
+      fadeIn(ctx, offscreenContext.getImageData(0, 0, X, Y), 50, 1000 / 60);
+    };
+    
     image.src = 'image.jpeg';
     image.onload = function() {
-      ctx.drawImage(image, 0, 0, X, Y);
-      originalImageData = ctx.getImageData(0, 0, X, Y);
+      offscreenCanvas.width = canvas.width;
+      offscreenCanvas.height = canvas.height;
+      offscreenContext.drawImage(image, 0, 0);
     };
     
     /********************

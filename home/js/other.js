@@ -7,6 +7,7 @@
     }
     // var 
     var urlArray = [
+      'fake3dTriangle',
       'square',
       'wrinkle',
       'flare',
