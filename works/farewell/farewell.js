@@ -201,7 +201,7 @@
       ctx.fill();
       ctx.beginPath();
       ctx.moveTo(this.x, this.y + this.r);
-      ctx.quadraticCurveTo(Math.cos(this.rad) * 5 + this.x, Math.sin(this.rad) * 5 + this.y + this.r + this.l / 3, this.x, this.y + this.r + this.l);
+      ctx.quadraticCurveTo(Math.cos(this.rad) * 5 + this.x, Math.sin(this.rad) * 5 + this.y + this.r + this.l / 3, Math.cos(this.rad) * 5 + this.x, Math.sin(this.rad) * 5 + this.y + this.r + this.l);
       ctx.stroke();
       ctx.restore();
     };
