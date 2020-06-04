@@ -32,7 +32,7 @@
     var baloonMax = 100;
 
     if (X < 768) {
-      wheelRadius = 130;
+      wheelRadius = 100;
       baloonMax = 50;
     }
 
@@ -257,7 +257,7 @@
       Y = canvas.height = window.innerHeight;
 
       if (X < 768) {
-        wheelRadius = 130;
+        wheelRadius = 100;
         baloonMax = 50;
         particleNum = 3;
       } else {
