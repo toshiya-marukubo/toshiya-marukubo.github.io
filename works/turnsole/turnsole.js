@@ -197,6 +197,7 @@
     function onResize() {
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
+      wholeAngle = 0;
       flowers = [];
       for (var i = 0; i < flowerNum; i++) {
         var f = new Flower(ctx, X / 2, Y / 2);
@@ -226,6 +227,7 @@
     });
 
     canvas.addEventListener('click', function(e) {
+      wholeAngle = 0;
       flg === true ? flg = false : flg = true;
     });
 
