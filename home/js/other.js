@@ -7,6 +7,7 @@
     }
     // var 
     var urlArray = [
+      'turnsole',
       'farewell',
       'fake3dTriangle',
       'square',
