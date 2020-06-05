@@ -26,8 +26,7 @@
     var mouseY = null;
     var flowers = [];
     var flowerNum = 1;
-    var flowerSize = Y / 3;
-    var flg = true;
+    var flg = false;
     var angle = 137.5;
 
     /********************
@@ -55,8 +54,8 @@
     Flower.prototype.init = function(x, y) {
       this.x = x;
       this.y = y;
-      this.r = Y / 2;
-      this.lw = 5;
+      this.r = Y / 4;
+      this.lw = 4;
       this.a = 0;
       this.rad = this.a * Math.PI / 180; 
       this.v = {
@@ -64,9 +63,10 @@
         y: 0
       };
       this.c = {
-        r: rand(0, 255),
-        g: rand(0, 255),
-        b: rand(0, 255)
+        r: rand(254, 254),
+        g: rand(194, 194),
+        b: rand(0, 0),
+        a: 1
       };
     };
 
@@ -90,10 +90,10 @@
       ctx.restore();
       ctx.save();
       ctx.globalCompositeOperation = 'lighter';
-      ctx.lineWidth = Math.sin(this.rad) * this.lw;
+      ctx.lineWidth = this.lw;
       if (flg === true) {
         ctx.translate(this.x, this.y);
-        ctx.rotate(Math.sin(this.rad));
+        ctx.rotate(Math.cos(this.rad));
         ctx.scale(Math.cos(this.rad), Math.sin(this.rad));
         ctx.translate(-this.x, -this.y);
       }
@@ -103,14 +103,41 @@
         ctx.rotate(10 * Math.PI / 180);
         ctx.translate(-this.x, -this.y);
         ctx.beginPath();
-        ctx.ellipse(this.x + this.r / 2, this.y + this.r / 2, this.r / 30, this.r / 6, -45 * Math.PI / 180, 0, Math.PI * 2, false);
+        ctx.ellipse(this.x + this.r / 1.9, this.y + this.r / 1.9, this.r / 30, this.r / 5, -45 * Math.PI / 180, 0, Math.PI * 2, false);
         ctx.stroke();
       }
       ctx.restore();
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.lineWidth = this.lw;
+      if (flg === true) {
+        ctx.translate(this.x, this.y);
+        ctx.rotate(Math.cos(this.rad));
+        ctx.scale(Math.cos(this.rad), Math.sin(this.rad));
+        ctx.translate(-this.x, -this.y);
+      }
+      ctx.strokeStyle = 'rgb(' + this.c.r + ',' + this.c.g + ', ' + this.c.b + ')';
+      ctx.beginPath();
+      ctx.moveTo(this.x, this.y + this.r);
+      ctx.lineTo(this.x, Y);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.ellipse(this.x - this.r / 2, Y - this.r / 2, this.r / 6, this.r / 2, -45 * Math.PI / 180, 0, Math.PI * 2, false);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.ellipse(this.x + this.r / 2, Y - this.r / 2, this.r / 6, this.r / 2, 45 * Math.PI / 180, 0, Math.PI * 2, false);
+      ctx.stroke();
+      ctx.restore();
+    };
+
+    Flower.prototype.changeColor = function() {
+      this.c.r = rand(0, 255);
+      this.c.g = rand(0, 255);
+      this.c.b = rand(0, 255);
     };
 
     Flower.prototype.updateParams = function() {
-      this.a += 0.5;
+      this.a += 1;
       this.rad = this.a * Math.PI / 180;
     };
     
@@ -129,7 +156,7 @@
     ********************/
 
     function changeColor() {
-      var time = rand(1000, 5000);
+      var time = rand(1000, 3000);
       var r = rand(0, 255);
       var g = rand(0, 255);
       var b = rand(0, 255);
@@ -143,24 +170,22 @@
       setTimeout(changeColor, time);
     }
 
-    changeColor();
+    //changeColor();
 
     /********************
       Render
     ********************/
-   
+    var wholeAngle = 0;
     function render() {
-      //ctx.clearRect(0, 0, X, Y);
-      ctx.globalCompositeOperation = "darken";
-      ctx.globalAlpha = 0.03;
-      ctx.fillStyle = "rgb(0,0,0)";
-      ctx.fillRect(0, 0, X, Y);
-      ctx.globalCompositeOperation = "source-over";
-      ctx.globalAlpha = 1;
+      ctx.clearRect(0, 0, X, Y);
+      ctx.translate(X / 2, Y);
+      ctx.rotate(Math.cos(wholeAngle) * Math.PI / 180);
+      ctx.translate(-X / 2, -Y);
       for (var i = 0; i < flowers.length; i++) {
         flowers[i].render();
       }
       requestAnimationFrame(render);
+      wholeAngle += 0.05;
     }
 
     render();
@@ -172,7 +197,6 @@
     function onResize() {
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
-      flowerSize = Y / 3;
       flowers = [];
       for (var i = 0; i < flowerNum; i++) {
         var f = new Flower(ctx, X / 2, Y / 2);
@@ -187,6 +211,18 @@
     canvas.addEventListener('mousemove', function(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
+      for (var i = 0; i < flowers.length; i++) {
+        flowers[i].changeColor();
+      }
+    });
+
+    canvas.addEventListener('touchmove', function(e) {
+      var touch = event.targetTouches[0];
+      mouseX = touch.pageX;
+      mouseY = touch.pageY;
+      for (var i = 0; i < flowers.length; i++) {
+        flowers[i].changeColor();
+      }
     });
 
     canvas.addEventListener('click', function(e) {
