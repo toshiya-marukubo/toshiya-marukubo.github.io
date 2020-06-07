@@ -174,7 +174,7 @@
     var touchStartY;
     var touchMoveY;
     var touchEndY;
-    
+
     canvas.addEventListener('touchstart', function(e) {
       var touch = e.targetTouches[0];
       touchStartY = touch.pageY;
@@ -182,15 +182,18 @@
     canvas.addEventListener('touchmove', function(e) {
       var touch = e.targetTouches[0];
       touchMoveY = touch.pageY;
-    }, false);
-    canvas.addEventListener('touchend', function(e) {
       touchEndY = touchStartY - touchMoveY;
       if (touchEndY > 0) {
-        dist += touchEndY / 10;
+        dist += touchEndY / 1000;
       }
       if (touchEndY < 0) {
-        lw -= touchEndY / 10;
+        lw -= touchEndY / 1000;
       }
+    }, false);
+    canvas.addEventListener('touchend', function(e) {
+      touchStartY = null;
+      touchMoveY = null;
+      touchEndY = null;
     }, false);
 
   });
