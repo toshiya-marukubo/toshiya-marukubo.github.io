@@ -192,10 +192,11 @@
         blooms.push(bloom);
       }
     });
-
+    
     var touchStartY;
     var touchMoveY;
     var touchEndY;
+
     canvas.addEventListener('touchstart', function(e) {
       var touch = e.targetTouches[0];
       touchStartY = touch.pageY;
@@ -203,20 +204,23 @@
     canvas.addEventListener('touchmove', function(e) {
       var touch = e.targetTouches[0];
       touchMoveY = touch.pageY;
-    }, false);
-    canvas.addEventListener('touchend', function(e) {
       touchEndY = touchStartY - touchMoveY;
-      if (touchEndY < 0) {
-        for (var i = 0; i < Math.abs(touchEndY / 10); i++) {
+      if (touchEndY > 0) {
+        for (var i = 0; i < Math.abs(touchEndY / 1000); i++) {
           var bloom = new Bloom(ctx, X / 2, Y / 2, i);
           blooms.push(bloom);
         }
       }
-      if (touchEndY > 0) {
-        for (var i = 0; i < Math.abs(touchEndY / 10); i++) {
+      if (touchEndY < 0) {
+        for (var i = 0; i < Math.abs(touchEndY / 1000); i++) {
           blooms.pop();
         }
       }
+    }, false);
+    canvas.addEventListener('touchend', function(e) {
+      touchStartY = null;
+      touchMoveY = null;
+      touchEndY = null;
     }, false);
 
   });
