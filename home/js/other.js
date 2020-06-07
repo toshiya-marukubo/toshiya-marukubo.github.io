@@ -7,6 +7,8 @@
     }
     // var 
     var urlArray = [
+      'ultima',
+      'angle',
       'turnsole',
       'farewell',
       'fake3dTriangle',

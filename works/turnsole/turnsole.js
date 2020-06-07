@@ -227,7 +227,6 @@
     });
 
     canvas.addEventListener('click', function(e) {
-      wholeAngle = 0;
       flg === true ? flg = false : flg = true;
     });
 
