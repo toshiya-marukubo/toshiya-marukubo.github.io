@@ -29,6 +29,7 @@
     var angle = 137.5;
     var settingAngle = document.getElementById('settingAngle');
     var settingAngleChil = settingAngle.children;
+    var flg = false;
 
     /********************
       Animation
@@ -73,7 +74,8 @@
       ctx.fillStyle = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
       ctx.translate(this.x, this.y);
       ctx.rotate(Math.sin(this.a * Math.PI / 180));
-      ctx.scale(Math.cos(this.a * Math.PI / 180), Math.sin(this.a * Math.PI / 180));
+      if (flg === false) ctx.scale(Math.cos(this.a * Math.PI / 180), Math.sin(this.a * Math.PI / 180));
+      if (flg === true) ctx.scale(Math.tan(this.a * Math.PI / 180), Math.tan(this.a * Math.PI / 180));
       ctx.translate(-this.x, -this.y);
       ctx.beginPath();
       ctx.arc(Math.cos(angle * Math.PI / 180 * this.i) * this.i / 2 + X / 2, Math.sin(angle * Math.PI / 180 * this.i) * this.i / 2 + Y / 2, this.r, 0, Math.PI * 2, false);
@@ -134,6 +136,10 @@
     window.addEventListener('resize', function(){
       onResize();
     });
+
+    canvas.addEventListener('click', function() {
+      flg === true ? flg = false : flg = true;
+    }, false);
 
     for(var i = 0; i < settingAngleChil.length; i++) {
       settingAngleChil[i].addEventListener('click', function() {
