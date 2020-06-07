@@ -70,12 +70,15 @@
     Shape.prototype.draw = function() {
       var ctx  = this.ctx;
       ctx.save();
-      ctx.globalCompositeOperation = 'lighter';
       ctx.fillStyle = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
       ctx.translate(this.x, this.y);
       ctx.rotate(Math.sin(this.a * Math.PI / 180));
-      if (flg === false) ctx.scale(Math.cos(this.a * Math.PI / 180), Math.sin(this.a * Math.PI / 180));
-      if (flg === true) ctx.scale(Math.tan(this.a * Math.PI / 180), Math.tan(this.a * Math.PI / 180));
+      if (flg === false) {
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.scale(Math.cos(this.a * Math.PI / 180), Math.sin(this.a * Math.PI / 180));
+      } else {
+        ctx.scale(Math.tan(this.a * Math.PI / 180), Math.tan(this.a * Math.PI / 180));
+      }
       ctx.translate(-this.x, -this.y);
       ctx.beginPath();
       ctx.arc(Math.cos(angle * Math.PI / 180 * this.i) * this.i / 2 + X / 2, Math.sin(angle * Math.PI / 180 * this.i) * this.i / 2 + Y / 2, this.r, 0, Math.PI * 2, false);
