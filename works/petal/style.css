@@ -1,0 +1,59 @@
+/********************
+  Common
+********************/
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: 'arial black', Helvetica, verdana, monospace, sans-serif;
+  color: #FFF;
+  font-size: 100%;
+  padding: 0;
+  margin: 0;
+  letter-spacing: 0.2rem;
+  overflow: hidden;
+  background: #000;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+body {
+  position:  relative;
+}
+
+a {
+  color: #FFF;
+  text-decoration: none;
+}
+
+h1 {
+  font-size: 2.4rem;
+}
+
+ul > li {
+  padding-top: 1.6rem;
+}
+
+header#header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1.6rem;
+}
+
+p#loading {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 1.6rem;
+}
+
+/********************
+  Contents
+********************/
+
+canvas#canvas {
+  background: #000;
+}
