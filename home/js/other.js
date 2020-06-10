@@ -7,6 +7,8 @@
     }
     // var 
     var urlArray = [
+      'circle',
+      'petal',
       'ultima',
       'angle',
       'turnsole',
