@@ -55,22 +55,5 @@ p#loading {
 ********************/
 
 canvas#canvas {
-  opacity: 0.8;
   background: radial-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
-}
-
-ul#navigation {
-  position: absolute;
-  height: 100%;
-  top: 0;
-  right: 0;
-  -webkit-writing-mode: vertical-rl;
-      -ms-writing-mode: tb-rl;
-          writing-mode: vertical-rl;
-  text-align: center;
-  margin-right: 1.6rem;
-  font-size: 0.8rem;
-}
-ul#navigation > li {
-  display: inline-block;
 }
