@@ -89,7 +89,7 @@
       ctx.restore();
       ctx.save();
       if (flg === true) ctx.globalAlpha = Math.sin(this.rad) * this.c.a + 1;
-      ctx.fillStyle = this.gradient();
+      ctx.fillStyle = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
       ctx.translate(this.x, this.y + this.d + this.r);
       ctx.scale(1, 0.3);
       ctx.translate(-this.x, -this.y - this.d - this.r);
