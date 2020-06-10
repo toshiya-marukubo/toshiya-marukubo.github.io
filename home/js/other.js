@@ -7,6 +7,7 @@
     }
     // var 
     var urlArray = [
+      'noise',
       'circle',
       'petal',
       'ultima',
