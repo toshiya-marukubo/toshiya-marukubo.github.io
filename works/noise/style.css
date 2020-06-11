@@ -55,5 +55,5 @@ p#loading {
 ********************/
 
 canvas#canvas {
-  background: radial-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+  background: #000;
 }
