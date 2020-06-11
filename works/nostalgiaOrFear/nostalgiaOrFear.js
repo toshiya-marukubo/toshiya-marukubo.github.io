@@ -28,6 +28,11 @@
     var random = Math.random;
     var mouseX = null;
     var mouseY = null;
+    var size = 80;
+
+    if (X < 768) {
+      size = 60;
+    }
 
     /********************
       Animation
@@ -69,7 +74,7 @@
     Particle.prototype.init = function(x, y) {
       this.x = x;
       this.y = y;
-      this.r = 80;
+      this.r = size;
       this.a = 0;
       this.rad = this.a * Math.PI / 180;
       this.c = {
