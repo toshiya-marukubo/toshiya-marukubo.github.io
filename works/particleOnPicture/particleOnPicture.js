@@ -31,6 +31,7 @@
     var curIndex = 0;
     var flg = false;
     var step = 36;
+    var radius = 30;
 
     /********************
       offscreenCanvas
@@ -45,6 +46,7 @@
     
     if (X < 768) {
       step = 12;
+      radius = 10;
       files = [
         'image1.jpg',
         'image2.jpg',
@@ -190,7 +192,7 @@
         for (var j = 0; j < X; j += step) {
           var oI = (j + i * X) * 4 + 3; // fantastic! I can not think of it.
           if (data[oI] > 0) {
-            var p =  new Particle(ctx, j + rand(-3, 3), i + rand(-3, 3), 30, data[oI - 3], data[oI -2], data[oI - 1]);
+            var p =  new Particle(ctx, j + rand(-3, 3), i + rand(-3, 3), radius, data[oI - 3], data[oI -2], data[oI - 1]);
             particles.push(p);
           }
         }
@@ -232,6 +234,7 @@
       Y = canvas.height = offscreenCanvas.height = window.innerHeight;
       if (X < 768) {
         step = 12;
+        radius = 10;
         files = [
           'image1.jpg',
           'image2.jpg',
@@ -239,6 +242,7 @@
         ];
       } else {
         step = 36;
+        radius = 30;
         files = [
           'image4.jpg',
           'image5.jpg',
