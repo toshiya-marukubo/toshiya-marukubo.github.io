@@ -169,12 +169,11 @@
     function init() {
       offscreenCtx.drawImage(images[curIndex], (X - images[curIndex].width) / 2, (Y - images[curIndex].height) / 2);
       var data = offscreenCtx.getImageData(0, 0, X, Y).data;
-      var step = 36;
       for (var i = 0; i < Y; i += step) {
         for (var j = 0; j < X; j += step) {
           var oI = (j + i * X) * 4 + 3; // fantastic! I can not think of it.
           if (data[oI] > 0) {
-            var p =  new Particle(ctx, j + rand(-3, 3), i + rand(-3, 3), 30, data[oI - 3], data[oI -2], data[oI - 1]);
+            var p =  new Particle(ctx, j + rand(-3, 3), i + rand(-3, 3), radius, data[oI - 3], data[oI -2], data[oI - 1]);
             particles.push(p);
           }
         }
