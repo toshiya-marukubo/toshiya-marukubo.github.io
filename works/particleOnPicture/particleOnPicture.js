@@ -30,6 +30,11 @@
     var particles = [];
     var curIndex = 0;
     var flg = false;
+    var step = 36;
+
+    if (X < 768) {
+      step = 12;
+    }
 
     /********************
       offscreenCanvas
@@ -176,7 +181,6 @@
       particles = [];
       offscreenCtx.drawImage(images[curIndex], (X - images[curIndex].width) / 2, (Y - images[curIndex].height) / 2);
       var data = offscreenCtx.getImageData(0, 0, X, Y).data;
-      var step = 36;
       for (var i = 0; i < Y; i += step) {
         for (var j = 0; j < X; j += step) {
           var oI = (j + i * X) * 4 + 3; // fantastic! I can not think of it.
