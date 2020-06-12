@@ -6,13 +6,13 @@ html, body {
   height: 100%;
   width: 100%;
   font-family: 'arial black', Helvetica, verdana, monospace, sans-serif;
-  color: #FFF;
+  color: #000;
   font-size: 100%;
   padding: 0;
   margin: 0;
   letter-spacing: 0.2rem;
   overflow: hidden;
-  background: #000;
+  background: #FFF;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -24,12 +24,12 @@ body {
 }
 
 a {
-  color: #FFF;
+  color: #000;
   text-decoration: none;
 }
 
 h1 {
-  font-size: 1.6rem;
+  font-size: 2.4rem;
 }
 
 ul > li {
@@ -55,22 +55,21 @@ p#loading {
 ********************/
 
 canvas#canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: radial-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+  background: #FFF;
 }
 
-canvas#canvasNoise {
+ul#navigation {
   position: absolute;
+  height: 100%;
   top: 0;
-  left: 0;
+  right: 0;
+  -webkit-writing-mode: vertical-rl;
+      -ms-writing-mode: tb-rl;
+          writing-mode: vertical-rl;
+  text-align: center;
+  margin-right: 1.6rem;
+  font-size: 0.8rem;
 }
-
-@media screen and (min-width: 48rem) {
-
-  h1 {
-    font-size: 2.4rem;
-  }
-
+ul#navigation > li {
+  display: inline-block;
 }
