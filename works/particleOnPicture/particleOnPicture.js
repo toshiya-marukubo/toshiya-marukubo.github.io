@@ -32,20 +32,25 @@
     var flg = false;
     var step = 36;
 
-    if (X < 768) {
-      step = 12;
-    }
-
     /********************
       offscreenCanvas
     ********************/
     
     var images = [];
     var files = [
-      'image1.jpg',
-      'image2.jpg',
-      'image3.jpg'
+      'image4.jpg',
+      'image5.jpg',
+      'image6.jpg'
     ];
+    
+    if (X < 768) {
+      step = 12;
+      files = [
+        'image1.jpg',
+        'image2.jpg',
+        'image3.jpg'
+      ];
+    }
      
     for (var i = 0; i < files.length; i++) {
       var img = new Image();
@@ -225,6 +230,21 @@
     function onResize() {
       X = canvas.width = offscreenCanvas.width = window.innerWidth;
       Y = canvas.height = offscreenCanvas.height = window.innerHeight;
+      if (X < 768) {
+        step = 12;
+        files = [
+          'image1.jpg',
+          'image2.jpg',
+          'image3.jpg'
+        ];
+      } else {
+        step = 36;
+        files = [
+          'image4.jpg',
+          'image5.jpg',
+          'image6.jpg'
+        ];
+      }
     }
 
     window.addEventListener('resize', function(){
