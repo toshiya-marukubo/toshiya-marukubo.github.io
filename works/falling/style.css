@@ -55,31 +55,5 @@ p#loading {
 ********************/
 
 canvas#canvas {
-  z-index: 2;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-canvas#canvasBack {
-  z-index: 1;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-ul#navigation {
-  position: absolute;
-  height: 100%;
-  top: 0;
-  right: 0;
-  text-align: center;
-  margin-right: 1.6rem;
-  font-size: 0.8rem;
-  -webkit-writing-mode: vertical-rl;
-      -ms-writing-mode: tb-rl;
-          writing-mode: vertical-rl;
-}
-ul#navigation > li {
-  display: inline-block;
+  background: #092745;
 }

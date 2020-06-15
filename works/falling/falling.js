@@ -2,7 +2,6 @@
   'use strict';
   window.addEventListener('load', function () {
     var canvas = document.getElementById('canvas');
-    var canvasBack = document.getElementById('canvasBack');
 
     if (!canvas || !canvas.getContext) {
       return false;
@@ -21,16 +20,15 @@
     ********************/
 
     var ctx = canvas.getContext('2d');
-    var ctxBack = canvasBack.getContext('2d');
-    var X = canvas.width = canvasBack.width = window.innerWidth;
-    var Y = canvas.height = canvasBack.height = window.innerHeight;
+    var X = canvas.width = window.innerWidth;
+    var Y = canvas.height = window.innerHeight;
     var mouseX = X / 2;
     var mouseY = Y / 2;
     var petals = [];
-    var petalNum = 100;
+    var petalNum = 50;
 
     if (X < 768) {
-      petalNum = 70;
+      petalNum = 25;
     }
 
     /********************
@@ -58,36 +56,36 @@
     Petal.prototype.init = function(x, y) {
       this.x = x;
       this.y = y;
-      this.r = rand(5, 20);
+      this.r = rand(50, 100);
       this.c = {
         r: rand(200, 255),
-        g: rand(150, 180),
-        b: rand(200, 230),
+        g: rand(100, 150),
+        b: rand(200, 255),
         a: 1
       };
       this.v = {
-        x: Math.random(),
+        x: rand(2, 3) * Math.random(),
         y: rand(1, 2)
       };
       this.angle = rand(0, 360);
       this.radian = this.angle * Math.PI / 180;
-      this.rs = Math.random();
+      this.rs = Math.random() * Math.random();
     };
 
     Petal.prototype.draw = function() {
       var ctx  = this.ctx;
       ctx.save();
-      ctx.lineWidth = 2;
-      ctx.fillStyle = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
+      ctx.lineWidth = 1;
       ctx.strokeStyle = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
-      ctx.translate(this.x, this.y);
+      ctx.fillStyle = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
+      ctx.translate(Math.cos(this.radian) * 50 + this.x, Math.sin(this.radian) * 50 + this.y);
       ctx.rotate(this.radian);
       ctx.scale(Math.cos(this.radian), Math.sin(this.radian));
-      ctx.translate(-this.x, -this.y);
+      ctx.translate(-Math.cos(this.radian) * 50 - this.x, -Math.sin(this.radian) * 50 - this.y);
       ctx.beginPath();
       ctx.moveTo(this.x - this.r / 3, this.y - this.r);
       ctx.quadraticCurveTo(this.x - this.r, this.y, this.x, this.y + this.r);
-      ctx.lineTo(this.x, this.y - this.r / 1.5);
+      ctx.lineTo(this.x, this.y - this.r / 1.2);
       ctx.lineTo(this.x - this.r / 3, this.y - this.r);
       ctx.closePath();
       ctx.fill();
@@ -95,7 +93,7 @@
       ctx.beginPath();
       ctx.moveTo(this.x + this.r / 3, this.y - this.r);
       ctx.quadraticCurveTo(this.x + this.r, this.y, this.x, this.y + this.r);
-      ctx.lineTo(this.x, this.y - this.r / 1.5);
+      ctx.lineTo(this.x, this.y - this.r / 1.2);
       ctx.lineTo(this.x + this.r / 3, this.y - this.r);
       ctx.closePath();
       ctx.fill();
@@ -115,21 +113,21 @@
 
     Petal.prototype.wrapPosition = function() {
       if (this.x - this.r > X) {
-        this.x = 0;
+        this.x = 0 - this.r;
       }
       if (this.x + this.r < 0) {
-        this.x = X;
+        this.x = X + this.r;
       }
       if (this.y - this.r > Y) {
-        this.y = 0;
+        this.y = 0 - this.r;
       }
       if (this.y + this.r < 0) {
-        this.y = Y;
+        this.y = Y + this.r;
       }
     };
     
     Petal.prototype.render = function(i) {
-      this.updateParams();
+      this.updateParams(i);
       this.updatePosition();
       this.wrapPosition();
       this.draw();
@@ -159,8 +157,18 @@
     ********************/
     
     function onResize() {
-      X = canvas.width = canvasBack.width = window.innerWidth;
-      Y = canvas.height = canvasBack.height = window.innerHeight;
+      X = canvas.width = window.innerWidth;
+      Y = canvas.height = window.innerHeight;
+      petals = [];
+      if (X < 768) { 
+        petalNum = 25;
+      } else {
+        petalNum = 50;
+      }
+      for (var i = 0; i < petalNum; i++) {
+        var t = new Petal(ctx, rand(0, X), rand(0, Y));
+        petals.push(t);
+      }
     }
 
     window.addEventListener('resize', function(){
@@ -174,5 +182,5 @@
 
   });
   // Author
-  console.log('File Name / .js\nCreated Date / Jun 10, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
+  console.log('File Name / falling.js\nCreated Date / Jun 15, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();
