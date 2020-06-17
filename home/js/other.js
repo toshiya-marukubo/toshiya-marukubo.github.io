@@ -7,6 +7,9 @@
     }
     // var 
     var urlArray = [
+      'particleOnText',
+      'falling',
+      'particleOnPicture',
       'nostalgiaOrFear',
       'noise',
       'circle',
