@@ -56,7 +56,6 @@
     ********************/
 
     if (X < 768) {
-      textValue = 'TEXT';
       fontSizeValue = 100;
       stepValue = 4;
       particleSizeValue = 8;
@@ -209,12 +208,10 @@
       Y = canvas.height = offscreenCanvas.height = window.innerHeight;
       particles = [];
       if (X < 768) {
-        textValue = 'TEXT';
         fontSizeValue = 100;
         stepValue = 4;
         particleSizeValue = 8;
       } else {
-        textValue = 'PARTICLE';
         fontSizeValue = 200;
         stepValue = 8;
         particleSizeValue = 20;
