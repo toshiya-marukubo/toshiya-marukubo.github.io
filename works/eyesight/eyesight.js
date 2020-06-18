@@ -27,6 +27,7 @@
     var shapes = [];
     var shapeNum = 150;
     var lw = 5;
+    var rotateSpeed = 0.1;
 
     if (X < 768) {
       shapeNum = 80;
@@ -83,7 +84,7 @@
     };
 
     Shape.prototype.updateParams = function(i) {
-      i % 2 === 0 ? this.a += 0.1 : this.a -= 0.1;
+      i % 2 === 0 ? this.a += rotateSpeed : this.a -= rotateSpeed;
       this.rad = this.a * Math.PI / 180;
     };
 
@@ -136,33 +137,39 @@
 
     canvas.addEventListener('wheel', function(e) {
         lw += e.deltaY / 100;
+        rotateSpeed += e.deltaX / 10000;
     }, false);
 
     var touchStartY;
     var touchMoveY;
     var touchEndY;
+    var touchStartX;
+    var touchMoveX;
+    var touchEndX;
 
     canvas.addEventListener('touchstart', function(e) {
       var touch = e.targetTouches[0];
       touchStartY = touch.pageY;
+      touchStartX = touch.pageX;
     }, false);
     
     canvas.addEventListener('touchmove', function(e) {
       var touch = e.targetTouches[0];
       touchMoveY = touch.pageY;
+      touchMoveX = touch.pageX;
       touchEndY = touchStartY - touchMoveY;
-      if (touchEndY > 0) {
-        lw += touchEndY / 100;
-      }
-      if (touchEndY < 0) {
-        lw += touchEndY / 100;
-      }
+      touchEndX = touchStartX - touchMoveX;
+      lw += touchEndY / 100;
+      rotateSpeed += touchEndX / 10000;
     }, false);
 
     canvas.addEventListener('touchend', function(e) {
       touchStartY = null;
       touchMoveY = null;
       touchEndY = null;
+      touchStartX = null;
+      touchMoveX = null;
+      touchEndX = null;
     }, false);
 
   });
