@@ -219,7 +219,7 @@
       } else {
         fontSizeValue = 200;
         stepValue = 8;
-        particleSizeValue = 15;
+        particleSizeValue = 20;
       }
       offscreenCtx.clearRect(0, 0, X, Y);
       drawText();
