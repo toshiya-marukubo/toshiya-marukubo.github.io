@@ -28,6 +28,10 @@
     var shapeNum = 150;
     var lw = 5;
 
+    if (X < 768) {
+      shapeNum = 80;
+    }
+
     /********************
       Animation
     ********************/
@@ -114,6 +118,11 @@
     function onResize() {
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
+      if (X < 768) {
+        shapeNum = 80;
+      } else {
+        shapeNum = 150;
+      }
       shapes = [];
       for (var i = 0; i < shapeNum; i++) {
         var s = new Shape(ctx, X / 2, Y / 2, i);
