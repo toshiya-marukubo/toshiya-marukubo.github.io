@@ -135,6 +135,11 @@
       onResize();
     });
 
+    canvas.addEventListener('click', function(e) {
+      lw = 5;
+      rotateSpeed = 0.1;
+    });
+
     canvas.addEventListener('wheel', function(e) {
         lw += e.deltaY / 100;
         rotateSpeed += e.deltaX / 10000;
