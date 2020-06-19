@@ -159,7 +159,7 @@
       for (var i = 0; i < images.length; i++) {
         images[i].addEventListener('load', function() {
           load++;
-          if (load === images.length - 1) {
+          if (load === images.length) {
             init();
           }
         });

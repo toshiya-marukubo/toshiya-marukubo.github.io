@@ -1,8 +1,3 @@
-/*
-  I am learning to deal image file on canvas. I referenced following url.
-  http://www.generative-gestaltung.de/2/sketches/?01_P/P_4_1_2_01
-*/
-
 (function () {
   'use strict';
   window.addEventListener('load', function () {
@@ -29,6 +24,8 @@
     var Y = canvas.height = window.innerHeight;
     var mouseX = X / 2;
     var mouseY = Y / 2;
+    var shapes = [];
+    var shapeNum = 3;
 
     /********************
       Animation
@@ -44,31 +41,51 @@
       };
 
     /********************
-      Image
+      Shape
     ********************/
     
-    var img = new Image();
-    img.src = 'image.jpg';
+    function Shape(ctx, x, y, i) {
+      this.ctx = ctx;
+      this.init(x, y, i);
+    }
+
+    Shape.prototype.init = function(x, y, i) {
+      this.x = x;
+      this.y = y;
+      this.i = i;
+      this.a = rand(0, 360);
+      this.rad = this.a * Math.PI / 180;
+    };
+ 
+    Shape.prototype.draw = function() {
+      var ctx  = this.ctx;
+      ctx.save();
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'white';
+      ctx.translate(X / 2, Y / 2);
+      ctx.scale(Math.cos(this.rad), Math.sin(this.rad));
+      ctx.translate(-X / 2, -Y / 2);
+      ctx.beginPath();
+      ctx.moveTo(this.x, this.y);
+      ctx.quadraticCurveTo(X / 2, rand(0, Y), X, this.y);
+      ctx.stroke();
+      ctx.restore();
+    };
+
+    Shape.prototype.updateParams = function() {
+      this.a -= 1;
+      this.rad = this.a * Math.PI / 180;
+    };
+
+    Shape.prototype.render = function(i) {
+      this.updateParams();
+      this.draw();
+    };
     
-    function initImage() {
-      ctx.drawImage(img, (X - img.width) / 2, (Y - img.height) / 2);
+    for (var i = 0; i < shapeNum; i++) {
+      var s = new Shape(ctx, 0, Y / 2, i);
+      shapes.push(s);
     }
-
-    function noiseImage() {
-      var x1 = 0;
-      var y1 = rand(0, Y);
-      var img = ctx.getImageData(x1, y1, X, rand(1, 5));
-      ctx.putImageData(img, 0, rand(0, Y));
-    }
-
-    /* 
-    function noiseImage2() {
-      var x1 = rand(0, X);
-      var y1 = 0;
-      var img = ctx.getImageData(x1, y1, rand(1, 5), Y);
-      ctx.putImageData(img, rand(0, X), 0);
-    } 
-    */
 
     /********************
       Render
@@ -76,14 +93,19 @@
     
     function render() {
       //ctx.clearRect(0, 0, X, Y);
-      noiseImage();
+      ctx.globalCompositeOperation = "darken";
+      ctx.globalAlpha = 0.05;
+      ctx.fillStyle = "rgb(0,0,0)";
+      ctx.fillRect(0, 0, X, Y);
+      ctx.globalCompositeOperation = "source-over";
+      ctx.globalAlpha = 1;
+      for (var i = 0; i < shapes.length; i++) {
+        shapes[i].render(i);
+      }
       requestAnimationFrame(render);
     }
 
-    img.onload = function() {
-      initImage();
-      render();
-    }
+    render();
 
     /********************
       Event
@@ -92,7 +114,6 @@
     function onResize() {
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
-      initImage();
     }
 
     window.addEventListener('resize', function(){
@@ -102,13 +123,9 @@
     canvas.addEventListener('mousemove', function(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
-    });
-
-    canvas.addEventListener('click', function(e) {
-      initImage();
-    });
+    }, false);
 
   });
   // Author
-  console.log('File Name / image.js\nCreated Date / Jun 11, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
+  console.log('File Name / eyesight.js\nCreated Date / Jun 18, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();

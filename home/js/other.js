@@ -7,6 +7,8 @@
     }
     // var 
     var urlArray = [
+      'grayscaleParticle',
+      'eyesight',
       'particleOnText',
       'falling',
       'particleOnPicture',

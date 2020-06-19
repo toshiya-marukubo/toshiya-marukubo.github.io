@@ -6,13 +6,13 @@ html, body {
   height: 100%;
   width: 100%;
   font-family: 'arial black', Helvetica, verdana, monospace, sans-serif;
-  color: #000;
+  color: #FFF;
   font-size: 100%;
   padding: 0;
   margin: 0;
   letter-spacing: 0.2rem;
   overflow: hidden;
-  background: #FFF;
+  background: #000;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -24,7 +24,7 @@ body {
 }
 
 a {
-  color: #000;
+  color: #FFF;
   text-decoration: none;
 }
 
@@ -55,7 +55,7 @@ p#loading {
 ********************/
 
 canvas#canvas {
-  background: #FFF;
+  background: #000;
 }
 
 ul#navigation {
@@ -63,13 +63,14 @@ ul#navigation {
   height: 100%;
   top: 0;
   right: 0;
-  -webkit-writing-mode: vertical-rl;
-      -ms-writing-mode: tb-rl;
-          writing-mode: vertical-rl;
   text-align: center;
   margin-right: 1.6rem;
   font-size: 0.8rem;
+  -webkit-writing-mode: vertical-rl;
+      -ms-writing-mode: tb-rl;
+          writing-mode: vertical-rl;
 }
+
 ul#navigation > li {
   display: inline-block;
 }
