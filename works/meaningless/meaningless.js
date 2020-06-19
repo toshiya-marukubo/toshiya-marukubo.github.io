@@ -15,8 +15,8 @@
     ********************/
     
     var main = document.getElementById('main');
-    var X = main.width = window.innerWidth;
-    var Y = main.height = window.innerHeight;
+    var X = window.innerWidth;
+    var Y = window.innerHeight;
 
     /********************
       Animation
@@ -45,8 +45,8 @@
     } 
     
     function culcQuantity() {
-      var x = X / 17;
-      var y = Y / 17;
+      var x = X / 15;
+      var y = Y / 15;
       var z = x * y;
       return z;
     }
