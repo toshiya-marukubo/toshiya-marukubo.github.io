@@ -25,7 +25,8 @@
     var mouseX = X / 2;
     var mouseY = Y / 2;
     var shapes = [];
-    var shapeNum = 3;
+    var shapeNum = 360;
+    var dist = Y / 2;
 
     /********************
       Animation
@@ -53,27 +54,18 @@
       this.x = x;
       this.y = y;
       this.i = i;
-      this.a = rand(0, 360);
+      this.a = i;
       this.rad = this.a * Math.PI / 180;
     };
  
     Shape.prototype.draw = function() {
       var ctx  = this.ctx;
       ctx.save();
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = 'white';
-      ctx.translate(X / 2, Y / 2);
-      ctx.scale(Math.cos(this.rad), Math.sin(this.rad));
-      ctx.translate(-X / 2, -Y / 2);
-      ctx.beginPath();
-      ctx.moveTo(this.x, this.y);
-      ctx.quadraticCurveTo(X / 2, rand(0, Y), X, this.y);
-      ctx.stroke();
       ctx.restore();
     };
 
     Shape.prototype.updateParams = function() {
-      this.a -= 1;
+      this.a += 0.1;
       this.rad = this.a * Math.PI / 180;
     };
 
@@ -83,7 +75,7 @@
     };
     
     for (var i = 0; i < shapeNum; i++) {
-      var s = new Shape(ctx, 0, Y / 2, i);
+      var s = new Shape(ctx, X / 2, Y / 2, i);
       shapes.push(s);
     }
 
@@ -92,13 +84,15 @@
     ********************/
     
     function render() {
-      //ctx.clearRect(0, 0, X, Y);
+      ctx.clearRect(0, 0, X, Y);
+      /*
       ctx.globalCompositeOperation = "darken";
       ctx.globalAlpha = 0.05;
       ctx.fillStyle = "rgb(0,0,0)";
       ctx.fillRect(0, 0, X, Y);
       ctx.globalCompositeOperation = "source-over";
       ctx.globalAlpha = 1;
+      */
       for (var i = 0; i < shapes.length; i++) {
         shapes[i].render(i);
       }
