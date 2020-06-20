@@ -49,7 +49,7 @@
       input.setAttribute('value', valVal);
       input.setAttribute('min', '0');
       input.setAttribute('max', '100');
-      input.setAttribute('step', '0.1');
+      input.setAttribute('step', '1');
       main.appendChild(input);
       main.appendChild(div);
       div.appendChild(span);
@@ -82,7 +82,7 @@
       for (var i = 0; i < ranges.length; i++) {
         var val = Math.floor(Math.sin((angle + i * 3) * Math.PI / 180) * valVal + valVal);
         ranges[i].setAttribute('value', val);
-        spans[i].textContent = val;
+        spans[i].textContent = ranges[i].value;
       }
       requestAnimationFrame(interval);
       angle -= 1;
