@@ -7,7 +7,8 @@
     }
     // var 
     var urlArray = [
-      'meaningless',
+      'range',
+      'checkBox',
       'grayscaleParticle',
       'eyesight',
       'particleOnText',
