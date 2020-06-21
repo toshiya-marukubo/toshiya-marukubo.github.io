@@ -7,6 +7,7 @@
     }
     // var 
     var urlArray = [
+      'perfectNavigation',
       'range',
       'checkBox',
       'grayscaleParticle',
