@@ -39,8 +39,10 @@
     ********************/
     
     var num = 200;
+    var mouseDist = 200;
     if (X < 768) {
       num = 100;
+      mouseDist = 100;
     }
     var spans;
     var links;
@@ -99,7 +101,7 @@
           var y = mouseY - coordinate.top - coordinate.height / 2;
           var d = x * x + y * y;
           var dist = Math.sqrt(d);
-          if (dist < 200) {
+          if (dist < mouseDist) {
             var vx = x / dist * 5;
             var vy = y / dist * 5;
             spans[i].style.left = coordinate.left - vx + 'px';
