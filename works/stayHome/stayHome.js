@@ -132,8 +132,11 @@
             if (this.c !== circles[i].c) {
               this.c = 'rgb(255, 57, 57)';
             }
-            this.v.x *= -1;
-            this.v.y *= -1;
+            this.v.x = - this.v.x;
+            this.v.y = - this.v.y;
+            var colAngle = Math.atan2(this.y - circles[i].y, this.x - circles[i].x);
+            this.v.x = Math.cos(colAngle);
+            this.v.y = Math.sin(colAngle);
           }
         }
       }

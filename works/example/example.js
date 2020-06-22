@@ -27,6 +27,9 @@
     var shapes = [];
     var shapeNum = 360;
     var dist = Y / 2;
+    var ease = 0.3;
+    var friction = 0.7;
+    var dragging = false;
 
     /********************
       Animation
@@ -54,6 +57,10 @@
       this.x = x;
       this.y = y;
       this.i = i;
+      this.v = {
+        x: 0,
+        y: 0
+      };
       this.a = i;
       this.rad = this.a * Math.PI / 180;
     };
@@ -61,16 +68,32 @@
     Shape.prototype.draw = function() {
       var ctx  = this.ctx;
       ctx.save();
+      ctx.lineWidth = 0.4;
+      ctx.strokeStyle = 'white';
+      ctx.beginPath();
+      ctx.moveTo(this.x, this.y);
+      ctx.quadraticCurveTo(this.x, this.y, Math.cos(this.rad) * 200 + this.x, Math.sin(this.rad) * 200 + this.y);
+      ctx.stroke();
       ctx.restore();
     };
 
     Shape.prototype.updateParams = function() {
-      this.a += 0.1;
+      this.a += 0.01;
       this.rad = this.a * Math.PI / 180;
+    };
+
+    Shape.prototype.updatePosition = function() {
+      this.v.x = mouseX - this.x * ease;
+      this.v.y = mouseY - this.y * ease;
+      this.v.x *= friction;
+      this.v.y *= friction;
+      this.x -= this.v.x;
+      this.y -= this.v.y;
     };
 
     Shape.prototype.render = function(i) {
       this.updateParams();
+      this.updatePosition();
       this.draw();
     };
     
@@ -113,6 +136,16 @@
     window.addEventListener('resize', function(){
       onResize();
     });
+
+    canvas.addEventListener('mousedown', function(e) {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+     dragging = true;
+    }, false);
+    
+    canvas.addEventListener('mouseup', function() {
+     dragging = false;
+    }, false);
 
     canvas.addEventListener('mousemove', function(e) {
       mouseX = e.clientX;

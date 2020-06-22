@@ -7,6 +7,7 @@
     }
     // var 
     var urlArray = [
+      'playBallPool',
       'perfectNavigation',
       'range',
       'checkBox',
