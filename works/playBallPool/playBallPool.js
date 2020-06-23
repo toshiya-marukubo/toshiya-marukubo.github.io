@@ -203,11 +203,16 @@
       mouseX = e.clientX;
       mouseY = e.clientY;
     });
-
+    
     canvas.addEventListener('touchmove', function(e) {
       var touch = e.targetTouches[0];
       mouseY = touch.pageY;
       mouseX = touch.pageX;
+    }, false);
+
+    canvas.addEventListener('touchend', function() {
+      mouseY = null;
+      mouseX = null;
     }, false);
 
   }); 
