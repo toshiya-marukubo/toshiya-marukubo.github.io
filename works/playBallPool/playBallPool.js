@@ -22,8 +22,8 @@
     var ctx = canvas.getContext('2d');
     var X = canvas.width = window.innerWidth;
     var Y = canvas.height = window.innerHeight;
-    var mouseX = null;
-    var mouseY = null;
+    var mouseX = X / 2;
+    var mouseY = Y * 2;
     var ballNum = 500;
     var balls = [];
     var colors = [
@@ -211,8 +211,8 @@
     }, false);
 
     canvas.addEventListener('touchend', function() {
-      mouseY = null;
-      mouseX = null;
+      mouseY = X / 2;
+      mouseX = Y * 2;
     }, false);
 
   }); 
