@@ -217,7 +217,7 @@
     
     Building.prototype.render = function(i) {
       this.updatePosition();
-      this.updateParams();
+      //this.updateParams();
       this.wrapPosition(i);
       //this.isHover(i);
       this.draw();
