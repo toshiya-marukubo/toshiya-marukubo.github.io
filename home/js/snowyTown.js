@@ -141,20 +141,24 @@
         ctx.save();
         ctx.beginPath();
         ctx.globalAlpha = 0.9;
+        /*
         ctx.shadowColor = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
         ctx.shadowOffsetX = 0;
         ctx.shadowOffsetY = 0;
         ctx.shadowBlur = this.blurNum;
+        */
         ctx.fillStyle = 'rgb(0, 0, 0)';
         ctx.fillRect(this.x, Y - this.bH - this.signH - 5, this.bW, this.signH);
         ctx.restore();
         ctx.save();
         ctx.beginPath();
         ctx.fillStyle = this.fontColor;
+        /*
         ctx.shadowColor = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
         ctx.shadowOffsetX = 0;
         ctx.shadowOffsetY = 0;
         ctx.shadowBlur = this.blurNum;
+        */
         ctx.font = this.font;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
