@@ -44,12 +44,12 @@
     ********************/
     
     // var
-    var slimeNum = X / 8;
+    var slimeNum = 25;
     var slimes = [];
-    var circleSplit = 36;
+    var circleSplit = 12;
     var angleSplit = 360 / circleSplit;
     var angles = [];
-    for (var i = 0; i < slimeNum; i++) {
+    for (var i = 0; i < circleSplit; i++) {
       angles.push(rand(0, 360));
     }
      
@@ -62,8 +62,8 @@
       this.x = x;
       this.y = y;
       this.c = 'white';
-      this.r = 1 + i * 5;
-      this.v = 2;
+      this.r = 50 + i * 40;
+      this.v = 1;
       this.a = 0;
       this.rad = this.a * Math.PI / 180;
       this.points = [];
@@ -84,14 +84,11 @@
     Slime.prototype.draw = function() {
       var ctx = this.ctx;
       ctx.save();
-      //ctx.translate(Math.cos(this.rad) * 300 + this.x, Math.cos(this.rad) * 300 + this.y);
       ctx.translate(this.x, this.y);
       ctx.rotate(this.rad);
       ctx.translate(-this.x, -this.y);
-      //ctx.scale(Math.cos(this.rad), Math.sin(this.rad));
-      //ctx.translate(-Math.cos(this.rad) * 300 - this.x, -Math.sin(this.rad) * 300 - this.y);
       ctx.strokeStyle = this.c;
-      ctx.lineWidth = 0.5;
+      ctx.lineWidth = 20;
       ctx.beginPath();
       var xav1 = (this.points[0][0] + this.points[circleSplit - 1][0]) / 2 + this.x;
       var yav1 = (this.points[0][1] + this.points[circleSplit - 1][1]) / 2 + this.y;
@@ -107,16 +104,19 @@
       ctx.restore();
     };
 
+    var cosNum = 7;
+    var sinNum = 3;
+    
     Slime.prototype.transform = function() {
       for (var i = 0; i < this.points.length; i++) {
-        this.points[i][0] -= Math.sin(this.points[i][2] * Math.PI / 180);
-        this.points[i][1] -= Math.cos(this.points[i][2] * Math.PI / 180);
+        this.points[i][0] -= Math.cos(this.points[i][2] * Math.PI / 180 * cosNum);
+        this.points[i][1] -= Math.sin(this.points[i][2] * Math.PI / 180 * sinNum);
         this.points[i][2] -= this.v;
       }
     };
 
     Slime.prototype.updateParams = function() {
-      this.a += 0.1;
+      this.a += 1;
       this.rad = this.a * Math.PI / 180;
     };
 
@@ -141,13 +141,7 @@
     ********************/
     
     function render(){
-      //ctx.clearRect(0, 0, X, Y);
-      ctx.globalCompositeOperation = "darken";
-      ctx.globalAlpha = 0.05;
-      ctx.fillStyle = "rgb(0,0,0)";
-      ctx.fillRect(0, 0, X, Y);
-      ctx.globalCompositeOperation = "source-over";
-      ctx.globalAlpha = 1;
+      ctx.clearRect(0, 0, X, Y);
       for (var i = 0; i < slimes.length; i++) {
         slimes[i].render(i);
       }
@@ -172,7 +166,12 @@
       onResize();
     });
 
+    canvas.addEventListener('click', function() {
+      cosNum = rand(1, 8);
+      sinNum = rand(1, 8);
+    });
+
   }); 
   // Author
-  console.log('File Name / slime.js\nCreated Date / April 28, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
+  console.log('File Name / uneune.js\nCreated Date / Jun 24, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();
