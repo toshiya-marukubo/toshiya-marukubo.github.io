@@ -47,6 +47,7 @@
     var textNum = 3;
     var texts = [];
     var index = 0;
+    
     var count = [
       'TEN.',
       'NINE.',
