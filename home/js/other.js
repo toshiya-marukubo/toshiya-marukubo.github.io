@@ -7,6 +7,7 @@
     }
     // var 
     var urlArray = [
+      'jellyfish',
       'fighting',
       'playBallPool',
       'perfectNavigation',
