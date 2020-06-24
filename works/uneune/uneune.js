@@ -88,6 +88,7 @@
       ctx.rotate(this.rad);
       ctx.translate(-this.x, -this.y);
       ctx.strokeStyle = this.c;
+      ctx.lineCap = 'round';
       ctx.lineWidth = 20;
       ctx.beginPath();
       var xav1 = (this.points[0][0] + this.points[circleSplit - 1][0]) / 2 + this.x;
