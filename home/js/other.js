@@ -7,7 +7,7 @@
     }
     // var 
     var urlArray = [
-      'countdown',
+      'countup',
       'jellyfish',
       'fighting',
       'playBallPool',

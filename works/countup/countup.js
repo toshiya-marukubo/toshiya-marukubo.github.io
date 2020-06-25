@@ -46,21 +46,7 @@
     // var
     var textNum = 3;
     var texts = [];
-    var index = 0;
-    
-    var count = [
-      'TEN.',
-      'NINE.',
-      'EIGHT.',
-      'SEVEN.',
-      'SIX.',
-      'FIVE.',
-      'FOUR.',
-      'THREE.',
-      'TWO.',
-      'ONE.',
-      'ZERO.'
-    ];
+    var count = 0;
      
     function Text(ctx, x, y, i, t) {
       this.ctx = ctx;
@@ -100,8 +86,7 @@
       this.a += 1;
       this.rad = this.a * Math.PI / 180;
       if (this.a % 180 === 0) {
-        index === count.length - 1 ? index = 0 : index++;
-        this.t = count[index];
+        this.t = ++count;
       }
     };
 
@@ -116,7 +101,7 @@
     };
 
     for (var i = 0; i < textNum; i++) {
-      var t = new Text(ctx, X / 2, Y / 2, i, count[0]);
+      var t = new Text(ctx, X / 2, Y / 2, i, count);
       texts.push(t);
     }
 
@@ -152,5 +137,5 @@
 
   }); 
   // Author
-  console.log('File Name / countdown.js\nCreated Date / Jun 24, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
+  console.log('File Name / countup.js\nCreated Date / Jun 24, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();
