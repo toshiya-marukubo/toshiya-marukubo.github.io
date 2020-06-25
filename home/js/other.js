@@ -7,6 +7,7 @@
     }
     // var 
     var urlArray = [
+      'greeting',
       'countup',
       'jellyfish',
       'fighting',
