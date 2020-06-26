@@ -7,6 +7,7 @@
     }
     // var 
     var urlArray = [
+      'distance',
       'fun',
       'greeting',
       'countup',
