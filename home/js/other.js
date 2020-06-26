@@ -7,6 +7,7 @@
     }
     // var 
     var urlArray = [
+      'fun',
       'greeting',
       'countup',
       'jellyfish',

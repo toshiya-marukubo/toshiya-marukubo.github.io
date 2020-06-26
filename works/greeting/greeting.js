@@ -151,6 +151,10 @@
       greets.push(g);
     }
 
+    /********************
+      Change Color
+    ********************/
+    
     function changeColor() {
       var time = rand(1000, 5000);
       var r = rand(0, 255);
