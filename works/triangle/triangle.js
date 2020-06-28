@@ -152,6 +152,30 @@
       }
     }, false);
 
+    var touchStartY;
+    var touchMoveY;
+    var touchEndY;
+
+    canvas.addEventListener('touchstart', function(e) {
+      var touch = e.targetTouches[0];
+      touchStartY = touch.pageY;
+    }, false);
+
+    canvas.addEventListener('touchmove', function(e) {
+      var touch = e.targetTouches[0];
+      touchMoveY = touch.pageY;
+      touchEndY = touchStartY - touchMoveY;
+      for (var i = 0; i < shapes.length; i++) {
+        shapes[i].r -= touchEndY / 10;
+      }
+    }, false);
+
+    canvas.addEventListener('touchend', function(e) {
+      touchStartY = null;
+      touchMoveY = null;
+      touchEndY = null;
+    }, false);
+
   });
   // Author
   console.log('File Name / eyesight.js\nCreated Date / Jun 18, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
