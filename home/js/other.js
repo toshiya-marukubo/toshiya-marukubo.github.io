@@ -7,7 +7,7 @@
     }
     // var 
     var urlArray = [
-      'triangle',
+      'gon',
       'distance',
       'fun',
       'greeting',
