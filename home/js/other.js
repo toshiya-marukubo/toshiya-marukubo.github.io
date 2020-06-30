@@ -7,6 +7,7 @@
     }
     // var 
     var urlArray = [
+      'toSix',
       'gon',
       'distance',
       'fun',
