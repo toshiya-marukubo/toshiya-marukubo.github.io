@@ -36,7 +36,7 @@
     var lw = 6;
 
     if (X < 768) {
-      splitNum = 6;
+      splitNum = 12;
       split = X / splitNum;
       yNum = Y / split; 
     }
@@ -155,7 +155,7 @@
       max = Math.sqrt(X * X + Y * Y);
       shapes = [];
       if (X < 768) {
-        splitNum = 6;
+        splitNum = 12;
         split = X / splitNum;
         yNum = Y / split; 
       } else {
