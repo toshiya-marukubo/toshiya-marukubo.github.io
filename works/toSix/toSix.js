@@ -82,16 +82,17 @@
     Shape.prototype.draw = function() {
       var ctx  = this.ctx;
       ctx.save();
-      ctx.lineWidth = lw;
+      ctx.lineWidth = lw * this.par;
       ctx.globalCompositeOperation = 'lighter';
       ctx.strokeStyle = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
       ctx.beginPath();
       ctx.translate(this.x, this.y);
       ctx.rotate(this.rad * this.par);
+      ctx.scale(1 * this.par, 1 * this.par);
       ctx.translate(-this.x, -this.y);
-      ctx.moveTo(Math.sin(radian * 1) * this.r * this.par + this.x, Math.cos(radian * 1) * this.r * this.par + this.y);
+      ctx.moveTo(Math.sin(radian * 1) * this.r + this.x, Math.cos(radian * 1) * this.r + this.y);
       for (var i = 2; i < pointsNum + 1; i++) {
-        ctx.lineTo(Math.sin(radian * i) * this.r * this.par + this.x, Math.cos(radian * i) * this.r * this.par + this.y);
+        ctx.lineTo(Math.sin(radian * i) * this.r + this.x, Math.cos(radian * i) * this.r + this.y);
       }
       ctx.closePath();
       ctx.stroke();
@@ -108,7 +109,7 @@
     };
 
     Shape.prototype.updateParams = function() {
-      this.a += 1;
+      this.a += 1 * this.par;
       this.rad = this.a * Math.PI / 180;
     };
 

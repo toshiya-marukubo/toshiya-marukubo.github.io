@@ -7,6 +7,7 @@
     }
     // var 
     var urlArray = [
+      'airfield',
       'toSix',
       'gon',
       'distance',
