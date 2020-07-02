@@ -156,6 +156,11 @@
 
     window.addEventListener('resize', function(){
       onResize();
+      shapes = [];
+      for (var i = 0; i < shapeNum; i++) {
+        var s = new Shape(ctx, X / 2, Y / 2, i);
+        shapes.push(s);
+      }
     });
 
     canvas.addEventListener('click', function(e) {
