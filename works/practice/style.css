@@ -54,8 +54,8 @@ p#loading {
 ********************/
 
 canvas#canvas {
-  background-image: url(./image.jpg);
-  background-size: cover;
+  background-image: url(./image-sm.jpg);
+  background-size: contain;
 }
 
 p.count {
@@ -90,6 +90,11 @@ ul#navigation > li {
 
   h1 {
     font-size: 2.4rem;
+  }
+
+  canvas#canvas {
+    background-image: url(./image.jpg);
+    background-size: cover;
   }
 
 }

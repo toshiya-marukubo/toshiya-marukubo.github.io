@@ -196,7 +196,7 @@
       this.x = x;
       this.y = y;
       this.i = i;
-      this.len = 500;
+      this.len = width;
       this.wi = 20;
     };
 
@@ -214,8 +214,11 @@
       this.draw();
     };
 
+    var width;
+    X < 768 ? width = 200 : width = 300;
+
     for (var i = 0; i < 1; i++) {
-      var w = new Wall(ctx, X / 2 - 250, Y - Y / 3, i);
+      var w = new Wall(ctx, X / 2 - width / 2, Y - Y / 3, i);
       walls.push(w);
     }
 
