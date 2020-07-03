@@ -113,6 +113,11 @@
       ctx.stroke();
       ctx.restore();
     };
+    
+    Shape.prototype.resize = function() {
+      this.x = X / 2;
+      this.y = Y / 2;
+    };
 
     Shape.prototype.transform = function() {
       for (var i = 0; i < this.points.length; i++) {
@@ -182,6 +187,9 @@
     function onResize() {
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
+      for (var i = 0; i < shapes.length; i++) {
+        shapes[i].resize();
+      }
     }
 
     window.addEventListener('resize', function() {
