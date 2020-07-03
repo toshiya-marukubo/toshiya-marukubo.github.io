@@ -26,6 +26,7 @@
     var mouseX = null;
     var mouseY = null;
     // shape
+    var shapeMax = 1000;
     var shapes = [];
     var shapeNum = 1;
     var gravity = 0.3;
@@ -105,8 +106,10 @@
           x: rand(-10, 10) * Math.random() * Math.random(),
           y: rand(-10, 10) * Math.random() * Math.random()
         };
-        var s = new Shape(ctx, rand(0, X), 0 - 100, i);
-        shapes.push(s);
+        if (shapeMax < 1000) {
+          var s = new shape(ctx, rand(0, x), 0 - 100, i);
+          shapes.push(s);
+        }
       }
     };
 
