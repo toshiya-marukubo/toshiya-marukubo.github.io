@@ -128,7 +128,7 @@
     };
 
     Shape.prototype.updateParams = function() {
-      this.a += 0.1;
+      this.a += 0.2;
       this.rad = this.a * Math.PI / 180;
       this.a2 += 0.1;
       this.rad2 = this.a2 * Math.PI / 180;
