@@ -106,10 +106,11 @@
           x: rand(-10, 10) * Math.random() * Math.random(),
           y: rand(-10, 10) * Math.random() * Math.random()
         };
-        if (shapeMax < 1000) {
-          var s = new shape(ctx, rand(0, x), 0 - 100, i);
-          shapes.push(s);
+        if (shapes.length > 1000) {
+          return;
         }
+        var s = new Shape(ctx, rand(0, X), 0 - 100);
+        shapes.push(s);
       }
     };
 
