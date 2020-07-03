@@ -19,17 +19,29 @@
       Var
     ********************/
 
+    var colors = ['rgb(1, 1, 1)', 'rgb(78, 196, 193)', 'rgb(236, 86, 107)', 'rgb(229, 227, 53)'];
     var ctx = canvas.getContext('2d');
     var X = canvas.width = window.innerWidth;
     var Y = canvas.height = window.innerHeight;
-    var mouseX = X / 2;
-    var mouseY = Y / 2;
+    var mouseX = null;
+    var mouseY = null;
+    // shape
     var shapes = [];
-    var shapeNum = 10;
-    var walls = [];
-    var wallNum = 1;
+    var shapeNum = 1;
     var gravity = 0.3;
-
+    var friction = 0.8;
+    // wall
+    var walls = [];
+    var splitNum = 8;
+    var split = X / splitNum;
+    var yNum = Y / split;
+    
+    if (X < 768) {
+      splitNum = 3;
+      split = X / splitNum;
+      yNum = Y / split;
+    } 
+    
     /********************
       Animation
     ********************/
@@ -56,27 +68,17 @@
       this.x = x;
       this.y = y;
       this.r = 10;
-      this.a = 0;
-      this.rad = this.a * Math.PI / 180;
+      this.c = colors[rand(0, colors.length - 1)];
       this.v = {
         x: rand(-10, 10) * Math.random() * Math.random(),
         y: rand(-10, 10) * Math.random() * Math.random()
       };
-      this.angle = 0;
-      this.radian = this.angle * Math.PI / 180;
-      this.c = {
-        r: rand(0, 255),
-        g: rand(0, 255),
-        b: rand(200, 255)
-      };
-      this.friction = Math.random() * Math.random();
     };
-
+    
     Shape.prototype.draw = function() {
       var ctx  = this.ctx;
       ctx.save();
-      ctx.fillStyle = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
-      ctx.fillStyle = 'black';
+      ctx.fillStyle = this.c; 
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
       ctx.fill();
@@ -85,17 +87,26 @@
 
     Shape.prototype.wrapPosition = function() {
       if (this.x - this.r < 0) {
-        //this.v.x = - this.v.x;
+        this.x = 0 + this.r;
+        this.v.x = - this.v.x;
       }
       if (this.x + this.r > X) {
-        //this.v.x = - this.v.x;
+        this.x = X - this.r;
+        this.v.x = - this.v.x;
       }
       if (this.y - this.r < 0) {
         //this.v.y = - this.v.y;
       }
-      if (this.y + this.r > Y) {
-        this.v.y *= - this.friction;
-        this.y = Y - this.r;
+      if (this.y - this.r > Y) {
+        this.y = 0 - this.r;
+        //this.v.y *= friction;
+        //this.v.y = - this.v.y;
+        this.v = {
+          x: rand(-10, 10) * Math.random() * Math.random(),
+          y: rand(-10, 10) * Math.random() * Math.random()
+        };
+        var s = new Shape(ctx, rand(0, X), 0 - 100, i);
+        shapes.push(s);
       }
     };
 
@@ -104,34 +115,40 @@
         var wall = walls[i];
         // left top
         if (this.r * this.r > (this.x - wall.x) * (this.x - wall.x) + (this.y - wall.y) * (this.y - wall.y)) {
-          this.v.y *= - this.friction;
           this.y = wall.y - this.r;
+          this.v.y *= friction;
+          this.v.y = - this.v.y;
           break;
         }
         // left down
         if (this.r * this.r > (this.x - wall.x) * (this.x - wall.x) + (this.y - wall.y - wall.wi) * (this.y - wall.y - wall.wi)) {
-          this.v.y = - this.v.y;
+          this.x = wall.x - this.r;
+          //this.v.y = - this.v.y;
           this.v.x = - this.v.x;
           break;
         }
         // right top
         if (this.r * this.r > (this.x - wall.x - wall.len) * (this.x - wall.x - wall.len) + (this.y - wall.y) * (this.y - wall.y)) {
-          this.v.y *= - this.friction;
           this.y = wall.y - this.r;
+          this.v.y *= friction;
+          this.v.y = - this.v.y;
           break;
         }
         // right down
         if (this.r * this.r > (this.x - wall.x - wall.len) * (this.x - wall.x - wall.len) + (this.y - wall.y - wall.wi) * (this.y - wall.y - wall.wi)) {
-          this.v.y = - this.v.y;
+          this.x = wall.x + wall.len + this.r;
+          //this.v.y = - this.v.y;
           this.v.x = - this.v.x;
           break;
         }
         if (this.x + this.r > wall.x && this.x - this.r < wall.x + wall.len && this.y + this.r > wall.y && this.y - this.r < wall.y + wall.wi) {
           if (this.y < wall.y + wall.wi / 2) {
-            this.v.y *= - this.friction;
             this.y = wall.y - this.r;
+            this.v.y *= friction;
+            this.v.y = - this.v.y;
           }
           if (this.y > wall.y + wall.wi/ 2) {
+            this.y = wall.y + wall.wi + this.r;
             this.v.y = - this.v.y;
           }
           if (this.x - this.r > wall.x) {
@@ -156,8 +173,8 @@
             this.v.x = - this.v.x;
             this.v.y = - this.v.y;
             var colAngle = Math.atan2(this.y - shapes[i].y, this.x - shapes[i].x);
-            this.v.x = Math.cos(colAngle) * 1;
-            this.v.y = Math.sin(colAngle) * 1;
+            this.v.x = Math.cos(colAngle) * 5;
+            this.v.y = Math.sin(colAngle) * 5;
           }
         }
       }
@@ -177,33 +194,33 @@
       this.draw();
     };
 
-
-    setInterval(function() {
-      var s = new Shape(ctx, X / 2, Y / 2, i);
+    for (var i = 0; i < shapeNum; i++) {
+      var s = new Shape(ctx, rand(0, X), 0 - 50, i);
       shapes.push(s);
-    }, 500);
+    }
 
     /********************
-      Render
+      Wall
     ********************/
     
     function Wall(ctx, x, y, i) {
       this.ctx = ctx;
       this.init(x, y, i);
     }
-
+    
     Wall.prototype.init = function(x, y, i) {
       this.x = x;
       this.y = y;
       this.i = i;
-      this.len = width;
-      this.wi = 20;
+      this.len = split / 2;
+      this.wi = split / 6;
+      this.c = colors[rand(0, colors.length - 1)];
     };
 
     Wall.prototype.draw = function() {
       var ctx = this.ctx;
       ctx.save();
-      ctx.fillStyle = 'black';
+      ctx.fillStyle = this.c; 
       ctx.beginPath();
       ctx.rect(this.x, this.y, this.len, this.wi);
       ctx.fill();
@@ -214,12 +231,16 @@
       this.draw();
     };
 
-    var width;
-    X < 768 ? width = 200 : width = 300;
-
-    for (var i = 0; i < 1; i++) {
-      var w = new Wall(ctx, X / 2 - width / 2, Y - Y / 3, i);
-      walls.push(w);
+    for (var i = 1; i < yNum; i++) {
+      for (var j = 0; j < splitNum + 1; j++) {
+        var s;
+        if (i % 2 === 0) {
+          s = new Wall(ctx, split * j - split, split * i, i);
+        } else {
+          s = new Wall(ctx, split * j - split / 2, split * i, i);
+        }
+        walls.push(s);
+      }
     }
 
     /********************
@@ -246,6 +267,27 @@
     function onResize() {
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
+      walls = [];
+      if (X < 768) {
+        splitNum = 3;
+        split = X / splitNum;
+        yNum = Y / split;
+      } else {
+        splitNum = 8;
+        split = X / splitNum;
+        yNum = Y / split;
+      }
+      for (var i = 1; i < yNum; i++) {
+        for (var j = 0; j < splitNum + 1; j++) {
+          var s;
+          if (i % 2 === 0) {
+            s = new Wall(ctx, split * j - split, split * i, i);
+          } else {
+            s = new Wall(ctx, split * j - split / 2, split * i, i);
+          }
+          walls.push(s);
+        }
+      }
     }
 
     window.addEventListener('resize', function(){
@@ -253,14 +295,39 @@
     });
 
     canvas.addEventListener('click', function(e) {
-      var num = rand(5, 20);
-      for (var i = 0; i < num; i++) {
-        var s = new Shape(ctx, e.clientX, e.clientY, i);
-        shapes.push(s);
-      }
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      var s = new Shape(ctx, e.clientX, e.clientY, i);
+      shapes.push(s);
+    }, false);
+
+    canvas.addEventListener('wheel', function(e) {
+      gravity += e.deltaY / 10000;
+    }, false);
+
+    var touchStartY;
+    var touchMoveY;
+    var touchEndY;
+
+    canvas.addEventListener('touchstart', function(e) {
+      var touch = e.targetTouches[0];
+      touchStartY = touch.pageY;
+    }, false);
+
+    canvas.addEventListener('touchmove', function(e) {
+      var touch = e.targetTouches[0];
+      touchMoveY = touch.pageY;
+      touchEndY = touchStartY - touchMoveY;
+      gravity += touchEndY / 10000;
+    }, false);
+
+    canvas.addEventListener('touchend', function(e) {
+      touchStartY = null;
+      touchMoveY = null;
+      touchEndY = null;
     }, false);
 
   });
   // Author
-  console.log('File Name / practice.js\nCreated Date / July 02, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
+  console.log('File Name / increase.js\nCreated Date / July 03, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();

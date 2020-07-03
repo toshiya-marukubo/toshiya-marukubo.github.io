@@ -29,7 +29,7 @@ a {
 }
 
 h1 {
-  font-size: 2.4rem;
+  font-size: 1.6rem;
 }
 
 ul > li {
@@ -56,4 +56,12 @@ p#loading {
 
 canvas#canvas {
   background: #092745;
+}
+
+@media screen and (min-width: 48rem) {
+
+  h1 {
+    font-size: 2.4rem;
+  }
+
 }

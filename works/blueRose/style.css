@@ -5,7 +5,7 @@
 html, body {
   height: 100%;
   width: 100%;
-  font-family: 'arial black', Helvetica, verdana, monospace, sans-serif;
+  font-family: 'arial black', Helvetica, verdana, monospace;
   color: #FFF;
   font-size: 100%;
   padding: 0;
@@ -29,7 +29,7 @@ a {
 }
 
 h1 {
-  font-size: 1.6rem;
+  font-size: 2.4rem;
 }
 
 ul > li {
@@ -56,29 +56,4 @@ p#loading {
 
 canvas#canvas {
   background: #000;
-}
-
-@media screen and (min-width: 48rem) {
-
-  h1 {
-    font-size: 2.4rem;
-  }
-
-  ul#navigation {
-    position: absolute;
-    height: 100%;
-    top: 0;
-    right: 0;
-    -webkit-writing-mode: vertical-rl;
-        -ms-writing-mode: tb-rl;
-            writing-mode: vertical-rl;
-    text-align: center;
-    margin-right: 1.6rem;
-    font-size: 0.8rem;
-  }
-
-  ul#navigation > li {
-    display: inline-block;
-  }
-
 }

@@ -11,7 +11,7 @@ html, body {
   margin: 0;
   letter-spacing: 0.2rem;
   overflow: hidden;
-  background: #000;
+  background: #F4F5F7;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -54,8 +54,7 @@ p#loading {
 ********************/
 
 canvas#canvas {
-  background-image: url(./image-sm.jpg);
-  background-size: contain;
+  background: #F4F5F7;
 }
 
 p.count {
@@ -90,11 +89,6 @@ ul#navigation > li {
 
   h1 {
     font-size: 2.4rem;
-  }
-
-  canvas#canvas {
-    background-image: url(./image.jpg);
-    background-size: cover;
   }
 
 }

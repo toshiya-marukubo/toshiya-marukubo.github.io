@@ -31,7 +31,7 @@ a {
 }
 
 h1 {
-  font-size: 2.4rem;
+  font-size: 1.6rem;
 }
 
 ul > li {
@@ -63,6 +63,10 @@ canvas#canvas {
 }
 
 @media screen and (min-width: 48rem) {
+
+  h1 {
+    font-size: 2.4rem;
+  }
 
   ul#navigation {
     position: absolute;
