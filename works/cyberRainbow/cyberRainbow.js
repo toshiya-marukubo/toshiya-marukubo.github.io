@@ -72,6 +72,9 @@
       ctx.save();
       ctx.strokeStyle = 'hsl(' + this.color + ', 80%, 60%)';
       ctx.fillStyle = 'hsl(' + this.color + ', 80%, 60%)';
+      ctx.translate(this.x, this.y);
+      ctx.rotate(this.rad4);
+      ctx.translate(-this.x, -this.y);
       ctx.beginPath();
       ctx.moveTo(this.x, this.y);
       ctx.lineTo(Math.cos(this.rad) * this.r + this.x, Math.sin(this.rad) * this.r + this.y);
@@ -90,8 +93,6 @@
     Shape.prototype.updateParams = function() {
       this.a3 += this.inA;
       this.rad3 = this.a3 * Math.PI / 180;
-      this.a4 += 0.1;
-      this.rad4 = this.a4 * Math.PI / 180;
       this.r = Math.sin(this.rad3) + this.r;
     };
     
@@ -138,24 +139,32 @@
     canvas.addEventListener('wheel', function(e) {
       for (var i = 0; i < shapes.length; i++) {
         shapes[i].r += e.deltaY / 10;
+        shapes[i].rad4 += e.deltaX / 10 * Math.PI / 180;
       }
     }, false);
    
     var touchStartY;
     var touchMoveY;
     var touchEndY;
+    var touchStartX;
+    var touchMoveX;
+    var touchEndX;
 
     canvas.addEventListener('touchstart', function(e) {
       var touch = e.targetTouches[0];
       touchStartY = touch.pageY;
+      touchStartX = touch.pageX;
     }, false);
 
     canvas.addEventListener('touchmove', function(e) {
       var touch = e.targetTouches[0];
       touchMoveY = touch.pageY;
+      touchMoveX = touch.pageX;
       touchEndY = touchStartY - touchMoveY;
+      touchEndX = touchStartX - touchMoveX;
       for (var i = 0; i < shapes.length; i++) {
         shapes[i].r += touchEndY / 100;
+        shapes[i].rad4 += touchEndX / 100 * Math.PI / 180;
       }
     }, false);
 
@@ -163,6 +172,9 @@
       touchStartY = null;
       touchMoveY = null;
       touchEndY = null;
+      touchStartX = null;
+      touchMoveX = null;
+      touchEndX = null;
     }, false);   
     
     range.addEventListener('change', function() {
