@@ -7,6 +7,7 @@
     }
     // var 
     var urlArray = [
+      'jump',
       'increase',
       'interstellar',
       'tapioca',
