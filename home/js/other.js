@@ -7,6 +7,7 @@
     }
     // var 
     var urlArray = [
+      'string',
       'cyberRainbow',
       'jump',
       'increase',
