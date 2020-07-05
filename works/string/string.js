@@ -58,7 +58,7 @@
       this.y = y;
       this.cx = this.x;
       this.cy = this.y / 2;
-      this.c = 'dimgray';
+      this.c = i * 10; 
       this.v = {
         x: 0,
         y: 0
@@ -70,6 +70,7 @@
       ctx.save();
       ctx.lineWidth = 1;
       ctx.strokeStyle = this.c;
+      ctx.strokeStyle = 'hsl(' + this.c + ', 80%, 60%)';
       ctx.beginPath();
       ctx.moveTo(this.x, this.y);
       ctx.quadraticCurveTo(this.cx, this.cy, this.x, Y);
