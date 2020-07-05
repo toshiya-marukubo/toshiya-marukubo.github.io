@@ -139,6 +139,12 @@
     function onResize() {
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
+      shapeNum = X / dist;
+      shapes = [];
+      for (var i = 0; i < shapeNum + 1; i++) {
+        var s = new Shape(ctx, i * dist, 0, i);
+        shapes.push(s);
+      }
     }
 
     window.addEventListener('resize', function() {
