@@ -259,17 +259,18 @@
       this.ctx = ctx;
       this.x = x || 0;
       this.y = y || 0;
-      this.r = rand(5, 30);
+      this.r = rand(20, 70);
       this.v = {
         x: snowSpeedX,
         y: Math.random() * 0.8
       };
-      this.color = {
+      this.c = {
         r: rand(200, 255),
         g: rand(200, 255),
         b: rand(200, 255),
         a: 1
       };
+      this.ga = Math.random() * Math.random();
     };
 
     Snow.prototype.draw = function() {
@@ -277,7 +278,9 @@
       ctx.save();
       ctx.globalCompositeOperation = 'lighter';
       ctx.beginPath();
-      ctx.fillStyle = this.gradient();
+      //ctx.fillStyle = this.gradient();
+      ctx.globalAlpha = this.ga;
+      ctx.fillStyle = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b; + ')';
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
       ctx.fill();
       ctx.closePath();
