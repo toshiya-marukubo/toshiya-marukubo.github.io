@@ -28,11 +28,13 @@
     var shapeNum = X / num;
     var shapes = [];
     var height = 40;
+    var scaleX = 0.1;
 
     if (X < 768) {
       height = 30;
       num = 2;
       shapeNum = X / num;
+      scaleX = 0.05;
     }
 
     /********************
@@ -76,7 +78,7 @@
       ctx.fillStyle = this.c;
       ctx.beginPath();
       ctx.translate(this.x, this.y);
-      ctx.scale(Math.sin(this.rad * 2) * 0.1, Math.sin(this.rad) * height);
+      ctx.scale(Math.sin(this.rad * 2) * scaleX, Math.sin(this.rad) * height);
       ctx.translate(-this.x, -this.y);
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
       ctx.fill();
@@ -133,10 +135,12 @@
         height = 30;
         num = 2;
         shapeNum = X / num;
+        scaleX = 0.05;
       } else {
         height = 40;
         num = 3;
         shapeNum = X / num;
+        scaleX = 0.1;
       }
       shapes = [];
       for (var i = 0; i < shapeNum; i++) {
