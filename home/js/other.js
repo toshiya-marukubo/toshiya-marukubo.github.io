@@ -7,6 +7,7 @@
     }
     // var 
     var urlArray = [
+      'aurora',
       'string',
       'cyberRainbow',
       'jump',
