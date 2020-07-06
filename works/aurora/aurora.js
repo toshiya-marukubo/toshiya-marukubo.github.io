@@ -24,8 +24,16 @@
     var Y = canvas.height = window.innerHeight;
     var mouseX = null;
     var mouseY = null;
-    var shapeNum = X / 3;
+    var num = 3;
+    var shapeNum = X / num;
     var shapes = [];
+    var height = 40;
+
+    if (X < 768) {
+      height = 30;
+      num = 2;
+      shapeNum = X / num;
+    }
 
     /********************
       Animation
@@ -68,7 +76,7 @@
       ctx.fillStyle = this.c;
       ctx.beginPath();
       ctx.translate(this.x, this.y);
-      ctx.scale(Math.sin(this.rad * 2) * 0.1, Math.sin(this.rad) * 40);
+      ctx.scale(Math.sin(this.rad * 2) * 0.1, Math.sin(this.rad) * height);
       ctx.translate(-this.x, -this.y);
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
       ctx.fill();
@@ -86,17 +94,17 @@
     };
     
     for (var i = 0; i < shapeNum; i++) {
-      var s = new Shape(ctx, i * 3, Y / 2, i, 'rgb(62, 202, 181)');
+      var s = new Shape(ctx, i * num, Y / 2, i, 'rgb(62, 202, 181)');
       shapes.push(s);
     }
 
     for (var i = 0; i < shapeNum; i++) {
-      var s = new Shape(ctx, i * 3, Y / 2, i * 5, 'rgb(171, 9, 221)');
+      var s = new Shape(ctx, i * num, Y / 2, i * 5, 'rgb(171, 9, 221)');
       shapes.push(s);
     }
 
     for (var i = 0; i < shapeNum; i++) {
-      var s = new Shape(ctx, i * 3, Y / 2, i * 10, 'rgb(57, 93, 253)');
+      var s = new Shape(ctx, i * num, Y / 2, i * 10, 'rgb(57, 93, 253)');
       shapes.push(s);
     }
 
@@ -121,19 +129,28 @@
     function onResize() {
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
+      if (X < 768) {
+        height = 30;
+        num = 2;
+        shapeNum = X / num;
+      } else {
+        height = 40;
+        num = 3;
+        shapeNum = X / num;
+      }
       shapes = [];
       for (var i = 0; i < shapeNum; i++) {
-        var s = new Shape(ctx, i * 3, Y / 2, i, 'rgb(62, 202, 181)');
+        var s = new Shape(ctx, i * num, Y / 2, i, 'rgb(62, 202, 181)');
         shapes.push(s);
       }
 
       for (var i = 0; i < shapeNum; i++) {
-        var s = new Shape(ctx, i * 3, Y / 2, i * 5, 'rgb(171, 9, 221)');
+        var s = new Shape(ctx, i * num, Y / 2, i * 5, 'rgb(171, 9, 221)');
         shapes.push(s);
       }
 
       for (var i = 0; i < shapeNum; i++) {
-        var s = new Shape(ctx, i * 3, Y / 2, i * 10, 'rgb(57, 93, 253)');
+        var s = new Shape(ctx, i * num, Y / 2, i * 10, 'rgb(57, 93, 253)');
         shapes.push(s);
       }
     }
