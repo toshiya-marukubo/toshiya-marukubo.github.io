@@ -91,7 +91,7 @@
     }
 
     for (var i = 0; i < shapeNum; i++) {
-      var s = new Shape(ctx, i * , Y / 2, i * 5, 'rgb(171, 9, 221)');
+      var s = new Shape(ctx, i * 3, Y / 2, i * 5, 'rgb(171, 9, 221)');
       shapes.push(s);
     }
 
@@ -128,7 +128,7 @@
       }
 
       for (var i = 0; i < shapeNum; i++) {
-        var s = new Shape(ctx, i * , Y / 2, i * 5, 'rgb(171, 9, 221)');
+        var s = new Shape(ctx, i * 3, Y / 2, i * 5, 'rgb(171, 9, 221)');
         shapes.push(s);
       }
 
