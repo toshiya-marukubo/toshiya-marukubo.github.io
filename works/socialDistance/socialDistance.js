@@ -128,9 +128,6 @@
           a = this.x - particles[i].x;
           b = this.y - particles[i].y;
           c = a * a + b * b;
-          if (c < sumRadius * sumRadius) {
-            particles.splice(j, 1);
-          }
           if (c < sumRadius * sumRadius * 2) {
             this.v.x = - this.v.x;
             this.v.y = - this.v.y;
