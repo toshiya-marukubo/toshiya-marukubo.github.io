@@ -22,7 +22,6 @@
     var ctx = canvas.getContext('2d');
     var X = canvas.width = window.innerWidth;
     var Y = canvas.height = window.innerHeight;
-    var maxLength = Math.sqrt(X * X + Y * Y);
     var mouseX = X / 2;
     var mouseY = Y / 2;
     var dist = 20;
@@ -30,6 +29,13 @@
     var shapes = [];
     var shapeNum = X / dist;
     X > Y ? shapeNum = X / dist : shapeNum = Y / dist;
+
+    if (X < 768) {
+      dist = 10;
+      lw = dist / 2;
+      shapeNum = X / dist;
+      X > Y ? shapeNum = X / dist : shapeNum = Y / dist;
+    }
 
     // color
     var rangeMax = document.getElementById('rangeMax');
@@ -137,8 +143,14 @@
     function onResize() {
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
-      maxLength = Math.sqrt(X * X + Y * Y);
       shapes = [];
+      if (X < 768) {
+        dist = 10;
+        lw = dist / 2;
+      } else {
+        dist = 20;
+        lw = dist / 2;
+      }
       shapeNum = X / dist;
       X > Y ? shapeNum = X / dist : shapeNum = Y / dist;
       for (var i = 0; i < shapeNum + 1; i++) {
