@@ -172,7 +172,7 @@
 
     canvas.addEventListener('click', function(e) {
       for (var i = 0; i < shapes.length; i++) {
-        shapes[i].changeColor();
+        shapes[i].num = rand(0, 1);
       }
     }, false);
 
