@@ -1,4 +1,5 @@
-// pic https://www.pexels.com/ja-jp/photo/2558823/ by raphael.brasileiroo
+// pic by Raphael Brasileiro (https://www.instagram.com/raphael.brasileiroo/)
+// site https://www.pexels.com/ja-jp/@phael
 (function () {
   'use strict';
   window.addEventListener('load', function () {
