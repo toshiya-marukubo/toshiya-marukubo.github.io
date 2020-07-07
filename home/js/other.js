@@ -7,6 +7,7 @@
     }
     // var 
     var urlArray = [
+      'circuit',
       'noisy',
       'aurora',
       'string',
