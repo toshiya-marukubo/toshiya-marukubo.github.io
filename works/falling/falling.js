@@ -78,10 +78,10 @@
       ctx.lineWidth = 1;
       ctx.strokeStyle = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
       ctx.fillStyle = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
-      ctx.translate(Math.cos(this.radian) * 50 + this.x, Math.sin(this.radian) * 50 + this.y);
+      ctx.translate(this.x, this.y);
       ctx.rotate(this.radian);
-      ctx.scale(Math.cos(this.radian), Math.sin(this.radian));
-      ctx.translate(-Math.cos(this.radian) * 50 - this.x, -Math.sin(this.radian) * 50 - this.y);
+      ctx.scale(Math.cos(this.radian * 3), Math.sin(this.radian));
+      ctx.translate(-this.x, -this.y);
       ctx.beginPath();
       ctx.moveTo(this.x - this.r / 3, this.y - this.r);
       ctx.quadraticCurveTo(this.x - this.r, this.y, this.x, this.y + this.r);

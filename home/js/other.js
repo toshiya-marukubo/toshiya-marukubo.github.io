@@ -7,6 +7,7 @@
     }
     // var 
     var urlArray = [
+      'confetti',
       'circuit',
       'noisy',
       'aurora',
