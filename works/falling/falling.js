@@ -69,7 +69,7 @@
       };
       this.angle = rand(0, 360);
       this.radian = this.angle * Math.PI / 180;
-      this.rs = Math.random() * Math.random();
+      this.rs = Math.random();
     };
 
     Petal.prototype.draw = function() {
@@ -80,7 +80,7 @@
       ctx.fillStyle = 'rgb(' + this.c.r + ', ' + this.c.g + ', ' + this.c.b + ')';
       ctx.translate(this.x, this.y);
       ctx.rotate(this.radian);
-      ctx.scale(Math.cos(this.radian * 3), Math.sin(this.radian));
+      ctx.scale(Math.cos(this.radian), Math.sin(this.radian));
       ctx.translate(-this.x, -this.y);
       ctx.beginPath();
       ctx.moveTo(this.x - this.r / 3, this.y - this.r);
