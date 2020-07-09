@@ -144,5 +144,5 @@
 
   });
   // Author
-  console.log('File Name / momVer1.js\nCreated Date / July 09, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
+  console.log('File Name / mumVer1.js\nCreated Date / July 09, 2020\nAuthor / Toshiya Marukubo\nTwitter / https://twitter.com/toshiyamarukubo');
 })();
