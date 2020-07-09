@@ -65,6 +65,7 @@
       this.a = rand(0, 360);
       this.rad = this.a * Math.PI / 180;
       this.inA = Math.random();
+      this.inR = Math.random() * Math.random() * Math.random();
       this.v = {
         x: Math.sin(this.rad) * xNum,
         y: Math.cos(this.rad) * yNum
@@ -112,7 +113,7 @@
         this.a -= this.inA;
       }
       this.rad = this.a * Math.PI / 180;
-      this.r += 0.3;
+      this.r += this.inR;
     };
 
     Shape.prototype.render = function(i) {
