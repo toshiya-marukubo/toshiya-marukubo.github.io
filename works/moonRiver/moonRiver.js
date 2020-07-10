@@ -99,7 +99,7 @@
     var radius = 200;
 
     if (X < 768) {
-      radius = 150;
+      radius = 100;
     }
 
     function drawMoon() {
@@ -200,7 +200,7 @@
       Y = canvas.height = window.innerHeight;
       shapes = [];
       if (X < 768) {
-        radius = 150;
+        radius = 100;
       } else {
         radius = 200;
       }
