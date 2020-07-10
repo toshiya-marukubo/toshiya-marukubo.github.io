@@ -29,8 +29,8 @@
     var ease = 0.2;
     var friction = 0.9;
     var style = {
-      stroke: 'black',
-      fill: 'white',
+      stroke: 'white',
+      fill: 'black',
       lineWidth: 2,
       angle: 137.5
     };
