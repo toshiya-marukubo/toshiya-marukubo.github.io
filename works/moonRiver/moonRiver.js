@@ -96,7 +96,7 @@
       Moon
     ********************/
     
-    var radius = 200;
+    var radius = 150;
 
     if (X < 768) {
       radius = 100;
@@ -202,7 +202,7 @@
       if (X < 768) {
         radius = 100;
       } else {
-        radius = 200;
+        radius = 150;
       }
       for (var i = 0; i < shapeNum; i++) {
         var s = new Shape(ctx, X / 2, Y - i * 1, i);
