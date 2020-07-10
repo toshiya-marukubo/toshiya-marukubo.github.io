@@ -7,6 +7,7 @@
     }
     // var 
     var urlArray = [
+      'harvest',
       'mumVer3',
       'mumVer2',
       'mumVer1',
