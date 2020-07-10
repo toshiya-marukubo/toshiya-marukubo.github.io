@@ -7,6 +7,8 @@
     }
     // var 
     var urlArray = [
+      'mumVer3',
+      'mumVer2',
       'mumVer1',
       'confetti',
       'circuit',
