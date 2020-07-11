@@ -7,6 +7,7 @@
     }
     // var 
     var urlArray = [
+      'net',
       'moonRiver',
       'harvest',
       'mumVer3',

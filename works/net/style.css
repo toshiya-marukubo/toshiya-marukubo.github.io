@@ -11,10 +11,8 @@ html, body {
   margin: 0;
   letter-spacing: 0.2rem;
   overflow: hidden;
-  color: #000;
-  background: #FFEFBA;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to bottom, #FFFFFF, #FFEFBA);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to bottom, #FFFFFF, #FFEFBA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: #FFF;
+  background: #000;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -26,7 +24,7 @@ body {
 }
 
 a {
-  color: #000;
+  color: #FFF;
   text-decoration: none;
 }
 
@@ -57,21 +55,24 @@ p#loading {
 ********************/
 
 canvas#canvas {
-  background: #FFEFBA;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to bottom, #FFFFFF, #FFEFBA);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to bottom, #FFFFFF, #FFEFBA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #000;
 }
 
-h2 {
+ul#navigation {
   position: absolute;
   height: 100%;
   top: 0;
-  right: 1.6rem;
+  right: 0;
   text-align: center;
+  margin-right: 1.6rem;
   font-size: 0.8rem;
   -webkit-writing-mode: vertical-rl;
       -ms-writing-mode: tb-rl;
           writing-mode: vertical-rl;
+}
+
+ul#navigation > li {
+  display: inline-block;
 }
 
 @media screen and (min-width: 48rem) {
