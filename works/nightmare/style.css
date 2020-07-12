@@ -1,0 +1,89 @@
+/********************
+  Common
+********************/
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: 'arial black', Helvetica, verdana, monospace, sans-serif;
+  font-size: 100%;
+  padding: 0;
+  margin: 0;
+  letter-spacing: 0.2rem;
+  overflow: hidden;
+  background: #000;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+body {
+  position:  relative;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+h1 {
+  font-size: 1.6rem;
+}
+
+ul > li {
+  padding-top: 1.6rem;
+}
+
+header#header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1.6rem;
+}
+
+p#loading {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 1.6rem;
+}
+
+/********************
+  Contents
+********************/
+
+canvas#canvas {
+  background: #000;
+}
+
+ul#navigation {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  right: 0;
+  text-align: center;
+  margin-right: 1.6rem;
+  font-size: 0.8rem;
+  -webkit-writing-mode: vertical-rl;
+      -ms-writing-mode: tb-rl;
+          writing-mode: vertical-rl;
+}
+
+ul#navigation > li {
+  display: inline-block;
+}
+
+#range {
+  position: absolute;
+  bottom: 1.6rem;
+  left: 1.6rem;
+}
+
+@media screen and (min-width: 48rem) {
+
+  h1 {
+    font-size: 2.4rem;
+  }
+
+}
