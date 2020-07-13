@@ -7,6 +7,8 @@
     }
     // var 
     var urlArray = [
+      'clumsyNinja',
+      'rainbowTunnel',
       'nightmare',
       'net',
       'moonRiver',
