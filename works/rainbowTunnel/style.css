@@ -11,8 +11,8 @@ html, body {
   margin: 0;
   letter-spacing: 0.2rem;
   overflow: hidden;
-  color: #FFF;
-  background: #000;
+  color: #000;
+  background: #FFF;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -24,7 +24,7 @@ body {
 }
 
 a {
-  color: #FFF;
+  color: #000;
   text-decoration: none;
 }
 
@@ -55,7 +55,7 @@ p#loading {
 ********************/
 
 canvas#canvas {
-  background: #000;
+  background: #FFF;
 }
 
 ul#navigation {
