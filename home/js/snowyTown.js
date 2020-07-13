@@ -367,7 +367,6 @@
       //snow
       snows = [];
       if (X < 768) {
-        radius = 100;
         snowNum = 50;
       } else {
         radius = 150;
@@ -382,6 +381,7 @@
     window.addEventListener('resize', function() {
       X = canvas.width = window.innerWidth;
       if (X < 768) {
+        radius = 100;
         return;
       }
       Y = canvas.height = window.innerHeight;
