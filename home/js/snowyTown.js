@@ -378,13 +378,12 @@
       }
     }
 
-    var startY;
     window.addEventListener('resize', function() {
-      X = canvas.width = window.innerWidth;
-      Y = canvas.height = window.innerHeight;
       if (X < 768) {
         return;
       }
+      X = canvas.width = window.innerWidth;
+      Y = canvas.height = window.innerHeight;
       onResize();
     });
 
