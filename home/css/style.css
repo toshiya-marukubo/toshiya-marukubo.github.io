@@ -53,6 +53,11 @@ p {
   font-size: 0.8rem;
 }
 
+p:first-child {
+  padding: 1.6rem 0;
+  font-size: 0.6rem;
+}
+
 h1 {
   font-size: 2.4rem;
 }
@@ -72,8 +77,10 @@ h3 {
 
 header {
   position: absolute;
-  padding: 1.6rem;
   z-index: 1;
+  top: 0;
+  left:  0;
+  padding: 1.6rem;
 }
 
 /********************
@@ -82,11 +89,15 @@ header {
 
 #mainImage {
   overflow: hidden;
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  z-index: 0;
 }
 #mainImage > canvas#canvas{
-  width: 200%;
-  margin: -50% -50% -50% -50%;
-  opacity: 0.5;
+  width: 100%;
+  opacity: 0.3;
 }
 
 /********************
@@ -95,7 +106,9 @@ header {
 
 div#content {
   position: absolute;
+  z-index: 1;
   top: 40%;
+  left: 0;
   text-align: left;
 }
 
@@ -181,7 +194,6 @@ footer {
 @media screen and (min-width: 48rem) {
   
   div#content {
-    top: 50%;
   }
 
   h2 {

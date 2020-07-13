@@ -29,7 +29,7 @@ a {
 }
 
 h1 {
-  font-size: 2.4rem;
+  font-size: 1.6rem;
 }
 
 ul > li {
@@ -56,4 +56,29 @@ p#loading {
 
 canvas#canvas {
   background: #95E0BC;
+}
+
+ul#navigation {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  right: 0;
+  text-align: center;
+  margin-right: 1.6rem;
+  font-size: 0.8rem;
+  -webkit-writing-mode: vertical-rl;
+      -ms-writing-mode: tb-rl;
+          writing-mode: vertical-rl;
+}
+
+ul#navigation > li {
+  display: inline-block;
+}
+
+@media screen and (min-width: 48rem) {
+
+  h1 {
+    font-size: 2.4rem;
+  }
+
 }

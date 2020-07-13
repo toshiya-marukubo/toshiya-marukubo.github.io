@@ -52,9 +52,8 @@
     var radius = 150;
 
     if (X < 768) {
-      radius = 100;
-      X = canvas.width = window.innerWidth * 2;
-      Y = canvas.height = window.innerHeight * 2;
+      X = canvas.width = window.innerWidth;
+      Y = canvas.height = window.innerHeight;
     }
 
     function drawMoon() {
@@ -379,7 +378,10 @@
       }
     }
 
+    var startY;
     window.addEventListener('resize', function() {
+      X = canvas.width = window.innerWidth;
+      Y = canvas.height = window.innerHeight;
       if (X < 768) {
         return;
       }

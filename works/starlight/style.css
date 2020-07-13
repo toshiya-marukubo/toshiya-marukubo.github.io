@@ -31,7 +31,7 @@ a {
 }
 
 h1 {
-  font-size: 2.4rem;
+  font-size: 1.6rem;
 }
 
 ul > li {
@@ -60,4 +60,29 @@ canvas#canvas {
   background: #000428;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to bottom, #004e92, #000428);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to bottom, #004e92, #000428); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+ul#navigation {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  right: 0;
+  text-align: center;
+  margin-right: 1.6rem;
+  font-size: 0.8rem;
+  -webkit-writing-mode: vertical-rl;
+      -ms-writing-mode: tb-rl;
+          writing-mode: vertical-rl;
+}
+
+ul#navigation > li {
+  display: inline-block;
+}
+
+@media screen and (min-width: 48rem) {
+
+  h1 {
+    font-size: 2.4rem;
+  }
+
 }
