@@ -270,7 +270,7 @@
         b: rand(200, 255),
         a: 1
       };
-      this.ga = Math.random() * Math.random();
+      this.ga = Math.random() * Math.random() * Math.random();
     };
 
     Snow.prototype.draw = function() {
