@@ -52,6 +52,7 @@
     var radius = 150;
 
     if (X < 768) {
+      radius = 100;
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
     }
@@ -344,8 +345,6 @@
     ********************/
     
     function onResize() {
-      X = canvas.width = window.innerWidth;
-      Y = canvas.height = window.innerHeight;
       //buil
       builOffset = 0;
       buildingsBack = [];
@@ -368,8 +367,10 @@
       //snow
       snows = [];
       if (X < 768) {
+        radius = 100;
         snowNum = 50;
       } else {
+        radius = 150;
         snowNum = 100;
       }
       for (var i = 0; i < snowNum; i++) {
@@ -380,10 +381,10 @@
 
     window.addEventListener('resize', function() {
       X = canvas.width = window.innerWidth;
-      Y = canvas.height = window.innerHeight;
       if (X < 768) {
         return;
       }
+      Y = canvas.height = window.innerHeight;
       onResize();
     });
 
