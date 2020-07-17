@@ -33,8 +33,8 @@
       white: 'white',
       black: 'black'
     };
-    var mouseX = X / 2;
-    var mouseY = Y / 2;
+    var mouseX = null;
+    var mouseY = null;
     var petals = [];
     var petalNum = 50;
 
@@ -147,7 +147,7 @@
       this.updateParams(i);
       this.updatePosition();
       this.wrapPosition();
-      this.mouseDist();
+      if (mouseX !== null) this.mouseDist();
       this.draw();
     };
     
