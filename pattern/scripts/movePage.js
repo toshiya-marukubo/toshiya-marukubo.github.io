@@ -37,7 +37,7 @@
       setTimeout(function() {
       //body.style.display = 'none';
         location.href = url;
-      }, 1000);
+      }, 500);
     }
 
     canvas.addEventListener('wheel', function(e) {
