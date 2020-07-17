@@ -188,7 +188,7 @@ span.scroll::after {
 @media screen and (min-width: 48rem) {
 
   html {
-    max-width: 2000px;
+    max-width: 1500px;
   }
 
   header {
