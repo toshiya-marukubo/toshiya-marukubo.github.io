@@ -26,7 +26,7 @@
       setTimeout(function() {
       //body.style.display = 'none';
         location.href = url;
-      }, 500);
+      }, 300);
     }
 
   });
