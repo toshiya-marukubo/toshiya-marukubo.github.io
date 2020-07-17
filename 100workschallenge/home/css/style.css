@@ -1,0 +1,251 @@
+/********************
+  fadeIn
+********************/
+
+.fadeIn {
+  -webkit-animation: fadeIn 1s ease 0s 1 normal;
+          animation: fadeIn 1s ease 0s 1 normal;
+}
+@keyframes fadeIn {
+    0% {opacity: 0}
+    100% {opacity: 1}
+}
+@-webkit-keyframes fadeIn {
+    0% {opacity: 0}
+    100% {opacity: 1}
+}
+
+/********************
+  Common
+********************/
+
+.cf::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+html, body {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  color: #FFF;
+  background: #1E1F27;
+  font-family: 'arial black', 'American Typewriter', verdana, Helvetica, monospace, sans-serif;
+  font-size: 100%;
+  line-height: 1.6;
+}
+
+img {
+  visibility: hidden;
+}
+
+a {
+  color: #FFF;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+p {
+  padding: 1.6rem 0;
+  font-size: 0.8rem;
+}
+
+p:first-child {
+  padding: 1.6rem 0;
+  font-size: 0.6rem;
+}
+
+h1 {
+  font-size: 2.4rem;
+}
+
+h2 {
+  font-size: 1.6rem;
+}
+
+h3 {
+  font-size: 1.6rem;
+  padding: 1.6rem 0 0 0;
+}
+
+/********************
+  Header
+********************/
+
+header {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left:  0;
+  padding: 1.6rem;
+}
+
+/********************
+  Main Image
+********************/
+
+#mainImage {
+  overflow: hidden;
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+#mainImage > canvas#canvas{
+  width: 100%;
+  opacity: 0.4;
+}
+
+/********************
+  Content
+********************/
+
+div#content {
+  position: absolute;
+  z-index: 1;
+  top: 40%;
+  left: 0;
+  text-align: left;
+}
+
+main {
+  padding: 0 1.6rem;
+}
+
+/********************
+  Message
+********************/
+
+section#message > p {
+  font-size: 1rem;
+}
+
+section#message > nav {
+  padding: 0;
+}
+section#message > nav > ul > li {
+  list-style: disc;
+  list-style-position: inside;
+}
+
+/********************
+  Works
+********************/
+
+section#works > ul {
+  font-size: 0;
+  padding-top: 1.6rem;
+}
+section#works > ul > li {
+  width: 100%;
+  font-size: 0.8rem;
+  text-align: center;
+}
+section#works > ul > li > a > img {
+  width: 100%;
+  vertical-align: bottom;
+}
+section#works > ul > li:last-child > p{
+  padding-bottom: 0;
+}
+
+/********************
+  About
+********************/
+
+section#about p {
+  padding: 1.6rem 0 0 0;
+}
+section#about p > a{
+  text-decoration: underline;
+}
+section#about p > img {
+  width: 70%;
+  margin: 0 15%;
+  border-radius: 50%;
+}
+
+section#about ul {
+  padding: 1.6rem 0 0 0;
+}
+section#about ul > li {
+  list-style: disc;
+  list-style-position: inside;
+}
+
+/********************
+  Footer
+********************/
+
+footer {
+  font-size: 0.8rem;
+  text-align: right;
+  padding: 1.6rem;
+}
+
+/********************
+  PC and Tablet
+********************/
+
+@media screen and (min-width: 48rem) {
+  
+  h2 {
+    font-size: 2.4rem;
+  }
+
+  #mainImage > canvas#canvas{
+    width: 100%;
+    margin: 0;
+  }
+    
+  section#message {
+    text-align: center;
+  }
+  section#message > nav > ul > li {
+    display: inline;
+    padding: 0 0.8rem;
+  }
+
+  section#works > ul > li {
+    display: inline-block;
+    width: 33.333%;
+    opacity: 0.9;
+    -webkit-transition: 0.4s;
+    -o-transition: 0.4s;
+    transition: 0.4s;
+  }
+  section#works > ul > li > a > img {
+    width: 95%;
+    -webkit-transition: 0.2s;
+         -o-transition: 0.2s;
+            transition: 0.2s;
+  }
+  section#works > ul > li > a > img:hover {
+    -webkit-transform: scale(1.1, 1.1);
+        -ms-transform: scale(1.1, 1.1);
+            transform: scale(1.1, 1.1);
+  }
+
+  section#about > div.aboutLeft {
+    float: left;
+    width: 50%;
+  }
+  section#about > div.aboutLeft > p > img {
+    width: 40%;
+    margin: 0 30%;
+  }
+  section#about > div.aboutLeft > ul > li{
+    width: 40%;
+    margin: 0 30%;
+  }
+
+  section#about > section.aboutRight {
+    float: right;
+    width: 50%;
+  }
+
+}
