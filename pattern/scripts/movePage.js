@@ -35,7 +35,7 @@
     function fadeOut(url) {
       //body.setAttribute('class', 'fadeOut');
       //setTimeout(function() {
-        body.style.display = 'none';
+      //body.style.display = 'none';
         location.href = url;
       //}, 500);
     }
