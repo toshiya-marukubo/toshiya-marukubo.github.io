@@ -1,3 +1,10 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
+
 /********************
   fadeIn
 ********************/
@@ -79,7 +86,9 @@ header {
   position: fixed;
   top: 50%;
   left: 1.6rem;
-  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
   text-align: right;
 }
 
@@ -98,6 +107,21 @@ h1 {
 
 header > nav > ul > li {
   padding: 0.4rem 0;
+}
+
+li.flash > a {
+  color: white;
+  -webkit-animation: flash 2s ease 2s alternate infinite;
+          animation: flash 2s ease 2s alternate infinite;
+}
+
+@-webkit-keyframes flash{
+  0% {
+    color: white;
+  }
+  100% {
+    color: #CC2F3B;
+  }
 }
 
 /********************
@@ -149,7 +173,9 @@ span.scroll {
   overflow: hidden;
   color: white;
   line-height: 1;
-  writing-mode: vertical-lr;
+  -webkit-writing-mode: vertical-lr;
+      -ms-writing-mode: tb-lr;
+          writing-mode: vertical-lr;
 }
 
 span.scroll::after {
@@ -163,25 +189,61 @@ span.scroll::after {
 }
 
 span.scroll::after {
-  animation: sdl 1.5s cubic-bezier(1, 0, 0, 1) infinite;
+  -webkit-animation: sdl 1.5s cubic-bezier(1, 0, 0, 1) infinite;
+          animation: sdl 1.5s cubic-bezier(1, 0, 0, 1) infinite;
+}
+
+@-webkit-keyframes sdl {
+  0% {
+    -webkit-transform: scale(1, 0);
+            transform: scale(1, 0);
+    -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+  }
+  50% {
+    -webkit-transform: scale(1, 1);
+            transform: scale(1, 1);
+    -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+  }
+  50.1% {
+    -webkit-transform: scale(1, 1);
+            transform: scale(1, 1);
+    -webkit-transform-origin: 0 100%;
+            transform-origin: 0 100%;
+  }
+  100% {
+    -webkit-transform: scale(1, 0);
+            transform: scale(1, 0);
+    -webkit-transform-origin: 0 100%;
+            transform-origin: 0 100%;
+  }
 }
 
 @keyframes sdl {
   0% {
-    transform: scale(1, 0);
-    transform-origin: 0 0;
+    -webkit-transform: scale(1, 0);
+            transform: scale(1, 0);
+    -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
   }
   50% {
-    transform: scale(1, 1);
-    transform-origin: 0 0;
+    -webkit-transform: scale(1, 1);
+            transform: scale(1, 1);
+    -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
   }
   50.1% {
-    transform: scale(1, 1);
-    transform-origin: 0 100%;
+    -webkit-transform: scale(1, 1);
+            transform: scale(1, 1);
+    -webkit-transform-origin: 0 100%;
+            transform-origin: 0 100%;
   }
   100% {
-    transform: scale(1, 0);
-    transform-origin: 0 100%;
+    -webkit-transform: scale(1, 0);
+            transform: scale(1, 0);
+    -webkit-transform-origin: 0 100%;
+            transform-origin: 0 100%;
   }
 }
 
@@ -194,7 +256,9 @@ span.scroll::after {
   header {
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
   }
 
   main > ul > li {
