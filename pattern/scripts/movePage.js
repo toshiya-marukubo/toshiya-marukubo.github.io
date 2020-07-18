@@ -40,6 +40,10 @@
       }, 300);
     }
 
+    canvas.addEventListener('click', function(e) {
+      fadeOut(getUrl());
+    }, false);
+
     canvas.addEventListener('wheel', function(e) {
       var y = e.deltaY;
       if (y > 50) {
