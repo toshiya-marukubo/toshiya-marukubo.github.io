@@ -86,10 +86,11 @@ header {
   position: fixed;
   top: 50%;
   left: 1.6rem;
+  text-align: right;
   -webkit-transform: translateY(-50%);
       -ms-transform: translateY(-50%);
           transform: translateY(-50%);
-  text-align: right;
+  transition: 1s;
 }
 
 span.logo {
@@ -111,6 +112,7 @@ header > nav > ul > li {
 
 li.flash > a {
   color: white;
+  text-shadow: 0 0 50px black;
   -webkit-animation: flash 2s ease 2s alternate infinite;
           animation: flash 2s ease 2s alternate infinite;
 }
@@ -169,7 +171,7 @@ span.scroll {
   position: absolute;
   left: 0.8rem;
   bottom: 0;
-  padding: 10px 10px 110px;
+  padding: 10px 10px 60px;
   overflow: hidden;
   color: white;
   line-height: 1;
@@ -184,7 +186,7 @@ span.scroll::after {
   bottom: 0;
   left: 50%;
   width: 1px;
-  height: 100px;
+  height: 50px;
   background: white;
 }
 
