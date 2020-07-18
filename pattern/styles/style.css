@@ -69,15 +69,6 @@ body {
   position: relative;
 }
 
-a {
-  color: white;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
 /********************
   Header
 ********************/
@@ -90,6 +81,32 @@ header {
   -webkit-transform: translateY(-50%);
       -ms-transform: translateY(-50%);
           transform: translateY(-50%);
+}
+
+/*
+* Referenced https://www.terakoya.work/link-hover-line-css-animation/
+*/
+
+header a {
+  position: relative;
+  color: white;
+  text-decoration: none;
+}
+
+header a::after {
+  border-bottom: solid 2px white;
+  bottom: 0;
+  content: "";
+  display: block;
+  position: absolute;
+  right: 0;
+  transition: all .3s ease;
+  -webkit-transition: all .3s;
+  width: 0;
+}
+
+header a:hover::after {
+  width: 100%;
 }
 
 span.logo {
