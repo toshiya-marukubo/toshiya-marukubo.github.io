@@ -91,10 +91,12 @@ header a {
   position: relative;
   color: white;
   text-decoration: none;
+  transition: all .3s ease;
+  -webkit-transition: all .3s;
 }
 
 header a::after {
-  border-bottom: solid 2px white;
+  border-bottom: solid 2px #CC2F3B;
   bottom: 0;
   content: "";
   display: block;
@@ -103,6 +105,10 @@ header a::after {
   transition: all .3s ease;
   -webkit-transition: all .3s;
   width: 0;
+}
+
+header a:hover {
+  color: #CC2F3B;
 }
 
 header a:hover::after {
@@ -125,7 +131,7 @@ h1 {
 header > nav > ul > li {
   padding: 0.4rem 0;
 }
-
+/*
 li.flash > a {
   color: white;
   text-shadow: 0 0 50px black;
@@ -141,6 +147,7 @@ li.flash > a {
     color: #CC2F3B;
   }
 }
+*/
 
 /********************
   Main
