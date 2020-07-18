@@ -156,7 +156,7 @@ h2#title {
   background: rgba(0, 0, 0, 0.7);
   position: absolute;
   top: 0;
-  right: 0;
+  right: 1.6rem;
   height: 100%;
   text-align: center;
   font-size: 0.8rem;
@@ -284,10 +284,6 @@ span.scroll::after {
 
   h1 {
     font-size: 3.2rem;
-  }
-
-  h2#title {
-    right: 1.6rem;
   }
 
   main > ul > li {
