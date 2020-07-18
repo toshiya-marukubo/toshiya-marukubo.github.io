@@ -267,4 +267,8 @@ span.scroll::after {
     width: 20%;
   }
 
+  h2#title {
+    font-size: 1.2rem;
+  }
+
 }
