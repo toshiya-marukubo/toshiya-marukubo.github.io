@@ -253,13 +253,14 @@ span.scroll::after {
   html {
     max-width: 1500px;
   }
+  
+  span.logo {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
 
-  header {
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
+  h1 {
+    font-size: 3.2rem;
   }
 
   main > ul > li {
