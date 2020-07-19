@@ -45,8 +45,6 @@
     var shapeXNum = X / dist;
     var shapeYNum = Y / dist;
     var shapes = [];
-    var ease = 0.3;
-    var friction = 0.9;
     var style = {
       black: 'black',
       white: 'white',
