@@ -79,14 +79,12 @@
       this.x = x;
       this.y = y;
       this.i = i;
-      this.xi = rand(0, X);
-      this.yi = rand(0, Y);
       this.r = dist / 2;
       this.v = {
         x: 0,
         y: 0
       };
-      this.a = this.i;
+      this.a = 0;
       this.rad = this.a * Math.PI / 180;
     };
 
@@ -95,9 +93,9 @@
       ctx.save();
       ctx.lineWidth = style.lineWidth;
       ctx.fillStyle = style.black;
-      ctx.translate(this.xi, this.yi);
+      ctx.translate(this.x, this.y);
       ctx.rotate(this.rad);
-      ctx.translate(-this.xi, -this.yi);
+      ctx.translate(-this.x, -this.y);
       for (var i = 0; i < 3; i++) {
         if (i === 1) {
           ctx.fillStyle = style.white;
@@ -105,35 +103,26 @@
           ctx.fillStyle = style.black;
         }
         ctx.beginPath();
-        ctx.arc(this.xi, this.yi, this.r - 20 * i, 0, Math.PI * 2, false);
+        ctx.arc(this.x, this.y, this.r - 20 * i, 0, Math.PI * 2, false);
         ctx.fill();
       }
       ctx.strokeStyle = style.white;
       ctx.fillStyle = style.white;
       for (var i = 0; i < 12; i++) {
-        ctx.translate(this.xi, this.yi);
+        ctx.translate(this.x, this.y);
         ctx.rotate(30 * Math.PI / 180);
-        ctx.translate(-this.xi, -this.yi);
+        ctx.translate(-this.x, -this.y);
         ctx.beginPath();
-        ctx.moveTo(this.xi, this.yi);
-        ctx.lineTo(this.xi, this.yi + this.r / 2.5);
+        ctx.moveTo(this.x, this.y);
+        ctx.lineTo(this.x, this.y + this.r / 2.5);
         ctx.stroke();
         ctx.beginPath();
-        ctx.arc(this.xi, this.yi + this.r / 2.5, this.r / 20, 0, Math.PI * 2, false);
+        ctx.arc(this.x, this.y + this.r / 2.5, this.r / 20, 0, Math.PI * 2, false);
         ctx.fill();
       }
       ctx.restore();
     };
 
-    Shape.prototype.updatePosition = function() {
-      this.v.x += (this.xi - this.x) * ease;
-      this.v.y += (this.yi - this.y) * ease;
-      this.v.x *= friction;
-      this.v.y *= friction;
-      this.xi -= this.v.x / 100;
-      this.yi -= this.v.y / 100;
-    };
-    
     Shape.prototype.updateParams = function() {
       if (this.i % 2 === 0) {
         this.a += 0.3;
@@ -145,7 +134,6 @@
 
     Shape.prototype.render = function() {
       this.updateParams();
-      this.updatePosition();
       this.draw();
     };
 
