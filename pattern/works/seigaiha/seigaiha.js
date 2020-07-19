@@ -80,14 +80,8 @@
       this.y = y;
       this.i = i;
       this.j = j;
-      this.xi = rand(0, X);
-      this.yi = rand(0, Y);
       this.r = dist / 10;
-      this.v = {
-        x: 0,
-        y: 0
-      };
-      this.a = this.i;
+      this.a = 0;
       this.rad = this.a * Math.PI / 180;
     };
     
@@ -99,24 +93,20 @@
       ctx.fillStyle = style.black;
       for (var i = 5; i > 0; i--) {
         ctx.beginPath();
-        ctx.arc(this.xi, this.yi, this.r * i, 0, Math.PI * 2, false);
+        ctx.arc(this.x, this.y, Math.sin(this.rad) * 10 + this.r * i, 0, Math.PI * 2, false);
         ctx.stroke();
         ctx.fill();
       }
       ctx.restore();
     };
 
-    Shape.prototype.updatePosition = function() {
-      this.v.x += (this.xi - this.x) * ease;
-      this.v.y += (this.yi - this.y) * ease;
-      this.v.x *= friction;
-      this.v.y *= friction;
-      this.xi -= this.v.x / 100;
-      this.yi -= this.v.y / 100;
+    Shape.prototype.updateParams = function() {
+      this.a += 1;
+      this.rad = this.a * Math.PI / 180;
     };
 
     Shape.prototype.render = function(i) {
-      this.updatePosition();
+      this.updateParams();
       this.draw();
     };
 

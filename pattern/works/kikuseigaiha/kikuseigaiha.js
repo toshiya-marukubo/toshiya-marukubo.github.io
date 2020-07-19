@@ -79,13 +79,9 @@
       this.x = x;
       this.y = y;
       this.i = i;
-      this.xi = rand(0, X);
-      this.yi = rand(0, Y);
       this.r = dist / 2;
-      this.v = {
-        x: 0,
-        y: 0
-      };
+      this.a = 0;
+      this.rad = this.a * Math.PI / 180;
       this.ss = i % 2 === 0 ? style.white : style.black;
       this.fs = i % 2 === 0 ? style.black : style.white;
     };
@@ -96,37 +92,41 @@
       ctx.lineWidth = style.lineWidth;
       ctx.strokeStyle = this.ss;
       ctx.fillStyle = this.fs;
+      ctx.translate(this.x, this.y);
+      ctx.rotate(this.rad);
+      ctx.translate(-this.x, -this.y);
       for (var i = 18; i > 0; i--) {
-        ctx.translate(this.xi, this.yi);
+        ctx.translate(this.x, this.y);
         ctx.rotate(20 * Math.PI / 180);
-        ctx.translate(-this.xi, -this.yi);
+        ctx.translate(-this.x, -this.y);
         ctx.beginPath();
-        ctx.moveTo(this.xi, this.yi);
-        ctx.lineTo(this.xi - this.r / 6, this.yi - this.r);
-        ctx.quadraticCurveTo(this.xi, this.yi - this.r - this.r / 5, this.xi + this.r / 6, this.yi - this.r); 
-        ctx.lineTo(this.xi, this.yi);
+        ctx.moveTo(this.x, this.y);
+        ctx.lineTo(this.x - this.r / 6, this.y - this.r);
+        ctx.quadraticCurveTo(this.x, this.y - this.r - this.r / 5, this.x + this.r / 6, this.y - this.r); 
+        ctx.lineTo(this.x, this.y);
         ctx.closePath();
         ctx.stroke();
         ctx.fill();
       }
       ctx.beginPath();
-      ctx.arc(this.xi, this.yi, this.r / 10, 0, Math.PI * 2, false);
+      ctx.arc(this.x, this.y, this.r / 10, 0, Math.PI * 2, false);
       ctx.fill();
       ctx.stroke();
       ctx.restore();
     };
 
-    Shape.prototype.updatePosition = function() {
-      this.v.x += (this.xi - this.x) * ease;
-      this.v.y += (this.yi - this.y) * ease;
-      this.v.x *= friction;
-      this.v.y *= friction;
-      this.xi -= this.v.x / 100;
-      this.yi -= this.v.y / 100;
+    Shape.prototype.updateParams = function() {
+      if (this.i % 2 === 0) {
+        this.a += 1;
+        this.rad = this.a * Math.PI / 180;
+      } else {
+        this.a -= 1;
+        this.rad = this.a * Math.PI / 180;
+      }
     };
     
     Shape.prototype.render = function() {
-      this.updatePosition();
+      this.updateParams();
       this.draw();
     };
 
