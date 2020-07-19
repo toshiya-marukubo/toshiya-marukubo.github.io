@@ -76,11 +76,18 @@ body {
 header {
   position: fixed;
   top: 50%;
-  left: 1.6rem;
+  left: -50%;
   text-align: right;
   -webkit-transform: translateY(-50%);
       -ms-transform: translateY(-50%);
           transform: translateY(-50%);
+  -webkit-transition: left 0.8s ease;
+  -o-transition: left 0.8s ease;
+  transition: left 0.8s ease;
+}
+
+header.onloadHeader {
+  left: 1.6rem;
 }
 
 /*
@@ -91,6 +98,7 @@ header a {
   position: relative;
   color: white;
   text-decoration: none;
+  -o-transition: width .3s ease, color .3s ease;
   transition: width .3s ease, color .3s ease;
   -webkit-transition: width .3s ease, color .3s ease;
 }
@@ -102,6 +110,7 @@ header a::after {
   display: block;
   position: absolute;
   right: 0;
+  -o-transition: width .3s ease, color .3s ease;
   transition: width .3s ease, color .3s ease;
   -webkit-transition: width .3s ease, color .3s ease;
   width: 0;
@@ -135,8 +144,8 @@ header > nav > ul > li {
 li.flash > a {
   color: white;
   text-shadow: 0 0 50px black;
-  -webkit-animation: flash 1s ease 1s alternate infinite;
-          animation: flash 1s ease 1s alternate infinite;
+  -webkit-animation: flash 1.6s ease 0s alternate infinite;
+          animation: flash 1.6s ease 0s alternate infinite;
 }
 
 @-webkit-keyframes flash{
@@ -156,7 +165,7 @@ h2#title {
   background: rgba(0, 0, 0, 0.7);
   position: absolute;
   top: 0;
-  right: 1.6rem;
+  right: -50%;
   height: 100%;
   text-align: center;
   font-size: 0.8rem;
@@ -164,6 +173,11 @@ h2#title {
   -webkit-writing-mode: vertical-rl;
       -ms-writing-mode: tb-rl;
           writing-mode: vertical-rl;
+  -webkit-transition: right 1.6s ease;
+}
+
+h2#title.onloadH2 {
+  right: 1.6rem;
 }
 
 /********************
@@ -213,8 +227,8 @@ span.scroll::after {
 }
 
 span.scroll::after {
-  -webkit-animation: sdl 1.5s cubic-bezier(1, 0, 0, 1) infinite;
-          animation: sdl 1.5s cubic-bezier(1, 0, 0, 1) infinite;
+  -webkit-animation: sdl 3.2s cubic-bezier(1, 0, 0, 1) infinite;
+          animation: sdl 3.2s cubic-bezier(1, 0, 0, 1) infinite;
 }
 
 @-webkit-keyframes sdl {
