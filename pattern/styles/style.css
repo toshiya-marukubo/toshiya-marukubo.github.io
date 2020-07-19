@@ -91,8 +91,8 @@ header a {
   position: relative;
   color: white;
   text-decoration: none;
-  transition: width .3s ease;
-  -webkit-transition: width .3s;
+  transition: width .3s ease, color .3s ease;
+  -webkit-transition: width .3s ease, color .3s ease;
 }
 
 header a::after {
@@ -102,8 +102,8 @@ header a::after {
   display: block;
   position: absolute;
   right: 0;
-  transition: width .3s ease;
-  -webkit-transition: width .3s;
+  transition: width .3s ease, color .3s ease;
+  -webkit-transition: width .3s ease, color .3s ease;
   width: 0;
 }
 
