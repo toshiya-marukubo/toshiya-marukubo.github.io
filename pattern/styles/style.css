@@ -69,12 +69,24 @@ body {
   position: relative;
 }
 
+img {
+  width: 100%;
+  height: auto;
+  opacity: 0;
+  transition: opacity 3s ease;
+}
+
+img.loadedImg {
+  opacity: 1;
+}
+
 /********************
   Header
 ********************/
 
 header {
   position: fixed;
+  z-index: 1;
   top: 50%;
   left: 1.6rem;
   text-align: right;
@@ -155,6 +167,7 @@ li.flash > a {
 ********************/
 
 h2#title {
+  z-index: 1;
   background: rgba(0, 0, 0, 0.7);
   position: absolute;
   top: 0;
@@ -171,10 +184,6 @@ h2#title {
 /********************
   Works
 ********************/
-
-img {
-  width: 100%;
-}
 
 main > ul {
   font-size:0;
