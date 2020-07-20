@@ -11,8 +11,8 @@
     
     var body = document.getElementsByTagName('body')[0];
     var works = [
-      'gokuzushi'
-      'kikkouhanabishi'
+      'gokuzushi',
+      'kikkouhanabishi',
       'komochikikkou',
       'kikkoutsunagi',
       'amime',
