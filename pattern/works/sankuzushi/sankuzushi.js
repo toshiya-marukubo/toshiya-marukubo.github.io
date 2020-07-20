@@ -1,5 +1,5 @@
 /*
-* File Name / gokuzushi.js
+* File Name / sankuzushi.js
 * Created Date / July 20, 2020
 * Aurhor / Toshiya Marukubo
 * Twitter / https://twitter.com/toshiyamarukubo
@@ -28,7 +28,7 @@
     ********************/
     
     var title = document.getElementById('title');
-    title.textContent = 'GOKUZUSHI / 五崩し';
+    title.textContent = 'SANKUZUSHI / 三崩し';
 
     /********************
       Var
@@ -42,7 +42,7 @@
     var ease = 0.3;
     var friction = 0.9;
     var dist = 50;
-    var lineDist = dist / 6;
+    var lineDist = dist / 4;
     var shapeNumX = X / dist;
     var shapeNumY = Y / dist;
     var shapes = [];
@@ -50,7 +50,7 @@
     var style = {
       black: 'black',
       white: 'white',
-      lineWidth: 3,
+      lineWidth: 6,
     };
 
     /********************
@@ -87,6 +87,8 @@
         x: 0, 
         y: 0
       };
+      this.a = rand(0, 360);
+      this.rad = this.a * Math.PI / 180;
     };
     
     Shape.prototype.draw = function() {
@@ -94,14 +96,11 @@
       ctx.save();
       ctx.lineWidth = style.lineWidth;
       ctx.strokeStyle = style.white;
-      ctx.translate(this.xi + dist / 2, this.yi + dist / 2);
-      ctx.rotate(angle * Math.PI / 180);
-      ctx.translate(-this.xi - dist / 2, -this.yi - dist / 2);
-      for (var i = 1; i < 6; i++) {
+      for (var i = 1; i < 4; i++) {
         ctx.beginPath();
         if (this.i % 2 === 0 && this.j % 2 === 0) {
           ctx.moveTo(this.xi, this.yi + i * lineDist);
-          ctx.lineTo(this.xi + dist, this.yi + i * lineDist);
+          ctx.bezierCurveTo(this.xi + dist / 3, this.yi + i * lineDist - Math.sin(this.rad) * 10, this.xi + dist / 3 + dist / 3, this.yi + i * lineDist - Math.cos(this.rad) * 10, this.xi + dist, this.yi + i * lineDist);
         }
         if (this.i % 2 !== 0 && this.j % 2 === 0) {
           ctx.moveTo(this.xi + i * lineDist, this.yi);
@@ -129,7 +128,13 @@
       this.yi -= this.v.y / 100;
     };
 
+    Shape.prototype.updateParams = function() {
+      this.a += 1;
+      this.rad = this.a * Math.PI / 180;
+    };
+
     Shape.prototype.render = function(i) {
+      this.updateParams();
       this.updatePosition();
       this.draw();
     };
@@ -154,10 +159,6 @@
     }
 
     render();
-
-    setInterval(function() {
-      angle += 90;
-    }, 800);
 
     /********************
       Event
