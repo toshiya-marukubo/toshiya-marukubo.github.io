@@ -11,16 +11,17 @@
     
     var body = document.getElementsByTagName('body')[0];
     var works = [
-      'seigaiha',
-      'kikuseigaiha',
-      'hanaseigaiha',
-      'hoshisippou',
-      'sippoutsunagi',
-      'hanasippou',
-      'amime',
+      'gokuzushi'
+      'kikkouhanabishi'
       'komochikikkou',
       'kikkoutsunagi',
-      'kikkouhanabishi'
+      'amime',
+      'hanasippou',
+      'sippoutsunagi',
+      'hoshisippou',
+      'hanaseigaiha',
+      'kikuseigaiha',
+      'seigaiha'
     ];
 
     function getUrl() {
