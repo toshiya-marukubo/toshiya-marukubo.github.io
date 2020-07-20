@@ -87,6 +87,8 @@
         x: 0, 
         y: 0
       };
+      this.a = 0;
+      this.rad = this.a * Math.PI / 180;
     };
     
     Shape.prototype.draw = function() {
@@ -94,14 +96,11 @@
       ctx.save();
       ctx.lineWidth = style.lineWidth;
       ctx.strokeStyle = style.white;
-      ctx.translate(this.xi + dist / 2, this.yi + dist / 2);
-      ctx.rotate(angle * Math.PI / 180);
-      ctx.translate(-this.xi - dist / 2, -this.yi - dist / 2);
       for (var i = 1; i < 6; i++) {
         ctx.beginPath();
         if (this.i % 2 === 0 && this.j % 2 === 0) {
-          ctx.moveTo(this.xi, this.yi + i * lineDist);
-          ctx.lineTo(this.xi + dist, this.yi + i * lineDist);
+          ctx.moveTo(Math.sin(this.rad * i) * 3 + this.xi, this.yi + i * lineDist);
+          ctx.lineTo(this.xi + Math.sin(this.rad * i) * 3 + dist, this.yi + i * lineDist);
         }
         if (this.i % 2 !== 0 && this.j % 2 === 0) {
           ctx.moveTo(this.xi + i * lineDist, this.yi);
@@ -129,7 +128,13 @@
       this.yi -= this.v.y / 100;
     };
 
+    Shape.prototype.updateParams = function() {
+      this.a += 1;
+      this.rad = this.a * Math.PI / 180;
+    };
+
     Shape.prototype.render = function(i) {
+      this.updateParams();
       this.updatePosition();
       this.draw();
     };
