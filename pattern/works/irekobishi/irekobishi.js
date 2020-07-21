@@ -102,9 +102,8 @@
     };
 
     Shape.prototype.updateParams = function() {
-      this.a += 1;
+      this.a += 3;
       this.rad = this.a * Math.PI / 180;
-      this.r = Math.tan(this.rad / 5) * 8;
     };
 
     Shape.prototype.render = function(i) {
