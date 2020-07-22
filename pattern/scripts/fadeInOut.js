@@ -7,6 +7,11 @@
 
 (function() {
   'use strict';
+  window.addEventListener('pageshow', function(e) {
+    if (e.persisted) {
+      window.location.reload();
+    }
+  });
   window.addEventListener('DOMContentLoaded', function() {
     var body = document.getElementsByTagName('body')[0];
     var header = document.getElementsByTagName('header')[0];
