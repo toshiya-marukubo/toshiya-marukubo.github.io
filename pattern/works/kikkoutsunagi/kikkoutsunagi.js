@@ -95,7 +95,7 @@
       var ctx  = this.ctx;
       ctx.save();
       ctx.strokeStyle = style.white;
-      ctx.lineWidth = Math.sin(this.rad) < 0 ? -Math.sin(this.rad) * 10 + style.lineWidth : Math.sin(this.rad) * 10 + style.lineWidth;
+      ctx.lineWidth = Math.sin(this.rad) < 0 ? -Math.sin(this.rad) * 30 + style.lineWidth : Math.sin(this.rad) * 30 + style.lineWidth;
       ctx.beginPath();
       for (var i = 0; i < 6; i++) {
         var x = Math.sin(i * rad);
