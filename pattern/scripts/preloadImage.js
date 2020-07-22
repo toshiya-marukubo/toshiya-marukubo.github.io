@@ -10,6 +10,7 @@
   
   var imgs = [
     './images/uroko.png',
+    './images/ishidatami.png',
     './images/takedabishi.png',
     './images/narihirabishi.png',
     './images/anpanman.png',

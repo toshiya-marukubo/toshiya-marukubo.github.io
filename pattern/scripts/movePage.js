@@ -12,6 +12,7 @@
     var body = document.getElementsByTagName('body')[0];
     var works = [
       'uroko',
+      'ishidatami',
       'takedabishi',
       'narihirabishi',
       'anpanman',
