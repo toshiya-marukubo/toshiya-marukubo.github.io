@@ -101,7 +101,7 @@
         ctx.stroke();
       }
       ctx.translate(this.x, this.y);
-      //ctx.rotate(Math.tan(this.rad));
+      ctx.rotate(Math.tan(this.rad));
       ctx.translate(-this.x, -this.y);
       for (var i = 0; i < 4; i++) {
         ctx.translate(this.x, this.y);
