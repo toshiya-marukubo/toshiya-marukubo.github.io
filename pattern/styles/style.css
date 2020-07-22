@@ -48,7 +48,6 @@
 ********************/
 
 html, body {
-  transform: translate3d(0,0,0);
   margin: 0 auto;
   height: 100%;
   width: 100%;
@@ -105,10 +104,10 @@ header.onloadHeader {
 }
 
 @-webkit-keyframes 'headerAnimation' {
-  0% {
+  from {
     left: -50%;
   }
-  100% {
+  to {
     left: 1.6rem
   }
 }
@@ -206,10 +205,10 @@ h2.onloadH2 {
 }
 
 @-webkit-keyframes 'h2Animation' {
-  0% {
+  from {
     right: -50%;
   }
-  100% {
+  to {
     right: 1.6rem
   }
 }
