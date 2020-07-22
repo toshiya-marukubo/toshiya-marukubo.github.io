@@ -100,7 +100,7 @@ header {
 /* Animation */
 
 header.onloadHeader {
-  -webkit-animation: headerAnimation 1s ease;
+  -webkit-animation: headerAnimation 1s;
 }
 
 @-webkit-keyframes 'headerAnimation' {
@@ -201,7 +201,7 @@ h2#title {
 /* Animation */
 
 h2.onloadH2 {
-  -webkit-animation: h2Animation 2s ease;
+  -webkit-animation: h2Animation 2s;
 }
 
 @-webkit-keyframes 'h2Animation' {
