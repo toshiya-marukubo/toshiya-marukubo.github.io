@@ -73,6 +73,8 @@ img {
   width: 100%;
   height: auto;
   opacity: 0;
+  -webkit-transition: opacity 3s ease;
+  -o-transition: opacity 3s ease;
   transition: opacity 3s ease;
 }
 
