@@ -97,21 +97,6 @@ header {
           transform: translateY(-50%);
 }
 
-/* Animation */
-
-header.onloadHeader {
-  -webkit-animation: headerAnimation 1s;
-}
-
-@-webkit-keyframes 'headerAnimation' {
-  from {
-    left: -50%;
-  }
-  to {
-    left: 1.6rem
-  }
-}
-
 /*
 * Referenced https://www.terakoya.work/link-hover-line-css-animation/
 */
@@ -196,21 +181,6 @@ h2#title {
   -webkit-writing-mode: vertical-rl;
       -ms-writing-mode: tb-rl;
           writing-mode: vertical-rl;
-}
-
-/* Animation */
-
-h2.onloadH2 {
-  -webkit-animation: h2Animation 2s;
-}
-
-@-webkit-keyframes 'h2Animation' {
-  from {
-    right: -50%;
-  }
-  to {
-    right: 1.6rem
-  }
 }
 
 /********************
