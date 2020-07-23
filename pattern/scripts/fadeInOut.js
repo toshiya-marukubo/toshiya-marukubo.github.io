@@ -21,8 +21,6 @@
     
     body.style.display = 'block';
     body.setAttribute('class', 'fadeIn');
-    header.setAttribute('class', 'onloadHeader');
-    if (h2) h2.setAttribute('class', 'onloadH2');
     
     for (var i = 0; i < a.length; i++) {
       a[i].addEventListener('click', function(e) {
