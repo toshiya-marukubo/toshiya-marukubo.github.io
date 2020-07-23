@@ -47,6 +47,9 @@
     var shapeXNum = X / diffX;
     var shapeYNum = Y / diffY;
     var poly = Math.PI * 2 / 4;
+    var mouseDist = 50;
+    var ease = 0.3;
+    var friction = 0.9;
     var style = {
       black: 'black',
       white: 'white',
@@ -78,10 +81,16 @@
     Shape.prototype.init = function(x, y, i, j) {
       this.x = x;
       this.y = y;
+      this.xi = this.x;
+      this.yi = this.y;
       this.i = i;
       this.r = rand(height / 2.5, height / 2);
       this.a = j * 10;
       this.rad = this.a * Math.PI / 180;
+      this.v = {
+        x: 0,
+        y: 0
+      };
     };
 
     Shape.prototype.draw = function() {
@@ -123,7 +132,34 @@
       this.rad = this.a * Math.PI / 180;
     };
 
+    Shape.prototype.mouseDist = function() {
+      var x = mouseX - this.x;
+      var y = mouseY - this.y;
+      var d = x * x + y * y;
+      var dist = Math.sqrt(d);
+      if (dist < mouseDist) {
+        this.v.x = +this.v.x;
+        this.v.y = +this.v.y;
+        var colAngle = Math.atan2(mouseY - this.y, mouseX - this.x);
+        this.v.x = -Math.cos(colAngle) * 5;
+        this.v.y = -Math.sin(colAngle) * 5;
+        this.x += this.v.x;
+        this.y += this.v.y;
+      } else if (dist > mouseDist && dist < mouseDist + 10) {
+        this.v.x = 0;
+        this.v.y = 0;
+      } else {
+        this.v.x += (this.xi - this.x) * ease;
+        this.v.y += (this.yi - this.y) * ease;
+        this.v.x *= friction;
+        this.v.y *= friction;
+        this.x += this.v.x;
+        this.y += this.v.y;
+      }
+    };
+
     Shape.prototype.render = function(i) {
+      if (mouseX !== null) this.mouseDist();
       this.updateParams();
       this.draw();
     };
@@ -180,6 +216,17 @@
     window.addEventListener('resize', function() {
       onResize();
     }, false);
+
+    window.addEventListener('mousemove', function(e) {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    }, false);
+
+    canvas.addEventListener('touchmove', function(e) {
+      var touch = e.targetTouches[0];
+      mouseX = touch.pageX;
+      mouseY = touch.pageY;
+    });
 
   });
 })();
