@@ -48,7 +48,7 @@
     var style = {
       black: 'black',
       white: 'white',
-      lineWidth: 4
+      lineWidth: 3
     };
     X > Y ? shapeNum = X / dist : shapeNum = Y / (height / 2 + height / 4);
 
