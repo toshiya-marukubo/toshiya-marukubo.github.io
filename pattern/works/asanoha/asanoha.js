@@ -94,6 +94,7 @@
       ctx.save();
       ctx.strokeStyle = style.white;
       ctx.lineWidth = style.lineWidth;
+      ctx.miterLimit = '1';
       ctx.translate(this.x, this.y);
       ctx.rotate(90 * Math.PI / 180);
       ctx.translate(-this.x, -this.y);
