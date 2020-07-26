@@ -11,6 +11,7 @@
     
     var body = document.getElementsByTagName('body')[0];
     var works = [
+      'ararekomon',
       'kuzureasanoha',
       'asanoha',
       'kanoko',

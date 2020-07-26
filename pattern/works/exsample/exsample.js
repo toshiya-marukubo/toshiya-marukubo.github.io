@@ -1,6 +1,6 @@
 /*
-* File Name / asanoha.js
-* Created Date / July 24, 2020
+* File Name / kikkoutsunagi.js
+* Created Date / July 17, 2020
 * Aurhor / Toshiya Marukubo
 * Twitter / https://twitter.com/toshiyamarukubo
 * Referenced 日本・中国の文様事典 (9784881081501)
@@ -29,7 +29,7 @@
     ********************/
     
     var title = document.getElementById('title');
-    title.textContent = 'ASANOHA / 麻の葉';
+    title.textContent = 'KIKKOUTSUNAGI / 亀甲繋ぎ';
 
     /********************
       Var
@@ -42,13 +42,13 @@
     var mouseY = null;
     var shapeNum;
     var shapes = [];
-    var height = 200;
+    var height = 100;
     var dist = Math.cos(30 * Math.PI / 180) * height;
     var rad = Math.PI * 2 / 6;
     var style = {
       black: 'black',
       white: 'white',
-      lineWidth: 0.4
+      lineWidth: 4,
     };
     X > Y ? shapeNum = X / dist : shapeNum = Y / (height / 2 + height / 4);
 
@@ -80,12 +80,11 @@
       this.xi = rand(0, X);
       this.yi = rand(0, Y);
       this.r = height / 2;
-      this.dia = Math.sqrt(this.r * this.r + this.r * this.r);
       this.v = {
         x: 0,
         y: 0
       };
-      this.a = 0;
+      this.a = -j;
       this.rad = this.a * Math.PI / 180;
     };
 
@@ -94,30 +93,8 @@
       ctx.save();
       ctx.strokeStyle = style.white;
       ctx.lineWidth = style.lineWidth;
-      ctx.miterLimit = '1';
       ctx.translate(this.x, this.y);
-      ctx.rotate(Math.tan(this.rad));
-      ctx.translate(-this.x, -this.y);
-      ctx.translate(this.x, this.y);
-      ctx.rotate(90 * Math.PI / 180);
-      ctx.translate(-this.x, -this.y);
-      for (var i = 0; i < 6; i++) {
-        ctx.translate(this.x, this.y);
-        ctx.rotate(60 * Math.PI / 180);
-        ctx.translate(-this.x, -this.y);
-        ctx.beginPath();
-        ctx.moveTo(this.x, this.y);
-        ctx.lineTo(Math.sin(0 * Math.PI / 180) * dist / 3 + this.x, Math.cos(0 * Math.PI / 180) * dist / 3 + this.y);
-        ctx.lineTo(Math.sin(30 * Math.PI / 180) * this.r + this.x, Math.cos(30 * Math.PI / 180) * this.r + this.y);
-        ctx.lineTo(Math.sin(60 * Math.PI / 180) * dist / 3 + this.x, Math.cos(60 * Math.PI / 180) * dist / 3 + this.y);
-        ctx.closePath();
-        ctx.stroke();
-        ctx.moveTo(this.x, this.y);
-        ctx.lineTo(Math.sin(30 * Math.PI / 180) * this.r + this.x, Math.cos(30 * Math.PI / 180) * this.r + this.y);
-        ctx.stroke();
-      }
-      ctx.translate(this.x, this.y);
-      ctx.rotate(90 * Math.PI / 180);
+      ctx.scale(Math.sin(this.rad * 5), Math.cos(this.rad * 3));
       ctx.translate(-this.x, -this.y);
       ctx.beginPath();
       for (var i = 0; i < 6; i++) {
@@ -128,13 +105,25 @@
       }
       ctx.closePath();
       ctx.stroke();
+      ctx.translate(this.x, this.y);
+      ctx.rotate(-30 * Math.PI / 180);
+      ctx.translate(-this.x, -this.y);
+      for (var i = 0; i < 3; i++) {
+        ctx.translate(this.x, this.y);
+        ctx.rotate(120 * Math.PI / 180);
+        ctx.translate(-this.x, -this.y);
+        ctx.beginPath();
+        ctx.moveTo(this.x, this.y);
+        ctx.lineTo(this.x + this.r, this.y);
+        ctx.stroke();
+      }
       ctx.restore();
     };
 
     Shape.prototype.updateParams = function() {
-      this.a += 1;
+      this.a += 0.5;
       this.rad = this.a * Math.PI / 180;
-      this.r = Math.tan(this.rad) * height;
+      this.r = Math.sin(this.rad) * height / 2;
     };
 
     Shape.prototype.render = function() {
