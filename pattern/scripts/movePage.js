@@ -11,6 +11,10 @@
     
     var body = document.getElementsByTagName('body')[0];
     var works = [
+      'katsuojima',
+      'mijinsuji',
+      'mansuji',
+      'sensuji',
       'misujidate',
       'kindooshi',
       'ararekomon',
