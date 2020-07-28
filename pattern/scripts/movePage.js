@@ -16,7 +16,7 @@
       'ryoutakijima',
       'katatakijima',
       'yatarajima2',
-      'yatrajima',
+      'yatarajima',
       'boujima',
       'katsuojima',
       'mijinsuji',
