@@ -9,6 +9,13 @@
   'use strict';
   
   var imgs = [
+    './images/ryoukomochijima.png',
+    './images/komochijima.png',
+    './images/ryoutakijima.png',
+    './images/katatakijima.png',
+    './images/yatarajima2.png',
+    './images/yatarajima.png',
+    './images/boujima.png',
     './images/katsuojima.png',
     './images/mijinsuji.png',
     './images/mansuji.png',

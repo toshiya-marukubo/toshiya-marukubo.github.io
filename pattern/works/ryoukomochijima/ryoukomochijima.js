@@ -1,6 +1,6 @@
 /*
-* File Name / gokuzushi.js
-* Created Date / July 20, 2020
+* File Name / ryoukomochijima.js
+* Created Date / July 28, 2020
 * Aurhor / Toshiya Marukubo
 * Twitter / https://twitter.com/toshiyamarukubo
 * Referenced 日本・中国の文様事典 (9784881081501)
@@ -28,7 +28,7 @@
     ********************/
     
     var title = document.getElementById('title');
-    title.textContent = 'GOKUZUSHI / 五崩し';
+    title.textContent = 'RYOUKOMOCHIJIMA / 両子持縞';
 
     /********************
       Var
@@ -39,17 +39,16 @@
     var Y = canvas.height = window.innerHeight;
     var mouseX = null;
     var mouseY = null;
-    var ease = 0.3;
-    var friction = 0.9;
     var dist = 50;
-    var lineDist = dist / 6;
+    var lineDist = dist / 3;
     var shapeNumX = X / dist;
-    var shapeNumY = Y / dist;
     var shapes = [];
+    var ease = 0.1;
+    var friction = 0.9;
     var style = {
       black: 'black',
       white: 'white',
-      lineWidth: 3,
+      lineWidth: 20,
     };
 
     /********************
@@ -77,17 +76,13 @@
     Shape.prototype.init = function(x, y, i, j) {
       this.x = x;
       this.y = y;
-      this.xi = rand(0, X);
-      this.yi = rand(0, Y);
+      this.cx = this.x;
+      this.cy = this.y / 2;
       this.i = i;
-      this.j = j;
-      this.r = dist / 10;
       this.v = {
-        x: 0, 
+        x: 0,
         y: 0
       };
-      this.a = 0;
-      this.rad = this.a * Math.PI / 180;
     };
     
     Shape.prototype.draw = function() {
@@ -95,54 +90,47 @@
       ctx.save();
       ctx.lineWidth = style.lineWidth;
       ctx.strokeStyle = style.white;
-      for (var i = 1; i < 6; i++) {
+      for (var i = 0; i < 3; i++) {
+        ctx.lineWidth = style.lineWidth - (15 * i);
         ctx.beginPath();
-        if (this.i % 2 === 0 && this.j % 2 === 0) {
-          ctx.moveTo(Math.sin(this.rad * i) * 3 + this.xi, this.yi + i * lineDist);
-          ctx.lineTo(this.xi + Math.sin(this.rad * i) * 3 + dist, this.yi + i * lineDist);
-        }
-        if (this.i % 2 !== 0 && this.j % 2 === 0) {
-          ctx.moveTo(this.xi + i * lineDist, this.yi);
-          ctx.lineTo(this.xi + i * lineDist, this.yi + dist);
-        }
-        if (this.i % 2 === 0 && this.j % 2 !== 0) {
-          ctx.moveTo(this.xi + i * lineDist, this.yi);
-          ctx.lineTo(this.xi + i * lineDist, this.yi + dist);
-        }
-        if (this.i % 2 !== 0 && this.j % 2 !== 0) {
-          ctx.moveTo(this.xi, this.yi + i * lineDist);
-          ctx.lineTo(this.xi + dist, this.yi + i * lineDist);
-        }
+        ctx.moveTo(this.x + i * lineDist, this.y - 50);
+        ctx.quadraticCurveTo(this.cx + i * lineDist, this.cy, this.x + i * lineDist, Y + 50);
         ctx.stroke();
       }
       ctx.restore();
     };
 
-    Shape.prototype.updatePosition = function() {
-      this.v.x += (this.xi - this.x) * ease;
-      this.v.y += (this.yi - this.y) * ease;
-      this.v.x *= friction;
-      this.v.y *= friction;
-      this.xi -= this.v.x / 100;
-      this.yi -= this.v.y / 100;
+    Shape.prototype.dist = function() {
+      if (mouseX === null) return;
+      var x = Math.abs(mouseX - this.cx);
+      if (x < dist) {
+        this.v.x += (mouseX - this.x) * ease;
+        this.v.y += (mouseY - this.y) * ease;
+        this.v.x *= friction;
+        this.v.y *= friction;
+        this.cx += this.v.x;
+        this.cy += this.v.y;
+      }
     };
 
-    Shape.prototype.updateParams = function() {
-      this.a += 1;
-      this.rad = this.a * Math.PI / 180;
+    Shape.prototype.updatePosition = function() {
+      this.v.x += (this.cx - this.x) * ease;
+      this.v.y += (this.cy - this.y) * ease;
+      this.v.x *= friction;
+      this.v.y *= friction;
+      this.cx -= this.v.x;
+      this.cy -= this.v.y;
     };
 
     Shape.prototype.render = function(i) {
-      this.updateParams();
       this.updatePosition();
+      this.dist();
       this.draw();
     };
 
     for (var i = 0; i < shapeNumX + 1; i++) {
-      for (var j = 0; j < shapeNumY + 1; j++) {
-        var s = new Shape(ctx, dist * i,  dist * j, i, j);
-        shapes.push(s);
-      }
+      var s = new Shape(ctx, dist * i,  0, i);
+      shapes.push(s);
     }
    
     /********************
@@ -167,19 +155,38 @@
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
       shapeNumX = X / dist;
-      shapeNumY = Y / dist;
       shapes = [];
       for (var i = 0; i < shapeNumX + 1; i++) {
-        for (var j = 0; j < shapeNumY + 1; j++) {
-          var s = new Shape(ctx, dist * i,  dist * j, i, j);
-          shapes.push(s);
-        }
+        var s = new Shape(ctx, dist * i,  0, i);
+        shapes.push(s);
       }
     }
 
     window.addEventListener('resize', function() {
       onResize();
     });
+
+    canvas.addEventListener('mousemove', function(e){
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    }, false);
+
+    canvas.addEventListener('touchstart', function(e) {
+      var touch = e.targetTouches[0];
+      mouseY = touch.pageY;
+      mouseX = touch.pageX;
+    }, false);
+
+    canvas.addEventListener('touchmove', function(e) {
+      var touch = e.targetTouches[0];
+      mouseY = touch.pageY;
+      mouseX = touch.pageX;
+    }, false);
+
+    canvas.addEventListener('touchend', function(e) {
+      mouseY = null;
+      mouseX = null;
+    }, false);
 
   });
 })();

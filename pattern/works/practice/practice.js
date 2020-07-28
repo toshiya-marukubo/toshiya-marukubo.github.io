@@ -37,12 +37,7 @@
     var ctx = canvas.getContext('2d');
     var X = canvas.width = window.innerWidth;
     var Y = canvas.height = window.innerHeight;
-    var mouseX = null;
-    var mouseY = null;
-    var ease = 0.3;
-    var friction = 0.9;
-    var dist = 50;
-    var lineDist = dist / 6;
+    var dist = 30;
     var shapeNumX = X / dist;
     var shapeNumY = Y / dist;
     var shapes = [];
@@ -77,54 +72,26 @@
     Shape.prototype.init = function(x, y, i, j) {
       this.x = x;
       this.y = y;
-      this.xi = rand(0, X);
-      this.yi = rand(0, Y);
       this.i = i;
       this.j = j;
-      this.r = dist / 10;
+      this.t = (i * j) % mod;
+      this.r = dist;
       this.v = {
         x: 0, 
         y: 0
       };
-      this.a = 0;
+      this.a = i;
       this.rad = this.a * Math.PI / 180;
     };
     
     Shape.prototype.draw = function() {
       var ctx  = this.ctx;
       ctx.save();
-      ctx.lineWidth = style.lineWidth;
-      ctx.strokeStyle = style.white;
-      for (var i = 1; i < 6; i++) {
-        ctx.beginPath();
-        if (this.i % 2 === 0 && this.j % 2 === 0) {
-          ctx.moveTo(Math.sin(this.rad * i) * 3 + this.xi, this.yi + i * lineDist);
-          ctx.lineTo(this.xi + Math.sin(this.rad * i) * 3 + dist, this.yi + i * lineDist);
-        }
-        if (this.i % 2 !== 0 && this.j % 2 === 0) {
-          ctx.moveTo(this.xi + i * lineDist, this.yi);
-          ctx.lineTo(this.xi + i * lineDist, this.yi + dist);
-        }
-        if (this.i % 2 === 0 && this.j % 2 !== 0) {
-          ctx.moveTo(this.xi + i * lineDist, this.yi);
-          ctx.lineTo(this.xi + i * lineDist, this.yi + dist);
-        }
-        if (this.i % 2 !== 0 && this.j % 2 !== 0) {
-          ctx.moveTo(this.xi, this.yi + i * lineDist);
-          ctx.lineTo(this.xi + dist, this.yi + i * lineDist);
-        }
-        ctx.stroke();
-      }
+      ctx.fillStyle = 'hsl(' + this.t * 30 + ', 80%, 60%)';
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, Math.sin(this.rad) < 0 ? -Math.sin(this.rad) * this.t : Math.sin(this.rad) * this.t, 0, Math.PI * 2, false);
+      ctx.fill();
       ctx.restore();
-    };
-
-    Shape.prototype.updatePosition = function() {
-      this.v.x += (this.xi - this.x) * ease;
-      this.v.y += (this.yi - this.y) * ease;
-      this.v.x *= friction;
-      this.v.y *= friction;
-      this.xi -= this.v.x / 100;
-      this.yi -= this.v.y / 100;
     };
 
     Shape.prototype.updateParams = function() {
@@ -134,9 +101,10 @@
 
     Shape.prototype.render = function(i) {
       this.updateParams();
-      this.updatePosition();
       this.draw();
     };
+
+    var mod = 20;
 
     for (var i = 0; i < shapeNumX + 1; i++) {
       for (var j = 0; j < shapeNumY + 1; j++) {

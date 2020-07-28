@@ -11,6 +11,13 @@
     
     var body = document.getElementsByTagName('body')[0];
     var works = [
+      'ryoukomochijima',
+      'komochijima',
+      'ryoutakijima',
+      'katatakijima',
+      'yatarajima2',
+      'yatrajima',
+      'boujima',
       'katsuojima',
       'mijinsuji',
       'mansuji',
