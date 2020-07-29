@@ -86,7 +86,7 @@
       var ctx  = this.ctx;
       ctx.save();
       ctx.globalAlpha = this.rand;
-      ctx.lineWidth = style.lineWidth;
+      ctx.lineWidth = this.rand;
       ctx.strokeStyle = style.white;
       ctx.beginPath();
       for (var i = 0 - 30; i < Y;) {
@@ -101,7 +101,7 @@
     Shape.prototype.updateParams = function() {
       this.a += this.rand;
       this.rad = this.a * Math.PI / 180;
-      this.end = Math.cos(this.rad * 5) + Math.sin(this.rad) + this.end;
+      this.end = Math.sin(this.rad * 3) + Math.sin(this.rad * 5) + this.end;
     };
 
     Shape.prototype.render = function() {
