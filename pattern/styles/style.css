@@ -286,10 +286,6 @@ span.scroll::after {
 
 @media screen and (min-width: 48rem) {
 
-  html {
-    max-width: 1500px;
-  }
-  
   span.logo {
     width: 2.4rem;
     height: 2.4rem;
