@@ -45,7 +45,7 @@
     var style = {
       black: 'black',
       white: 'white',
-      lineWidth: 0.2,
+      lineWidth: 0.8,
     };
 
     /********************
@@ -85,6 +85,7 @@
     Shape.prototype.draw = function() {
       var ctx  = this.ctx;
       ctx.save();
+      ctx.globalAlpha = this.rand;
       ctx.lineWidth = style.lineWidth;
       ctx.strokeStyle = style.white;
       ctx.beginPath();
@@ -98,7 +99,7 @@
     };
 
     Shape.prototype.updateParams = function() {
-      this.a += 1;
+      this.a += this.rand;
       this.rad = this.a * Math.PI / 180;
       this.end = Math.cos(this.rad * 5) + Math.sin(this.rad) + this.end;
     };
