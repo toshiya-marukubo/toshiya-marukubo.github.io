@@ -28,7 +28,7 @@
     ********************/
     
     var title = document.getElementById('title');
-    title.textContent = 'YAMAJIMON /山路文';
+    title.textContent = 'YAMAJIMON / 山路文';
 
     /********************
       Var
