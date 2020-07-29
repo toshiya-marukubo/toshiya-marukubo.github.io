@@ -9,6 +9,7 @@
   'use strict';
   
   var imgs = [
+    './images/amejima.png',
     './images/yamajimon.png',
     './images/tatewaku.png',
     './images/yorokejima.png',
