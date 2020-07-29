@@ -1,6 +1,6 @@
 /*
-* File Name / gokuzushi.js
-* Created Date / July 20, 2020
+* File Name / tatewaku.js
+* Created Date / July 29, 2020
 * Aurhor / Toshiya Marukubo
 * Twitter / https://twitter.com/toshiyamarukubo
 * Referenced 日本・中国の文様事典 (9784881081501)
@@ -28,7 +28,7 @@
     ********************/
     
     var title = document.getElementById('title');
-    title.textContent = 'GOKUZUSHI / 五崩し';
+    title.textContent = 'TATEWAKU / 立涌';
 
     /********************
       Var
@@ -37,9 +37,16 @@
     var ctx = canvas.getContext('2d');
     var X = canvas.width = window.innerWidth;
     var Y = canvas.height = window.innerHeight;
-    var shapeNum = X;
-    var angle = 137.5;
+    var mouseX = null;
+    var mouseY = null;
+    var dist = 50;
+    var shapeNumX = X / dist;
     var shapes = [];
+    var style = {
+      black: 'black',
+      white: 'white',
+      lineWidth: 8,
+    };
 
     /********************
       Animation
@@ -67,40 +74,40 @@
       this.x = x;
       this.y = y;
       this.i = i;
-      this.r = 5;
-      this.a = this.i;
+      this.a = 0;
       this.rad = this.a * Math.PI / 180;
     };
     
     Shape.prototype.draw = function() {
       var ctx  = this.ctx;
       ctx.save();
-      ctx.fillStyle = 'white';
+      ctx.lineWidth = style.lineWidth;
+      ctx.strokeStyle = style.white;
       ctx.beginPath();
-      ctx.arc(
-        Math.cos(angle * Math.PI / 180 * this.i) * this.i / 2 + X / 2,
-        Math.sin(angle * Math.PI / 180 * this.i) * this.i / 2 + Y / 2,
-        this.r,
-        0,
-        Math.PI * 2,
-        false
-      );
-      ctx.fill();
+      ctx.moveTo(this.x, this.y - 50);
+      for (var i = 0; i < Y + 50; i++) {
+        if (this.i % 2 === 0) {
+          ctx.lineTo(Math.sin(i * Math.PI / 180) * Math.sin(this.rad) * 15 + this.x, i);
+        } else {
+          ctx.lineTo(Math.sin(-i * Math.PI / 180) * Math.sin(this.rad) * 15 + this.x, i);
+        }
+      }
+      ctx.stroke();
       ctx.restore();
     };
 
     Shape.prototype.updateParams = function() {
-      this.a += 1;
+      this.a += 3;
       this.rad = this.a * Math.PI / 180;
     };
 
-    Shape.prototype.render = function(i) {
+    Shape.prototype.render = function() {
       this.updateParams();
       this.draw();
     };
 
-    for (var i = 0; i < shapeNum; i++) {
-      var s = new Shape(ctx, X / 2,  Y / 2, i);
+    for (var i = 0; i < shapeNumX + 1; i++) {
+      var s = new Shape(ctx, dist * i,  0, i);
       shapes.push(s);
     }
    
@@ -125,34 +132,16 @@
     function onResize() {
       X = canvas.width = window.innerWidth;
       Y = canvas.height = window.innerHeight;
-      shapeNumX = X / split;
-      shapeNumY = Y / split;
       shapes = [];
-      for (var i = 0; i < split; i++) {
-        for (var j = 0; j < split; j++) {
-          var s = new Shape(ctx, shapeNumX * i,  shapeNumY * j, i, j);
-          shapes.push(s);
-        }
+      shapeNumX = X / dist;
+      for (var i = 0; i < shapeNumX + 1; i++) {
+        var s = new Shape(ctx, dist * i,  0, i);
+        shapes.push(s);
       }
     }
 
     window.addEventListener('resize', function() {
       onResize();
-    });
-
-    range.addEventListener('input', function() {
-      shapes = [];
-      mod = this.value;
-      rangeVal = this.value;
-      split = rangeVal;
-      shapeNumX = X / split;
-      shapeNumY = Y / split;
-      for (var i = 0; i < split; i++) {
-        for (var j = 0; j < split; j++) {
-          var s = new Shape(ctx, shapeNumX * i,  shapeNumY * j, i, j);
-          shapes.push(s);
-        }
-      }
     });
 
   });
