@@ -94,9 +94,9 @@
     Shape.prototype.draw = function() {
       var ctx  = this.ctx;
       ctx.save();
-      ctx.translate(this.x, this.y);
+      ctx.translate(this.xi, this.yi);
       ctx.scale(Math.cos(this.rad * 3), Math.sin(this.rad * 5));
-      ctx.translate(-this.x, -this.y);
+      ctx.translate(-this.xi, -this.yi);
       ctx.fillStyle = style.white;
       ctx.beginPath();
       for (var i = 0; i < 4; i++) {
