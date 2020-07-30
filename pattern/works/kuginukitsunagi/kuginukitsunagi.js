@@ -1,5 +1,5 @@
 /*
-* File Name / sorobanjima.js
+* File Name / kuginukitsunagi.js
 * Created Date / July 30, 2020
 * Aurhor / Toshiya Marukubo
 * Twitter / https://twitter.com/toshiyamarukubo
@@ -28,7 +28,7 @@
     ********************/
     
     var title = document.getElementById('title');
-    title.textContent = 'SOROBANJIMA / 算盤縞';
+    title.textContent = 'KUGINUKITSUNAGI / 釘抜繋ぎ';
 
     /********************
       Var
@@ -39,18 +39,15 @@
     var Y = canvas.height = window.innerHeight;
     var mouseX = null;
     var mouseY = null;
-    var ease = 0.3;
-    var friction = 0.9;
-    var dist = 100;
+    var dist = 200;
     var rad = Math.PI * 2 / 4;
     var shapeNumX = X / dist;
     var shapeNumY = Y / dist;
     var shapes = [];
-    var angle = 0;
     var style = {
       black: 'black',
       white: 'white',
-      lineWidth: 6,
+      lineWidth: 8,
     };
 
     /********************
@@ -70,6 +67,23 @@
       Shape
     ********************/
     
+    function drawLine() {
+      ctx.save();
+      ctx.strokeStyle = style.white;
+      ctx.lineWidth = style.lineWidth;
+      for (var i = 0; i < shapeNumX; i++) {
+        ctx.beginPath();
+        ctx.moveTo(dist * i + style.lineWidth / 1.5 - dist / 2, 0);
+        ctx.lineTo(dist * i + style.lineWidth / 1.5 - dist / 2, Y);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(dist * i + dist / 2 - style.lineWidth / 1.5, 0);
+        ctx.lineTo(dist * i + dist / 2 - style.lineWidth / 1.5, Y);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+     
     function Shape(ctx, x, y, i, j) {
       this.ctx = ctx;
       this.init(x, y, i, j);
@@ -85,26 +99,33 @@
       this.r = dist / 2;
       this.v = {
         x: 0, 
-        y: 0
+        y: 1
       };
-      this.a = 0;
+      this.a = i * 30;
       this.rad = this.a * Math.PI / 180;
     };
     
     Shape.prototype.draw = function() {
       var ctx  = this.ctx;
       ctx.save();
-      ctx.translate(this.xi, this.yi);
-      ctx.scale(Math.cos(this.rad * 3), Math.sin(this.rad * 5));
-      ctx.translate(-this.xi, -this.yi);
+      ctx.translate(this.x, this.y);
+      ctx.scale(Math.sin(this.rad), 1);
+      ctx.translate(-this.x, -this.y);
       ctx.fillStyle = style.white;
-      ctx.globalCompositeOperation = 'xor';
       ctx.beginPath();
       for (var i = 0; i < 4; i++) {
-        var x;
-        var y;
-        x = Math.sin(rad * i) * this.r / 1.2 + this.xi;
-        y = Math.cos(rad * i) * this.r / 1.5 + this.yi;
+        var x = Math.sin(rad * i) * this.r + this.x;
+        var y = Math.cos(rad * i) * this.r + this.y;
+        if (i === 0) ctx.moveTo(x, y);
+        ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+      ctx.fill();
+      ctx.fillStyle = style.black;
+      ctx.beginPath();
+      for (var i = 0; i < 4; i++) {
+        var x = Math.sin(rad * i) * this.r / 5 + this.x;
+        var y = Math.cos(rad * i) * this.r / 5 + this.y;
         if (i === 0) ctx.moveTo(x, y);
         ctx.lineTo(x, y);
       }
@@ -113,18 +134,13 @@
       ctx.restore();
     };
 
-    Shape.prototype.updatePosition = function() {
-      this.v.x += (this.xi - this.x) * ease;
-      this.v.y += (this.yi - this.y) * ease;
-      this.v.x *= friction;
-      this.v.y *= friction;
-      this.xi -= this.v.x / 100;
-      this.yi -= this.v.y / 100;
+    Shape.prototype.updateParams = function() {
+      this.a += 1;
+      this.rad = this.a * Math.PI / 180;
     };
 
-    Shape.prototype.updateParams = function() {
-      this.a += 0.5;
-      this.rad = this.a * Math.PI / 180;
+    Shape.prototype.updatePosition = function() {
+      this.y += Math.cos(this.rad) * 2;
     };
 
     Shape.prototype.render = function(i) {
@@ -146,6 +162,7 @@
     
     function render() {
       ctx.clearRect(0, 0, X, Y);
+      drawLine();
       for (var i = 0; i < shapes.length; i++) {
         shapes[i].render(i);
       }
