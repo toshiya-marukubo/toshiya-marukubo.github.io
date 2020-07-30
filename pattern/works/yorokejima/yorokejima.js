@@ -86,7 +86,7 @@
       ctx.beginPath();
       ctx.moveTo(this.x, this.y - 50);
       for (var i = 0; i < Y + 50; i++) {
-        ctx.lineTo(Math.sin(i * Math.PI / 180) * Math.sin(this.rad) * 50 + this.x, i);
+        ctx.lineTo(Math.sin(i * Math.PI / 180) * Math.sin(this.rad) * 100 + this.x, i);
       }
       ctx.stroke();
       ctx.restore();

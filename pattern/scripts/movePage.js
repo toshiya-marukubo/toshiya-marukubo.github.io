@@ -77,13 +77,6 @@
       fadeOut(getUrl());
     }, false);
 
-    canvas.addEventListener('wheel', function(e) {
-      var y = e.deltaY;
-      if (y > 50) {
-        fadeOut(getUrl());
-      }
-    }, false);
-
     var touchStartY;
     var touchMoveY;
     var touchEndY;
