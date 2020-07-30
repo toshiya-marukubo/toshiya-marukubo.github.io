@@ -11,6 +11,8 @@
     
     var body = document.getElementsByTagName('body')[0];
     var works = [
+      'sorobanjima',
+      'ishidatami2',
       'amejima',
       'yamajimon',
       'tatewaku',
