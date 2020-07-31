@@ -156,12 +156,12 @@
       this.draw();
     };
 
-    for (var i = 1; i < shapeNumX + 1; i++) {
+    for (var i = 1; i < shapeNumX - 1; i++) {
       var s = new Shape(ctx, dist * i, 0);
       shapes.push(s);
     }
 
-    for (var j = 1; j < shapeNumY + 1; j++) {
+    for (var j = 1; j < shapeNumY - 1; j++) {
       var s = new Shape(ctx, 0, dist * j);
       shapes.push(s);
     }
@@ -190,12 +190,12 @@
       shapeNumX = X / dist;
       shapeNumY = Y / dist;
       shapes = [];
-      for (var i = 1; i < shapeNumX + 1; i++) {
+      for (var i = 1; i < shapeNumX - 1; i++) {
         var s = new Shape(ctx, dist * i, 0, i, j);
         shapes.push(s);
       }
 
-      for (var j = 1; j < shapeNumY + 1; j++) {
+      for (var j = 1; j < shapeNumY - 1; j++) {
         var s = new Shape(ctx, 0, dist * j, i, j);
         shapes.push(s);
       }

@@ -9,6 +9,12 @@
   'use strict';
   
   var imgs = [
+    './images/komochikobenkeigoushi.png',
+    './images/kobenkeigoushi.png',
+    './images/benkeigoushi2.png',
+    './images/benkeigoushi.png',
+    './images/okinagoushi.png',
+    './images/misokoshigoushi.png',
     './images/yosujigoushi.png',
     './images/misujigoushi.png',
     './images/futasujigoushi.png',

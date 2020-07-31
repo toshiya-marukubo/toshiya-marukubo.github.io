@@ -11,6 +11,12 @@
     
     var body = document.getElementsByTagName('body')[0];
     var works = [
+      'komochikobenkeigoushi',
+      'kobenkeigoushi',
+      'benkeigoushi2',
+      'benkeigoushi',
+      'okinagoushi',
+      'misokoshigoushi',
       'yosujigoushi',
       'misujigoushi',
       'futasujigoushi',

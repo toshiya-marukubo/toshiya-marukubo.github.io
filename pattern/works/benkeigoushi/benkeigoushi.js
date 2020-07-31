@@ -1,5 +1,5 @@
 /*
-* File Name / yosujigoushi.js
+* File Name / benkeigoushi.js
 * Created Date / July 31, 2020
 * Aurhor / Toshiya Marukubo
 * Twitter / https://twitter.com/toshiyamarukubo
@@ -28,7 +28,7 @@
     ********************/
     
     var title = document.getElementById('title');
-    title.textContent = 'YOSUJIGOUSHI / 四筋格子';
+    title.textContent = 'BENKEIGOUSHI / 弁慶格子';
 
     /********************
       Var
@@ -48,7 +48,7 @@
     var style = {
       black: 'black',
       white: 'white',
-      lineWidth: 5,
+      lineWidth: 50,
     };
 
     /********************
@@ -87,46 +87,16 @@
         y2: 0
       };
     };
-
+    
     Shape.prototype.draw = function() {
       var ctx  = this.ctx;
       ctx.save();
-      ctx.strokeStyle = style.white;
       ctx.lineWidth = style.lineWidth;
+      ctx.strokeStyle = style.white;
       ctx.beginPath();
       ctx.moveTo(this.x, this.y);
       if (this.y === 0) ctx.quadraticCurveTo(this.cpx1, this.cpy1, this.x, Y);
       if (this.x === 0) ctx.quadraticCurveTo(this.cpx2, this.cpy2, X, this.y);
-      ctx.stroke();
-      ctx.beginPath();
-      if (this.x === 0) {
-        ctx.moveTo(this.x, this.y + style.lineWidth * 3);
-        ctx.quadraticCurveTo(this.cpx2, this.cpy2 + style.lineWidth * 3, X, this.y + style.lineWidth * 3);
-      }
-      if (this.y === 0) {
-        ctx.moveTo(this.x + style.lineWidth * 3, this.y);
-        ctx.quadraticCurveTo(this.cpx1 + style.lineWidth * 3, this.cpy1, this.x + style.lineWidth * 3, Y);
-      }
-      ctx.stroke();
-      ctx.beginPath();
-      if (this.x === 0) {
-        ctx.moveTo(this.x, this.y + style.lineWidth * 6);
-        ctx.quadraticCurveTo(this.cpx2, this.cpy2 + style.lineWidth * 6, X, this.y + style.lineWidth * 6);
-      }
-      if (this.y === 0) {
-        ctx.moveTo(this.x + style.lineWidth * 6, this.y);
-        ctx.quadraticCurveTo(this.cpx1 + style.lineWidth * 6, this.cpy1, this.x + style.lineWidth * 6, Y);
-      }
-      ctx.stroke();
-      ctx.beginPath();
-      if (this.x === 0) {
-        ctx.moveTo(this.x, this.y + style.lineWidth * 9);
-        ctx.quadraticCurveTo(this.cpx2, this.cpy2 + style.lineWidth * 9, X, this.y + style.lineWidth * 9);
-      }
-      if (this.y === 0) {
-        ctx.moveTo(this.x + style.lineWidth * 9, this.y);
-        ctx.quadraticCurveTo(this.cpx1 + style.lineWidth * 9, this.cpy1, this.x + style.lineWidth * 9, Y);
-      }
       ctx.stroke();
       ctx.restore();
     };

@@ -1,5 +1,5 @@
 /*
-* File Name / yosujigoushi.js
+* File Name / okinagoushi.js
 * Created Date / July 31, 2020
 * Aurhor / Toshiya Marukubo
 * Twitter / https://twitter.com/toshiyamarukubo
@@ -28,7 +28,7 @@
     ********************/
     
     var title = document.getElementById('title');
-    title.textContent = 'YOSUJIGOUSHI / 四筋格子';
+    title.textContent = 'OKINAGOUSHI / 翁格子';
 
     /********************
       Var
@@ -39,7 +39,7 @@
     var Y = canvas.height = window.innerHeight;
     var mouseX = null;
     var mouseY = null;
-    var dist = 100;
+    var dist = 10;
     var shapeNumX = X / dist;
     var shapeNumY = Y / dist;
     var shapes = [];
@@ -48,7 +48,7 @@
     var style = {
       black: 'black',
       white: 'white',
-      lineWidth: 5,
+      lineWidth: 1,
     };
 
     /********************
@@ -68,14 +68,15 @@
       Shape
     ********************/
     
-    function Shape(ctx, x, y) {
+    function Shape(ctx, x, y, index) {
       this.ctx = ctx;
-      this.init(x, y);
+      this.init(x, y, index);
     }
     
-    Shape.prototype.init = function(x, y) {
+    Shape.prototype.init = function(x, y, index) {
       this.x = x;
       this.y = y;
+      this.i = index;
       this.cpx1 = this.x;
       this.cpy1 = Y / 2;
       this.cpx2 = X / 2;
@@ -87,46 +88,17 @@
         y2: 0
       };
     };
-
+    
     Shape.prototype.draw = function() {
       var ctx  = this.ctx;
       ctx.save();
+      if (this.i % 5 === 0) ctx.lineWidth = style.lineWidth * 5;
+      if (this.i % 5 !== 0) ctx.lineWidth = style.lineWidth;
       ctx.strokeStyle = style.white;
-      ctx.lineWidth = style.lineWidth;
       ctx.beginPath();
       ctx.moveTo(this.x, this.y);
       if (this.y === 0) ctx.quadraticCurveTo(this.cpx1, this.cpy1, this.x, Y);
       if (this.x === 0) ctx.quadraticCurveTo(this.cpx2, this.cpy2, X, this.y);
-      ctx.stroke();
-      ctx.beginPath();
-      if (this.x === 0) {
-        ctx.moveTo(this.x, this.y + style.lineWidth * 3);
-        ctx.quadraticCurveTo(this.cpx2, this.cpy2 + style.lineWidth * 3, X, this.y + style.lineWidth * 3);
-      }
-      if (this.y === 0) {
-        ctx.moveTo(this.x + style.lineWidth * 3, this.y);
-        ctx.quadraticCurveTo(this.cpx1 + style.lineWidth * 3, this.cpy1, this.x + style.lineWidth * 3, Y);
-      }
-      ctx.stroke();
-      ctx.beginPath();
-      if (this.x === 0) {
-        ctx.moveTo(this.x, this.y + style.lineWidth * 6);
-        ctx.quadraticCurveTo(this.cpx2, this.cpy2 + style.lineWidth * 6, X, this.y + style.lineWidth * 6);
-      }
-      if (this.y === 0) {
-        ctx.moveTo(this.x + style.lineWidth * 6, this.y);
-        ctx.quadraticCurveTo(this.cpx1 + style.lineWidth * 6, this.cpy1, this.x + style.lineWidth * 6, Y);
-      }
-      ctx.stroke();
-      ctx.beginPath();
-      if (this.x === 0) {
-        ctx.moveTo(this.x, this.y + style.lineWidth * 9);
-        ctx.quadraticCurveTo(this.cpx2, this.cpy2 + style.lineWidth * 9, X, this.y + style.lineWidth * 9);
-      }
-      if (this.y === 0) {
-        ctx.moveTo(this.x + style.lineWidth * 9, this.y);
-        ctx.quadraticCurveTo(this.cpx1 + style.lineWidth * 9, this.cpy1, this.x + style.lineWidth * 9, Y);
-      }
       ctx.stroke();
       ctx.restore();
     };
@@ -176,13 +148,13 @@
       this.draw();
     };
 
-    for (var i = 1; i < shapeNumX - 1; i++) {
-      var s = new Shape(ctx, dist * i, 0);
+    for (var i = 1; i < shapeNumX + 1; i++) {
+      var s = new Shape(ctx, dist * i, 0, i);
       shapes.push(s);
     }
 
-    for (var j = 1; j < shapeNumY - 1; j++) {
-      var s = new Shape(ctx, 0, dist * j);
+    for (var j = 1; j < shapeNumY + 1; j++) {
+      var s = new Shape(ctx, 0, dist * j, j);
       shapes.push(s);
     }
    
@@ -210,13 +182,13 @@
       shapeNumX = X / dist;
       shapeNumY = Y / dist;
       shapes = [];
-      for (var i = 1; i < shapeNumX - 1; i++) {
-        var s = new Shape(ctx, dist * i, 0, i, j);
+      for (var i = 1; i < shapeNumX + 1; i++) {
+        var s = new Shape(ctx, dist * i, 0, i);
         shapes.push(s);
       }
 
-      for (var j = 1; j < shapeNumY - 1; j++) {
-        var s = new Shape(ctx, 0, dist * j, i, j);
+      for (var j = 1; j < shapeNumY + 1; j++) {
+        var s = new Shape(ctx, 0, dist * j, j);
         shapes.push(s);
       }
     }

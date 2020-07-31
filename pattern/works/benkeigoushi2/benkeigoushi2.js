@@ -1,5 +1,5 @@
 /*
-* File Name / yosujigoushi.js
+* File Name / benkeigoushi2.js
 * Created Date / July 31, 2020
 * Aurhor / Toshiya Marukubo
 * Twitter / https://twitter.com/toshiyamarukubo
@@ -28,7 +28,7 @@
     ********************/
     
     var title = document.getElementById('title');
-    title.textContent = 'YOSUJIGOUSHI / 四筋格子';
+    title.textContent = 'BENKEIGOUSHI / 弁慶格子2';
 
     /********************
       Var
@@ -39,7 +39,7 @@
     var Y = canvas.height = window.innerHeight;
     var mouseX = null;
     var mouseY = null;
-    var dist = 100;
+    var dist = 50;
     var shapeNumX = X / dist;
     var shapeNumY = Y / dist;
     var shapes = [];
@@ -48,7 +48,7 @@
     var style = {
       black: 'black',
       white: 'white',
-      lineWidth: 5,
+      lineWidth: 1,
     };
 
     /********************
@@ -93,41 +93,14 @@
       ctx.save();
       ctx.strokeStyle = style.white;
       ctx.lineWidth = style.lineWidth;
-      ctx.beginPath();
-      ctx.moveTo(this.x, this.y);
-      if (this.y === 0) ctx.quadraticCurveTo(this.cpx1, this.cpy1, this.x, Y);
-      if (this.x === 0) ctx.quadraticCurveTo(this.cpx2, this.cpy2, X, this.y);
-      ctx.stroke();
-      ctx.beginPath();
-      if (this.x === 0) {
-        ctx.moveTo(this.x, this.y + style.lineWidth * 3);
-        ctx.quadraticCurveTo(this.cpx2, this.cpy2 + style.lineWidth * 3, X, this.y + style.lineWidth * 3);
+      for (var i = 0; i < 10; i++) {
+        ctx.beginPath();
+        if (this.x === 0) ctx.moveTo(this.x, this.y + i * 3); 
+        if (this.y === 0) ctx.moveTo(this.x + i * 3, this.y);
+        if (this.y === 0) ctx.quadraticCurveTo(this.cpx1 + i * 3, this.cpy1, this.x + i * 3, Y);
+        if (this.x === 0) ctx.quadraticCurveTo(this.cpx2, this.cpy2 + i * 3, X, this.y + i * 3);
+        ctx.stroke();
       }
-      if (this.y === 0) {
-        ctx.moveTo(this.x + style.lineWidth * 3, this.y);
-        ctx.quadraticCurveTo(this.cpx1 + style.lineWidth * 3, this.cpy1, this.x + style.lineWidth * 3, Y);
-      }
-      ctx.stroke();
-      ctx.beginPath();
-      if (this.x === 0) {
-        ctx.moveTo(this.x, this.y + style.lineWidth * 6);
-        ctx.quadraticCurveTo(this.cpx2, this.cpy2 + style.lineWidth * 6, X, this.y + style.lineWidth * 6);
-      }
-      if (this.y === 0) {
-        ctx.moveTo(this.x + style.lineWidth * 6, this.y);
-        ctx.quadraticCurveTo(this.cpx1 + style.lineWidth * 6, this.cpy1, this.x + style.lineWidth * 6, Y);
-      }
-      ctx.stroke();
-      ctx.beginPath();
-      if (this.x === 0) {
-        ctx.moveTo(this.x, this.y + style.lineWidth * 9);
-        ctx.quadraticCurveTo(this.cpx2, this.cpy2 + style.lineWidth * 9, X, this.y + style.lineWidth * 9);
-      }
-      if (this.y === 0) {
-        ctx.moveTo(this.x + style.lineWidth * 9, this.y);
-        ctx.quadraticCurveTo(this.cpx1 + style.lineWidth * 9, this.cpy1, this.x + style.lineWidth * 9, Y);
-      }
-      ctx.stroke();
       ctx.restore();
     };
 
