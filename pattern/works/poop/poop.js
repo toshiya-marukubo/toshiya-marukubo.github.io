@@ -159,7 +159,7 @@
     Shape.prototype.updateParams = function() {
       this.a += 1;
       this.rad = this.a * Math.PI / 180;
-      Math.sin(this.rad) < 0 ? this.r = -Math.sin(this.rad) * dist / 4 : this.r = Math.sin(this.rad) * dist / 4;
+      //Math.sin(this.rad) < 0 ? this.r = -Math.sin(this.rad) * dist / 4 : this.r = Math.sin(this.rad) * dist / 4;
     };
 
     Shape.prototype.render = function(i) {
