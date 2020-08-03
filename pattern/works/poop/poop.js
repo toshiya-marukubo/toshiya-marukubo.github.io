@@ -96,6 +96,7 @@
       ctx.strokeStyle = style.black;
       ctx.fillStyle = style.white;
       ctx.translate(this.x, this.y);
+      if (Math.sin(this.rad) < 0) ctx.rotate(Math.tan(this.rad));
       ctx.scale(2, 1);
       ctx.translate(-this.x, -this.y);
       // bottom
