@@ -93,6 +93,7 @@
       fadeOut(getUrl());
     }, false);
 
+    /*
     var touchStartY;
     var touchMoveY;
     var touchEndY;
@@ -116,6 +117,7 @@
       touchMoveY = null;
       touchEndY = null;
     }, false);
+    */
 
   });
 })();
