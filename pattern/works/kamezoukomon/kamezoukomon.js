@@ -39,8 +39,8 @@
     var Y = canvas.height = window.innerHeight;
     var mouseX = null;
     var mouseY = null;
-    var size = 100;
-    var diff = 50;
+    var size = 150;
+    var diff = 75;
     var shapeNumX = X / size;
     var shapeNumY = Y / size;
     var shapes = [];
@@ -87,9 +87,9 @@
       ctx.strokeStyle = style.white;
       ctx.beginPath();
       ctx.moveTo(this.x, this.y);
-      for (var i = 0; i < 500; i++) {
-        var x = Math.cos(i * Math.sin(this.rad) * 5 * Math.PI / 180) * i * 0.1;
-        var y = Math.sin(i * Math.sin(this.rad) * 5 * Math.PI / 180) * i * 0.1;
+      for (var i = 0; i < 380; i++) {
+        var x = Math.cos(i * Math.sin(this.rad) * 5 * Math.PI / 180) * i * 0.2;
+        var y = Math.sin(i * Math.sin(this.rad) * 5 * Math.PI / 180) * i * 0.2;
         ctx.lineTo(x + this.x, y + this.y);
       }
       ctx.stroke();
@@ -97,7 +97,7 @@
     };
 
     Shape.prototype.updateParams = function() {
-      this.a += 0.1;
+      this.a += 0.5;
       this.rad = this.a * Math.PI / 180;
     };
 
