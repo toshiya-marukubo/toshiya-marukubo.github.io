@@ -88,6 +88,9 @@
   window.addEventListener('scroll', function() {
     y = document.documentElement.scrollTop || document.body.scrollTop;
     dy = document.body.clientHeight;
+    if (y > dy - (dy / 3)) {
+      flg = false;
+    }
     if (y > dy - (dy / 3) && flg === false) {
       flg = true;
       makeDiv();
