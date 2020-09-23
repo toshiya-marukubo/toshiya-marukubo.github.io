@@ -64,6 +64,7 @@
     divs[0].parentNode.removeChild(divs[0]);
     y = document.documentElement.scrollTop || document.body.scrollTop;
     dy = document.body.clientHeight;
+    flg = false;
   }
 
   // copy
@@ -84,17 +85,18 @@
     inputText.parentNode.removeChild(inputText);
   }
 
+  let timer = null;
+
   // event
   window.addEventListener('scroll', function() {
     y = document.documentElement.scrollTop || document.body.scrollTop;
     dy = document.body.clientHeight;
     if (y > dy - (dy / 3)) {
-      flg = false;
-    }
-    if (y > dy - (dy / 3) && flg === false) {
-      flg = true;
-      makeDiv();
-      removeDiv();
+      clearTimeout( timer );
+      timer = setTimeout(function() {
+        makeDiv();
+        removeDiv();
+      }, 80 );
     }
     const ratio = (y / H).toFixed(2);
     const num = 1 - (ratio - Math.floor(ratio)); 
