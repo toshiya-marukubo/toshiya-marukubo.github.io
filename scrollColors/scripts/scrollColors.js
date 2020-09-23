@@ -19,7 +19,7 @@
   let dy;
   
   // init 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 1; i++) {
     makeDiv(i);
   }
 
@@ -48,7 +48,6 @@
     ul.appendChild(rgbL);
     ul.appendChild(codeL);
     div.appendChild(ul);
-    div.style.height = H + 'px';
     div.style.background = rgbText;
     main.appendChild(div);
     colorLists = document.getElementsByClassName('color');
@@ -58,14 +57,13 @@
         copyColor(text);
       }, false);
     }
+    div.setAttribute('class', 'in');
   }
 
   function removeDiv() {
     let divs = document.getElementsByTagName('div');
+    if (divs.length === 1) return;
     divs[0].parentNode.removeChild(divs[0]);
-    y = document.documentElement.scrollTop || document.body.scrollTop;
-    dy = document.body.clientHeight;
-    flg = false;
   }
 
   // copy
@@ -86,33 +84,57 @@
     inputText.parentNode.removeChild(inputText);
   }
 
-  // event
-  window.addEventListener('scroll', function() {
-    y = document.documentElement.scrollTop || document.body.scrollTop;
-    dy = document.body.clientHeight;
-    if (y + H === dy) {
-      makeDiv();
-      removeDiv();
-    } 
-    const ratio = (y / H).toFixed(2);
-    const num = 1 - (ratio - Math.floor(ratio)); 
-    for (let i = 0; i < divs.length; i++) {
-      const o = divs[i].offsetTop;
-      if (y > o && y < divs[i + 1].offsetTop) {
-        divs[i].style.opacity = num;
-      }
-    }
-  }, false);
-
   window.addEventListener('resize', function() {
     let afterW = window.innerWidth;
-    H = window.innerHeight; 
-    if (afterW === W) {
-      return;
+  }, false);
+
+  let startY = 0;
+  let timer = null;
+  let meter = document.getElementById('meter');
+
+  window.addEventListener('wheel', function(e) {
+    startY += e.deltaY / 1000;
+    if (startY < 0) startY = 0;
+    let ratio = startY / 1 * 100;
+    meter.style.height = ratio.toFixed(2) + '%';
+    divs[0].style.opacity = 1 - startY;
+    if (startY > 1) {
+      clearTimeout(timer);
+      timer = setTimeout(function() {
+        meter.style.height = 0 + '%';
+        makeDiv();
+        removeDiv();
+        startY = 0;
+      }, 80);
     }
-    W = window.innerWidth;
-    for (let i = 0; i < divs.length; i++) {
-      divs[i].style.height = H + 'px';
+  });
+
+  let touchStart;
+  let touchMove;
+  let touchEnd = 0;
+
+  window.addEventListener('touchstart', function(e) {
+    const touch = e.targetTouches[0];
+    touchStart = touch.pageY;
+  }, false);
+
+  window.addEventListener('touchmove', function(e) {
+    const touch = e.targetTouches[0];
+    touchMove = touch.pageY;
+    touchEnd += (touchStart - touchMove) / 10000;
+    if (touchEnd < 0) touchEnd = 0;
+    console.log(touchEnd);
+    let ratio = touchEnd / 1 * 100;
+    meter.style.height = ratio.toFixed(2) + '%';
+    divs[0].style.opacity = 1 - touchEnd;
+    if (touchEnd > 1) {
+      clearTimeout(timer);
+      timer = setTimeout(function(){
+        meter.style.height = 0 + '%';
+        makeDiv();
+        removeDiv();
+        touchEnd = 0;
+      }, 80);
     }
   }, false);
 

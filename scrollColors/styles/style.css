@@ -1,15 +1,16 @@
 html,
 body {
+  overflow: hidden;
   width: 100%;
-  overflow-x: hidden;
+  height: 100%;
   color: #141517;
   font-family: 'Noto Sans', sans-serif;
   font-size: 100%;
 }
 
 a {
-  text-decoration: none;
   color: #141517;
+  text-decoration: none;
 }
 
 a:visited {
@@ -44,8 +45,9 @@ footer {
 }
 
 div {
+  height: 100%;
   width: 100%;
-  position: relative;
+  position: absolute;
 }
 
 div>ul {
@@ -73,12 +75,12 @@ div > ul > li:hover:after {
   position: fixed;
   content: 'Click to copy!';
   top: -1.6rem;
-  animation-name: fadeIn;
+  animation-name: pop;
   animation-duration: .1s;
   animation-timing-function: ease-in;
 }
 
-@keyframes fadeIn {
+@keyframes pop {
   0% {
     top: 0rem;
   }
@@ -126,4 +128,27 @@ span.dwLeft::after {
   height: 32px;
   width: 30px;
   border-right: 2px solid #000;
+}
+
+.in {
+  animation: in .4s ease 0s 1 normal;
+}
+
+@keyframes in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
+#meter {
+  z-index: 9999;
+  position: fixed;
+  top: 0rem;
+  right: 0rem;
+  background: #141517;
+  width: 4px;
+  height: 0%;
 }
