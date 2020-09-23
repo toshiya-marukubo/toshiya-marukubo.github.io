@@ -87,7 +87,7 @@
 
   // event
   window.addEventListener('scroll', function() {
-    y = window.pageYOffset;
+    y = document.documentElement.scrollTop || document.body.scrollTop;;
     dy = document.body.clientHeight;
     if (y > dy - (dy / 3) && flg === false) {
       flg = true;
@@ -106,11 +106,9 @@
 
   window.addEventListener('resize', function() {
     let X = window.innerWidth;
-    /*
     if (X < 500) {
       return;
     }
-    */
     H = window.innerHeight; 
     for (let i = 0; i < divs.length; i++) {
       divs[i].style.height = H + 'px';
