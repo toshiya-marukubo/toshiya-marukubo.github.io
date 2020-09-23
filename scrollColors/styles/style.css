@@ -19,10 +19,6 @@ a:hover {
   color: deeppink;
 }
 
-small>a:visited {
-  color: #141517;
-}
-
 body {
   position: relative;
 }
@@ -102,15 +98,15 @@ span.upRight {
   position: fixed;
   top: 1.6rem;
   right: 1.6rem;
-  width: 52px;
+  width: 32px;
   border-top: 2px solid #000;
 }
 
 span.upRight::after {
   content: '';
   display: block;
-  height: 52px;
-  width: 50px;
+  height: 32px;
+  width: 30px;
   border-right: 2px solid #000;
 }
 
@@ -118,7 +114,7 @@ span.dwLeft {
   position: fixed;
   bottom: 1.6rem;
   left: 1.6rem;
-  width: 52px;
+  width: 32px;
   border-top: 2px solid #000;
   transform: rotate(180deg);
 }
@@ -126,7 +122,7 @@ span.dwLeft {
 span.dwLeft::after {
   content: '';
   display: block;
-  height: 52px;
-  width: 50px;
+  height: 32px;
+  width: 30px;
   border-right: 2px solid #000;
 }
