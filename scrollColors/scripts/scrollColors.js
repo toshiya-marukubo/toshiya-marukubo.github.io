@@ -86,20 +86,14 @@
     inputText.parentNode.removeChild(inputText);
   }
 
-  let timer = null;
-
   // event
   window.addEventListener('scroll', function() {
     y = document.documentElement.scrollTop || document.body.scrollTop;
     dy = document.body.clientHeight;
-    if (y > dy - (dy / 3)) {
-      clearTimeout(timer);
-      timer = setTimeout(function() {
-        makeDiv();
-        removeDiv();
-        document.body.scrollTop = (dy - dy / 3) + 'px';
-      }, 80);
-    }
+    if (y + H === dy) {
+      makeDiv();
+      removeDiv();
+    } 
     const ratio = (y / H).toFixed(2);
     const num = 1 - (ratio - Math.floor(ratio)); 
     for (let i = 0; i < divs.length; i++) {
@@ -112,11 +106,11 @@
 
   window.addEventListener('resize', function() {
     let afterW = window.innerWidth;
+    H = window.innerHeight; 
     if (afterW === W) {
       return;
     }
     W = window.innerWidth;
-    H = window.innerHeight; 
     for (let i = 0; i < divs.length; i++) {
       divs[i].style.height = H + 'px';
     }
