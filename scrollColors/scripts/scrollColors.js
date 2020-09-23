@@ -13,6 +13,7 @@
   let colorLists = document.getElementsByClassName('color');
   let divs = document.getElementsByTagName('div');
   let H = window.innerHeight;
+  let W = window.innerWidth;
   let flg = false;
   let y;
   let dy;
@@ -92,11 +93,12 @@
     y = document.documentElement.scrollTop || document.body.scrollTop;
     dy = document.body.clientHeight;
     if (y > dy - (dy / 3)) {
-      clearTimeout( timer );
+      clearTimeout(timer);
       timer = setTimeout(function() {
         makeDiv();
         removeDiv();
-      }, 80 );
+        document.body.scrollTop = (dy - dy / 3) + 'px';
+      }, 80);
     }
     const ratio = (y / H).toFixed(2);
     const num = 1 - (ratio - Math.floor(ratio)); 
@@ -109,10 +111,11 @@
   }, false);
 
   window.addEventListener('resize', function() {
-    let X = window.innerWidth;
-    if (X < 500) {
+    let afterW = window.innerWidth;
+    if (afterW === W) {
       return;
     }
+    W = window.innerWidth;
     H = window.innerHeight; 
     for (let i = 0; i < divs.length; i++) {
       divs[i].style.height = H + 'px';
