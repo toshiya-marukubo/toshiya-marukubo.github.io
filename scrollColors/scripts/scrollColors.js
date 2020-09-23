@@ -64,7 +64,6 @@
     divs[0].parentNode.removeChild(divs[0]);
     y = document.documentElement.scrollTop || document.body.scrollTop;
     dy = document.body.clientHeight;
-    flg = false;
   }
 
   // copy
