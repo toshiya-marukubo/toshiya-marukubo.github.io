@@ -19,6 +19,10 @@ a:hover {
   color: deeppink;
 }
 
+small>a:visited {
+  color: #141517;
+}
+
 body {
   position: relative;
 }

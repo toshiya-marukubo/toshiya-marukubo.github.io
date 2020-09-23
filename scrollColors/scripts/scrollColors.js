@@ -89,7 +89,7 @@
   window.addEventListener('scroll', function() {
     y = window.pageYOffset;
     dy = document.body.clientHeight;
-    if (y > dy - (dy / 3) && flg === false) {
+    if (y > dy - (dy / 2) && flg === false) {
       flg = true;
       makeDiv();
       removeDiv();
