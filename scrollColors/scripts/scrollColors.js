@@ -62,7 +62,7 @@
   function removeDiv() {
     let divs = document.getElementsByTagName('div');
     divs[0].parentNode.removeChild(divs[0]);
-    y = window.pageYOffset;
+    y = document.documentElement.scrollTop || document.body.scrollTop;
     dy = document.body.clientHeight;
     flg = false;
   }
@@ -87,7 +87,7 @@
 
   // event
   window.addEventListener('scroll', function() {
-    y = document.documentElement.scrollTop || document.body.scrollTop;;
+    y = document.documentElement.scrollTop || document.body.scrollTop;
     dy = document.body.clientHeight;
     if (y > dy - (dy / 3) && flg === false) {
       flg = true;
