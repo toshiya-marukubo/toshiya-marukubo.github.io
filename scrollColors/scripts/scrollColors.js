@@ -57,7 +57,6 @@
         copyColor(text);
       }, false);
     }
-    flg = false;
   }
 
   function removeDiv() {
@@ -65,6 +64,7 @@
     divs[0].parentNode.removeChild(divs[0]);
     y = window.pageYOffset;
     dy = document.body.clientHeight;
+    flg = false;
   }
 
   // copy
