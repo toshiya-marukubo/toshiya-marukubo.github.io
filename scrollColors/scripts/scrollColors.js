@@ -121,7 +121,7 @@
   window.addEventListener('touchmove', function(e) {
     const touch = e.targetTouches[0];
     touchMove = touch.pageY;
-    touchEnd += (touchStart - touchMove) / 10000;
+    touchEnd += (touchStart - touchMove) / 5000;
     if (touchEnd < 0) touchEnd = 0;
     console.log(touchEnd);
     let ratio = touchEnd / 1 * 100;
