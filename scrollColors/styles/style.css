@@ -67,7 +67,17 @@ div {
 }
 
 .in {
-  animation: in .4s ease 0s 1 normal;
+  -webkit-animation: in .4s ease 0s 1 normal;
+          animation: in .4s ease 0s 1 normal;
+}
+
+@-webkit-keyframes in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100%;
+  }
 }
 
 @keyframes in {
@@ -88,8 +98,9 @@ div > ul {
   width: 20%;
   top: 50%;
   left: 50%;
-  transform: translateY(-50%) translateX(-50%);
-  -webkit- transform: translateY(-50%) translateX(-50%);
+  -ms-transform: translateY(-50%) translateX(-50%);
+      transform: translateY(-50%) translateX(-50%);
+  -webkit-transform: translateY(-50%) translateX(-50%);
 }
 
 div > ul > li {
@@ -109,13 +120,25 @@ div > ul > li:hover:after {
   position: fixed;
   content: 'Click to copy!';
   top: -1.6rem;
-  animation-name: pop;
-  animation-duration: .1s;
-  animation-timing-function: ease-in;
+  -webkit-animation-name: pop;
+          animation-name: pop;
+  -webkit-animation-duration: .1s;
+          animation-duration: .1s;
+  -webkit-animation-timing-function: ease-in;
+          animation-timing-function: ease-in;
 }
 
 div > ul > li:hover:active:after {
   content: 'Get Color!'
+}
+
+@-webkit-keyframes pop {
+  0% {
+    top: 0rem;
+  }
+  100% {
+    top: -1.6rem;
+  }
 }
 
 @keyframes pop {
@@ -153,7 +176,9 @@ span.dwLeft {
   left: 1.6rem;
   width: 32px;
   border-top: 2px solid #000;
-  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+          transform: rotate(180deg);
 }
 
 span.dwLeft::after {
