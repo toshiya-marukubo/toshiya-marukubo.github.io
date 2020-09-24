@@ -12,9 +12,6 @@
   const copy = document.getElementById('copy');
   let colorLists = document.getElementsByClassName('color');
   let divs = document.getElementsByTagName('div');
-  let H = window.innerHeight;
-  let W = window.innerWidth;
-  let flg = false;
   let y;
   let dy;
   
@@ -83,10 +80,6 @@
     document.execCommand('copy');
     inputText.parentNode.removeChild(inputText);
   }
-
-  window.addEventListener('resize', function() {
-    let afterW = window.innerWidth;
-  }, false);
 
   let startY = 0;
   let timer = null;

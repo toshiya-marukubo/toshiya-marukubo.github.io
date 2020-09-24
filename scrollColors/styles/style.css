@@ -1,3 +1,7 @@
+/*
+  common
+*/
+
 html,
 body {
   overflow: hidden;
@@ -25,6 +29,10 @@ body {
   position: relative;
 }
 
+/*
+  header
+*/
+
 header {
   position: fixed;
   top: 1.6rem;
@@ -32,10 +40,14 @@ header {
   z-index: 9999;
 }
 
-header>h1 {
+header > h1 {
   font-size: 1.6rem;
   padding-bottom: 0.8rem;
 }
+
+/*
+  footer
+*/
 
 footer {
   position: fixed;
@@ -44,30 +56,52 @@ footer {
   right: 1.6rem;
 }
 
+/*
+  main
+*/
+
 div {
   height: 100%;
   width: 100%;
   position: absolute;
 }
 
-div>ul {
+.in {
+  animation: in .4s ease 0s 1 normal;
+}
+
+@keyframes in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
+div > ul {
   padding: 0.8rem;
   position: absolute;
   text-align: left;
   background: rgba(0, 0, 0, .8);
   color: #FFF;
+  width: 20%;
   top: 50%;
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
   -webkit- transform: translateY(-50%) translateX(-50%);
 }
 
-div>ul>li {
+div > ul > li {
   cursor: copy;
 }
 
-div > ul > li:hover:active:after {
-  content: 'Get Color!'
+div > ul > li:first-child {
+  padding-bottom: 0.8rem;
+}
+
+div > ul > li:hover {
+  color: deeppink;
 }
 
 div > ul > li:hover:after {
@@ -80,6 +114,10 @@ div > ul > li:hover:after {
   animation-timing-function: ease-in;
 }
 
+div > ul > li:hover:active:after {
+  content: 'Get Color!'
+}
+
 @keyframes pop {
   0% {
     top: 0rem;
@@ -89,13 +127,9 @@ div > ul > li:hover:after {
   }
 }
 
-div > ul > li:hover {
-  color: deeppink;
-}
-
-div>ul>li:first-child {
-  padding-bottom: 0.8rem;
-}
+/*
+  frame
+*/
 
 span.upRight {
   position: fixed;
@@ -130,20 +164,7 @@ span.dwLeft::after {
   border-right: 2px solid #000;
 }
 
-.in {
-  animation: in .4s ease 0s 1 normal;
-}
-
-@keyframes in {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 100%;
-  }
-}
-
-#meter {
+span#meter {
   z-index: 9999;
   position: fixed;
   top: 0rem;
@@ -151,4 +172,16 @@ span.dwLeft::after {
   background: #141517;
   width: 4px;
   height: 0%;
+}
+
+/*
+  smartphone
+*/
+
+@media screen and (max-width: 48rem) {
+
+  div > ul {
+    width: 60%;
+  }
+
 }
