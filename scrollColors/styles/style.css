@@ -199,6 +199,61 @@ span#meter {
   height: 0%;
 }
 
+span#heart {
+  cursor: copy;
+  z-index: 9999;
+  position: fixed;
+  bottom: 20%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  -ms-transform: translateY(-50%) translateX(-50%);
+      transform: translateY(-50%) translateX(-50%);
+  -webkit-transform: translateY(-50%) translateX(-50%);
+}
+
+span#heart::before,
+span#heart::after {
+  position: absolute;
+  display: inline-block;
+  transform-origin: center;
+  content: '';
+  background: #141517;
+  top: 10px;
+  width: 40px;
+  height: 30px;
+  border-radius: 50%;
+  transform: rotate(60deg);
+}
+
+span#heart::before {
+  right: 5px;
+}
+
+span#heart::after {
+  transform: rotate(120deg);
+  left: 5px;
+}
+
+span#heart:active::after,
+span#heart:active::before {
+  background: deeppink;
+}
+
+ol {
+  z-index: 9999;
+  position: fixed;
+  top: 2.4rem;
+  right: 2.4rem;
+}
+
+ol > li {
+  border: solid 1px #141517;
+  width: 20px;
+  height: 20px;
+  margin-bottom: 0.4rem;
+}
+
 /*
   smartphone
 */

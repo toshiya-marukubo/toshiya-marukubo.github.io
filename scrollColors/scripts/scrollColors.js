@@ -16,12 +16,10 @@
   let dy;
   
   // init 
-  for (let i = 0; i < 1; i++) {
-    makeDiv(i);
-  }
+  makeDiv('rgb(255, 255, 255)', '#ffffff');
 
   // creat div
-  function makeDiv(i) {
+  function makeDiv(rgb, code) {
     const div = document.createElement('div');
     const ul = document.createElement('ul');
     const rgbL = document.createElement('li');
@@ -32,12 +30,8 @@
     const codeR = Number(r).toString(16);
     const codeG = Number(g).toString(16);
     const codeB = Number(b).toString(16);
-    let rgbText = 'rgb(' + r + ', ' + g + ', ' + b + ')';
-    let codeText = '#' + codeR + codeG + codeB;
-    if (i === 0) {
-      rgbText = 'rgb(255, 255, 255)';
-      codeText = '#ffffff';
-    }
+    let rgbText = rgb || 'rgb(' + r + ', ' + g + ', ' + b + ')';
+    let codeText = code || '#' + codeR + codeG + codeB;
     rgbL.textContent = rgbText;
     codeL.textContent = codeText;
     rgbL.setAttribute('class', 'color');
@@ -129,6 +123,20 @@
         touchEnd = 0;
       }, 80);
     }
+  }, false);
+
+  let heart = document.getElementById('heart');
+  let fav = document.getElementById('fav');
+  heart.addEventListener('click', function() {
+    let rgb = document.getElementsByClassName('color')[0];
+    let code = document.getElementsByClassName('color')[1];
+    let li = document.createElement('li');
+    li.style.background = rgb.textContent;
+    fav.appendChild(li);
+    li.addEventListener('click', function() {
+      makeDiv(rgb.textContent, code.textContent);
+      removeDiv();
+    }, false);
   }, false);
 
 })();
