@@ -125,12 +125,21 @@
     }
   }, false);
 
-  let heart = document.getElementById('heart');
-  let fav = document.getElementById('fav');
+  const heart = document.getElementById('heart');
+  const fav = document.getElementById('fav');
+  
   heart.addEventListener('click', function() {
-    let rgb = document.getElementsByClassName('color')[0];
-    let code = document.getElementsByClassName('color')[1];
-    let li = document.createElement('li');
+    const rgb = document.getElementsByClassName('color')[0];
+    const code = document.getElementsByClassName('color')[1];
+    const li = document.createElement('li');
+    const ol = document.getElementsByTagName('ol')[0];
+    const lists = ol.children;
+    for (let i = 0; i < lists.length; i++) {
+      if (lists[i].style.background == rgb.textContent) {
+        return;
+      }
+    }
+    li.setAttribute('class', 'appear');
     li.style.background = rgb.textContent;
     fav.appendChild(li);
     li.addEventListener('click', function() {
