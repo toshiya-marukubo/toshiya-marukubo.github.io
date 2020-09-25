@@ -18,7 +18,7 @@ a {
 }
 
 a:visited {
-  color: #141517;
+  color: inherit;
 }
 
 a:hover {
@@ -107,8 +107,8 @@ div > ul > li > a{
   color: #FFF;
 }
 
-div > ul > li:first-child {
-  padding-bottom: 0.8rem;
+div > ul > li:nth-child(2) {
+  padding: 0.8rem 0;
 }
 
 div > ul > li:hover {
@@ -224,6 +224,12 @@ ol > li {
   width: 20px;
   height: 20px;
   margin-bottom: 0.4rem;
+}
+
+ol > li > a {
+  display: block;
+  width: 20px;
+  height: 20px;
 }
 
 .appear {
