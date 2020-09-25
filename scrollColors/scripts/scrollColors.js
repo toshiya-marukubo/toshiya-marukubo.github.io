@@ -19,31 +19,38 @@
   makeDiv('rgb(255, 255, 255)', '#ffffff');
 
   // creat div
-  function makeDiv(rgb, code) {
+  function makeDiv(rgb, hex) {
     const div = document.createElement('div');
     const ul = document.createElement('ul');
+    const aR = document.createElement('a');
+    const aH = document.createElement('a');
     const rgbL = document.createElement('li');
-    const codeL = document.createElement('li');
+    const hexL = document.createElement('li');
     const r = Math.floor(Math.random() * 255 + 1);
     const g = Math.floor(Math.random() * 255 + 1);
     const b = Math.floor(Math.random() * 255 + 1);
-    const codeR = Number(r).toString(16);
-    const codeG = Number(g).toString(16);
-    const codeB = Number(b).toString(16);
+    const hexR = Number(r).toString(16);
+    const hexG = Number(g).toString(16);
+    const hexB = Number(b).toString(16);
     let rgbText = rgb || 'rgb(' + r + ', ' + g + ', ' + b + ')';
-    let codeText = code || '#' + codeR + codeG + codeB;
-    rgbL.textContent = rgbText;
-    codeL.textContent = codeText;
+    let hexText = hex || '#' + hexR + hexG + hexB;
+    aR.textContent = rgbText;
+    aH.textContent = hexText;
+    aR.setAttribute('href', '#');
+    aH.setAttribute('href', '#');
     rgbL.setAttribute('class', 'color');
-    codeL.setAttribute('class', 'color');
+    hexL.setAttribute('class', 'color');
+    rgbL.appendChild(aR);
+    hexL.appendChild(aH);
     ul.appendChild(rgbL);
-    ul.appendChild(codeL);
+    ul.appendChild(hexL);
     div.appendChild(ul);
     div.style.background = rgbText;
     main.appendChild(div);
     colorLists = document.getElementsByClassName('color');
     for (let i = 0; i < colorLists.length; i++) {
-      colorLists[i].addEventListener('click', function() {
+      colorLists[i].addEventListener('click', function(e) {
+        e.preventDefault();
         const text = this.textContent;
         copyColor(text);
       }, false);
@@ -125,13 +132,14 @@
     }
   }, false);
 
-  const heart = document.getElementById('heart');
+  const button = document.getElementById('button');
   const fav = document.getElementById('fav');
   
-  heart.addEventListener('click', function() {
+  button.addEventListener('click', function() {
     const rgb = document.getElementsByClassName('color')[0];
     const code = document.getElementsByClassName('color')[1];
     const li = document.createElement('li');
+    const a = document.createElement('a');
     const ol = document.getElementsByTagName('ol')[0];
     const lists = ol.children;
     for (let i = 0; i < lists.length; i++) {
@@ -139,10 +147,13 @@
         return;
       }
     }
+    a.setAttribute('href', '#');
+    li.appendChild(a);
     li.setAttribute('class', 'appear');
     li.style.background = rgb.textContent;
     fav.appendChild(li);
-    li.addEventListener('click', function() {
+    li.addEventListener('click', function(e) {
+      e.preventDefault();
       makeDiv(rgb.textContent, code.textContent);
       removeDiv();
     }, false);

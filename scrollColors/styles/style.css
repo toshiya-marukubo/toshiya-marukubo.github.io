@@ -103,8 +103,8 @@ div > ul {
   -webkit-transform: translateY(-50%) translateX(-50%);
 }
 
-div > ul > li {
-  cursor: copy;
+div > ul > li > a{
+  color: #FFF;
 }
 
 div > ul > li:first-child {
@@ -199,51 +199,16 @@ span#meter {
   height: 0%;
 }
 
-span#heart {
+button#button {
   cursor: copy;
+  background: #FFF;
   z-index: 9999;
   position: fixed;
   bottom: 20%;
   left: 50%;
-  width: 40px;
-  height: 40px;
   -ms-transform: translateY(-50%) translateX(-50%);
       transform: translateY(-50%) translateX(-50%);
   -webkit-transform: translateY(-50%) translateX(-50%);
-}
-
-span#heart::before,
-span#heart::after {
-  position: absolute;
-  display: inline-block;
-  -webkit-transform-origin: center;
-      -ms-transform-origin: center;
-          transform-origin: center;
-  content: '';
-  background: #141517;
-  top: 10px;
-  width: 40px;
-  height: 30px;
-  border-radius: 50%;
-  -webkit-transform: rotate(60deg);
-      -ms-transform: rotate(60deg);
-          transform: rotate(60deg);
-}
-
-span#heart::before {
-  right: 5px;
-}
-
-span#heart::after {
-  -webkit-transform: rotate(120deg);
-      -ms-transform: rotate(120deg);
-          transform: rotate(120deg);
-  left: 5px;
-}
-
-span#heart:active::after,
-span#heart:active::before {
-  background: deeppink;
 }
 
 ol {
@@ -254,7 +219,8 @@ ol {
 }
 
 ol > li {
-  border: solid 1px #141517;
+  cursor: pointer;
+  border: solid 2px #141517;
   width: 20px;
   height: 20px;
   margin-bottom: 0.4rem;
