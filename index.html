@@ -91,7 +91,7 @@
         <li><a href="./100workschallenge/index.html">100 Works Challenge 2020 (Not updated)</a></li>
       </ul>
     </main>
-    <canvas id='canvas'></canvas>
+    <canvas id='canvas'>Canvas not supported.</canvas>
     <script>
       (function() {
         'use strict';
@@ -102,18 +102,18 @@
           var x = canvas.width = window.innerWidth;
           var y = canvas.height = window.innerHeight;
           var s = 10;
-          var px = 0 + s;
-          var vx = 0.5;
+          var py = s;
+          var v = 0.5;
           function dc() {
             c.fillStyle = 'white';
             c.beginPath();
-            c.arc(px, y - s, s, 0, Math.PI * 2, false);
+            c.arc(x - s, py, s, 0, Math.PI * 2, false);
             c.fill();
           }
           function mc() {
-            px += vx;
-            if (px + s > x || px - s < 0) {
-              vx *= -1;
+            py += v;
+            if (py + s > y || py - s < 0) {
+              v *= -1;
             }
           }
           function render() {
