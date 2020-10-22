@@ -38,6 +38,7 @@
       body {
         background: black;
         color: white;
+        position: relative;
       }
       main {
         padding: 2.4rem;
@@ -63,6 +64,11 @@
         list-style-position: inside;
         padding: 0.8rem;
       }
+      canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
     </style>
     <!-- Title -->
     <title>Toshiya Marukubo | Homepage</title>
@@ -84,5 +90,45 @@
         <li><a href="./100workschallenge/index.html">100 Works Challenge 2020 (Not updated)</a></li>
       </ul>
     </main>
+    <canvas id='canvas'></canvas>
+    <script>
+      (function() {
+        'use strict';
+        var canvas = document.getElementById('canvas');
+        if (!canvas || !canvas.getContext) return false;
+        var c = canvas.getContext('2d');
+        var x = canvas.width = window.innerWidth;
+        var y = canvas.height = window.innerHeight;
+        var s = 10;
+        var px = x / 2;
+        var py = y - s;
+        var vx = 3;
+        function dc() {
+          c.fillStyle = 'white';
+          c.beginPath();
+          c.arc(px, py, s, 0, Math.PI * 2, false);
+          c.fill();
+        }
+        function mc() {
+          px += vx;
+          if (px + s > x || px - s < 0) {
+            vx *= -1;
+          }
+        }
+        function render() {
+          c.clearRect(0, 0, x, y);
+          dc();
+          mc();
+          window.requestAnimationFrame(render);
+        }
+        render();
+        window.addEventListener('resize', function() {
+          x = canvas.width = window.innerWidth;
+          y = canvas.height = window.innerHeight;
+          px = x / 2;
+          py = y - s;
+        }, false);
+      })();
+    </script>
   </body>
 </html>
