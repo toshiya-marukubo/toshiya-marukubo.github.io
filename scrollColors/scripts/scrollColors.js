@@ -4,6 +4,7 @@
 * Aurhor / Toshiya Marukubo
 * Twitter / https://twitter.com/toshiyamarukubo
 * Referenced / about change color https://yanohirota.com/color-converter/
+* about color - https://yuhostyles.com/color-code/
 */
 
 (function() {
@@ -21,6 +22,7 @@
 
   // creat div
   function makeDiv(rgb, hsl, hex) {
+    // element
     const div = document.createElement('div');
     const ul = document.createElement('ul');
     const aR = document.createElement('a');
@@ -29,9 +31,11 @@
     const rgbL = document.createElement('li');
     const hslList = document.createElement('li');
     const hexL = document.createElement('li');
+    // rgb
     const r = Math.floor(Math.random() * 255 + 1);
     const g = Math.floor(Math.random() * 255 + 1);
     const b = Math.floor(Math.random() * 255 + 1);
+    // hex
     const hexR = Number(r).toString(16);
     const hexG = Number(g).toString(16);
     const hexB = Number(b).toString(16);
@@ -51,9 +55,11 @@
     let hslS = (S * 100).toFixed(0);
     let L = ((MAX + MIN) / 2) * (100 / 255);
     let hslL = L.toFixed(0); 
+    // text
     let rgbText = rgb || 'rgb(' + r + ', ' + g + ', ' + b + ')';
     let hslText = hsl || 'hsl(' + hslH + ', ' + hslS + '%, ' + hslL + '%)';
     let hexText = hex || '#' + hexR + hexG + hexB;
+    // operation dom
     aR.textContent = rgbText;
     aHS.textContent = hslText;
     aH.textContent = hexText;
@@ -72,6 +78,7 @@
     div.appendChild(ul);
     div.style.background = rgbText;
     main.appendChild(div);
+    // color
     colorLists = document.getElementsByClassName('color');
     for (let i = 0; i < colorLists.length; i++) {
       colorLists[i].addEventListener('click', function(e) {
@@ -107,6 +114,8 @@
     inputText.parentNode.removeChild(inputText);
   }
 
+  // event
+
   let startY = 0;
   let timer = null;
   let meter = document.getElementById('meter');
@@ -127,6 +136,8 @@
       }, 80);
     }
   });
+
+  // smartphone event
 
   let touchStart;
   let touchMove;
@@ -156,6 +167,8 @@
       }, 80);
     }
   }, false);
+
+  // fav
 
   const button = document.getElementById('button');
   const fav = document.getElementById('fav');
