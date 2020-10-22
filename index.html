@@ -31,9 +31,16 @@
     <link rel="icon" href="https://toshiya-marukubo.github.io/100workschallenge/home/img/favicon.svg" sizes="any" type="image/svg+xml">
     <!-- Style -->
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
       body {
         background: black;
         color: white;
+      }
+      main {
+        padding: 2.4rem;
       }
       a {
         color: white;
@@ -45,13 +52,15 @@
       a:visited {
         color: white;
       }
-      h1 {
-        font-size: 1rem;
+      h1, h2 {
+        font-size: 1.2rem;
+        padding-bottom: 1rem;
       }
       h2 {
-        font-size: 1rem;
+        padding-top: 1rem;
       }
       li {
+        list-style-position: inside;
         padding: 0.8rem;
       }
     </style>
@@ -59,19 +68,21 @@
     <title>Toshiya Marukubo | Homepage</title>
   </head>
   <body>
-    <h1>Links</h1>
-    <ul>
-      <li><a href="https://twitter.com/toshiyamarukubo">Twitter</a></li>
-      <li><a href="https://www.instagram.com/toshiyamarukubo/">Instagram</a></li>
-      <li><a href="https://codepen.io/toshiya-marukubo">CodePen</a></li>
-      <li><a href="https://github.com/toshiya-marukubo">GitHub</a></li>
-      <li><a href="http://www.marukubo.net/">Learning Place (for learning Node.js, mongoDB.)</a></li>
-    </ul>
-    <h2>Choose my challenge.</h2>
-    <ul>
-      <li><a href="./scrollColors/index.html">SCROLL COLORS (prototype)</a></li>
-      <li><a href="./pattern/index.html">Pattern (Not updated.)</a></li>
-      <li><a href="./100workschallenge/index.html">100 Works Challenge 2020 (Not updated.)</a></li>
-    </ul>
+    <main>
+      <h1>Links</h1>
+      <ul>
+        <li><a href="https://twitter.com/toshiyamarukubo">Twitter</a></li>
+        <li><a href="https://www.instagram.com/toshiyamarukubo/">Instagram</a></li>
+        <li><a href="https://codepen.io/toshiya-marukubo">CodePen</a></li>
+        <li><a href="https://github.com/toshiya-marukubo">GitHub</a></li>
+        <li><a href="http://www.marukubo.net/">Learning Place (Learning Node.js, mongoDB)</a></li>
+      </ul>
+      <h2>Choose my challenge.</h2>
+      <ul>
+        <li><a href="./scrollColors/index.html">SCROLL COLORS (prototype)</a></li>
+        <li><a href="./pattern/index.html">Pattern (Not updated)</a></li>
+        <li><a href="./100workschallenge/index.html">100 Works Challenge 2020 (Not updated)</a></li>
+      </ul>
+    </main>
   </body>
 </html>
