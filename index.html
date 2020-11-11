@@ -71,10 +71,13 @@
         padding: 0.8rem;
       }
       canvas {
+        width: 100%;
+        height: 100vh;
         z-index: -1;
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
+        filter: blur(10px);
       }
     </style>
     <!-- Title -->
@@ -97,7 +100,6 @@
         <li><a href="./100workschallenge/index.html">100 Works Challenge 2020 (Not updated)</a></li>
       </ul>
     </main>
-    <!--
     <canvas id='canvas'>Canvas not supported.</canvas>
     <script>
       (function() {
@@ -106,37 +108,53 @@
           var canvas = document.getElementById('canvas');
           if (!canvas || !canvas.getContext) return false;
           var c = canvas.getContext('2d');
-          var x = canvas.width = window.innerWidth;
-          var y = canvas.height = window.innerHeight;
-          var s = 10;
-          var py = s;
-          var v = 0.5;
-          function dc() {
-            c.fillStyle = 'white';
-            c.beginPath();
-            c.arc(x - s, py, s, 0, Math.PI * 2, false);
-            c.fill();
-          }
-          function mc() {
-            py += v;
-            if (py + s > y || py - s < 0) {
-              v *= -1;
+          var x = canvas.width = 64;
+          var y = canvas.height = 64;
+          var d = c.createImageData(x, y);
+          var h = [];
+
+          function updateImageData() {
+            for (var x = 0; x < canvas.width; x++) {
+              for (var y = 0; y < canvas.height; y++) {
+                var i = y * canvas.width + x;
+                d.data[4 * i + 0] = h[i];
+                d.data[4 * i + 1] = h[i];
+                d.data[4 * i + 2] = h[i];
+                d.data[4 * i + 3] = h[i];
+              }
             }
           }
+
+          function getHeightMap(time) {
+            for (var y = 0; y < canvas.height; y++) {
+              for (var x = 0; x < canvas.width; x++) {
+                var i = y * canvas.width + x;
+                var cx = x - canvas.width / 2;
+                var cy = y - canvas.height / 2;
+                var d = Math.sqrt(cx * cx + cy * cy);
+                var stretch = (3 * Math.PI) / (canvas.height / 2) * time / 5000;
+                var ripple = Math.pow(Math.sin(d * stretch), 3);
+                var normalized = (ripple + 1) / 2;
+                h[i] = Math.floor(normalized * 255);
+              }
+            }
+          }
+          
+          function drawImageData() {
+            c.putImageData(d, 0, 0);
+          }
+
           function render() {
             c.clearRect(0, 0, x, y);
-            dc();
-            mc();
+            drawImageData();
+            getHeightMap(Date.now());
+            updateImageData();
             window.requestAnimationFrame(render);
           }
+
           render();
-          window.addEventListener('resize', function() {
-            x = canvas.width = window.innerWidth;
-            y = canvas.height = window.innerHeight;
-          }, false);
         };
       })();
-      -->
     </script>
   </body>
 </html>
