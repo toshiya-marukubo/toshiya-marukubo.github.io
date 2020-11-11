@@ -34,8 +34,15 @@
       * {
         margin: 0;
         padding: 0;
+        text-decoration: line-through;
+      }
+      *:hover {
+        text-decoration: none;
       }
       html, body {
+        font-size: 100%;
+        font-weight: lighter;
+        font-family: monospace;
         height: 100%;
       }
       body {
@@ -44,7 +51,7 @@
         position: relative;
       }
       main {
-        padding: 2.4rem;
+        padding: 0 2.4rem;
       }
       a {
         display: block;
@@ -58,8 +65,8 @@
         color: white;
       }
       h1 {
-        font-size: 1.6rem;
-        padding: 1rem 0;
+        padding-top: 2.4rem;
+        font-size: 6rem;
       }
       h2 {
         font-size: 1.2rem;
@@ -74,6 +81,13 @@
         list-style-type: none;
         padding: 0.8rem;
       }
+      br {
+        display: none;
+      }
+      footer {
+        text-align: right;
+        padding: 2.4rem;
+      }
       canvas {
         width: 100%;
         height: 100%;
@@ -85,13 +99,24 @@
                 filter: blur(10px);
       }
       @media screen and (min-width: 48rem) {
+        br {
+          display: block;
+        }
+        h1 {
+          font-size: 10rem;
+          padding-top: 0;
+        }
         main {
           position: absolute;
-          top: 50%;
-          left: 50%;
-          -webkit-transform: translateY(-50%) translateX(-50%);
-              -ms-transform: translateY(-50%) translateX(-50%);
-                  transform: translateY(-50%) translateX(-50%);
+          top: 10%;
+          left: 10%;
+        }
+        footer {
+          font-size: 10rem;
+          padding: 0;
+          position: absolute;
+          top: 10%;
+          right: 10%;
         }
       }
     </style>
@@ -100,7 +125,7 @@
   </head>
   <body>
       <main>
-        <h1>Hi ^_^ iH</h1>
+        <h1>Hi!</h1>
         <h2>Links</h2>
         <ul>
           <li><a href="https://twitter.com/toshiyamarukubo">Twitter</a></li>
@@ -116,6 +141,7 @@
           <li><a href="./100workschallenge/index.html">100 Works Challenge 2020 (Not updated)</a></li>
         </ul>
       </main>
+      <footer>To!<br>shiya<br>Ma!<br>rukubo</footer>
     <canvas id='canvas'>Canvas not supported.</canvas>
     <script>
       (function() {
