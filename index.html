@@ -135,10 +135,10 @@
                 var cx = x - canvas.width / 2;
                 var cy = y - canvas.height / 2;
                 var d = Math.sqrt(cx * cx + cy * cy);
-                var stretch = (3 * Math.PI) / (canvas.height / 2) * time / 5000;
-                var ripple = Math.pow(Math.sin(d * stretch), 3);
-                var normalized = (ripple + 1) / 2;
-                h[i] = Math.floor(normalized * 255);
+                var s = (3 * Math.PI) / (canvas.height / 2) * time / 5000;
+                var r = Math.pow(Math.sin(d * s), 3);
+                var n = (r + 1) / 2;
+                h[i] = Math.floor(n * 255);
               }
             }
           }
