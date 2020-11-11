@@ -36,7 +36,7 @@
         padding: 0;
       }
       html, body {
-        height: 100vh;
+        height: 100%;
       }
       body {
         background: black;
@@ -74,35 +74,44 @@
       }
       canvas {
         width: 100%;
-        height: 100vh;
+        height: 100%;
         z-index: -1;
         position: fixed;
         top: 0;
         left: 0;
         filter: blur(10px);
       }
+      @media screen and (min-width: 48rem) {
+        main {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translateY(-50%) translateX(-50%);
+          -webkit- transform: translateY(-50%) translateX(-50%);
+        }
+      }
     </style>
     <!-- Title -->
     <title>Toshiya Marukubo | Homepage</title>
   </head>
   <body>
-    <main>
-      <h1>Hi ^_^ iH</h1>
-      <h2>Links</h2>
-      <ul>
-        <li><a href="https://twitter.com/toshiyamarukubo">Twitter</a></li>
-        <li><a href="https://www.instagram.com/toshiyamarukubo/">Instagram</a></li>
-        <li><a href="https://codepen.io/toshiya-marukubo">CodePen</a></li>
-        <li><a href="https://github.com/toshiya-marukubo">GitHub</a></li>
-        <li><a href="http://www.marukubo.net/">Learning Place (Learning Node.js, mongoDB)</a></li>
-      </ul>
-      <h2>Choose my challenge.</h2>
-      <ul>
-        <li><a href="./scrollColors/index.html">SCROLL COLORS (prototype)</a></li>
-        <li><a href="./pattern/index.html">Pattern (Not updated)</a></li>
-        <li><a href="./100workschallenge/index.html">100 Works Challenge 2020 (Not updated)</a></li>
-      </ul>
-    </main>
+      <main>
+        <h1>Hi ^_^ iH</h1>
+        <h2>Links</h2>
+        <ul>
+          <li><a href="https://twitter.com/toshiyamarukubo">Twitter</a></li>
+          <li><a href="https://www.instagram.com/toshiyamarukubo/">Instagram</a></li>
+          <li><a href="https://codepen.io/toshiya-marukubo">CodePen</a></li>
+          <li><a href="https://github.com/toshiya-marukubo">GitHub</a></li>
+          <li><a href="http://www.marukubo.net/">Learning Place (Learning Node.js, mongoDB)</a></li>
+        </ul>
+        <h2>Choose my challenge.</h2>
+        <ul>
+          <li><a href="./scrollColors/index.html">SCROLL COLORS (prototype)</a></li>
+          <li><a href="./pattern/index.html">Pattern (Not updated)</a></li>
+          <li><a href="./100workschallenge/index.html">100 Works Challenge 2020 (Not updated)</a></li>
+        </ul>
+      </main>
     <canvas id='canvas'>Canvas not supported.</canvas>
     <script>
       (function() {
