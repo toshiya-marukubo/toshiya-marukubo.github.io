@@ -39,7 +39,6 @@
       }
       html, body {
         font-size: 100%;
-        font-weight: lighter;
         font-family: 'Verdana', sans-serif;
         height: 100vh;
       }
@@ -58,6 +57,9 @@
       }
       a:visited {
         color: white;
+      }
+      p.self{
+        font-size: 3.2rem;
       }
       p {
         font-size: 1.0rem;
@@ -130,6 +132,7 @@
       <header>
         <p>header</p>
         <h1>Hi!</h1>
+        <p class="self">I'm Toshiya Marukubo. Nice to meet you. Do you like sushi? Yeah! I'm fine. and you? me too! Yeah! You are welcome!</p>
       </header>
       <main>
         <p>main</p>
@@ -139,13 +142,13 @@
           <li><a href="https://www.instagram.com/toshiyamarukubo/">Instagram</a></li>
           <li><a href="https://codepen.io/toshiya-marukubo">CodePen</a></li>
           <li><a href="https://github.com/toshiya-marukubo">GitHub</a></li>
-          <li><a href="http://www.marukubo.net/">Learning Place<br class="return">(Learning Node.js, mongoDB)</a></li>
+          <li><a href="http://www.marukubo.net/">Learning Place <br class="return">(Learning Node.js, mongoDB)</a></li>
         </ul>
         <h2>Choose my challenge</h2>
         <ul>
-          <li><a href="./scrollColors/index.html">SCROLL COLORS<br class="return">(prototype)</a></li>
-          <li><a href="./pattern/index.html">Pattern<br class="return">(Not updated)</a></li>
-          <li><a href="./100workschallenge/index.html">100 Works Challenge 2020<br class="return">(Not updated)</a></li>
+          <li><a href="./scrollColors/index.html">SCROLL COLORS <br class="return">(prototype)</a></li>
+          <li><a href="./pattern/index.html">Pattern <br class="return">(Not updated)</a></li>
+          <li><a href="./100workschallenge/index.html">100 Works Challenge 2020 <br class="return">(Not updated)</a></li>
         </ul>
       </main>
       <footer>
@@ -158,6 +161,8 @@
       (function() {
         'use strict';
         window.onload = function() {
+          var body = document.getElementsByTagName('body')[0];
+          var self = document.getElementsByClassName('self')[0];
           var canvas = document.getElementById('canvas');
           if (!canvas || !canvas.getContext) return false;
           var c = canvas.getContext('2d');
@@ -206,6 +211,15 @@
           }
 
           render();
+
+          window.addEventListener('scroll', function(e) {
+            var ch = body.clientHeight;
+            var sh = body.scrollHeight;
+            var of = window.pageYOffset;
+            if (sh - (ch + of) === 0) {
+              self.textContent = "I'm Toshiya Marukubo. Thank you for visiting my site. I'm not a web designer, or engineer. I want to be it someday.";
+            }
+          }, false);
         };
       })();
     </script>
