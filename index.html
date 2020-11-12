@@ -82,12 +82,12 @@
         list-style-type: none;
         padding: 0.8rem;
       }
-      br {
-        display: none;
-      }
       footer {
         text-align: right;
         padding: 1.6rem 0;
+      }
+      br {
+        display: none;
       }
       canvas {
         width: 100%;
@@ -111,21 +111,19 @@
         div#left {
           float: left;
         }
-        div#right {
-          float: right;
-        }
-        br {
-          display: block;
-        }
         h1 {
           font-size: 10rem;
           padding-top: 0;
         }
-        main {
+        div#right {
+          float: right;
         }
         footer {
           font-size: 10rem;
           padding: 0;
+        }
+        br {
+          display: block;
         }
       }
     </style>
@@ -171,8 +169,6 @@
           var y = canvas.height = 64;
           var d = c.createImageData(x, y);
           var h = [];
-          var mx = null;
-          var my = null;
 
           function updateImageData() {
             for (var x = 0; x < canvas.width; x++) {
