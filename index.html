@@ -219,7 +219,7 @@
             var ch = body.clientHeight;
             var sh = body.scrollHeight;
             var of = window.pageYOffset;
-            if (sh - (ch + of) === 0) {
+            if (sh - (ch + of) <= 0) {
               self.textContent = "I'm Toshiya Marukubo. Thank you for visiting my site. I'm not a web designer, or engineer. I want to be it someday.";
             }
           }, false);
