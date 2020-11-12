@@ -40,7 +40,7 @@
       html, body {
         font-size: 100%;
         font-weight: lighter;
-        font-family: monospace;
+        font-family: 'Tahoma', sans-serif;
         height: 100vh;
       }
       body {
@@ -59,19 +59,27 @@
       a:visited {
         color: white;
       }
+      p {
+        font-size: 1.0rem;
+        padding: 1.6rem 0;
+      }
+      main > p {
+        padding-bottom: 0;
+      }
       div#container {
         max-width: 67.5rem;
         margin: 0 auto;
         padding: 2.4rem;
       }
       h1 {
-        font-size: 6rem;
+        font-size: 4.8rem;
       }
       h2 {
-        font-size: 1.6rem;
-        padding: 1.6rem 0;
+        font-size: 2.4rem;
+        padding: 2.4rem 0;
       }
       li {
+        font-size: 1.6rem;
         border-left: solid 2px white;
         overflow: hidden;
         white-space: nowrap;
@@ -82,10 +90,12 @@
       }
       footer {
         text-align: right;
-        padding: 1.6rem 0;
+        font-size: 4.8rem;
       }
-      br {
-        display: none;
+      small {
+        display: block;
+        padding: 0 0.8rem 0 0;
+        border-right: solid 2px white;
       }
       canvas {
         width: 100%;
@@ -97,32 +107,18 @@
         -webkit-filter: blur(10px);
                 filter: blur(10px);
       }
-      @media screen and (min-width: 60rem) {
-        div#container {
-          position: absolute;
-          width: 90%;
-          top: 50%;
-          left: 50%;
-          transform: translateY(-50%) translateX(-50%);
-          -webkit- transform: translateY(-50%) translateX(-50%);
+      @media screen and (min-width: 48rem) {
+        br.return {
+          display: none;
         }
-        div#left {
-          float: left;
+        div#container {
+          width: 60%;
         }
         h1 {
           font-size: 10rem;
-          padding-top: 0;
-        }
-        div#right {
-          float: right;
         }
         footer {
-          border-right: solid 2px white;
           font-size: 10rem;
-          padding: 0 0.8rem 0 0;
-        }
-        br {
-          display: block;
         }
       }
     </style>
@@ -131,30 +127,31 @@
   </head>
   <body>
     <div id='container'>
-      <div id="left">
-        <header>
-          <h1>Hi!</h1>
-        </header>
-        <main>
-          <h2>Links</h2>
-          <ul>
-            <li><a href="https://twitter.com/toshiyamarukubo">Twitter</a></li>
-            <li><a href="https://www.instagram.com/toshiyamarukubo/">Instagram</a></li>
-            <li><a href="https://codepen.io/toshiya-marukubo">CodePen</a></li>
-            <li><a href="https://github.com/toshiya-marukubo">GitHub</a></li>
-            <li><a href="http://www.marukubo.net/">Learning Place (Learning Node.js, mongoDB)</a></li>
-          </ul>
-          <h2>Choose my challenge.</h2>
-          <ul>
-            <li><a href="./scrollColors/index.html">SCROLL COLORS (prototype)</a></li>
-            <li><a href="./pattern/index.html">Pattern (Not updated)</a></li>
-            <li><a href="./100workschallenge/index.html">100 Works Challenge 2020 (Not updated)</a></li>
-          </ul>
-        </main>
-      </div>
-      <div id="right">
-        <footer>To!<br>shiya<br>Ma!<br>rukubo</footer>
-      </div>
+      <header>
+        <p>header</p>
+        <h1>Hi!</h1>
+      </header>
+      <main>
+        <p>main</p>
+        <h2>Links</h2>
+        <ul>
+          <li><a href="https://twitter.com/toshiyamarukubo">Twitter</a></li>
+          <li><a href="https://www.instagram.com/toshiyamarukubo/">Instagram</a></li>
+          <li><a href="https://codepen.io/toshiya-marukubo">CodePen</a></li>
+          <li><a href="https://github.com/toshiya-marukubo">GitHub</a></li>
+          <li><a href="http://www.marukubo.net/">Learning Place<br class="return">(Learning Node.js, mongoDB)</a></li>
+        </ul>
+        <h2>Choose my challenge</h2>
+        <ul>
+          <li><a href="./scrollColors/index.html">SCROLL COLORS<br class="return">(prototype)</a></li>
+          <li><a href="./pattern/index.html">Pattern<br class="return">(Not updated)</a></li>
+          <li><a href="./100workschallenge/index.html">100 Works Challenge 2020<br class="return">(Not updated)</a></li>
+        </ul>
+      </main>
+      <footer>
+        <p>footer</p>
+        <small>&copy To!<br>shiya<br>Ma!<br>rukubo<br>20<br>20</small>
+      </footer>
     </div>
     <canvas id='canvas'>Canvas not supported.</canvas>
     <script>
