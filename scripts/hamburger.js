@@ -14,6 +14,7 @@ function rand(min, max) {
     this.vx = -Math.random() * 7;
     this.vy = -Math.random() * 10;
     this.style;
+    this.elem;
     this.init();
   }
 
@@ -25,6 +26,7 @@ function rand(min, max) {
     elem.style.top = this.y + 'px';
     elem.style.left = this.x + 'px';
     this.style = elem.style;
+    this.elem = elem;
     body.appendChild(elem);
   };
 
@@ -37,7 +39,7 @@ function rand(min, max) {
   };
 
   Hamburger.prototype.ate = function() {
-    if (this.y > window.innerHeight) {
+    if (parseInt(this.style.top) > window.innerHeight) {
       this.removeMe = true;
     }
   };
@@ -54,10 +56,15 @@ function rand(min, max) {
   });
 
   setInterval(function() {
+    if (!hamburgers.length) return;
     var newburger = [];
     for (let i = 0; i < hamburgers.length; i++) {
       hamburgers[i].render();
-      if (hamburgers[i].removeMe === false) newburger.push(hamburgers[i]);
+      if (hamburgers[i].removeMe === false) {
+        newburger.push(hamburgers[i]);
+      } else {
+        hamburgers[i].elem.parentNode.removeChild(hamburgers[i].elem);
+      }
     }
     hamburgers = newburger;
   }, 18);
