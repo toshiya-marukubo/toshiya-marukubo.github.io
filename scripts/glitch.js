@@ -30,7 +30,7 @@ Glitch.prototype.addImage = function() {
   for (var i = 0; i < this.splitNum; i++) {
     this.ctx.putImageData(
       this.dataArr[rand(0, this.splitNum - 1)],
-      Math.sin(this.time * 10 + i * 10 * Math.PI / 180) * Math.random() * this.width,
+      Math.sin(this.time * 1 + i * 1 * Math.PI / 180) * Math.random() * this.width,
       this.splitH * i
     );
   }
