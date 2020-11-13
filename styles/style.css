@@ -1,0 +1,108 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: line-through;
+}
+*:hover {
+  text-decoration: none;
+}
+
+html, body {
+  font-size: 100%;
+  font-family: 'Verdana', sans-serif;
+  height: 100vh;
+}
+body {
+  background: black;
+  color: white;
+  position: relative;
+}
+
+a {
+  display: block;
+  color: white;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+a:visited {
+  color: white;
+}
+
+p.self{
+  font-size: 2.4rem;
+}
+p {
+  font-size: 1.0rem;
+  padding: 1.6rem 0;
+}
+
+main > p {
+  padding-bottom: 0;
+}
+
+div#container {
+  max-width: 67.5rem;
+  margin: 0 auto;
+  padding: 2.4rem;
+}
+
+h1 {
+  font-size: 4.8rem;
+}
+h2 {
+  font-size: 2.4rem;
+  padding: 2.4rem 0;
+}
+
+li {
+  font-size: 1.6rem;
+  border-left: solid 2px white;
+  overflow: hidden;
+  white-space: nowrap;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis;
+  list-style-type: none;
+  padding: 0.8rem;
+}
+
+footer {
+  text-align: right;
+  font-size: 2.4rem;
+}
+
+small {
+  display: block;
+  padding: 0 0.8rem 0 0;
+  border-right: solid 2px white;
+}
+
+#canvas {
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  -webkit-filter: blur(10px);
+          filter: blur(10px);
+}
+
+@media screen and (min-width: 48rem) {
+  br.return {
+    display: none;
+  }
+  div#container {
+    width: 60%;
+  }
+  p.self{
+    font-size: 3.6rem;
+  }
+  h1 {
+    font-size: 10rem;
+  }
+  footer {
+    font-size: 3.6rem;
+  }
+}

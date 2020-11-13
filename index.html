@@ -28,105 +28,7 @@
     <!-- Icons -->
     <link rel="icon" href="https://toshiya-marukubo.github.io/100workschallenge/home/img/favicon.svg" sizes="any" type="image/svg+xml">
     <!-- Style -->
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        text-decoration: line-through;
-      }
-      *:hover {
-        text-decoration: none;
-      }
-      html, body {
-        font-size: 100%;
-        font-family: 'Verdana', sans-serif;
-        height: 100vh;
-      }
-      body {
-        background: black;
-        color: white;
-        position: relative;
-      }
-      a {
-        display: block;
-        color: white;
-        text-decoration: none;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
-      a:visited {
-        color: white;
-      }
-      p.self{
-        font-size: 2.4rem;
-      }
-      p {
-        font-size: 1.0rem;
-        padding: 1.6rem 0;
-      }
-      main > p {
-        padding-bottom: 0;
-      }
-      div#container {
-        max-width: 67.5rem;
-        margin: 0 auto;
-        padding: 2.4rem;
-      }
-      h1 {
-        font-size: 4.8rem;
-      }
-      h2 {
-        font-size: 2.4rem;
-        padding: 2.4rem 0;
-      }
-      li {
-        font-size: 1.6rem;
-        border-left: solid 2px white;
-        overflow: hidden;
-        white-space: nowrap;
-        -o-text-overflow: ellipsis;
-           text-overflow: ellipsis;
-        list-style-type: none;
-        padding: 0.8rem;
-      }
-      footer {
-        text-align: right;
-        font-size: 2.4rem;
-      }
-      small {
-        display: block;
-        padding: 0 0.8rem 0 0;
-        border-right: solid 2px white;
-      }
-      #canvas {
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        position: fixed;
-        top: 0;
-        left: 0;
-        -webkit-filter: blur(10px);
-                filter: blur(10px);
-      }
-      @media screen and (min-width: 48rem) {
-        br.return {
-          display: none;
-        }
-        div#container {
-          width: 60%;
-        }
-        p.self{
-          font-size: 3.6rem;
-        }
-        h1 {
-          font-size: 10rem;
-        }
-        footer {
-          font-size: 3.6rem;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="./styles/style.css">
     <!-- Title -->
     <title>Toshiya Marukubo | Homepage</title>
   </head>
@@ -135,7 +37,7 @@
       <header>
         <p>header</p>
         <h1>Hi!</h1>
-        <p class="self">I'm Toshiya Marukubo. Nice to meet you. Do you like sushi? Yeah! I'm fine. and you? me too! Yeah! You are welcome!</p>
+        <p class="self">Nice to meet you. Do you like sushi? Yeah! I'm fine. and you? me too! Yeah! You are welcome!</p>
       </header>
       <main>
         <p>main</p>
@@ -160,6 +62,8 @@
       </footer>
     </div>
     <canvas id='canvas'>Canvas not supported.</canvas>
+    <script defer src="./scripts/glitch.js"></script>
+    <script defer src="./scripts/pixcelDataMap.js"></script>
     <script>
       (function() {
         'use strict';
@@ -171,63 +75,26 @@
           var c = canvas.getContext('2d');
           var x = canvas.width = 64;
           var y = canvas.height = 64;
-          var d = c.createImageData(x, y);
-          var h = [];
-
-          function chaseMouse() {
-            c.save();
-            c.fillStyle = 'red';
-            c.beginPath();
-            c.arc(mx, my, 5, 0, Math.PI * 2, false);
-            c.fill();
-            c.restore();
-          }
-
-          function updateImageData() {
-            for (var x = 0; x < canvas.width; x++) {
-              for (var y = 0; y < canvas.height; y++) {
-                var i = y * canvas.width + x;
-                d.data[4 * i + 0] = h[i];
-                d.data[4 * i + 1] = h[i];
-                d.data[4 * i + 2] = h[i];
-                d.data[4 * i + 3] = h[i];
-              }
-            }
-          }
-
-          function getHeightMap(time) {
-            for (var y = 0; y < canvas.height; y++) {
-              for (var x = 0; x < canvas.width; x++) {
-                var i = y * canvas.width + x;
-                var cx = x - canvas.width / 2;
-                var cy = y - canvas.height / 2;
-                var d = Math.sqrt(cx * cx + cy * cy);
-                var s = (3 * Math.PI) / (canvas.height / 2) * time / 5000;
-                var r = Math.pow(Math.sin(d * s), 3);
-                var n = (r + 1) / 2;
-                h[i] = Math.floor(n * 255);
-              }
-            }
-          }
-          
-          function drawImageData() {
-            c.putImageData(d, 0, 0);
-          }
+          var ch, sh, of; // scroll infomation.
+           
+          var g = new Glitch(c, x, y, 100);
+          var p = new PixcelDataMap(c, x, y);
 
           function render() {
             c.clearRect(0, 0, x, y);
-            drawImageData();
-            getHeightMap(Date.now());
-            updateImageData();
+            p.render();
+            if (sh - (ch + of) <= 0) {
+              g.render();
+            }
             window.requestAnimationFrame(render);
           }
 
           render();
 
           window.addEventListener('scroll', function(e) {
-            var ch = body.clientHeight;
-            var sh = body.scrollHeight;
-            var of = window.pageYOffset;
+            ch = body.clientHeight;
+            sh = body.scrollHeight;
+            of = window.pageYOffset;
             if (sh - (ch + of) <= 0) {
               self.textContent = "I'm Toshiya Marukubo. Thank you for visiting my site. I'm not a web designer, or engineer. I want to be it someday.";
             }
