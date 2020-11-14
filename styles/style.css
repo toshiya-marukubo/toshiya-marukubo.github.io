@@ -87,6 +87,15 @@ span#hamburger {
   text-decoration: none;
 }
 
+span#hamburger > a > p {
+  text-align: center;
+  transform: rotate(90deg);
+}
+
+span#hamburger > a:hover {
+  text-decoration: none;
+}
+
 span.hamburger {
   position: fixed;
   text-decoration: none;
