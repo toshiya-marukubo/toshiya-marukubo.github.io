@@ -78,7 +78,7 @@ small {
   border-right: solid 2px white;
 }
 
-span#hamburger {
+nav#hamburger {
   font-size: 5rem;
   position: fixed;
   top: 50%;
@@ -87,12 +87,12 @@ span#hamburger {
   text-decoration: none;
 }
 
-span#hamburger > a > p {
+nav#hamburger > a > p {
   text-align: center;
   transform: rotate(90deg);
 }
 
-span#hamburger > a:hover {
+nav#hamburger > a:hover {
   text-decoration: none;
 }
 
