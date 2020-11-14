@@ -59,10 +59,6 @@ h2 {
 li {
   font-size: 1.6rem;
   border-left: solid 2px white;
-  overflow: hidden;
-  white-space: nowrap;
-  -o-text-overflow: ellipsis;
-     text-overflow: ellipsis;
   list-style-type: none;
   padding: 0.8rem;
 }
