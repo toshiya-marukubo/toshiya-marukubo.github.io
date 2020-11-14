@@ -49,23 +49,24 @@ function rand(min, max) {
     this.ate();
   };
 
-  ham.addEventListener('click', function(e) {
-    e.preventDefault();
-    var h = new Hamburger(e.clientX, e.clientY);
-    hamburgers.push(h);
-  });
-
-  setInterval(function() {
-    if (!hamburgers.length) return;
-    var newburger = [];
-    for (let i = 0; i < hamburgers.length; i++) {
-      hamburgers[i].render();
-      if (hamburgers[i].removeMe === false) {
-        newburger.push(hamburgers[i]);
-      } else {
-        hamburgers[i].elem.parentNode.removeChild(hamburgers[i].elem);
+  window.addEventListener('DOMContentLoaded', function() {
+    ham.addEventListener('click', function(e) {
+      e.preventDefault();
+      var h = new Hamburger(e.clientX, e.clientY);
+      hamburgers.push(h);
+    });
+    setInterval(function() {
+      if (!hamburgers.length) return;
+      var newburger = [];
+      for (let i = 0; i < hamburgers.length; i++) {
+        hamburgers[i].render();
+        if (hamburgers[i].removeMe === false) {
+          newburger.push(hamburgers[i]);
+        } else {
+          hamburgers[i].elem.parentNode.removeChild(hamburgers[i].elem);
+        }
       }
-    }
-    hamburgers = newburger;
-  }, 18);
+      hamburgers = newburger;
+    }, 18);
+  }, false);
 })();
