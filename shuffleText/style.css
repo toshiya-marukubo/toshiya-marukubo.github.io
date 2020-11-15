@@ -1,0 +1,24 @@
+body {
+  font-family: sans-serif;
+  text-align: left;
+  font-size: 100%;
+}
+
+main {
+  padding: 1.6rem;
+}
+
+h1 {
+  font-size: 2.4rem;
+}
+
+ul > li {
+  font-size: 1.6rem;
+  padding: 0.8rem;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
