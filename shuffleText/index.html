@@ -48,7 +48,14 @@
     <script>
       (function() {
         'use strict';
-        shuffleInit('shuffleText', 100, 10, 80); // classname, itere_number, itere_speed, displayed_speed
+        shuffleInit({
+          class_name: 'shuffleText', // input your favorite class name.
+          onload: true, // shuffle when loaded.
+          delay: true, // displayed in order.
+          number_of_iterations: 100,
+          iteration_speed: 5,
+          displayed_speed: 80,
+        });
       })();
     </script>
   </body>

@@ -76,7 +76,7 @@
     <script>
       (function() {
         'use strict';
-        window.onload = function() {
+        window.addEventListener('load', function() {
           var body = document.getElementsByTagName('body')[0];
           var self = document.getElementsByClassName('self')[0];
           var canvas = document.getElementById('canvas');
@@ -86,7 +86,7 @@
           var y = canvas.height = 64;
           var ch, sh, of; // scroll infomation.
            
-          var g = new Glitch(c, x, y, 100);
+          var g = new Glitch(c, x, y, 64);
           var p = new PixcelDataMap(c, x, y);
 
           function render() {
@@ -108,7 +108,7 @@
               self.textContent = "I'm Toshiya Marukubo. Thank you for visiting my site. I'm not a web designer, or engineer. I want to be it someday.";
             }
           }, false);
-        };
+        }, false);
       })();
     </script>
   </body>
