@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 * {
   margin: 0;
   padding: 0;
@@ -11,6 +13,7 @@ html, body {
   font-size: 100%;
   font-family: 'Verdana', sans-serif;
   height: 100vh;
+  line-height: 1.6;
 }
 body {
   background: black;
@@ -36,6 +39,10 @@ p.self{
 p {
   font-size: 1.0rem;
   padding: 1.6rem 0;
+}
+
+main {
+  display: block;
 }
 
 main > p {
