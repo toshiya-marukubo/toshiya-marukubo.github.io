@@ -66,21 +66,21 @@
       this.i = i;
       this.a = this.i * 30;
       this.rad = this.a * Math.PI / 180;
-      this.s = W > 768 ? 150 : 50;
+      this.s = W > 768 ? 150 : 30;
       this.c = 'white';
       this.b = 0;
       this.v = {
         x: 0,
         y: 0
       };
-      this.d = 50;
+      this.d = 30;
     }
 
     Loading.prototype.draw = function() {
       var ctx = this.ctx;
       ctx.save();
       ctx.fillStyle = this.c;
-      ctx.font = this.s + 'px sans-serif';
+      ctx.font = this.s + 'px "Verdana", sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(this.t, this.x, Math.sin(this.rad) * this.d + this.y);
