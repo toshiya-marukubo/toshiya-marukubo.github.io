@@ -105,12 +105,11 @@
       if (!this.w.isRunning()) {
         this.w.start();
       }
-      if (this.w.getElapsedTime() > 2400) {
+      if (this.w.getElapsedTime() > 800) {
         this.w.stop();
         this.w.reset();
         this.b = 2;
       }
-      this.d = H / 2;
       this.v.x += (W / 2 - this.x) * 0.3;
       this.v.x *= 0.8;
       this.x += this.v.x;
@@ -125,7 +124,6 @@
         this.w.reset();
         this.b = 3;
       }
-      this.d = 50;
       this.v.x += (this.ix - this.x) * 0.3;
       this.v.x *= 0.8;
       this.x += this.v.x;
