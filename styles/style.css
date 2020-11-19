@@ -13,12 +13,17 @@ html, body {
   font-size: 100%;
   font-family: 'Verdana', sans-serif;
   height: 100vh;
-  line-height: 1.6;
+  line-height: 1.4;
 }
+
 body {
   background: black;
   color: white;
   position: relative;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 a {
