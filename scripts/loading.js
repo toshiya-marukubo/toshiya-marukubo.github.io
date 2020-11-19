@@ -73,6 +73,7 @@
         x: 0,
         y: 0
       };
+      this.d = 50;
     }
 
     Loading.prototype.draw = function() {
@@ -82,7 +83,7 @@
       ctx.font = this.s + 'px sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText(this.t, this.x, Math.sin(this.rad) * 50 + this.y);
+      ctx.fillText(this.t, this.x, Math.sin(this.rad) * this.d + this.y);
       ctx.restore();
     };
 
@@ -104,11 +105,12 @@
       if (!this.w.isRunning()) {
         this.w.start();
       }
-      if (this.w.getElapsedTime() > 800) {
+      if (this.w.getElapsedTime() > 2400) {
         this.w.stop();
         this.w.reset();
         this.b = 2;
       }
+      this.d = H / 2;
       this.v.x += (W / 2 - this.x) * 0.3;
       this.v.x *= 0.8;
       this.x += this.v.x;
@@ -118,11 +120,12 @@
       if (!this.w.isRunning()) {
         this.w.start();
       }
-      if (this.w.getElapsedTime() > 800) {
+      if (this.w.getElapsedTime() > 1600) {
         this.w.stop();
         this.w.reset();
         this.b = 3;
       }
+      this.d = 50;
       this.v.x += (this.ix - this.x) * 0.3;
       this.v.x *= 0.8;
       this.x += this.v.x;
