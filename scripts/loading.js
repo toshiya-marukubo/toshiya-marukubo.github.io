@@ -66,14 +66,14 @@
       this.i = i;
       this.a = this.i * 30;
       this.rad = this.a * Math.PI / 180;
-      this.s = W > 768 ? 150 : 30;
+      this.s = W > 768 ? 150 : 20;
       this.c = 'white';
       this.b = 0;
       this.v = {
         x: 0,
         y: 0
       };
-      this.d = 30;
+      this.d = 20;
     }
 
     Loading.prototype.draw = function() {
@@ -91,7 +91,7 @@
       if (!this.w.isRunning()) {
         this.w.start();
       }
-      if (this.w.getElapsedTime() > 1600) {
+      if (this.w.getElapsedTime() > 1600 - this.i * 100) {
         this.w.stop();
         this.w.reset();
         this.b = 1;
@@ -119,7 +119,7 @@
       if (!this.w.isRunning()) {
         this.w.start();
       }
-      if (this.w.getElapsedTime() > 1600) {
+      if (this.w.getElapsedTime() > 800 + this.i * 100) {
         this.w.stop();
         this.w.reset();
         this.b = 3;
@@ -159,7 +159,7 @@
     Loading.prototype.resize = function(wSplit) {
       this.x = wSplit * (this.i + 1);
       this.ix = this.x;
-      this.s = W > 768 ? 150 : 50;
+      this.s = W > 768 ? 150 : 20;
     };
 
     Loading.prototype.render = function() {
