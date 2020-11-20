@@ -91,7 +91,7 @@
       if (!this.w.isRunning()) {
         this.w.start();
       }
-      if (this.w.getElapsedTime() > 1600 - this.i * 100) {
+      if (this.w.getElapsedTime() > 1600) {
         this.w.stop();
         this.w.reset();
         this.b = 1;
@@ -119,7 +119,7 @@
       if (!this.w.isRunning()) {
         this.w.start();
       }
-      if (this.w.getElapsedTime() > 800 + this.i * 100) {
+      if (this.w.getElapsedTime() > 800) {
         this.w.stop();
         this.w.reset();
         this.b = 3;
