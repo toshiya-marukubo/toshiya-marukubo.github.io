@@ -59,7 +59,7 @@ function Canvas() {
 
 Canvas.prototype.init = function() {
   for (var i = 0; i < this.loading_number; i++) {
-    var l = new Loading(this.ctx, 'Loading.', this.W / 2, this.H / 2, i);
+    var l = new Loading(this.ctx, 'L o a d i n g .', this.W / 2, this.H / 2, i);
     this.loading_array.push(l);
   }
   this.glitch = new Glitch(this.ctx, this.W, this.H, 50, 10);
@@ -165,7 +165,7 @@ Loading.prototype.draw = function() {
   ctx.font = this.s + 'px "Verdana", sans-serif';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillText(this.t, this.x + 10 * Math.random(), this.y + 10 * Math.random());
+  ctx.fillText(this.t, this.x + 20 * Math.random(), this.y + 20 * Math.random());
   ctx.restore();
 };
 
@@ -181,7 +181,7 @@ Loading.prototype.behavior0 = function() {
 };
 
 Loading.prototype.behavior1 = function() {
-  this.t = 'Loaded!';
+  this.t = 'L o a d e d !';
   canvas.glirch_probability = 0.5;
   if (!this.w.isRunning()) {
     this.w.start();
