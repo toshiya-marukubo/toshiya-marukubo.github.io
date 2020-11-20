@@ -72,9 +72,11 @@
     </div>
     <nav id="hamburger"><a href="#"><p>nav</p>=</a></nav>
     <canvas id='canvas'>Canvas not supported.</canvas>
-    <script defer src="./scripts/loading.js"></script>
+    <script defer src="./scripts/loading_dist.js"></script>
     <script defer src="./scripts/hamburger.js"></script>
+    <!--
     <script defer src="./scripts/glitch.js"></script>
+    -->
     <script defer src="./scripts/pixcelDataMap.js"></script>
     <script>
       (function() {
@@ -89,15 +91,17 @@
           var y = canvas.height = 64;
           var ch, sh, of; // scroll infomation.
            
-          var g = new Glitch(c, x, y, 64);
+          //var g = new Glitch(c, x, y, 64);
           var p = new PixcelDataMap(c, x, y);
 
           function render() {
             c.clearRect(0, 0, x, y);
             p.render();
+            /*
             if (sh - (ch + of) <= 0) {
               g.render();
             }
+            */
             window.requestAnimationFrame(render);
           }
 
