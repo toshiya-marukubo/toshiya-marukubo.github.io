@@ -162,7 +162,7 @@ Loading.prototype.draw = function() {
   ctx.save();
   ctx.globalCompositeOperation = 'lighter';
   ctx.fillStyle = this.c;
-  ctx.font = this.s + 'px "Verdana", sans-serif';
+  ctx.font = this.s + 'px "arial black", sans-serif';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillText(this.t, this.x + 20 * Math.random(), this.y + 20 * Math.random());
