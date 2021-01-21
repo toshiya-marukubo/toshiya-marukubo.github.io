@@ -299,8 +299,6 @@
       this.c = 'black';
       this.g = 6;
       this.rad = Math.PI * 2 / this.g;
-      this.hover = false;
-      this.t = null;
       this.time = Date.now();
     };
 
@@ -311,28 +309,20 @@
       ctx.fillStyle = this.c;
       ctx.translate(this.x, this.y);
       ctx.rotate(Math.tan(this.time / 10000) * 10);
-      ctx.scale(Math.cos(this.time / 5000) * 2, Math.sin(this.time / 5000) * 2);
+      ctx.scale(Math.cos(this.time / 5000) * 1.5, Math.sin(this.time / 5000) * 1.5);
       ctx.translate(-this.x, -this.y);
-      if (!this.hover) {
-        ctx.beginPath();
-        for (var i = 0; i < this.g; i++) {
-          var x = Math.cos(this.rad * i) * this.s + this.x;
-          var y = Math.sin(this.rad * i) * this.s + this.y;
-          if (i === 0) {
-            ctx.moveTo(x, y);
-          } else {
-            ctx.lineTo(x, y);
-          }
+      ctx.beginPath();
+      for (var i = 0; i < this.g; i++) {
+        var x = Math.cos(this.rad * i) * this.s + this.x;
+        var y = Math.sin(this.rad * i) * this.s + this.y;
+        if (i === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
         }
-        ctx.closePath();
-        ctx.fill();
-      } else {
-        ctx.globalAlpha = Math.random();
-        ctx.font = '30px sans-serif';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(this.t, this.x, this.y);
       }
+      ctx.closePath();
+      ctx.fill();
       ctx.restore();
     };
 
