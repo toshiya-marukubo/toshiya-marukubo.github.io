@@ -358,9 +358,9 @@
 
     Glitch.prototype.getImageData = function () {
       var startHeight = 0;
-      for (var i = 0; i < this.height + 50; i += randomHeight) {
+      for (var i = 0; i < this.height + 30; i += randomHeight) {
         var rand = Math.random();
-        var randomHeight = Math.floor(getRandomNumber(1, 50));
+        var randomHeight = Math.floor(getRandomNumber(1, 30));
         startHeight += randomHeight;
         var d = this.ctx.getImageData(0, startHeight, this.width, startHeight + randomHeight);
         if (rand < 0.05) {
