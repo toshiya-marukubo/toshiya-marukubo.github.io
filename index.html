@@ -99,6 +99,9 @@
         white-space: nowrap;
         text-overflow: ellipsis;
       }
+      ul > li.made {
+        list-style-type: square;
+      }
       ul > li:last-child {
         padding-bottom: 0;
       }
@@ -139,7 +142,7 @@
         <li><a href="https://codepen.io/toshiya-marukubo">CodePen</a></li>
         <li><a href="https://github.com/toshiya-marukubo">GitHub</a></li>
         <li><a href="http://www.marukubo.net/">Leaning Place (for node.js)</a></li>
-        <li>I made
+        <li class="made">I made
           <ul>
             <li><a href="https://toshiya-marukubo.github.io/scrollColors/index.html">SCROLL COLORS (prototype)</a></li>
             <li><a href="https://toshiya-marukubo.github.io/pattern/index.html">Pattern (Not updated)</a></li>
@@ -149,7 +152,7 @@
       </ul>
       <h3>My Skill</h3>
       <ul>
-        <li>Google.</li>
+        <li>Google</li>
       </ul>
     </main>
     <footer>
@@ -382,7 +385,7 @@
 
     Glitch.prototype.addImage = function () {
       for (var i = 0; i < this.dataArr.length; i++) {
-        if (Math.random() < 0.9) {
+        if (Math.random() < 0.8) {
           this.ctx.putImageData(
             this.dataArr[i],
             Math.sin(this.time * 1 + i * 10 * Math.PI / 180) * 30,
@@ -392,7 +395,7 @@
           this.ctx.putImageData(
             this.dataArr[getRandomNumber(0, this.dataArr.length - 1)],
             this.width * Math.random(),
-            this.yPosArr[i]
+            this.height * Math.random()
           );
         }
       }
