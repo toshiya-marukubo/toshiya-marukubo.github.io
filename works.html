@@ -64,6 +64,7 @@
         max-width: 1500px;
         margin: 0 auto;
         height: 100vh;
+        height: calc(var(--vh, 1vh) * 100);
         overflow-y: scroll;
         scroll-snap-type: y mandatory;
       }
@@ -103,7 +104,7 @@
         transition: opacity 0.8s;
       }
       ul {
-        font-size: 0.8rem;
+        font-size: 1.6rem;
         text-align: center;
         padding: 4.8rem 0;
         font-style: normal;
@@ -205,7 +206,7 @@
   <script>
     (function() {
       'use strict';
-      var container, index, data, count, scrolling, now;
+      var container, index, data, count, scrolling, now, vh;
 
       var getJson = function() {
         return new Promise(function(resolve, reject) {
@@ -289,7 +290,9 @@
       };
 
       var init = function() {
+        vh = window.innerHeight;
         container = document.getElementById('container');
+        container.style.height = vh + 'px';
         now = document.getElementById('now');
         index = 0;
         count = 0;
@@ -327,6 +330,11 @@
             container.scrollTop = y;
           }
           displayImage();
+        }, false);
+
+        window.addEventListener('resize', function() {
+          vh = window.innerHeight;
+          container.style.height = vh + 'px';
         }, false);
       }, false);
     })();
