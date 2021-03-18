@@ -325,7 +325,7 @@
 
         container.addEventListener('scroll', function(e){
           now.textContent = Math.floor(index / data.length * 100) + ' %';
-          if (container.scrollTop >= container.scrollHeight - window.innerHeight) {
+          if (container.scrollTop + 1 >= container.scrollHeight - window.innerHeight) {
             var y = container.scrollTop;
             addItems();
             container.scrollTop = y;
