@@ -294,7 +294,7 @@
         container = document.getElementById('container');
         //container.style.height = vh + 'px';
         var vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
+        document.documentElement.style.setProperty('--vh', vh + 'px');
         now = document.getElementById('now');
         index = 0;
         count = 0;
@@ -338,7 +338,7 @@
           //vh = window.innerHeight;
           //container.style.height = vh + 'px';
           var vh = window.innerHeight * 0.01;
-          document.documentElement.style.setProperty('--vh', `${vh}px`);
+          document.documentElement.style.setProperty('--vh', vh + 'px');
         }, false);
       }, false);
     })();
