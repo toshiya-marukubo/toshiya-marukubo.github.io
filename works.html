@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns#">
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-149600281-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-149600281-2');
+    </script>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="description" content="Unemployed.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Open Graph Protocol -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Toshiya Marukubo | Homepage">
+    <meta property="og:url" content="https://toshiya-marukubo.github.io/">
+    <meta property="og:title" content="Toshiya Marukubo | Homepage">
+    <meta property="og:image" content="https://toshiya-marukubo.github.io/og-home.png">
+    <meta property="og:description" content="Unemployed.">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@toshiyamarukubo">
+    <meta name="twitter:creator" content="@toshiyamarukubo">
+    <!-- Icons -->
+    <link rel="icon" href="https://toshiya-marukubo.github.io/100workschallenge/home/img/favicon.svg" sizes="any" type="image/svg+xml">
+    <!-- Style -->
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      *:hover {
+        text-decoration: none;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      a,
+      a:visited {
+        text-decoration: none;
+        color: #fff;
+      }
+      html,
+      body {
+        width: 100vw;
+        height: 100vh;
+      }
+      body {
+        overflow: hidden;
+        font-family: sans-serif;
+        font-style: italic;
+        color: #000;
+        font-size: 67.5%;
+        position: relative;
+        background: #fff;
+      }
+      #container {
+        max-width: 1500px;
+        margin: 0 auto;
+        height: 100vh;
+        overflow-y: scroll;
+        scroll-snap-type: y mandatory;
+      }
+      h1 {
+        font-size: 5rem;
+        color: #EEE;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      h2 {
+        color: #000;
+        font-size: 2.4rem;
+        position: absolute;
+        text-align: center;
+        padding: 4rem 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        opacity: 0;
+        transform: translateX(-50px);
+        transition: transform 0.8s 0.4s, opacity 0.8s 0.4s;
+      }
+      h3 {
+        color: #FFF;
+        font-size: 0.6rem;
+        position: absolute;
+        font-style: normal;
+        top: 50%;
+        left: 50%;
+        border-radius: 8px;
+        background: rgba(0, 0, 0, 0.8);
+        padding: 1.6rem;
+        opacity: 0;
+        transform: translate(-50%, -50%);
+        transition: opacity 0.8s;
+      }
+      ul {
+        font-size: 0.8rem;
+        text-align: center;
+        padding: 4rem 0;
+        font-style: normal;
+        position: absolute;
+        bottom: 0;
+        color: #000;
+        left: 0;
+        right: 0;
+        margin: auto;
+        opacity: 0;
+        transition: opacity 1.6s 0.8s;
+      }
+      ul > li {
+        display: inline-block;
+        list-style-type: none;
+      }
+      ul > li:last-child {
+        padding-left: 0.8rem;
+      }
+      section {
+        height: 100vh;
+        overflow: hidden;
+        scroll-snap-align: start;
+        position: relative;
+      }
+      section > p {
+        width: 90%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      section > p > img {
+        width: 100%;
+        opacity: 0;
+        transform: translateX(50px);
+        transition: transform 0.8s, opacity 0.8s;
+        box-shadow: 0.8rem 0.8rem 0.8rem #DDD;
+      }
+      section p:hover + h3 {
+        opacity: 1;
+      }
+      .show {
+        transform: none;
+        opacity: 1;
+      }
+      .return {
+        position: fixed;
+        z-index: 999;
+        top: 16px;
+        left: 16px;
+        fill: #DDD;
+        transition: fill 0.4s;
+      }
+      .return:hover {
+        fill: #000;
+      }
+      #now {
+        color: #DDD;
+        font-size: 1.6rem;
+        position: fixed;
+        bottom: 16px;
+        right: 16px;
+      }
+      @media (min-width: 500px) {
+        h1 {
+          font-size: 16rem;
+        }
+        section > p {
+          width: 60%;
+        }
+        h2 {
+          font-size: 2.4rem;
+          padding: 2.4rem 0;
+        }
+        h3 {
+          font-size: 0.8rem;
+        }
+        ul {
+          font-size: 1.6rem;
+          padding: 2.4rem 0;
+        }
+      }
+    </style>
+    <!-- Title -->
+    <title>Toshiya Marukubo | Homepage | Works & Learning</title>
+  </head>
+<body>
+  <h1>WORKS & LEARNING</h1>
+  <div>
+    <a href="https://toshiya-marukubo.github.io/">
+      <svg viewBox="0 0 512 512" width="50" title="arrow-circle-left" class="return">
+        <path d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zm28.9-143.6L209.4 288H392c13.3 0 24-10.7 24-24v-16c0-13.3-10.7-24-24-24H209.4l75.5-72.4c9.7-9.3 9.9-24.8.4-34.3l-11-10.9c-9.4-9.4-24.6-9.4-33.9 0L107.7 239c-9.4 9.4-9.4 24.6 0 33.9l132.7 132.7c9.4 9.4 24.6 9.4 33.9 0l11-10.9c9.5-9.5 9.3-25-.4-34.3z" />
+      </svg>
+    </a>
+  </div>
+  <p id="now">0 %</p>
+  <div id="container"></div>
+  <script>
+    (function() {
+      'use strict';
+      var container, index, data, count, scrolling, now;
+
+      var getJson = function() {
+        return new Promise(function(resolve, reject) {
+          var req = new XMLHttpRequest();
+          req.addEventListener('load', function() {
+            var json = JSON.parse(req.responseText);
+            resolve(json);
+          }, false);
+          req.open('GET', 'codepen.json', true);
+          req.send(null);
+        });
+      }
+      
+      var addItem = function(json, index) {
+        return new Promise(function(resolve, reject) {
+          var data = json[index];
+          // frame
+          var section = document.createElement('section');
+          // h3 - text
+          var h3 = document.createElement('h3');
+          h3.textContent = 'Go to CodePen with new window.';
+          // h2 - title 
+          var h2 = document.createElement('h2');
+          h2.textContent = data.item;
+          // loves and views
+          var ul = document.createElement('ul');
+          var liH = document.createElement('li');
+          liH.textContent = '❤️ ' + data.loves;
+          var liV = document.createElement('li');
+          liV.textContent = '👀 ' + data.views;
+          ul.appendChild(liH);
+          ul.appendChild(liV);
+          // image
+          var p = document.createElement('p');
+          var image = document.createElement('img');
+          image.setAttribute('src', data.image);
+          // link
+          var a = document.createElement('a');
+          a.setAttribute('href', data.link);
+          a.setAttribute('target', '_blank');
+          // append
+          p.appendChild(image);
+          section.appendChild(p);
+          section.appendChild(h3);
+          section.appendChild(h2);
+          section.appendChild(ul);
+          a.appendChild(section);
+          container.appendChild(a);
+          // resolve
+          resolve(data.image);
+        });
+      };
+
+      var loadedImage = function(src) {
+        return new Promise(function(resolve, reject) {
+          var img = new Image();
+          img.src = src;
+          img.addEventListener('load', function() {
+            resolve();
+          }, false);
+        });
+      };
+
+      var displayImage = function() {
+        var h = window.innerHeight;
+        var imgs = document.getElementsByTagName('img');
+        var h2s = document.getElementsByTagName('h2');
+        var uls = document.getElementsByTagName('ul');
+        for (var i = 0; i < imgs.length; i++) {
+          var s = imgs[i].getBoundingClientRect().top + h / 2;
+          if (h > s) {
+            imgs[i].classList.add('show');
+            h2s[i].classList.add('show');
+            uls[i].classList.add('show');
+          } else {
+            imgs[i].classList.remove('show');
+            h2s[i].classList.remove('show');
+            uls[i].classList.remove('show');
+          }
+        }
+      };
+
+      var init = function() {
+        container = document.getElementById('container');
+        now = document.getElementById('now');
+        index = 0;
+        count = 0;
+        scrolling = false;
+        getJson().then(function(json) {
+          data = json;
+          return addItems();
+        });
+      };
+
+      var addItems = function() {
+        if (count > 1) {
+          count = 0;
+          return;
+        }
+        addItem(data, index).then(function(src) {
+          index++;
+          return loadedImage(src);
+        }).then(function() {
+          return displayImage();
+        }).then(function() {
+          addItems();
+          count++;
+        });
+      };
+
+      window.addEventListener('load', function() {
+        init();
+
+        container.addEventListener('scroll', function(e){
+          now.textContent = Math.floor(index / data.length * 100) + ' %';
+          if (container.scrollTop >= container.scrollHeight - window.innerHeight) {
+            var y = container.scrollTop;
+            addItems();
+            container.scrollTop = y;
+          }
+          displayImage();
+        }, false);
+      }, false);
+    })();
+  </script>
+</body>
+</html>
