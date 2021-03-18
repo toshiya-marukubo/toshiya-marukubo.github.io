@@ -65,7 +65,6 @@
         margin: 0 auto;
         height: 100vh;
         overflow-y: scroll;
-        scroll-snap-type: y mandatory;
       }
       h1 {
         font-size: 5rem;
@@ -126,7 +125,6 @@
       section {
         height: 100vh;
         overflow: hidden;
-        scroll-snap-align: start;
         position: relative;
       }
       section > p {
@@ -169,6 +167,12 @@
         right: 16px;
       }
       @media (min-width: 500px) {
+        #container {
+          scroll-snap-type: y mandatory;
+        }
+        section {
+          scroll-snap-align: start;
+        }
         h1 {
           font-size: 16rem;
         }
