@@ -194,153 +194,160 @@
     <!-- Title -->
     <title>Toshiya Marukubo | Homepage | Works & Learning</title>
   </head>
-<body>
-  <h1>WORKS & LEARNING</h1>
-  <div>
-    <a href="https://toshiya-marukubo.github.io/">
-      <svg viewBox="0 0 512 512" width="50" title="arrow-circle-left" class="return">
-        <path d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zm28.9-143.6L209.4 288H392c13.3 0 24-10.7 24-24v-16c0-13.3-10.7-24-24-24H209.4l75.5-72.4c9.7-9.3 9.9-24.8.4-34.3l-11-10.9c-9.4-9.4-24.6-9.4-33.9 0L107.7 239c-9.4 9.4-9.4 24.6 0 33.9l132.7 132.7c9.4 9.4 24.6 9.4 33.9 0l11-10.9c9.5-9.5 9.3-25-.4-34.3z" />
-      </svg>
-    </a>
-  </div>
-  <p class="dataFrom">Data from CodePen.</p>
-  <p id="now">0 %</p>
-  <div id="container"></div>
-  <script>
-    (function() {
-      'use strict';
-      var container, index, data, count, scrolling, now, vh;
+  <body>
+    <h1>WORKS & LEARNING</h1>
+    <div>
+      <a href="https://toshiya-marukubo.github.io/">
+        <svg viewBox="0 0 512 512" width="50" title="arrow-circle-left" class="return">
+          <path d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zm28.9-143.6L209.4 288H392c13.3 0 24-10.7 24-24v-16c0-13.3-10.7-24-24-24H209.4l75.5-72.4c9.7-9.3 9.9-24.8.4-34.3l-11-10.9c-9.4-9.4-24.6-9.4-33.9 0L107.7 239c-9.4 9.4-9.4 24.6 0 33.9l132.7 132.7c9.4 9.4 24.6 9.4 33.9 0l11-10.9c9.5-9.5 9.3-25-.4-34.3z" />
+        </svg>
+      </a>
+    </div>
+    <p class="dataFrom">Data from CodePen.</p>
+    <p id="now">0 %</p>
+    <div id="container"></div>
+    <script>
+      (function() {
+        'use strict';
+        var container, index, data, count, scrolling, now, vh, W, H;
 
-      var getJson = function() {
-        return new Promise(function(resolve, reject) {
-          var req = new XMLHttpRequest();
-          req.addEventListener('load', function() {
-            var json = JSON.parse(req.responseText);
-            resolve(json);
-          }, false);
-          req.open('GET', 'codepen.json', true);
-          req.send(null);
-        });
-      }
-      
-      var addItem = function(json, index) {
-        return new Promise(function(resolve, reject) {
-          var data = json[index];
-          // frame
-          var section = document.createElement('section');
-          // h3 - text
-          var h3 = document.createElement('h3');
-          h3.textContent = 'Go to CodePen with new window.';
-          // h2 - title 
-          var h2 = document.createElement('h2');
-          h2.textContent = data.item;
-          // loves and views
-          var ul = document.createElement('ul');
-          var liH = document.createElement('li');
-          liH.textContent = '❤️ ' + data.loves;
-          var liV = document.createElement('li');
-          liV.textContent = '👀 ' + data.views;
-          ul.appendChild(liH);
-          ul.appendChild(liV);
-          // image
-          var p = document.createElement('p');
-          var image = document.createElement('img');
-          image.setAttribute('src', data.image);
-          // link
-          var a = document.createElement('a');
-          a.setAttribute('href', data.link);
-          a.setAttribute('target', '_blank');
-          // append
-          p.appendChild(image);
-          section.appendChild(p);
-          section.appendChild(h3);
-          section.appendChild(h2);
-          section.appendChild(ul);
-          a.appendChild(section);
-          container.appendChild(a);
-          // resolve
-          resolve(data.image);
-        });
-      };
-
-      var loadedImage = function(src) {
-        return new Promise(function(resolve, reject) {
-          var img = new Image();
-          img.src = src;
-          img.addEventListener('load', function() {
-            resolve();
-          }, false);
-        });
-      };
-
-      var displayImage = function() {
-        var h = window.innerHeight;
-        var imgs = document.getElementsByTagName('img');
-        var h2s = document.getElementsByTagName('h2');
-        var uls = document.getElementsByTagName('ul');
-        for (var i = 0; i < imgs.length; i++) {
-          var s = imgs[i].getBoundingClientRect().top + h / 2;
-          if (h > s) {
-            imgs[i].classList.add('show');
-            h2s[i].classList.add('show');
-            uls[i].classList.add('show');
-          } else {
-            imgs[i].classList.remove('show');
-            h2s[i].classList.remove('show');
-            uls[i].classList.remove('show');
-          }
+        var getJson = function() {
+          return new Promise(function(resolve, reject) {
+            var req = new XMLHttpRequest();
+            req.addEventListener('load', function() {
+              var json = JSON.parse(req.responseText);
+              resolve(json);
+            }, false);
+            req.open('GET', 'codepen.json', true);
+            req.send(null);
+          });
         }
-      };
+        
+        var addItem = function(json, index) {
+          return new Promise(function(resolve, reject) {
+            var data = json[index];
+            // frame
+            var section = document.createElement('section');
+            // h3 - text
+            var h3 = document.createElement('h3');
+            h3.textContent = 'Go to CodePen with new window.';
+            // h2 - title 
+            var h2 = document.createElement('h2');
+            h2.textContent = data.item;
+            // loves and views
+            var ul = document.createElement('ul');
+            var liH = document.createElement('li');
+            liH.textContent = '❤️ ' + data.loves;
+            var liV = document.createElement('li');
+            liV.textContent = '👀 ' + data.views;
+            ul.appendChild(liH);
+            ul.appendChild(liV);
+            // image
+            var p = document.createElement('p');
+            var image = document.createElement('img');
+            image.setAttribute('src', data.image);
+            // link
+            var a = document.createElement('a');
+            a.setAttribute('href', data.link);
+            a.setAttribute('target', '_blank');
+            // append
+            p.appendChild(image);
+            section.appendChild(p);
+            section.appendChild(h3);
+            section.appendChild(h2);
+            section.appendChild(ul);
+            a.appendChild(section);
+            container.appendChild(a);
+            // resolve
+            resolve(data.image);
+          });
+        };
 
-      var init = function() {
-        container = document.getElementById('container');
-        vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', vh + 'px');
-        now = document.getElementById('now');
-        index = 0;
-        count = 0;
-        scrolling = false;
-        getJson().then(function(json) {
-          data = json;
-          return addItems();
-        });
-      };
+        var loadedImage = function(src) {
+          return new Promise(function(resolve, reject) {
+            var img = new Image();
+            img.src = src;
+            img.addEventListener('load', function() {
+              resolve();
+            }, false);
+          });
+        };
 
-      var addItems = function() {
-        if (count > 1) {
-          count = 0;
-          return;
-        }
-        addItem(data, index).then(function(src) {
-          index++;
-          return loadedImage(src);
-        }).then(function() {
-          return displayImage();
-        }).then(function() {
-          addItems();
-          count++;
-        });
-      };
-
-      window.addEventListener('load', function() {
-        init();
-
-        container.addEventListener('scroll', function(e){
-          now.textContent = Math.floor(index / data.length * 100) + ' %';
-          if (container.scrollTop + 1 >= container.scrollHeight - window.innerHeight) {
-            var y = container.scrollTop;
-            addItems();
-            container.scrollTop = y;
+        var displayImage = function() {
+          var imgs = document.getElementsByTagName('img');
+          var h2s = document.getElementsByTagName('h2');
+          var uls = document.getElementsByTagName('ul');
+          for (var i = 0; i < imgs.length; i++) {
+            var s = imgs[i].getBoundingClientRect().top + H / 2;
+            if (H > s) {
+              imgs[i].classList.add('show');
+              h2s[i].classList.add('show');
+              uls[i].classList.add('show');
+            } else {
+              imgs[i].classList.remove('show');
+              h2s[i].classList.remove('show');
+              uls[i].classList.remove('show');
+            }
           }
-          displayImage();
-        }, false);
+        };
 
-        window.addEventListener('resize', function() {
-          vh = window.innerHeight * 0.01;
+        var init = function() {
+          W = window.innerWidth;
+          H = window.innerHeight;
+          container = document.getElementById('container');
+          vh = H * 0.01;
           document.documentElement.style.setProperty('--vh', vh + 'px');
+          now = document.getElementById('now');
+          index = 0;
+          count = 0;
+          scrolling = false;
+          getJson().then(function(json) {
+            data = json;
+            return addItems();
+          });
+        };
+
+        var addItems = function() {
+          if (count > 1) {
+            count = 0;
+            return;
+          }
+          addItem(data, index).then(function(src) {
+            index++;
+            count++;
+            return loadedImage(src);
+          }).then(function() {
+            return displayImage();
+          }).then(function() {
+            addItems();
+          });
+        };
+
+        var verResize = function() {
+          vh = H * 0.01;
+          document.documentElement.style.setProperty('--vh', vh + 'px');
+        };
+
+        window.addEventListener('load', function() {
+          init();
+
+          container.addEventListener('scroll', function(e){
+            now.textContent = Math.floor(index / data.length * 100) + ' %';
+            if (container.scrollTop + 1 >= container.scrollHeight - window.innerHeight) {
+              var y = container.scrollTop;
+              addItems();
+              container.scrollTop = y;
+            }
+            displayImage();
+          }, false);
+
+          window.addEventListener('resize', function() {
+            W = window.innerWidth;
+            H = window.innerHeight;
+            verResize();
+          }, false);
         }, false);
-      }, false);
-    })();
-  </script>
-</body>
+      })();
+    </script>
+  </body>
 </html>
