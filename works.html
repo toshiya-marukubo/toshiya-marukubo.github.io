@@ -104,20 +104,20 @@
         transform: translate(-50%, -50%);
         transition: opacity 0.8s;
       }
-      .arrow {
-        fill: #FFF;
-      }
       ol {
         background: rgba(0, 0, 0, 0.5);
         border-radius: 4px;
+        transition: background 0.4s;
       }
-      ol li {
+      ol:hover {
+        background: rgba(0, 0, 0, 1);
+      }
+      ol > li {
         color: #FFF;
         font-style: normal;
         list-style-type: none;
       }
       ol.lovesSortBtn, ol.viewsSortBtn {
-        color: #000;
         font-size: 0.6rem;
         z-index: 999;
         position: fixed;
@@ -170,26 +170,35 @@
       section > p > img {
         width: 100%;
         opacity: 0;
+        box-shadow: 0.8rem 0.8rem 0.8rem #DDD;
         transform: translateX(50px);
         transition: transform 0.8s, opacity 0.8s;
-        box-shadow: 0.8rem 0.8rem 0.8rem #DDD;
       }
-      section p:hover + h3 {
+      section > p:hover + h3 {
         opacity: 1;
+      }
+      .arrowSVG {
+        fill: #FFF;
+        transition: fill 0.4s;
+      }
+      .arrowSVG:hover {
+        fill: tomato;
       }
       .show {
         transform: none;
         opacity: 1;
       }
-      .return {
+      .backBtn {
         position: fixed;
         z-index: 999;
         top: 16px;
         left: 16px;
+      }
+      .backBtnSVG {
         fill: #DDD;
         transition: fill 0.4s;
       }
-      .return:hover {
+      .backBtnSVG:hover {
         fill: #000;
       }
       .dataFrom {
@@ -244,44 +253,44 @@
   <body>
     <div id="container">
       <h1>WORKS & LEARNING</h1>
-      <div>
+      <div class="backBtn">
         <a href="https://toshiya-marukubo.github.io/">
-          <svg viewBox="0 0 512 512" width="48" title="arrow-circle-left" class="return">
-            <path d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zm28.9-143.6L209.4 288H392c13.3 0 24-10.7 24-24v-16c0-13.3-10.7-24-24-24H209.4l75.5-72.4c9.7-9.3 9.9-24.8.4-34.3l-11-10.9c-9.4-9.4-24.6-9.4-33.9 0L107.7 239c-9.4 9.4-9.4 24.6 0 33.9l132.7 132.7c9.4 9.4 24.6 9.4 33.9 0l11-10.9c9.5-9.5 9.3-25-.4-34.3z" />
+          <svg viewBox="0 0 256 512" width="48" title="angle-left" class="backBtnSVG">
+            <path d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z" />
           </svg>
         </a>
       </div>
       <p class="dataFrom">Data from CodePen.</p>
       <p id="now">0.00 %</p>
       <ol class="lovesSortBtn">
-        <li id="lovesSortToLarge">
+        <li id="sortLovesToLargeBtn">
           <a href="#">
-            <svg viewBox="0 0 320 512" width="24" title="angle-up" class="arrow">
+            <svg viewBox="0 0 320 512" width="24" title="angle-up" class="arrowSVG">
               <path d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z" />
             </svg>
           </a>
         </li>
         <li>Loves</li>
-        <li id="lovesSortToSmall">
+        <li id="sortLovesToSmallBtn">
           <a href="#">
-            <svg viewBox="0 0 320 512" width="24" title="angle-down" class="arrow">
+            <svg viewBox="0 0 320 512" width="24" title="angle-down" class="arrowSVG">
               <path d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z" />
             </svg>
           </a>
         </li>
       </ol>
       <ol class="viewsSortBtn">
-        <li id="viewsSortToLarge">
+        <li id="sortViewsToLargeBtn">
           <a href="#">
-            <svg viewBox="0 0 320 512" width="24" title="angle-up" class="arrow">
+            <svg viewBox="0 0 320 512" width="24" title="angle-up" class="arrowSVG">
               <path d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z" />
             </svg>
           </a>
         </li>
         <li>Views</li>
-        <li id="viewsSortToSmall">
+        <li id="sortViewsToSmallBtn">
           <a href="#">
-            <svg viewBox="0 0 320 512" width="24" title="angle-down" class="arrow">
+            <svg viewBox="0 0 320 512" width="24" title="angle-down" class="arrowSVG">
               <path d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z" />
             </svg>
           </a>
@@ -292,7 +301,15 @@
     <script>
       (function() {
         'use strict';
-        var container, index, data, count, scrolling, now, vh, W, H, lovesSortToSmall, lovesSortToLarge, viewsSortToSmall, viewsSortToLarge, percent, main;
+        var container,
+            main,
+            index,
+            data,
+            percent,
+            count,
+            now, 
+            vh, W, H,
+            sortLovesToSmallBtn, sortLovesToLargeBtn, sortViewsToSmallBtn, sortViewsToLargeBtn;
 
         var getJson = function() {
           return new Promise(function(resolve, reject) {
@@ -306,65 +323,67 @@
           });
         }
 
-        var toSmallLovesSort = function(a, b) {
+        var sortLovesToSmall = function(a, b) {
           return Number(b.loves) - Number(a.loves);
         };
 
-        var toLargeLovesSort = function(a, b) {
+        var sortLovesToLarge = function(a, b) {
           return Number(a.loves) - Number(b.loves);
         };
 
-        var toSmallViewsSort = function(a, b) {
+        var sortViewsToSmall = function(a, b) {
           return Number(b.views) - Number(a.views);
         };
 
-        var toLargeViewsSort = function(a, b) {
+        var sortViewsToLarge = function(a, b) {
           return Number(a.views) - Number(b.views);
         };
 
-        var jsonSort = function(data, type, dir) {
+        var sortJson = function(data, type, dir) {
           return new Promise(function(resolve, reject) {
             if (type === 'loves' && dir === 'small') {
-              data.sort(toSmallLovesSort);
+              data.sort(sortLovesToSmall);
             }
             if (type === 'loves' && dir === 'large') {
-              data.sort(toLargeLovesSort);
+              data.sort(sortLovesToLarge);
             }
             if (type === 'views' && dir === 'small') {
-              data.sort(toSmallViewsSort);
+              data.sort(sortViewsToSmall);
             }
             if (type === 'views' && dir === 'large') {
-              data.sort(toLargeViewsSort);
+              data.sort(sortViewsToLarge);
             }
             resolve();
           });
+        };
+
+        var createElement = function(elem, content) {
+          var element = document.createElement(elem);
+          if (content !== null) element.textContent = content;
+          return element;
         };
         
         var addItem = function(json, index) {
           return new Promise(function(resolve, reject) {
             var data = json[index];
-            // frame
-            var section = document.createElement('section');
+            // section
+            var section = createElement('section', null);
             // h3 - text
-            var h3 = document.createElement('h3');
-            h3.textContent = 'Go to CodePen with new window.';
+            var h3 = createElement('h3', 'Go to CodePen with new window.');
             // h2 - title 
-            var h2 = document.createElement('h2');
-            h2.textContent = data.item;
+            var h2 = createElement('h2', data.item);
             // loves and views
-            var ul = document.createElement('ul');
-            var liH = document.createElement('li');
-            liH.textContent = '❤️ ' + data.loves;
-            var liV = document.createElement('li');
-            liV.textContent = '👀 ' + data.views;
+            var ul = createElement('ul', null);
+            var liH = createElement('li', '❤️ ' + data.loves);
+            var liV = createElement('li', '👀 ' + data.views);
             ul.appendChild(liH);
             ul.appendChild(liV);
             // image
-            var p = document.createElement('p');
-            var image = document.createElement('img');
+            var p = createElement('p', null);
+            var image = createElement('img', null);
             image.setAttribute('src', data.image);
             // link
-            var a = document.createElement('a');
+            var a = createElement('a', null);
             a.setAttribute('href', data.link);
             a.setAttribute('target', '_blank');
             // append
@@ -380,7 +399,7 @@
           });
         };
 
-        var loadedImage = function(src) {
+        var loadImage = function(src) {
           return new Promise(function(resolve, reject) {
             var img = new Image();
             img.src = src;
@@ -413,17 +432,16 @@
           H = window.innerHeight;
           main = document.getElementsByTagName('main')[0];
           container = document.getElementById('container');
-          lovesSortToSmall = document.getElementById('lovesSortToSmall');
-          lovesSortToLarge = document.getElementById('lovesSortToLarge');
-          viewsSortToSmall = document.getElementById('viewsSortToSmall');
-          viewsSortToLarge = document.getElementById('viewsSortToLarge');
+          now = document.getElementById('now');
+          sortLovesToSmallBtn = document.getElementById('sortLovesToSmallBtn');
+          sortLovesToLargeBtn = document.getElementById('sortLovesToLargeBtn');
+          sortViewsToSmallBtn = document.getElementById('sortViewsToSmallBtn');
+          sortViewsToLargeBtn = document.getElementById('sortViewsToLargeBtn');
           //vh = H * 0.01;
           //document.documentElement.style.setProperty('--vh', vh + 'px');
-          now = document.getElementById('now');
           index = 0;
           count = 0;
           percent = 0.00;
-          scrolling = false;
           getJson().then(function(json) {
             data = json;
             return addItems();
@@ -445,7 +463,7 @@
           addItem(data, index).then(function(src) {
             index++;
             count++;
-            return loadedImage(src);
+            return loadImage(src);
           }).then(function() {
             return displayImage();
           }).then(function() {
@@ -453,50 +471,45 @@
           });
         };
 
-        var verResize = function() {
-          //vh = H * 0.01;
-          //document.documentElement.style.setProperty('--vh', vh + 'px');
-        };
-
         window.addEventListener('load', function() {
           init();
 
-          lovesSortToSmall.addEventListener('click', function(e) {
+          sortLovesToSmallBtn.addEventListener('click', function(e) {
             e.preventDefault();
             now.textContent = '0.00 %';
             index = 0;
             deleteItems().then(function() {
-              return jsonSort(data, 'loves', 'small');
+              return sortJson(data, 'loves', 'small');
             }).then(function() {
               return addItems();
             });
           }, false);
-          lovesSortToLarge.addEventListener('click', function(e) {
+          sortLovesToLargeBtn.addEventListener('click', function(e) {
             e.preventDefault();
             now.textContent = '0.00 %';
             index = 0;
             deleteItems().then(function() {
-              return jsonSort(data, 'loves', 'large');
+              return sortJson(data, 'loves', 'large');
             }).then(function() {
               return addItems();
             });
           }, false);
-          viewsSortToSmall.addEventListener('click', function(e) {
+          sortViewsToSmallBtn.addEventListener('click', function(e) {
             e.preventDefault();
             now.textContent = '0.00 %';
             index = 0;
             deleteItems().then(function() {
-              return jsonSort(data, 'views', 'small');
+              return sortJson(data, 'views', 'small');
             }).then(function() {
               return addItems();
             });
           }, false);
-          viewsSortToLarge.addEventListener('click', function(e) {
+          sortViewsToLargeBtn.addEventListener('click', function(e) {
             e.preventDefault();
             now.textContent = '0.00 %';
             index = 0;
             deleteItems().then(function() {
-              return jsonSort(data, 'views', 'large');
+              return sortJson(data, 'views', 'large');
             }).then(function() {
               return addItems();
             });
@@ -515,7 +528,6 @@
           window.addEventListener('resize', function() {
             W = window.innerWidth;
             H = window.innerHeight;
-            verResize();
           }, false);
         }, false);
       })();
