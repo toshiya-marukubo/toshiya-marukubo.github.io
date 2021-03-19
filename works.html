@@ -47,6 +47,7 @@
         color: #fff;
       }
       body {
+        text-align: center;
         overflow: hidden;
         font-family: sans-serif;
         font-style: italic;
@@ -97,6 +98,35 @@
         opacity: 0;
         transform: translate(-50%, -50%);
         transition: opacity 0.8s;
+      }
+      .arrow {
+        fill: #FFF;
+      }
+      ol {
+        background: rgba(0, 0, 0, 0.8);
+        border-radius: 4px;
+      }
+      ol li {
+        color: #FFF;
+        font-style: normal;
+        list-style-type: none;
+      }
+      ol.lovesSortBtn, ol.viewsSortBtn {
+        color: #000;
+        font-size: 0.6rem;
+        z-index: 999;
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      ol.lovesSortBtn li, ol.viewsSortBtn li {
+        padding: 0.4rem;
+      }
+      ol.lovesSortBtn {
+        left: 2%;
+      }
+      ol.viewsSortBtn {
+        right: 2%;
       }
       ul {
         font-size: 1rem;
@@ -195,6 +225,12 @@
         #now {
           font-size: 1.6rem;
         }
+        ol.lovesSortBtn {
+          left: 10%;
+        }
+        ol.viewsSortBtn {
+          right: 10%;
+        }
       }
     </style>
     <!-- Title -->
@@ -204,18 +240,52 @@
     <h1>WORKS & LEARNING</h1>
     <div>
       <a href="https://toshiya-marukubo.github.io/">
-        <svg viewBox="0 0 512 512" width="50" title="arrow-circle-left" class="return">
+        <svg viewBox="0 0 512 512" width="48" title="arrow-circle-left" class="return">
           <path d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zm28.9-143.6L209.4 288H392c13.3 0 24-10.7 24-24v-16c0-13.3-10.7-24-24-24H209.4l75.5-72.4c9.7-9.3 9.9-24.8.4-34.3l-11-10.9c-9.4-9.4-24.6-9.4-33.9 0L107.7 239c-9.4 9.4-9.4 24.6 0 33.9l132.7 132.7c9.4 9.4 24.6 9.4 33.9 0l11-10.9c9.5-9.5 9.3-25-.4-34.3z" />
         </svg>
       </a>
     </div>
     <p class="dataFrom">Data from CodePen.</p>
-    <p id="now">0 %</p>
+    <p id="now">0.00 %</p>
+    <ol class="lovesSortBtn">
+      <li id="lovesSortToLarge">
+        <a href="#">
+          <svg viewBox="0 0 320 512" width="24" title="angle-up" class="arrow">
+            <path d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z" />
+          </svg>
+        </a>
+      </li>
+      <li>Loves</li>
+      <li id="lovesSortToSmall">
+        <a href="#">
+          <svg viewBox="0 0 320 512" width="24" title="angle-down" class="arrow">
+            <path d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z" />
+          </svg>
+        </a>
+      </li>
+    </ol>
+    <ol class="viewsSortBtn">
+      <li id="viewsSortToLarge">
+        <a href="#">
+          <svg viewBox="0 0 320 512" width="24" title="angle-up" class="arrow">
+            <path d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z" />
+          </svg>
+        </a>
+      </li>
+      <li>Views</li>
+      <li id="viewsSortToSmall">
+        <a href="#">
+          <svg viewBox="0 0 320 512" width="24" title="angle-down" class="arrow">
+            <path d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z" />
+          </svg>
+        </a>
+      </li>
+    </ol>
     <div id="container"></div>
     <script>
       (function() {
         'use strict';
-        var container, index, data, count, scrolling, now, vh, W, H;
+        var container, index, data, count, scrolling, now, vh, W, H, lovesSortToSmall, lovesSortToLarge, viewsSortToSmall, viewsSortToLarge, percent;
 
         var getJson = function() {
           return new Promise(function(resolve, reject) {
@@ -228,6 +298,40 @@
             req.send(null);
           });
         }
+
+        var toSmallLovesSort = function(a, b) {
+          return Number(b.loves) - Number(a.loves);
+        };
+
+        var toLargeLovesSort = function(a, b) {
+          return Number(a.loves) - Number(b.loves);
+        };
+
+        var toSmallViewsSort = function(a, b) {
+          return Number(b.views) - Number(a.views);
+        };
+
+        var toLargeViewsSort = function(a, b) {
+          return Number(a.views) - Number(b.views);
+        };
+
+        var jsonSort = function(data, type, dir) {
+          return new Promise(function(resolve, reject) {
+            if (type === 'loves' && dir === 'small') {
+              data.sort(toSmallLovesSort);
+            }
+            if (type === 'loves' && dir === 'large') {
+              data.sort(toLargeLovesSort);
+            }
+            if (type === 'views' && dir === 'small') {
+              data.sort(toSmallViewsSort);
+            }
+            if (type === 'views' && dir === 'large') {
+              data.sort(toLargeViewsSort);
+            }
+            resolve();
+          });
+        };
         
         var addItem = function(json, index) {
           return new Promise(function(resolve, reject) {
@@ -301,15 +405,27 @@
           W = window.innerWidth;
           H = window.innerHeight;
           container = document.getElementById('container');
+          lovesSortToSmall = document.getElementById('lovesSortToSmall');
+          lovesSortToLarge = document.getElementById('lovesSortToLarge');
+          viewsSortToSmall = document.getElementById('viewsSortToSmall');
+          viewsSortToLarge = document.getElementById('viewsSortToLarge');
           vh = H * 0.01;
           document.documentElement.style.setProperty('--vh', vh + 'px');
           now = document.getElementById('now');
           index = 0;
           count = 0;
+          percent = 0.00;
           scrolling = false;
           getJson().then(function(json) {
             data = json;
             return addItems();
+          });
+        };
+
+        var deleteItems = function() {
+          return new Promise(function(resolve, reject) {
+            container.textContent = null;
+            resolve();
           });
         };
 
@@ -337,8 +453,49 @@
         window.addEventListener('load', function() {
           init();
 
+          lovesSortToSmall.addEventListener('click', function(e) {
+            e.preventDefault();
+            now.textContent = '0.00 %';
+            index = 0;
+            deleteItems().then(function() {
+              return jsonSort(data, 'loves', 'small');
+            }).then(function() {
+              return addItems();
+            });
+          }, false);
+          lovesSortToLarge.addEventListener('click', function(e) {
+            e.preventDefault();
+            now.textContent = '0.00 %';
+            index = 0;
+            deleteItems().then(function() {
+              return jsonSort(data, 'loves', 'large');
+            }).then(function() {
+              return addItems();
+            });
+          }, false);
+          viewsSortToSmall.addEventListener('click', function(e) {
+            e.preventDefault();
+            now.textContent = '0.00 %';
+            index = 0;
+            deleteItems().then(function() {
+              return jsonSort(data, 'views', 'small');
+            }).then(function() {
+              return addItems();
+            });
+          }, false);
+          viewsSortToLarge.addEventListener('click', function(e) {
+            e.preventDefault();
+            now.textContent = '0.00 %';
+            index = 0;
+            deleteItems().then(function() {
+              return jsonSort(data, 'views', 'large');
+            }).then(function() {
+              return addItems();
+            });
+          }, false);
+
           container.addEventListener('scroll', function(e){
-            now.textContent = Math.floor(index / data.length * 100) + ' %';
+            now.textContent = (index / data.length * 100).toFixed(2) + ' %';
             if (container.scrollTop + 1 >= container.scrollHeight - window.innerHeight) {
               var y = container.scrollTop;
               addItems();
