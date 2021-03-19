@@ -158,6 +158,13 @@
       .return:hover {
         fill: #000;
       }
+      .dataFrom {
+        color: #DDD;
+        font-size: 1.6rem;
+        position: fixed;
+        bottom: 16px;
+        left: 16px;
+      }
       #now {
         color: #DDD;
         font-size: 1.6rem;
@@ -197,6 +204,7 @@
       </svg>
     </a>
   </div>
+  <p class="dataFrom">Data from CodePen.</p>
   <p id="now">0 %</p>
   <div id="container"></div>
   <script>
@@ -286,9 +294,10 @@
       };
 
       var init = function() {
-        vh = window.innerHeight;
+        //vh = window.innerHeight;
         container = document.getElementById('container');
-        container.style.height = vh + 'px';
+        //container.style.height = vh + 'px';
+        container.style.height = '100%';
         //var vh = window.innerHeight * 0.01;
         //document.documentElement.style.setProperty('--vh', vh + 'px');
         now = document.getElementById('now');
@@ -331,8 +340,9 @@
         }, false);
 
         window.addEventListener('resize', function() {
-          vh = window.innerHeight;
-          container.style.height = vh + 'px';
+          //vh = window.innerHeight;
+          //container.style.height = vh + 'px';
+          container.style.height = '100%';
           //var vh = window.innerHeight * 0.01;
           //document.documentElement.style.setProperty('--vh', vh + 'px');
         }, false);
