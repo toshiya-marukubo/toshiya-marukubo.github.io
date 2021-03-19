@@ -39,7 +39,8 @@
       *,
       *::before,
       *::after {
-        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
       }
       a,
       a:visited {
@@ -67,7 +68,8 @@
         margin: 0 auto;
         height: 100%;
         overflow-y: scroll;
-        scroll-snap-type: y mandatory;
+        -ms-scroll-snap-type: y mandatory;
+            scroll-snap-type: y mandatory;
       }
       h1 {
         font-size: 5rem;
@@ -75,7 +77,9 @@
         position: fixed;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
       }
       h2 {
         color: #000;
@@ -87,8 +91,14 @@
         right: 0;
         margin: auto;
         opacity: 0;
-        transform: translateX(-50px);
+        -webkit-transform: translateX(-50px);
+            -ms-transform: translateX(-50px);
+                transform: translateX(-50px);
+        -webkit-transition: opacity 0.8s 0.4s, -webkit-transform 0.8s 0.4s;
+        transition: opacity 0.8s 0.4s, -webkit-transform 0.8s 0.4s;
+        -o-transition: transform 0.8s 0.4s, opacity 0.8s 0.4s;
         transition: transform 0.8s 0.4s, opacity 0.8s 0.4s;
+        transition: transform 0.8s 0.4s, opacity 0.8s 0.4s, -webkit-transform 0.8s 0.4s;
       }
       h3 {
         color: #FFF;
@@ -101,16 +111,16 @@
         background: rgba(0, 0, 0, 0.8);
         padding: 1.6rem;
         opacity: 0;
-        transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+        -webkit-transition: opacity 0.8s;
+        -o-transition: opacity 0.8s;
         transition: opacity 0.8s;
       }
       ol {
         background: rgba(0, 0, 0, 0.5);
         border-radius: 4px;
-        transition: background 0.4s;
-      }
-      ol:hover {
-        background: rgba(0, 0, 0, 1);
       }
       ol > li {
         color: #FFF;
@@ -122,7 +132,9 @@
         z-index: 999;
         position: fixed;
         top: 50%;
-        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+                transform: translateY(-50%);
       }
       ol.lovesSortBtn li, ol.viewsSortBtn li {
         padding: 0.4rem;
@@ -145,6 +157,8 @@
         right: 0;
         margin: auto;
         opacity: 0;
+        -webkit-transition: opacity 1.6s 0.8s;
+        -o-transition: opacity 1.6s 0.8s;
         transition: opacity 1.6s 0.8s;
       }
       ul > li {
@@ -165,27 +179,40 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
       }
       section > p > img {
         width: 100%;
         opacity: 0;
-        box-shadow: 0.8rem 0.8rem 0.8rem #DDD;
-        transform: translateX(50px);
+        -webkit-box-shadow: 0.8rem 0.8rem 0.8rem #DDD;
+                box-shadow: 0.8rem 0.8rem 0.8rem #DDD;
+        -webkit-transform: translateX(50px);
+            -ms-transform: translateX(50px);
+                transform: translateX(50px);
+        -webkit-transition: opacity 0.8s, -webkit-transform 0.8s;
+        transition: opacity 0.8s, -webkit-transform 0.8s;
+        -o-transition: transform 0.8s, opacity 0.8s;
         transition: transform 0.8s, opacity 0.8s;
+        transition: transform 0.8s, opacity 0.8s, -webkit-transform 0.8s;
       }
       section > p:hover + h3 {
         opacity: 1;
       }
       .arrowSVG {
         fill: #FFF;
+        -webkit-transition: fill 0.4s;
+        -o-transition: fill 0.4s;
         transition: fill 0.4s;
       }
       .arrowSVG:hover {
         fill: tomato;
       }
       .show {
-        transform: none;
+        -webkit-transform: none;
+            -ms-transform: none;
+                transform: none;
         opacity: 1;
       }
       .backBtn {
@@ -196,10 +223,12 @@
       }
       .backBtnSVG {
         fill: #DDD;
+        -webkit-transition: fill 0.4s;
+        -o-transition: fill 0.4s;
         transition: fill 0.4s;
       }
       .backBtnSVG:hover {
-        fill: #000;
+        fill: tomato;
       }
       .dataFrom {
         color: #DDD;
@@ -214,6 +243,9 @@
         position: fixed;
         bottom: 16px;
         right: 16px;
+      }
+      .active {
+        background: tomato;
       }
       @media (min-width: 500px) {
         h1 {
@@ -245,7 +277,7 @@
         ol.viewsSortBtn {
           right: 10%;
         }
-      }
+      }    
     </style>
     <!-- Title -->
     <title>Toshiya Marukubo | Homepage | Works & Learning</title>
@@ -299,22 +331,22 @@
       <main></main>
     </div>
     <script>
-      (function() {
+      (function () {
         'use strict';
         var container,
-            main,
-            index,
-            data,
-            percent,
-            count,
-            now, 
-            vh, W, H,
-            sortLovesToSmallBtn, sortLovesToLargeBtn, sortViewsToSmallBtn, sortViewsToLargeBtn;
+          main,
+          index,
+          data,
+          percent,
+          count,
+          now,
+          vh, W, H,
+          sortLovesToSmallBtn, sortLovesToLargeBtn, sortViewsToSmallBtn, sortViewsToLargeBtn;
 
-        var getJson = function() {
-          return new Promise(function(resolve, reject) {
+        var getJson = function () {
+          return new Promise(function (resolve, reject) {
             var req = new XMLHttpRequest();
-            req.addEventListener('load', function() {
+            req.addEventListener('load', function () {
               var json = JSON.parse(req.responseText);
               resolve(json);
             }, false);
@@ -323,24 +355,24 @@
           });
         }
 
-        var sortLovesToSmall = function(a, b) {
+        var sortLovesToSmall = function (a, b) {
           return Number(b.loves) - Number(a.loves);
         };
 
-        var sortLovesToLarge = function(a, b) {
+        var sortLovesToLarge = function (a, b) {
           return Number(a.loves) - Number(b.loves);
         };
 
-        var sortViewsToSmall = function(a, b) {
+        var sortViewsToSmall = function (a, b) {
           return Number(b.views) - Number(a.views);
         };
 
-        var sortViewsToLarge = function(a, b) {
+        var sortViewsToLarge = function (a, b) {
           return Number(a.views) - Number(b.views);
         };
 
-        var sortJson = function(data, type, dir) {
-          return new Promise(function(resolve, reject) {
+        var sortJson = function (data, type, dir) {
+          return new Promise(function (resolve, reject) {
             if (type === 'loves' && dir === 'small') {
               data.sort(sortLovesToSmall);
             }
@@ -357,14 +389,14 @@
           });
         };
 
-        var createElement = function(elem, content) {
+        var createElement = function (elem, content) {
           var element = document.createElement(elem);
           if (content !== null) element.textContent = content;
           return element;
         };
-        
-        var addItem = function(json, index) {
-          return new Promise(function(resolve, reject) {
+
+        var addItem = function (json, index) {
+          return new Promise(function (resolve, reject) {
             var data = json[index];
             // section
             var section = createElement('section', null);
@@ -399,17 +431,17 @@
           });
         };
 
-        var loadImage = function(src) {
-          return new Promise(function(resolve, reject) {
+        var loadImage = function (src) {
+          return new Promise(function (resolve, reject) {
             var img = new Image();
             img.src = src;
-            img.addEventListener('load', function() {
+            img.addEventListener('load', function () {
               resolve();
             }, false);
           });
         };
 
-        var displayImage = function() {
+        var displayImage = function () {
           var imgs = document.getElementsByTagName('img');
           var h2s = document.getElementsByTagName('h2');
           var uls = document.getElementsByTagName('ul');
@@ -427,7 +459,7 @@
           }
         };
 
-        var init = function() {
+        var init = function () {
           W = window.innerWidth;
           H = window.innerHeight;
           main = document.getElementsByTagName('main')[0];
@@ -442,80 +474,80 @@
           index = 0;
           count = 0;
           percent = 0.00;
-          getJson().then(function(json) {
+          getJson().then(function (json) {
             data = json;
             return addItems();
           });
         };
 
-        var deleteItems = function() {
-          return new Promise(function(resolve, reject) {
+        var deleteItems = function () {
+          return new Promise(function (resolve, reject) {
             main.textContent = null;
             resolve();
           });
         };
 
-        var addItems = function() {
+        var addItems = function () {
           if (count > 1) {
             count = 0;
             return;
           }
-          addItem(data, index).then(function(src) {
+          addItem(data, index).then(function (src) {
             index++;
             count++;
             return loadImage(src);
-          }).then(function() {
+          }).then(function () {
             return displayImage();
-          }).then(function() {
+          }).then(function () {
             addItems();
           });
         };
 
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
           init();
 
-          sortLovesToSmallBtn.addEventListener('click', function(e) {
+          sortLovesToSmallBtn.addEventListener('click', function (e) {
             e.preventDefault();
             now.textContent = '0.00 %';
             index = 0;
-            deleteItems().then(function() {
+            deleteItems().then(function () {
               return sortJson(data, 'loves', 'small');
-            }).then(function() {
+            }).then(function () {
               return addItems();
             });
           }, false);
-          sortLovesToLargeBtn.addEventListener('click', function(e) {
+          sortLovesToLargeBtn.addEventListener('click', function (e) {
             e.preventDefault();
             now.textContent = '0.00 %';
             index = 0;
-            deleteItems().then(function() {
+            deleteItems().then(function () {
               return sortJson(data, 'loves', 'large');
-            }).then(function() {
+            }).then(function () {
               return addItems();
             });
           }, false);
-          sortViewsToSmallBtn.addEventListener('click', function(e) {
+          sortViewsToSmallBtn.addEventListener('click', function (e) {
             e.preventDefault();
             now.textContent = '0.00 %';
             index = 0;
-            deleteItems().then(function() {
+            deleteItems().then(function () {
               return sortJson(data, 'views', 'small');
-            }).then(function() {
+            }).then(function () {
               return addItems();
             });
           }, false);
-          sortViewsToLargeBtn.addEventListener('click', function(e) {
+          sortViewsToLargeBtn.addEventListener('click', function (e) {
             e.preventDefault();
             now.textContent = '0.00 %';
             index = 0;
-            deleteItems().then(function() {
+            deleteItems().then(function () {
               return sortJson(data, 'views', 'large');
-            }).then(function() {
+            }).then(function () {
               return addItems();
             });
           }, false);
 
-          container.addEventListener('scroll', function(e){
+          container.addEventListener('scroll', function (e) {
             now.textContent = (index / data.length * 100).toFixed(2) + ' %';
             if (container.scrollTop + 1 >= container.scrollHeight - window.innerHeight) {
               var y = container.scrollTop;
@@ -525,7 +557,7 @@
             displayImage();
           }, false);
 
-          window.addEventListener('resize', function() {
+          window.addEventListener('resize', function () {
             W = window.innerWidth;
             H = window.innerHeight;
           }, false);
