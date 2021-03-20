@@ -240,16 +240,22 @@
         color: #DDD;
         font-size: 0.8rem;
         position: fixed;
-        bottom: 2vh;
-        bottom: calc(var(--vh, 1vh) * 2);
+        top: 96vh;
+        top: calc(var(--vh, 1vh) * 96);
+        -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+                transform: translateY(-50%);
         left: 16px;
       }
       #now {
         color: #DDD;
         font-size: 0.8rem;
         position: fixed;
-        bottom: 2vh;
-        bottom: calc(var(--vh, 1vh) * 2);
+        top: 96vh;
+        top: calc(var(--vh, 1vh) * 96);
+        -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+                transform: translateY(-50%);
         right: 16px;
       }
       .active {
@@ -468,8 +474,6 @@
         };
 
         var init = function () {
-          vh = window.innerHeight * 0.01;
-          document.documentElement.style.setProperty('--vh', vh + 'px');
           W = window.innerWidth;
           H = window.innerHeight;
           main = document.getElementsByTagName('main')[0];
@@ -479,8 +483,8 @@
           sortLovesToLargeBtn = document.getElementById('sortLovesToLargeBtn');
           sortViewsToSmallBtn = document.getElementById('sortViewsToSmallBtn');
           sortViewsToLargeBtn = document.getElementById('sortViewsToLargeBtn');
-          //vh = H * 0.01;
-          //document.documentElement.style.setProperty('--vh', vh + 'px');
+          vh = H * 0.01;
+          document.documentElement.style.setProperty('--vh', vh + 'px');
           index = 0;
           count = 0;
           percent = 0.00;
@@ -570,7 +574,7 @@
           window.addEventListener('resize', function () {
             W = window.innerWidth;
             H = window.innerHeight;
-            vh = window.innerHeight * 0.01;
+            vh = H * 0.01;
             document.documentElement.style.setProperty('--vh', vh + 'px');
           }, false);
         }, false);
