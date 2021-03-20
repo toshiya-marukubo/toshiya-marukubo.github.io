@@ -127,6 +127,7 @@
         color: #FFF;
         font-style: normal;
         list-style-type: none;
+        transition: transform 0.4s;
       }
       ol.lovesSortBtn, ol.viewsSortBtn {
         font-size: 0.6rem;
@@ -231,7 +232,7 @@
         transition: fill 0.4s;
       }
       .backBtnSVG:hover {
-        fill: tomato;
+        fill: #000;
       }
       .dataFrom {
         color: #DDD;
@@ -264,7 +265,9 @@
         right: 16px;
       }
       .active {
-        background: tomato;
+        background: #000;
+        border-radius: 4px;
+        transform: scale(1.05);
       }
       @media (min-width: 500px) {
         h1 {
@@ -360,6 +363,7 @@
           count,
           now,
           vh, W, H,
+          olLi,
           sortLovesToSmallBtn, sortLovesToLargeBtn, sortViewsToSmallBtn, sortViewsToLargeBtn;
 
         var getJson = function () {
@@ -484,6 +488,14 @@
           main = document.getElementsByTagName('main')[0];
           container = document.getElementById('container');
           now = document.getElementById('now');
+          var ol = document.getElementsByTagName('ol');
+          olLi = [];
+          for (var i = 0 ; i < ol.length; i++) {
+            var child = ol[i].children;
+            for (var j = 0; j < child.length; j++) {
+              if (j % 2 === 0) olLi.push(child[j]);
+            }
+          }
           sortLovesToSmallBtn = document.getElementById('sortLovesToSmallBtn');
           sortLovesToLargeBtn = document.getElementById('sortLovesToLargeBtn');
           sortViewsToSmallBtn = document.getElementById('sortViewsToSmallBtn');
@@ -525,46 +537,50 @@
         window.addEventListener('load', function () {
           init();
 
-          sortLovesToSmallBtn.addEventListener('click', function (e) {
-            e.preventDefault();
-            now.textContent = '0.00 %';
-            index = 0;
-            deleteItems().then(function () {
-              return sortJson(data, 'loves', 'small');
-            }).then(function () {
-              return addItems();
+          for (var i = 0; i < olLi.length; i++) {
+            olLi[i].addEventListener('click', function(e) {
+              for (var j = 0; j < olLi.length; j++) {
+                olLi[j].classList.remove('active');
+              }
+              this.classList.add('active');
+              var id = this.id;
+              e.preventDefault();
+              now.textContent = '0.00 %';
+              index = 0;
+              switch (id) {
+                case 'sortLovesToSmallBtn':
+                  deleteItems().then(function () {
+                    return sortJson(data, 'loves', 'small');
+                  }).then(function () {
+                    return addItems();
+                  });
+                  break;
+                case 'sortLovesToLargeBtn':
+                  deleteItems().then(function () {
+                    return sortJson(data, 'loves', 'large');
+                  }).then(function () {
+                    return addItems();
+                  });
+                  break;
+                case 'sortViewsToSmallBtn':
+                  deleteItems().then(function () {
+                    return sortJson(data, 'views', 'small');
+                  }).then(function () {
+                    return addItems();
+                  });
+                  break;
+                case 'sortViewsToLargeBtn':
+                  deleteItems().then(function () {
+                    return sortJson(data, 'views', 'large');
+                  }).then(function () {
+                    return addItems();
+                  });
+                  break;
+                default:
+                  break;
+              }
             });
-          }, false);
-          sortLovesToLargeBtn.addEventListener('click', function (e) {
-            e.preventDefault();
-            now.textContent = '0.00 %';
-            index = 0;
-            deleteItems().then(function () {
-              return sortJson(data, 'loves', 'large');
-            }).then(function () {
-              return addItems();
-            });
-          }, false);
-          sortViewsToSmallBtn.addEventListener('click', function (e) {
-            e.preventDefault();
-            now.textContent = '0.00 %';
-            index = 0;
-            deleteItems().then(function () {
-              return sortJson(data, 'views', 'small');
-            }).then(function () {
-              return addItems();
-            });
-          }, false);
-          sortViewsToLargeBtn.addEventListener('click', function (e) {
-            e.preventDefault();
-            now.textContent = '0.00 %';
-            index = 0;
-            deleteItems().then(function () {
-              return sortJson(data, 'views', 'large');
-            }).then(function () {
-              return addItems();
-            });
-          }, false);
+          }
 
           container.addEventListener('scroll', function (e) {
             now.textContent = (index / data.length * 100).toFixed(2) + ' %';
