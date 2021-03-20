@@ -47,9 +47,11 @@
         text-decoration: none;
         color: #fff;
       }
+      /*
       html, body {
         height: 100%;
       }
+      */
       body {
         text-align: center;
         overflow: hidden;
@@ -61,18 +63,12 @@
         background: #fff;
       }
       main {
-        /*
         height: 100vh;
         height: calc(var(--vh, 1vh) * 100);
-        */
-        height: 100%;
       }
       #container {
-        /*
         height: 100vh;
         height: calc(var(--vh, 1vh) * 100);
-        */
-        height: 100%;
         max-width: 1500px;
         margin: 0 auto;
         overflow-y: scroll;
@@ -83,7 +79,7 @@
         font-size: 5rem;
         color: #EEE;
         position: fixed;
-        top: 50%;
+        top: 50vh;
         left: 50%;
         -webkit-transform: translate(-50%, -50%);
             -ms-transform: translate(-50%, -50%);
@@ -139,7 +135,7 @@
         font-size: 0.6rem;
         z-index: 999;
         position: fixed;
-        top: 50%;
+        top: 50vh;
         -webkit-transform: translateY(-50%);
             -ms-transform: translateY(-50%);
                 transform: translateY(-50%);
@@ -177,11 +173,8 @@
         padding-left: 0.8rem;
       }
       section {
-        height: 100%;
-        /*
         height: 100vh;
         height: calc(var(--vh, 1vh) * 100);
-        */
         overflow: hidden;
         position: relative;
         scroll-snap-align: start;
@@ -230,7 +223,8 @@
       .backBtn {
         position: fixed;
         z-index: 999;
-        top: 16px;
+        top: 2vh;
+        top: calc(var(--vh, 1vh) * 2);
         left: 16px;
       }
       .backBtnSVG {
@@ -246,14 +240,16 @@
         color: #DDD;
         font-size: 0.8rem;
         position: fixed;
-        bottom: 16px;
+        bottom: 2vh;
+        bottom: calc(var(--vh, 1vh) * 2);
         left: 16px;
       }
       #now {
         color: #DDD;
         font-size: 0.8rem;
         position: fixed;
-        bottom: 16px;
+        bottom: 2vh;
+        bottom: calc(var(--vh, 1vh) * 2);
         right: 16px;
       }
       .active {
@@ -472,8 +468,8 @@
         };
 
         var init = function () {
-          //vh = window.innerHeight * 0.01;
-          //document.documentElement.style.setProperty('--vh', vh + 'px');
+          vh = window.innerHeight * 0.01;
+          document.documentElement.style.setProperty('--vh', vh + 'px');
           W = window.innerWidth;
           H = window.innerHeight;
           main = document.getElementsByTagName('main')[0];
@@ -574,8 +570,8 @@
           window.addEventListener('resize', function () {
             W = window.innerWidth;
             H = window.innerHeight;
-            //vh = window.innerHeight * 0.01;
-            //document.documentElement.style.setProperty('--vh', vh + 'px');
+            vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', vh + 'px');
           }, false);
         }, false);
       })();
