@@ -47,11 +47,9 @@
         text-decoration: none;
         color: #fff;
       }
-      /*
       html, body {
         height: 100%;
       }
-      */
       body {
         text-align: center;
         overflow: hidden;
@@ -474,8 +472,8 @@
         };
 
         var init = function () {
-          vh = window.innerHeight * 0.01;
-          document.documentElement.style.setProperty('--vh', vh + 'px');
+          //vh = window.innerHeight * 0.01;
+          //document.documentElement.style.setProperty('--vh', vh + 'px');
           W = window.innerWidth;
           H = window.innerHeight;
           main = document.getElementsByTagName('main')[0];
@@ -576,8 +574,8 @@
           window.addEventListener('resize', function () {
             W = window.innerWidth;
             H = window.innerHeight;
-            vh = window.innerHeight * 0.01;
-            document.documentElement.style.setProperty('--vh', vh + 'px');
+            //vh = window.innerHeight * 0.01;
+            //document.documentElement.style.setProperty('--vh', vh + 'px');
           }, false);
         }, false);
       })();
