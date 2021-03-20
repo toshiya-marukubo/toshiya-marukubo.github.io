@@ -61,8 +61,6 @@
         font-size: 67.5%;
         background: #fff;
       }
-      main {
-      }
       #container {
         position: relative;
         height: 100vh;
@@ -77,11 +75,8 @@
         font-size: 5rem;
         color: #EEE;
         position: fixed;
-        /*
         top: 50vh;
         top: calc(var(--vh, 1vh) * 50);
-        */
-        top: 50%;
         left: 50%;
         -webkit-transform: translate(-50%, -50%);
             -ms-transform: translate(-50%, -50%);
@@ -100,11 +95,11 @@
         -webkit-transform: translateX(-50px);
             -ms-transform: translateX(-50px);
                 transform: translateX(-50px);
-        -webkit-transition: opacity 0.8s 0.4s, -webkit-transform 0.8s 0.4s;
-        transition: opacity 0.8s 0.4s, -webkit-transform 0.8s 0.4s;
-        -o-transition: transform 0.8s 0.4s, opacity 0.8s 0.4s;
-        transition: transform 0.8s 0.4s, opacity 0.8s 0.4s;
-        transition: transform 0.8s 0.4s, opacity 0.8s 0.4s, -webkit-transform 0.8s 0.4s;
+        -webkit-transition: opacity 0.8s 0.8s, -webkit-transform 0.8s 0.8s;
+        transition: opacity 0.8s 0.8s, -webkit-transform 0.8s 0.8s;
+        -o-transition: opacity 0.8s 0.8s, transform 0.8s 0.8s;
+        transition: opacity 0.8s 0.8s, transform 0.8s 0.8s;
+        transition: opacity 0.8s 0.8s, transform 0.8s 0.8s, -webkit-transform 0.8s 0.8s;
       }
       h3 {
         color: #FFF;
@@ -147,10 +142,10 @@
         padding: 0.4rem;
       }
       ol.lovesSortBtn {
-        left: 2%;
+        left: 16px;
       }
       ol.viewsSortBtn {
-        right: 2%;
+        right: 16px;
       }
       ul {
         font-size: 1rem;
@@ -164,9 +159,9 @@
         right: 0;
         margin: auto;
         opacity: 0;
-        -webkit-transition: opacity 1.6s 0.8s;
-        -o-transition: opacity 1.6s 0.8s;
-        transition: opacity 1.6s 0.8s;
+        -webkit-transition: opacity 0.8s 1.2s;
+        -o-transition: opacity 0.8s 1.2s;
+        transition: opacity 0.8s 1.2s;
       }
       ul > li {
         display: inline-block;
@@ -199,11 +194,11 @@
         -webkit-transform: translateX(50px);
             -ms-transform: translateX(50px);
                 transform: translateX(50px);
-        -webkit-transition: opacity 0.8s, -webkit-transform 0.8s;
-        transition: opacity 0.8s, -webkit-transform 0.8s;
-        -o-transition: transform 0.8s, opacity 0.8s;
-        transition: transform 0.8s, opacity 0.8s;
-        transition: transform 0.8s, opacity 0.8s, -webkit-transform 0.8s;
+        -webkit-transition: opacity 0.8s 0.4s, -webkit-transform 0.8s 0.4s;
+        transition: opacity 0.8s 0.4s, -webkit-transform 0.8s 0.4s;
+        -o-transition: opacity 0.8s 0.4s, transform 0.8s 0.4s;
+        transition: opacity 0.8s 0.4s, transform 0.8s 0.4s;
+        transition: opacity 0.8s 0.4s, transform 0.8s 0.4s, -webkit-transform 0.8s 0.4s;
       }
       section > p:hover + h3 {
         opacity: 1;
@@ -226,8 +221,7 @@
       .backBtn {
         position: fixed;
         z-index: 999;
-        top: 2vh;
-        top: calc(var(--vh, 1vh) * 2);
+        top: 16px;
         left: 16px;
       }
       .backBtnSVG {
@@ -243,8 +237,12 @@
         color: #DDD;
         font-size: 0.8rem;
         position: fixed;
+        bottom: 16px;
+        left: 16px;
+        /*
         top: 96vh;
         top: calc(var(--vh, 1vh) * 96);
+        */
         -webkit-transform: translateY(-50%);
             -ms-transform: translateY(-50%);
                 transform: translateY(-50%);
@@ -254,8 +252,12 @@
         color: #DDD;
         font-size: 0.8rem;
         position: fixed;
+        bottom: 16px;
+        right: 16px;
+        /*
         top: 96vh;
         top: calc(var(--vh, 1vh) * 96);
+        */
         -webkit-transform: translateY(-50%);
             -ms-transform: translateY(-50%);
                 transform: translateY(-50%);
@@ -294,7 +296,7 @@
         ol.viewsSortBtn {
           right: 10%;
         }
-      }    
+      }
     </style>
     <!-- Title -->
     <title>Toshiya Marukubo | Homepage | Works & Learning</title>
