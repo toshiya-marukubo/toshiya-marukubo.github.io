@@ -182,7 +182,7 @@
         position: relative;
         scroll-snap-align: start;
       }
-      section > p {
+      section p {
         width: 90%;
         position: absolute;
         top: 50%;
@@ -191,7 +191,7 @@
             -ms-transform: translate(-50%, -50%);
                 transform: translate(-50%, -50%);
       }
-      section > p > img {
+      section p img {
         width: 100%;
         opacity: 0;
         -webkit-box-shadow: 0.8rem 0.8rem 0.8rem #DDD;
@@ -205,7 +205,7 @@
         transition: opacity 0.8s 0.4s, transform 0.8s 0.4s;
         transition: opacity 0.8s 0.4s, transform 0.8s 0.4s, -webkit-transform 0.8s 0.4s;
       }
-      section > p:hover + h3 {
+      section  p:hover + h3 {
         opacity: 1;
       }
       .arrowSVG {
@@ -317,7 +317,7 @@
         h1 {
           font-size: 16rem;
         }
-        section > p {
+        section p {
           width: 60%;
         }
         h2 {
@@ -483,13 +483,13 @@
             a.setAttribute('href', data.link);
             a.setAttribute('target', '_blank');
             // append
-            p.appendChild(image);
+            a.appendChild(image);
+            p.appendChild(a);
             section.appendChild(p);
             section.appendChild(h3);
             section.appendChild(h2);
             section.appendChild(ul);
-            a.appendChild(section);
-            main.appendChild(a);
+            main.appendChild(section);
             // resolve
             resolve(data.image);
           });
