@@ -112,6 +112,7 @@
         background: rgba(0, 0, 0, 0.8);
         padding: 1.6rem;
         opacity: 0;
+        pointer-events: none;
         -webkit-transform: translate(-50%, -50%);
             -ms-transform: translate(-50%, -50%);
                 transform: translate(-50%, -50%);
@@ -205,7 +206,7 @@
         transition: opacity 0.8s 0.4s, transform 0.8s 0.4s;
         transition: opacity 0.8s 0.4s, transform 0.8s 0.4s, -webkit-transform 0.8s 0.4s;
       }
-      section  p:hover + h3 {
+      section p:hover + h3 {
         opacity: 1;
       }
       .arrowSVG {
