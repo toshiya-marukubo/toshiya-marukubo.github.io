@@ -73,7 +73,7 @@
       }
       h1 {
         font-size: 5rem;
-        color: #EEE;
+        color: #eee;
         position: fixed;
         top: 50vh;
         top: calc(var(--vh, 1vh) * 50);
@@ -127,7 +127,11 @@
         color: #FFF;
         font-style: normal;
         list-style-type: none;
+        -webkit-transition: -webkit-transform 0.4s;
+        transition: -webkit-transform 0.4s;
+        -o-transition: transform 0.4s;
         transition: transform 0.4s;
+        transition: transform 0.4s, -webkit-transform 0.4s;
       }
       ol.lovesSortBtn, ol.viewsSortBtn {
         font-size: 0.6rem;
@@ -247,7 +251,6 @@
         -webkit-transform: translateY(-50%);
             -ms-transform: translateY(-50%);
                 transform: translateY(-50%);
-        left: 16px;
       }
       #now {
         color: #DDD;
@@ -262,12 +265,53 @@
         -webkit-transform: translateY(-50%);
             -ms-transform: translateY(-50%);
                 transform: translateY(-50%);
-        right: 16px;
       }
       .active {
         background: #000;
         border-radius: 4px;
-        transform: scale(1.05);
+        -webkit-transform: scale(1.05);
+            -ms-transform: scale(1.05);
+                transform: scale(1.05);
+      }
+      #loading {
+        height: 48px;
+        width: 48px;
+        background: #DDD;
+        border-radius: 50%;
+        position: fixed;
+        top: 50vh;
+        top: calc(var(--vh, 1vh) * 50);
+        left: 50%;
+        opacity: 0;
+        -webkit-animation: load-animation ease-in-out 1.6s 0s infinite alternate;
+                animation: load-animation ease-in-out 1.6s 0s infinite alternate;
+        -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+      }
+      @-webkit-keyframes load-animation {
+        0% {
+          -webkit-transform: translate(-50%, -50%) scale(1);
+                  transform: translate(-50%, -50%) scale(1);
+          opacity: 0;
+        }
+        50% {
+          -webkit-transform: translate(-50%, -50%) scale(2);
+                  transform: translate(-50%, -50%) scale(2);
+          opacity: 1;
+        }
+      }
+      @keyframes load-animation {
+        0% {
+          -webkit-transform: translate(-50%, -50%) scale(1);
+                  transform: translate(-50%, -50%) scale(1);
+          opacity: 0;
+        }
+        50% {
+          -webkit-transform: translate(-50%, -50%) scale(2);
+                  transform: translate(-50%, -50%) scale(2);
+          opacity: 1;
+        }
       }
       @media (min-width: 500px) {
         h1 {
@@ -307,6 +351,7 @@
   <body>
     <div id="container">
       <h1>WORKS & LEARNING</h1>
+      <div id="loading"></div>
       <div class="backBtn">
         <a href="https://toshiya-marukubo.github.io/">
           <svg viewBox="0 0 256 512" width="32" title="angle-left" class="backBtnSVG">
@@ -355,16 +400,12 @@
     <script>
       (function () {
         'use strict';
-        var container,
-          main,
-          index,
-          data,
-          percent,
-          count,
-          now,
-          vh, W, H,
-          olLi,
-          sortLovesToSmallBtn, sortLovesToLargeBtn, sortViewsToSmallBtn, sortViewsToLargeBtn;
+        var container, main,
+            percent, count, now, olLi,
+            index,
+            data,
+            vh, W, H,
+            sortLovesToSmallBtn, sortLovesToLargeBtn, sortViewsToSmallBtn, sortViewsToLargeBtn;
 
         var getJson = function () {
           return new Promise(function (resolve, reject) {
