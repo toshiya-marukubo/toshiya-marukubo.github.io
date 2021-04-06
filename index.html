@@ -135,338 +135,338 @@
     <!-- Title -->
     <title>Toshiya Marukubo | Homepage</title>
   </head>
-<body>
-  <div class="container">
-    <header>
-      <p>header</p>
-      <h1>Hi :)</h1>
-      <p>I'm Toshiya Marukubo.<br/>By the way, Would you tell me who you are?</p>
-    </header>
-    <main>
-      <p>main</p>
-      <h2>Links</h2>
-      <ul>
-        <li><a href="https://twitter.com/toshiyamarukubo">Twitter</a></li>
-        <li><a href="https://www.instagram.com/toshiyamarukubo/">Instagram</a></li>
-        <li><a href="https://codepen.io/toshiya-marukubo">CodePen</a></li>
-        <li><a href="https://github.com/toshiya-marukubo">GitHub</a></li>
-        <li><a href="http://www.marukubo.net/">Leaning Place (for node.js)</a></li>
-        <li class="made">I made
-          <ul>
-            <li><a href="https://toshiya-marukubo.github.io/works.html">WORKS & LEARNING</a></li>
-            <li><a href="https://toshiya-marukubo.github.io/scrollColors/index.html">SCROLL COLORS (prototype)</a></li>
-            <li><a href="https://toshiya-marukubo.github.io/pattern/index.html">Pattern (Not updated)</a></li>
-            <li><a href="https://toshiya-marukubo.github.io/100workschallenge/index.html">100 Works Challenge 2020 (Not updated)</a></li>
-          </ul>
-        </li>
-      </ul>
-      <h3>My Skill</h3>
-      <ul>
-        <li>Google</li>
-      </ul>
-    </main>
-    <footer>
-      <p>footer</p>
-      <small>&copy Toshiya Marukubo</small>
-    </footer>
-  </div>
-  <canvas id='canvas'>Canvas not supported.</canvas>
-  <script>
-    /**
-     * create multiple array
-     */
-    function createMultipleArray(number_one, number_two) {
-      var arr = new Array(number_one);
-      for (var y = 0; y < number_one; y++) {
-        arr[y] = new Array(number_two);
-        for (var x = 0; x < number_two; x++) {
-          arr[y][x] = 0;
+  <body>
+    <div class="container">
+      <header>
+        <p>header</p>
+        <h1>Hi :)</h1>
+        <p>I'm Toshiya Marukubo.<br/>By the way, Would you tell me who you are?</p>
+      </header>
+      <main>
+        <p>main</p>
+        <h2>Links</h2>
+        <ul>
+          <li><a href="https://twitter.com/toshiyamarukubo">Twitter</a></li>
+          <li><a href="https://www.instagram.com/toshiyamarukubo/">Instagram</a></li>
+          <li><a href="https://codepen.io/toshiya-marukubo">CodePen</a></li>
+          <li><a href="https://github.com/toshiya-marukubo">GitHub</a></li>
+          <li><a href="http://www.marukubo.net/">Leaning Place (for node.js)</a></li>
+          <li class="made">I made
+            <ul>
+              <li><a href="https://toshiya-marukubo.github.io/works.html">WORKS & LEARNING</a></li>
+              <li><a href="https://toshiya-marukubo.github.io/scrollColors/index.html">SCROLL COLORS (prototype)</a></li>
+              <li><a href="https://toshiya-marukubo.github.io/pattern/index.html">Pattern (Not updated)</a></li>
+              <li><a href="https://toshiya-marukubo.github.io/100workschallenge/index.html">100 Works Challenge 2020 (Not updated)</a></li>
+            </ul>
+          </li>
+        </ul>
+        <h3>My Skill</h3>
+        <ul>
+          <li>Google</li>
+        </ul>
+      </main>
+      <footer>
+        <p>footer</p>
+        <small>&copy Toshiya Marukubo</small>
+      </footer>
+    </div>
+    <canvas id='canvas'>Canvas not supported.</canvas>
+    <script>
+      /**
+       * create multiple array
+       */
+      function createMultipleArray(number_one, number_two) {
+        var arr = new Array(number_one);
+        for (var y = 0; y < number_one; y++) {
+          arr[y] = new Array(number_two);
+          for (var x = 0; x < number_two; x++) {
+            arr[y][x] = 0;
+          }
         }
+        return arr;
       }
-      return arr;
-    }
 
-    /**
-     * get random number
-     */
-    function getRandomNumber(min, max) {
-      return Math.floor(Math.random() * (max + 1 - min)) + min;
-    }
+      /**
+       * get random number
+       */
+      function getRandomNumber(min, max) {
+        return Math.floor(Math.random() * (max + 1 - min)) + min;
+      }
 
-    /**
-     * File Name / pixcelDataMap.js (prototype version)
-     * Created Date / Jan 18, 2021
-     * Aurhor / Toshiya Marukubo
-     * Twitter / https://twitter.com/toshiyamarukubo
-     */
-    function PixcelDataMap(ctx, x, y) {
-      this.ctx = ctx;
-      this.x = x;
-      this.y = y;
-      this.state = createMultipleArray(this.y, this.x);
-      this.lastState = createMultipleArray(this.y, this.x);
-      this.d = this.ctx.createImageData(this.x, this.y);
-      this.init();
-    }
+      /**
+       * File Name / pixcelDataMap.js (prototype version)
+       * Created Date / Jan 18, 2021
+       * Aurhor / Toshiya Marukubo
+       * Twitter / https://twitter.com/toshiyamarukubo
+       */
+      function PixcelDataMap(ctx, x, y) {
+        this.ctx = ctx;
+        this.x = x;
+        this.y = y;
+        this.state = createMultipleArray(this.y, this.x);
+        this.lastState = createMultipleArray(this.y, this.x);
+        this.d = this.ctx.createImageData(this.x, this.y);
+        this.init();
+      }
 
-    PixcelDataMap.prototype.init = function () {
-      for (var y = 0; y < this.y; y++) {
-        for (var x = 0; x < this.x; x++) {
-          this.state[y][x] = getRandomNumber(0, 255);
+      PixcelDataMap.prototype.init = function () {
+        for (var y = 0; y < this.y; y++) {
+          for (var x = 0; x < this.x; x++) {
+            this.state[y][x] = getRandomNumber(0, 255);
+          }
         }
-      }
-    };
+      };
 
-    PixcelDataMap.prototype.updateImageData = function () {
-      for (var y = 0; y < this.y; y++) {
-        for (var x = 0; x < this.x; x++) {
-          var i = y * this.x + x;
-          this.d.data[4 * i + 0] = 0;
-          this.d.data[4 * i + 1] = 0;
-          this.d.data[4 * i + 2] = 0;
-          this.d.data[4 * i + 3] = this.state[y][x];
+      PixcelDataMap.prototype.updateImageData = function () {
+        for (var y = 0; y < this.y; y++) {
+          for (var x = 0; x < this.x; x++) {
+            var i = y * this.x + x;
+            this.d.data[4 * i + 0] = 0;
+            this.d.data[4 * i + 1] = 0;
+            this.d.data[4 * i + 2] = 0;
+            this.d.data[4 * i + 3] = this.state[y][x];
+          }
         }
-      }
-    };
+      };
 
-    PixcelDataMap.prototype.drawImageData = function () {
-      this.ctx.putImageData(this.d, 0, 0);
-    };
+      PixcelDataMap.prototype.drawImageData = function () {
+        this.ctx.putImageData(this.d, 0, 0);
+      };
 
-    PixcelDataMap.prototype.updateState = function () {
-      var array = createMultipleArray(this.y, this.x);
+      PixcelDataMap.prototype.updateState = function () {
+        var array = createMultipleArray(this.y, this.x);
 
-      for (var y = 0; y < this.y; y++) {
-        for (var x = 0; x < this.x; x++) {
-          var total = 0;
-          var above = y - 1;
-          var below = y + 1;
-          var left = x - 1;
-          var right = x + 1;
+        for (var y = 0; y < this.y; y++) {
+          for (var x = 0; x < this.x; x++) {
+            var total = 0;
+            var above = y - 1;
+            var below = y + 1;
+            var left = x - 1;
+            var right = x + 1;
 
-          if (above < 0) above = this.y - 1;
-          if (below == this.y) below = 0;
-          if (left < 0) left = this.x - 1;
-          if (right == this.x) right = 0;
+            if (above < 0) above = this.y - 1;
+            if (below == this.y) below = 0;
+            if (left < 0) left = this.x - 1;
+            if (right == this.x) right = 0;
 
-          var a = this.state[above][x];
-          var r = this.state[y][right];
-          var b = this.state[below][x];
-          var l = this.state[y][left];
-          var al = this.state[above][left];
-          var bl = this.state[below][left];
-          var br = this.state[below][right];
-          var ar = this.state[above][right];
+            var a = this.state[above][x];
+            var r = this.state[y][right];
+            var b = this.state[below][x];
+            var l = this.state[y][left];
+            var al = this.state[above][left];
+            var bl = this.state[below][left];
+            var br = this.state[below][right];
+            var ar = this.state[above][right];
 
-          total = a + r + b + l + al + bl + br + ar;
-          var average = Math.floor(total / 8);
-          var nextStateNum = 0;
+            total = a + r + b + l + al + bl + br + ar;
+            var average = Math.floor(total / 8);
+            var nextStateNum = 0;
 
-          if (average == 255) {
-            nextStateNum = 0;
-          } else if (average == 0) {
-            nextStateNum = 255;
-          } else {
-            nextStateNum = this.state[y][x] + average;
-            if (this.lastState[y][x] > 0) {
-              nextStateNum = nextStateNum - this.lastState[y][x];
-            }
-            if (nextStateNum > 255) {
-              nextStateNum = 255;
-            } else if (nextStateNum < 0) {
+            if (average == 255) {
               nextStateNum = 0;
+            } else if (average == 0) {
+              nextStateNum = 255;
+            } else {
+              nextStateNum = this.state[y][x] + average;
+              if (this.lastState[y][x] > 0) {
+                nextStateNum = nextStateNum - this.lastState[y][x];
+              }
+              if (nextStateNum > 255) {
+                nextStateNum = 255;
+              } else if (nextStateNum < 0) {
+                nextStateNum = 0;
+              }
+            }
+            array[y][x] = nextStateNum;
+          }
+        }
+        this.lastState = this.state;
+        this.state = array;
+      };
+
+      PixcelDataMap.prototype.render = function () {
+        this.drawImageData();
+        this.updateImageData();
+        this.updateState();
+      };
+
+      /**
+       * Shapes
+       */
+      function Shapes(ctx, x, y) {
+        this.ctx = ctx;
+        this.init(x, y);
+      }
+
+      Shapes.prototype.init = function (x, y) {
+        this.x = x;
+        this.y = y;
+        this.s = 50;
+        this.ga = 0.4;
+        this.c = 'black';
+        this.g = 6;
+        this.rad = Math.PI * 2 / this.g;
+        this.time = Date.now();
+      };
+
+      Shapes.prototype.draw = function () {
+        var ctx = this.ctx;
+        ctx.save();
+        ctx.globalAlpha = this.ga;
+        ctx.fillStyle = this.c;
+        ctx.translate(this.x, this.y);
+        ctx.rotate(Math.tan(this.time / 10000) * 10);
+        ctx.scale(Math.cos(this.time / 5000) * 1.5, Math.sin(this.time / 5000) * 1.5);
+        ctx.translate(-this.x, -this.y);
+        ctx.beginPath();
+        for (var i = 0; i < this.g; i++) {
+          var x = Math.cos(this.rad * i) * this.s + this.x;
+          var y = Math.sin(this.rad * i) * this.s + this.y;
+          if (i === 0) {
+            ctx.moveTo(x, y);
+          } else {
+            ctx.lineTo(x, y);
+          }
+        }
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      };
+
+      Shapes.prototype.onHover = function (text, hover) {
+        this.t = text;
+        this.hover = hover;
+      };
+
+      Shapes.prototype.render = function () {
+        this.draw();
+        this.time = Date.now();
+        if (Math.random() < 0.05) {
+          this.ga = Math.random();
+          this.g = getRandomNumber(3, 12);
+          this.rad = Math.PI * 2 / this.g;
+          this.s = Math.sin(this.time / 5000) * 50;
+        }
+      };
+
+      /**
+       * Glitch
+       */
+      function Glitch(ctx, width, height) {
+        this.time;
+        this.ctx = ctx;
+        this.width = width;
+        this.height = height;
+        this.splitH = this.height / this.splitNum;
+        this.dataArr = [];
+        this.yPosArr = [];
+      }
+
+      Glitch.prototype.getImageData = function () {
+        var startHeight = 0;
+        for (var i = 0; i < this.height; i += randomHeight) {
+          var rand = Math.random();
+          var randomHeight = Math.floor(getRandomNumber(1, 30));
+          var d = this.ctx.getImageData(0, startHeight, this.width, startHeight + randomHeight);
+          if (rand < 0.05) {
+            for (var j = 0; j < d.data.length; j++) {
+              d.data[j * 4 + 0] = 200;
+              d.data[j * 4 + 2] = 100;
             }
           }
-          array[y][x] = nextStateNum;
+          if (rand > 0.05 && rand < 0.1) {
+            for (var j = 0; j < d.data.length; j++) {
+              d.data[j * 4 + 1] = 200;
+              d.data[j * 4 + 2] = 200;
+            }
+          }
+          this.yPosArr.push(startHeight);
+          this.dataArr.push(d);
+          startHeight += randomHeight;
         }
-      }
-      this.lastState = this.state;
-      this.state = array;
-    };
+      };
 
-    PixcelDataMap.prototype.render = function () {
-      this.drawImageData();
-      this.updateImageData();
-      this.updateState();
-    };
-
-    /**
-     * Shapes
-     */
-    function Shapes(ctx, x, y) {
-      this.ctx = ctx;
-      this.init(x, y);
-    }
-
-    Shapes.prototype.init = function (x, y) {
-      this.x = x;
-      this.y = y;
-      this.s = 50;
-      this.ga = 0.4;
-      this.c = 'black';
-      this.g = 6;
-      this.rad = Math.PI * 2 / this.g;
-      this.time = Date.now();
-    };
-
-    Shapes.prototype.draw = function () {
-      var ctx = this.ctx;
-      ctx.save();
-      ctx.globalAlpha = this.ga;
-      ctx.fillStyle = this.c;
-      ctx.translate(this.x, this.y);
-      ctx.rotate(Math.tan(this.time / 10000) * 10);
-      ctx.scale(Math.cos(this.time / 5000) * 1.5, Math.sin(this.time / 5000) * 1.5);
-      ctx.translate(-this.x, -this.y);
-      ctx.beginPath();
-      for (var i = 0; i < this.g; i++) {
-        var x = Math.cos(this.rad * i) * this.s + this.x;
-        var y = Math.sin(this.rad * i) * this.s + this.y;
-        if (i === 0) {
-          ctx.moveTo(x, y);
-        } else {
-          ctx.lineTo(x, y);
-        }
-      }
-      ctx.closePath();
-      ctx.fill();
-      ctx.restore();
-    };
-
-    Shapes.prototype.onHover = function (text, hover) {
-      this.t = text;
-      this.hover = hover;
-    };
-
-    Shapes.prototype.render = function () {
-      this.draw();
-      this.time = Date.now();
-      if (Math.random() < 0.05) {
-        this.ga = Math.random();
-        this.g = getRandomNumber(3, 12);
-        this.rad = Math.PI * 2 / this.g;
-        this.s = Math.sin(this.time / 5000) * 50;
-      }
-    };
-
-    /**
-     * Glitch
-     */
-    function Glitch(ctx, width, height) {
-      this.time;
-      this.ctx = ctx;
-      this.width = width;
-      this.height = height;
-      this.splitH = this.height / this.splitNum;
-      this.dataArr = [];
-      this.yPosArr = [];
-    }
-
-    Glitch.prototype.getImageData = function () {
-      var startHeight = 0;
-      for (var i = 0; i < this.height; i += randomHeight) {
-        var rand = Math.random();
-        var randomHeight = Math.floor(getRandomNumber(1, 30));
-        var d = this.ctx.getImageData(0, startHeight, this.width, startHeight + randomHeight);
-        if (rand < 0.05) {
-          for (var j = 0; j < d.data.length; j++) {
-            d.data[j * 4 + 0] = 200;
-            d.data[j * 4 + 2] = 100;
+      Glitch.prototype.addImage = function () {
+        for (var i = 0; i < this.dataArr.length; i++) {
+          if (Math.random() < 0.8) {
+            this.ctx.putImageData(
+              this.dataArr[i],
+              Math.sin(this.time * 1 + i * 10 * Math.PI / 180) * 30,
+              this.yPosArr[i]
+            );
+          } else {
+            this.ctx.putImageData(
+              this.dataArr[getRandomNumber(0, this.dataArr.length - 1)],
+              this.width * Math.random(),
+              this.height * Math.random()
+            );
           }
         }
-        if (rand > 0.05 && rand < 0.1) {
-          for (var j = 0; j < d.data.length; j++) {
-            d.data[j * 4 + 1] = 200;
-            d.data[j * 4 + 2] = 200;
-          }
-        }
-        this.yPosArr.push(startHeight);
-        this.dataArr.push(d);
-        startHeight += randomHeight;
-      }
-    };
+      };
 
-    Glitch.prototype.addImage = function () {
-      for (var i = 0; i < this.dataArr.length; i++) {
-        if (Math.random() < 0.8) {
-          this.ctx.putImageData(
-            this.dataArr[i],
-            Math.sin(this.time * 1 + i * 10 * Math.PI / 180) * 30,
-            this.yPosArr[i]
-          );
-        } else {
-          this.ctx.putImageData(
-            this.dataArr[getRandomNumber(0, this.dataArr.length - 1)],
-            this.width * Math.random(),
-            this.height * Math.random()
-          );
-        }
-      }
-    };
+      Glitch.prototype.render = function () {
+        this.time = Date.now() / 100;
+        this.dataArr = [];
+        this.yPosArr = [];
+        this.getImageData();
+        this.addImage();
+      };
 
-    Glitch.prototype.render = function () {
-      this.time = Date.now() / 100;
-      this.dataArr = [];
-      this.yPosArr = [];
-      this.getImageData();
-      this.addImage();
-    };
+      (function() {
+        'use strict';
+        window.addEventListener('DOMContentLoaded', function() {
+          var canvas = document.getElementById('canvas');
 
-    (function() {
-      'use strict';
-      window.addEventListener('DOMContentLoaded', function() {
-        var canvas = document.getElementById('canvas');
+          if (!canvas || !canvas.getContext) return false;
+          var c = canvas.getContext('2d');
+          var wx = window.innerWidth;
+          var wy = window.innerHeight;
+          var x = canvas.width = Math.floor(wx / 3);
+          var y = canvas.height = Math.floor(wy / 3);
+          var flg = false;
 
-        if (!canvas || !canvas.getContext) return false;
-        var c = canvas.getContext('2d');
-        var wx = window.innerWidth;
-        var wy = window.innerHeight;
-        var x = canvas.width = Math.floor(wx / 3);
-        var y = canvas.height = Math.floor(wy / 3);
-        var flg = false;
-
-        if (x % 2 !== 0) x += 1;
-        if (y % 2 !== 0) y += 1;
-
-        var g;
-        var p = new PixcelDataMap(c, x, y);
-        var s = new Shapes(c, x - x / 3, y / 2);
-
-        function render() {
-          c.clearRect(0, 0, x, y);
-          p.render();
-          s.render();
-          if (flg && Math.random() < 0.7) g.render();
-          window.requestAnimationFrame(render);
-        }
-
-        var timerId;
-
-        window.addEventListener('scroll', function () {
-          g = new Glitch(c, x, y);
-          flg = true;
-          clearTimeout(timerId);
-          timerId = setTimeout(function () {
-            g = null;
-            flg = false;
-          }, 200);
-        }, true);
-
-        window.addEventListener('resize', function () {
-          wx = window.innerWidth;
-          if (wx < 500) return;
-          wy = window.innerHeight;
-          x = canvas.width = Math.floor(wx / 3);
-          y = canvas.height = Math.floor(wy / 3);
           if (x % 2 !== 0) x += 1;
           if (y % 2 !== 0) y += 1;
-          p = new PixcelDataMap(c, x, y);
-          s = new Shapes(c, x - x / 3, y / 2);
-        }, false);
 
-        render();
-      }, false);
-    })(); 
-  </script>
-</body>
+          var g;
+          var p = new PixcelDataMap(c, x, y);
+          var s = new Shapes(c, x - x / 3, y / 2);
+
+          function render() {
+            c.clearRect(0, 0, x, y);
+            p.render();
+            s.render();
+            if (flg && Math.random() < 0.7) g.render();
+            window.requestAnimationFrame(render);
+          }
+
+          var timerId;
+
+          window.addEventListener('scroll', function () {
+            g = new Glitch(c, x, y);
+            flg = true;
+            clearTimeout(timerId);
+            timerId = setTimeout(function () {
+              g = null;
+              flg = false;
+            }, 200);
+          }, true);
+
+          window.addEventListener('resize', function () {
+            wx = window.innerWidth;
+            if (wx < 500) return;
+            wy = window.innerHeight;
+            x = canvas.width = Math.floor(wx / 3);
+            y = canvas.height = Math.floor(wy / 3);
+            if (x % 2 !== 0) x += 1;
+            if (y % 2 !== 0) y += 1;
+            p = new PixcelDataMap(c, x, y);
+            s = new Shapes(c, x - x / 3, y / 2);
+          }, false);
+
+          render();
+        }, false);
+      })(); 
+    </script>
+  </body>
 </html>
