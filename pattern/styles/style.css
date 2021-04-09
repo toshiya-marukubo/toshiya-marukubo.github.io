@@ -42,14 +42,14 @@
 
 html, body {
   margin: 0 auto;
-  height: 100vh;
+  height: 100%;
   width: 100%;
   color: white;
   background: black;
   font-family: 'arial black', 'American Typewriter', verdana, Helvetica, monospace, sans-serif;
   font-size: 100%;
   line-height: 1.6;
-  overflow: hidden scroll;
+  overflow-y: hidden scroll;
 }
 
 canvas#canvas {
