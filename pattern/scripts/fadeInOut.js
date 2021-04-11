@@ -25,7 +25,7 @@
     for (var i = 0; i < a.length; i++) {
       a[i].addEventListener('click', function(e) {
         e.preventDefault();
-        var url =  this.href;
+        var url = this.href;
         fadeOut(url);
       }, false);
     }

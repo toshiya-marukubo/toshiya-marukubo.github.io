@@ -41,7 +41,7 @@
     var mouseY = null;
     var ease = 0.3;
     var friction = 0.9;
-    var dist = range.value;
+    var dist = 200;
     var shapeNumX = X / dist;
     var shapeNumY = Y / dist;
     var shapes = [];
@@ -215,19 +215,6 @@
     window.addEventListener('mousemove', function(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
-    }, false);
-
-    range.addEventListener('input', function() {
-      dist = this.value;
-      shapeNumX = X / dist;
-      shapeNumY = Y / dist;
-      shapes = [];
-      for (var i = 0; i < shapeNumX + 1; i++) {
-        for (var j = 0; j < shapeNumY + 1; j++) {
-          var s = new Shape(ctx, dist * i,  dist * j, i, j);
-          shapes.push(s);
-        }
-      }
     }, false);
 
   });

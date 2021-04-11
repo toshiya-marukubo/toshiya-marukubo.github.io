@@ -18,6 +18,7 @@
       'mimasutsunagi',
       'mimasumon',
       'poop',
+      /*
       'komochikobenkeigoushi',
       'kobenkeigoushi',
       'benkeigoushi2',
@@ -32,6 +33,7 @@
       'kogoushi',
       'gobangoushi',
       'mijingoushi',
+      */
       'kuruwatsunagi',
       'kuginukitsunagi',
       'sorobanjima',
@@ -39,6 +41,7 @@
       'amejima',
       'yamajimon',
       'tatewaku',
+      /*
       'yorokejima',
       'ryoukomochijima',
       'komochijima',
@@ -53,6 +56,7 @@
       'sensuji',
       'misujidate',
       'kindooshi',
+      */
       'ararekomon',
       'kuzureasanoha',
       'asanoha',
@@ -87,11 +91,7 @@
     }
 
     function fadeOut(url) {
-      body.setAttribute('class', 'fadeOut');
-      setTimeout(function() {
-      //body.style.display = 'none';
-        location.href = url;
-      }, 300);
+      location.href = url;
     }
 
     canvas.addEventListener('click', function(e) {

@@ -37,6 +37,35 @@
 }
 
 /********************
+  loading
+********************/
+
+.loading {
+  z-index: 999;
+  position: fixed;
+  height: 50px;
+  width: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(1, 1);
+  animation: loading-animation 1.6s ease-in-out 0s infinite normal none;
+}
+
+@keyframes loading-animation {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1, 1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(2, 2);
+  }
+}
+
+/********************
   Common
 ********************/
 
@@ -46,7 +75,7 @@ html, body {
   width: 100%;
   color: white;
   background: black;
-  font-family: 'arial black', 'American Typewriter', verdana, Helvetica, monospace, sans-serif;
+  font-family: serif;
   font-size: 100%;
   line-height: 1.6;
   overflow-y: hidden scroll;
@@ -59,20 +88,13 @@ canvas#canvas {
 }
 
 body {
+  letter-spacing: 0.4rem;
   position: relative;
 }
 
 img {
   width: 100%;
   height: auto;
-  opacity: 0;
-  -webkit-transition: opacity 3s ease;
-  -o-transition: opacity 3s ease;
-  transition: opacity 3s ease;
-}
-
-img.loadedImg {
-  opacity: 1;
 }
 
 /********************
@@ -82,6 +104,8 @@ img.loadedImg {
 header {
   position: fixed;
   z-index: 1;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1rem;
   top: 50%;
   left: 1.6rem;
   text-align: right;
@@ -91,8 +115,8 @@ header {
 }
 
 /**
-* Referenced https://www.terakoya.work/link-hover-line-css-animation/
-*/
+ * Referenced https://www.terakoya.work/link-hover-line-css-animation/
+ */
 header a {
   position: relative;
   color: white;
@@ -162,7 +186,7 @@ li.flash > a {
 
 h2#title {
   z-index: 1;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.5);
   position: absolute;
   top: 0;
   right: 1.6rem;
@@ -181,11 +205,28 @@ h2#title {
 
 main > ul {
   font-size:0;
+  letter-spacing: 0;
 }
 
 main > ul > li {
   display: inline-block;
-  width: 33.333%;
+  width: 32%;
+  padding: 0 0 1% 1%;
+}
+
+main > ul > li:first-child {
+  padding-top: 1%;
+}
+
+main > ul > li > a > img {
+  opacity: 0;
+  transform: translateY(100px);
+  transition: opacity 0.8s, transform 0.8s;
+}
+
+.show {
+  opacity: 1;
+  transform: none;
 }
 
 /********************
@@ -193,87 +234,16 @@ main > ul > li {
   Referenced / https://www.nxworld.net/tips/css-scroll-down-line.html
 ********************/
 
-span.scroll {
-  display: inline-block;
+span.click {
+  font-size: 0.6rem;
   position: absolute;
-  left: 1.6rem;
-  bottom: 0;
-  padding: 10px 10px 60px;
-  overflow: hidden;
-  color: white;
-  line-height: 1;
-  -webkit-writing-mode: vertical-lr;
-      -ms-writing-mode: tb-lr;
-          writing-mode: vertical-lr;
-}
-
-span.scroll::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 0.8rem;
   left: 50%;
-  width: 1px;
-  height: 50px;
-  background: white;
-}
-
-span.scroll::after {
-  -webkit-animation: sdl 3.2s cubic-bezier(1, 0, 0, 1) infinite;
-          animation: sdl 3.2s cubic-bezier(1, 0, 0, 1) infinite;
-}
-
-@-webkit-keyframes sdl {
-  0% {
-    -webkit-transform: scale(1, 0);
-            transform: scale(1, 0);
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-  }
-  50% {
-    -webkit-transform: scale(1, 1);
-            transform: scale(1, 1);
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-  }
-  50.1% {
-    -webkit-transform: scale(1, 1);
-            transform: scale(1, 1);
-    -webkit-transform-origin: 0 100%;
-            transform-origin: 0 100%;
-  }
-  100% {
-    -webkit-transform: scale(1, 0);
-            transform: scale(1, 0);
-    -webkit-transform-origin: 0 100%;
-            transform-origin: 0 100%;
-  }
-}
-
-@keyframes sdl {
-  0% {
-    -webkit-transform: scale(1, 0);
-            transform: scale(1, 0);
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-  }
-  50% {
-    -webkit-transform: scale(1, 1);
-            transform: scale(1, 1);
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-  }
-  50.1% {
-    -webkit-transform: scale(1, 1);
-            transform: scale(1, 1);
-    -webkit-transform-origin: 0 100%;
-            transform-origin: 0 100%;
-  }
-  100% {
-    -webkit-transform: scale(1, 0);
-            transform: scale(1, 0);
-    -webkit-transform-origin: 0 100%;
-            transform-origin: 0 100%;
-  }
+  bottom: 1.6rem;
+  overflow: hidden;
+  transform: translateX(-50%);
+  pointer-events: none;
 }
 
 @media screen and (min-width: 48rem) {
@@ -288,11 +258,11 @@ span.scroll::after {
   }
 
   main > ul > li {
-    width: 20%;
+    width: 18.8%;
   }
 
   h2#title {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
 }

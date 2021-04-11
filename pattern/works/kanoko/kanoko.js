@@ -159,7 +159,7 @@
     };
 
     Shape.prototype.render = function(i) {
-      if (mouseX !== null) this.mouseDist();
+      //if (mouseX !== null) this.mouseDist();
       this.updateParams();
       this.draw();
     };

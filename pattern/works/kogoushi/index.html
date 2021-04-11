@@ -34,8 +34,10 @@
     <link rel="stylesheet" href="../../styles/reset.css">
     <link rel="stylesheet" href="../../styles/style.css">
   </head>
-  <body style="display: none;">
+  <body>
     <canvas id="canvas"></canvas>
+    <div class="loading"></div>
+    <span class="click">Click to next</span>  
     <!-- Header -->
     <header>
       <h1><a href="../../index.html"><span class="logo"></span>Pattern</a></h1>
@@ -49,10 +51,9 @@
     <!-- Main -->
     <main>
       <h2 id="title">Now Loading...</h2>
-      <span class="scroll">Click</span>  
     </main>
     <!-- Script -->
-    <script defer src="../../scripts/fadeInOut.js"></script>
+    <script defer src="../../scripts/loaded.js"></script>
     <script defer src="../../scripts/movePage.js"></script>
     <script defer src="./kogoushi.js"></script>
   </body>
