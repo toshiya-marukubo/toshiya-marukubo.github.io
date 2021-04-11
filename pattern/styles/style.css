@@ -249,6 +249,10 @@ span.click {
 }
 
 @media screen and (min-width: 48rem) {
+  
+  body {
+    letter-spacing: 0.4rem;
+  }
 
   span.logo {
     width: 2.4rem;
