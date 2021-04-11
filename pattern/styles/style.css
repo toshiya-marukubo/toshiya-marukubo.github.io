@@ -40,25 +40,24 @@
 .loading {
   z-index: 999;
   position: fixed;
-  height: 50px;
-  width: 50px;
+  height: 100%;
+  width: 0;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
-  top: 50%;
-  left: 50%;
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(1, 1);
+  top: 0;
+  left: 0;
   animation: loading-animation 1.6s ease-in-out 0s infinite normal none;
 }
 
 @keyframes loading-animation {
   0% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(1, 1);
+    left: 0;
   }
   50% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(2, 2);
+    left: 0;
+    width: 100%;
+  }
+  100% {
+    left: 100%;  
   }
 }
 
