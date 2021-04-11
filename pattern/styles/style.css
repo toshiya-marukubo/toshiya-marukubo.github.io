@@ -270,5 +270,9 @@ span.click {
   h2#title {
     font-size: 1rem;
   }
+  
+  span.click {
+    font-size: 0.8rem;
+  }
 
 }
