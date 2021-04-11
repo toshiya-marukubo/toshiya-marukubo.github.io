@@ -108,6 +108,7 @@ header {
   padding: 1rem;
   top: 50%;
   left: 1.6rem;
+  border-radius: 8px;
   text-align: right;
   -webkit-transform: translateY(-50%);
       -ms-transform: translateY(-50%);
@@ -162,7 +163,7 @@ h1 {
 
 header > nav > ul > li {
   padding: 0.4rem 0;
-  font-size: 0.8rem;
+  font-size: 0.6rem;
 }
 
 li.flash > a {
@@ -239,7 +240,6 @@ main > ul > li > a > img {
 span.click {
   font-size: 0.6rem;
   position: absolute;
-  background: rgba(0, 0, 0, 0.7);
   padding: 0.8rem;
   left: 50%;
   bottom: 1.6rem;
