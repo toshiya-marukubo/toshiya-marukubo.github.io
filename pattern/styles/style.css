@@ -88,7 +88,7 @@ canvas#canvas {
 }
 
 body {
-  letter-spacing: 0.4rem;
+  letter-spacing: 0.2rem;
   position: relative;
 }
 
@@ -157,14 +157,16 @@ span.logo {
 }
 
 h1 {
-  font-size: 2.4rem;
+  font-size: 1.6rem;
 }
 
 header > nav > ul > li {
   padding: 0.4rem 0;
+  font-size: 0.8rem;
 }
 
 li.flash > a {
+  font-size: 0.8rem;
   color: white;
   text-shadow: 0 0 50px black;
   -webkit-animation: flash 1.6s ease 0s alternate infinite;
@@ -185,6 +187,7 @@ li.flash > a {
 ********************/
 
 h2#title {
+  font-size: 0.6rem;
   z-index: 1;
   background: rgba(0, 0, 0, 0.5);
   position: absolute;
@@ -192,7 +195,6 @@ h2#title {
   right: 1.6rem;
   height: 100%;
   text-align: center;
-  font-size: 0.8rem;
   padding: 0 0.8rem;
   -webkit-writing-mode: vertical-rl;
       -ms-writing-mode: tb-rl;
