@@ -1,7 +1,6 @@
-/********************
-  fadeIn
-********************/
-
+/**
+ * fadeIn
+ */
 .fadeIn {
   -webkit-animation: fadeIn 1.5s ease 0s 1 normal;
           animation: fadeIn 1.5s ease 0s 1 normal;
@@ -17,10 +16,9 @@
     100% {opacity: 1}
 }
 
-/********************
-  fadeOut
-********************/
-
+/**
+ * fadeOut
+ */
 .fadeOut {
   -webkit-animation: fadeOut 1.5s ease 0s 1 normal;
           animation: fadeOut 1.5s ease 0s 1 normal;
@@ -36,10 +34,9 @@
     100% {opacity: 0}
 }
 
-/********************
-  loading
-********************/
-
+/**
+ * loading
+ */
 .loading {
   z-index: 999;
   position: fixed;
@@ -65,10 +62,9 @@
   }
 }
 
-/********************
-  Common
-********************/
-
+/**
+ * common
+ */
 html, body {
   margin: 0 auto;
   height: 100%;
@@ -79,6 +75,11 @@ html, body {
   font-size: 100%;
   line-height: 1.6;
   overflow-y: hidden scroll;
+}
+
+canvas {
+  opacity: 0;
+  transition: opacity 1.6s;
 }
 
 canvas#canvas {
@@ -97,10 +98,9 @@ img {
   height: auto;
 }
 
-/********************
-  Header
-********************/
-
+/**
+ * header
+ */
 header {
   position: fixed;
   z-index: 1;
@@ -183,10 +183,9 @@ li.flash > a {
   }
 }
 
-/********************
-  Main
-********************/
-
+/**
+ * title
+ */
 h2#title {
   font-size: 0.6rem;
   z-index: 1;
@@ -202,10 +201,9 @@ h2#title {
           writing-mode: vertical-rl;
 }
 
-/********************
-  Works
-********************/
-
+/**
+ *  works images
+ */
 main > ul {
   font-size:0;
   letter-spacing: 0;
@@ -232,11 +230,9 @@ main > ul > li > a > img {
   transform: none;
 }
 
-/********************
-  Scroll Signal
-  Referenced / https://www.nxworld.net/tips/css-scroll-down-line.html
-********************/
-
+/**
+ * click
+ */
 span.click {
   font-size: 0.6rem;
   position: absolute;
@@ -248,8 +244,10 @@ span.click {
   pointer-events: none;
 }
 
+/**
+ * for pc
+ */
 @media screen and (min-width: 48rem) {
-  
   body {
     letter-spacing: 0.4rem;
   }
@@ -274,5 +272,4 @@ span.click {
   span.click {
     font-size: 0.8rem;
   }
-
 }
