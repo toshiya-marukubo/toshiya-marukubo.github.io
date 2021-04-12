@@ -186,8 +186,7 @@ li.flash > a {
 /**
  * title
  */
-h2#title {
-  font-size: 0.6rem;
+#titleFrame {
   z-index: 1;
   background: rgba(0, 0, 0, 0.5);
   position: absolute;
@@ -195,10 +194,17 @@ h2#title {
   right: 1.6rem;
   height: 100%;
   text-align: center;
-  padding: 0 0.8rem;
   -webkit-writing-mode: vertical-rl;
       -ms-writing-mode: tb-rl;
           writing-mode: vertical-rl;
+}
+
+h2 {
+  opacity: 0;
+  padding: 0 0.8rem;
+  font-size: 0.6rem;
+  transform: translateY(-50px);
+  transition: opacity 1.6s, transform 1.6s;
 }
 
 /**
@@ -234,6 +240,7 @@ main > ul > li > a > img {
  * click
  */
 span.click {
+  z-index: 2;
   font-size: 0.6rem;
   position: absolute;
   padding: 0.8rem;
@@ -242,6 +249,34 @@ span.click {
   overflow: hidden;
   transform: translateX(-50%);
   pointer-events: none;
+}
+
+span.click::before {
+  z-index: -1;
+  display: block;
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  top: 0;
+  left: 0;
+  animation: click-animation 3.2s ease-in-out 0s infinite normal none;
+}
+
+@keyframes click-animation {
+  0% {
+    left: 0;
+    width: 0;
+  }
+  50% {
+    left: 0;
+    width: 100%;
+  }
+  100% {
+    left: 100%;
+    height: 100%;
+  }
 }
 
 /**
@@ -265,7 +300,7 @@ span.click {
     width: 18.8%;
   }
 
-  h2#title {
+  #title {
     font-size: 1rem;
   }
   
