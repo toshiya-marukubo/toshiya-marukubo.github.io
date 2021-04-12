@@ -265,7 +265,7 @@ span.click::before {
   background: rgba(0, 0, 0, 0.4);
   top: 0;
   left: 0;
-  animation: click-animation 3.2s ease-in-out 0s infinite normal none;
+  animation: click-animation 3.2s ease-in-out 1.6s infinite normal none;
 }
 
 @keyframes click-animation {
