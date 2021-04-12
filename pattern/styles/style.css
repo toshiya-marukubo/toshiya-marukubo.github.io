@@ -300,10 +300,6 @@ span.click::before {
     width: 18.8%;
   }
 
-  main > ul > li > a > img:not(:hover) {
-    opacity: 0.5;
-  }
-
   #title {
     font-size: 1rem;
   }
