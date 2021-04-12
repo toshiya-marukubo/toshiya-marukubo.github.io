@@ -231,10 +231,6 @@ main > ul > li > a > img {
   transition: opacity 0.8s, transform 0.8s;
 }
 
-main > ul > li > a > img:not(:hover) {
-  opacity: 0.5;
-}
-
 .show {
   opacity: 1;
   transform: none;
@@ -302,6 +298,10 @@ span.click::before {
 
   main > ul > li {
     width: 18.8%;
+  }
+
+  main > ul > li > a > img:not(:hover) {
+    opacity: 0.5;
   }
 
   #title {
