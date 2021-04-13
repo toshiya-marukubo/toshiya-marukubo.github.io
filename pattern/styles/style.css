@@ -251,34 +251,6 @@ span.click {
   pointer-events: none;
 }
 
-span.click::before {
-  z-index: -1;
-  display: block;
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.4);
-  top: 0;
-  left: 0;
-  animation: click-animation 3.2s ease-in-out 1.6s infinite normal none;
-}
-
-@keyframes click-animation {
-  0% {
-    left: 0;
-    width: 0;
-  }
-  50% {
-    left: 0;
-    width: 100%;
-  }
-  100% {
-    left: 100%;
-    height: 100%;
-  }
-}
-
 /**
  * for pc
  */
