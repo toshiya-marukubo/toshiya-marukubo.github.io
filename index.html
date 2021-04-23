@@ -150,6 +150,7 @@
           <li><a href="https://www.instagram.com/toshiyamarukubo/">Instagram</a></li>
           <li><a href="https://codepen.io/toshiya-marukubo">CodePen</a></li>
           <li><a href="https://github.com/toshiya-marukubo">GitHub</a></li>
+          <li><a href="https://www.dwitter.net/u/Toshiya-Marukubo">Dwitter</a></li>
           <!--
           <li><a href="http://www.marukubo.net/">Leaning Place (for node.js)</a></li>
           -->
@@ -236,7 +237,7 @@
       };
 
       PixcelDataMap.prototype.updateState = function () {
-        var array = createMultipleArray(this.y, this.x);
+        var arr = createMultipleArray(this.y, this.x);
 
         for (var y = 0; y < this.y; y++) {
           for (var x = 0; x < this.x; x++) {
@@ -279,11 +280,11 @@
                 nextStateNum = 0;
               }
             }
-            array[y][x] = nextStateNum;
+            arr[y][x] = nextStateNum;
           }
         }
         this.lastState = this.state;
-        this.state = array;
+        this.state = arr;
       };
 
       PixcelDataMap.prototype.render = function () {
