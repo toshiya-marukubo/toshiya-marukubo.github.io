@@ -44,11 +44,11 @@ header {
 }
 h1 {
   position: relative;
-  font-size: 3.2rem;
+  font-size: 1.6rem;
   padding-bottom: 16px;
 }
 h2 {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 /**
@@ -80,7 +80,7 @@ main {
   padding: 32px;
 }
 .frameInMain p {
-  font-size: 1rem;
+  font-size: 0.8rem;
   padding-bottom: 16px;
 }
 .frameInMain a {
@@ -137,7 +137,7 @@ main {
 }
 
 h3 {
-  font-size: 1.6rem;
+  font-size: 1rem;
   padding-bottom: 32px;
 }
 
@@ -205,7 +205,7 @@ footer {
   padding: 32px;
 }
 small {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 /**
@@ -258,4 +258,22 @@ small {
   bottom: 0;
   width: 50px;
   background: #000;
+}
+
+@media (min-width: 500px) {
+  h1 {
+    font-size: 3.2rem;
+  }
+  h2 {
+    font-size: 1rem;
+  }
+  h3 {
+    font-size: 1.6rem;
+  }
+  .frameInMain p {
+    font-size: 1rem;
+  }
+  small {
+    font-size: 1rem;
+  }
 }
