@@ -17,18 +17,17 @@ class MainProgram {
     this.canvas.style.left = '0';
     this.canvas.style.zIndex = '-1';
     this.ctx = this.canvas.getContext("2d");
-    // instance
+    // create instance
     this.Shapes = Shapes; // from other file
     this.dat = new Dat(this); // pass main program
-    this.simplex = new SimplexNoise(); 
-    // shape
+    this.simplex = new SimplexNoise(); // use at effect 
+    // shape array
     this.shapesArray = null;
     // parameters
     this.animationId = null;
     this.width = null;
     this.height = null;
     this.diagonal = null;
-    this.position = null;
   }
 
   /**
@@ -38,33 +37,32 @@ class MainProgram {
     this.width = this.canvas.width = window.innerWidth;
     this.height = this.canvas.height = window.innerHeight;
     this.diagonal = Math.sqrt(this.width * this.width + this.height * this.height);
-    this.shapesArray = this.lineUp();
+    this.shapesArray = this.lineUp(this.dat.params.lineUp.type);
   }
 
   /**
    * shapes line up
+   * @param {String} type - line up type
+   * @return {Array} pos - array included shape
    */
-  lineUp() {
-    const pos = new Array();
+  lineUp(type) {
+    let pos = new Array();
     const scale = this.dat.params.common.scaleOne;
     
-    if (this.dat.params.lineUp === false) {
+    if (this.dat.params.lineUp.on === false) {
+      const arr = new Array();
       const s = new Shape(this, this.width / 2, this.height / 2);
-      pos.push(s);
-      return pos;
-    } else {
-      const yNum = Math.floor(this.height / scale) + 1;
-      const xNum = Math.floor(this.width / scale) + 1;
-      for (let y = 0; y <= yNum; y++) {
-        for (let x = 0; x <= xNum; x++) {
-          const s = new Shape(this, x * scale, y * scale);
-          pos.push(s);
-        }
-      }
+      
+      arr.push(s);
+      pos = arr;
+      
       return pos;
     }
+    // from LineUp class
+    pos = LineUp.arrangement(type, this, scale);
+    return pos;
   }
-  
+
   /**
    * download image data
    */
@@ -119,6 +117,7 @@ class MainProgram {
 
   /**
    * add html
+   * @param {String}
    */
   addHtml(str) {
     const jsCodeOne = document.getElementById('jsCodeOne');
@@ -127,11 +126,12 @@ class MainProgram {
   }
 
   /**
-   * get code
+   * get code (using datInstance file)
+   * @param {String} 
    */
   getCode(type) {
     const main = document.getElementById('main');
-    const options = this.dat.getOptions(this.dat.params.common.type);
+    const options = this.dat.getOptions(type);
 
     main.classList.toggle('jsShowMain');
     this.addHtml(Utils.getHtml(type, options));
@@ -139,6 +139,7 @@ class MainProgram {
 
   /**
    * copy code
+   * @param {String}
    */
   copyCode(code) {
     const body = document.getElementsByTagName('body')[0];
@@ -154,6 +155,7 @@ class MainProgram {
 
   /**
    * get background color
+   * @param {Object} params - background gradient parameters from dat instance
    */
   getBackgroundColor(params) {
     let color;
@@ -237,11 +239,12 @@ class MainProgram {
 }
 
 class Shape {
-  constructor(mainProgram, x, y) {
+  constructor(mainProgram, x, y, multiple) {
     this.mainProgram = mainProgram;
     this.ctx = this.mainProgram.ctx;
     this.x = x;
     this.y = y;
+    this.multiple = multiple;
     this.Shapes = null;
     this.dat = null;
     this.init();
@@ -255,63 +258,65 @@ class Shape {
   /**
    * choise shape
    * @param {String} type - params.common.type
+   * @param {Object} multiple - if chosen line up
    */
-  choiseShape(type) {
+  choiseShape(type, multiple) {
     const options = this.dat.getOptions(type);
+
     switch (type) {
       case 'circle':
-        this.Shapes.circle(options);
+        this.Shapes.circle(options, multiple);
         break;
       case 'ellipse':
-        this.Shapes.ellipse(options);
+        this.Shapes.ellipse(options, multiple);
         break;
       case 'text':
-        this.Shapes.text(options);
+        this.Shapes.text(options, multiple);
         break;
       case 'lemniscate':
-        this.Shapes.lemniscate(options);
+        this.Shapes.lemniscate(options, multiple);
         break;
       case 'rectangle':
-        this.Shapes.rectangle(options);
+        this.Shapes.rectangle(options, multiple);
         break;
       case 'astroid':
-        this.Shapes.astroid(options);
+        this.Shapes.astroid(options, multiple);
         break;
       case 'polygon':
-        this.Shapes.polygon(options);
+        this.Shapes.polygon(options, multiple);
         break;
       case 'polygonStar':
-        this.Shapes.polygonStar(options);
+        this.Shapes.polygonStar(options, multiple);
         break;
       case 'sin':
-        this.Shapes.sin(options);
+        this.Shapes.sin(options, multiple);
         break;
       case 'cos':
-        this.Shapes.cos(options);
+        this.Shapes.cos(options, multiple);
         break;
       case 'tan':
-        this.Shapes.tan(options);
+        this.Shapes.tan(options, multiple);
         break;
       case 'heart':
-        this.Shapes.heart(options);
+        this.Shapes.heart(options, multiple);
         break;
       case 'rose':
-        this.Shapes.rose(options);
+        this.Shapes.rose(options, multiple);
         break;
       case 'lissajous':
-        this.Shapes.lissajous(options);
+        this.Shapes.lissajous(options, multiple);
         break;
       case 'archimedesSpiral':
-        this.Shapes.archimedesSpiral(options);
+        this.Shapes.archimedesSpiral(options, multiple);
         break;
       case 'fermatSpiral':
-        this.Shapes.fermatSpiral(options);
+        this.Shapes.fermatSpiral(options, multiple);
         break;
     }
   }
 
   render() {
-    this.choiseShape(this.dat.params.common.type);
+    this.choiseShape(this.dat.params.common.type, this.multiple);
   }
 }
 
@@ -319,40 +324,42 @@ class Shape {
  * loading animation
  */
 const loadingAnimation = () => {
+  //document.getElementsByTagName('body')[0].setAttribute('style', '');
   const container = document.getElementById('container');
   const jsLoadingFrame = document.getElementById('jsLoadingFrame');
   const jsTexts = document.getElementsByClassName('jsTexts');
   const children = jsTexts[0].children;
   
-  setTimeout(() => {
-    for (let i = 0; i < children.length; i++) {
-      if (i > 7) {
-        children[i].classList.add('jsDed');
-      }
-      setTimeout(() => {
-        if (i === 8) children[i].textContent = 'E';
-        if (i === 9) children[i].textContent = 'D';
-        if (i === 10) children[i].textContent = ' ';
-      }, 800);
-    }
-    for (let i = 0; i < children.length; i++) {
-      const closeButton = document.getElementsByClassName('close-button')[0];
-      children[i].addEventListener('animationend', () => {
-        if (i === 10) {
-          container.classList.add('jsShowContainer');
-          closeButton.classList.add('showDat');
+  Utils.delay(4800)
+    .then(() => {
+      for (let i = 0; i < children.length; i++) {
+        if (i > 7) {
+          children[i].classList.add('jsDed');
         }
-        jsLoadingFrame.classList.add('jsLoaded');
-      });
-    }
-  }, 4800);
+        Utils.delay(800).then(() => {
+          if (i === 8) children[i].textContent = 'E';
+          if (i === 9) children[i].textContent = 'D';
+          if (i === 10) children[i].textContent = ' ';
+        });
+      }
+      for (let i = 0; i < children.length; i++) {
+        const closeButton = document.getElementsByClassName('close-button')[0];
+        children[i].addEventListener('animationend', () => {
+          if (i === 10) {
+            container.classList.add('jsShowContainer');
+            closeButton.classList.add('showDat');
+          }
+          jsLoadingFrame.classList.add('jsLoaded');
+        });
+      }
+    });
 };
 
 /**
  * run this program
  */
 (() => {
-  window.addEventListener('load', () => {
+  window.addEventListener('DOMContentLoaded', () => {
     console.clear();
     // loading animation
     loadingAnimation();
@@ -380,6 +387,7 @@ const loadingAnimation = () => {
     jsCodeOne.addEventListener('click', (e) => {
       const code = jsCodeOne.textContent;
       const code2 = code.replace(/\s/g, ''); 
+      
       mainProgram.copyCode(code2);
     }, false);
 

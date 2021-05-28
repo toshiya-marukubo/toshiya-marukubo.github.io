@@ -5,14 +5,16 @@ body {
   font-size: 62.5%;
   background: #FFF;
 }
+
 #container {
-  overflow: hidden;
+  visibility: hidden;
   opacity: 0;
-  -webkit-transition: opacity 1.6s;
-  -o-transition: opacity 1.6s;
-  transition: opacity 1.6s;
+  -webkit-transition: visibility 1.6s, opacity 1.6s;
+  -o-transition: visibility 1.6s, opacity 1.6s;
+  transition: visibility 1.6s, opacity 1.6s;
 }
 #container.jsShowContainer {
+  visibility: visible;
   opacity: 1;
 }
 
@@ -94,8 +96,8 @@ main {
   position: absolute;
   top: 0;
   right: 32px;
-  width: 64px;
-  height: 64px;
+  width: 32px;
+  height: 32px;
   color: #000;
   background: #FFF;
   padding: 8px;
@@ -112,8 +114,8 @@ main {
   position: absolute;
   top: 50%;
   left: 50%;
-  height: 5px;
-  width: 50px;
+  height: 2.5px;
+  width: 25px;
   background: #000;
   pointer-events: none;
 }
@@ -272,6 +274,14 @@ small {
   }
   .frameInMain p {
     font-size: 1rem;
+  }
+  #jsClose {
+    width: 64px;
+    height: 64px;
+  }
+  #jsClose::before, #jsClose::after {
+    height: 5px;
+    width: 50px;
   }
   small {
     font-size: 1rem;

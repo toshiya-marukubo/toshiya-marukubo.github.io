@@ -1,3 +1,6 @@
+/**
+ * dat gui close button
+ */
 .close-button {
   transform: translateY(-100%) !important;
   transition: transform 1.6s !important;
@@ -6,19 +9,22 @@
   transform: none !important;
 }
 
+/**
+ * at the loading animation
+ */
 #jsLoadingFrame {
   font-size: 16px;
   position: fixed;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  opacity: 1;
   visibility: visible;
+  opacity: 1;
   transition: opacity 1.6s, visibility 1.6s;
 }
 #jsLoadingFrame.jsLoaded {
-  opacity: 0;
   visibility: hidden;
+  opacity: 0;
 }
 #jsLoadingFrame .jsTexts {
   position: absolute;

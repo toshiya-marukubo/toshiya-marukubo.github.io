@@ -161,15 +161,14 @@ class Effect {
         const k = (y * width + x) * 4;
         if (imageData.data[k + 3] > 0x00) {
           const n = simplex.noise2D(x / numberC, y / numberD);
-          newImageData.data[k + 0] = imageData.data[k + 0] * n;
-          newImageData.data[k + 1] = imageData.data[k + 1] * n;
-          newImageData.data[k + 2] = imageData.data[k + 2] * n;
-          newImageData.data[k + 3] = imageData.data[k + 3];
+          newImageData.data[k + 0] = imageData.data[k + 0];
+          newImageData.data[k + 1] = imageData.data[k + 1];
+          newImageData.data[k + 2] = imageData.data[k + 2];
+          newImageData.data[k + 3] = imageData.data[k + 3] * n;
         }
       }
     }  
   
     return newImageData;
   }
-
 }

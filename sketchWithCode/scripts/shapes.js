@@ -107,8 +107,12 @@ class Shapes {
      - Lemniscate
    ********************/
   
-  static circle(options) {
+  static circle(options, multiple) {
     const o = options;
+    if (multiple) {
+      o.common.scaleOne = multiple.scaleOne;
+      o.common.rotationAngle = multiple.rotationAngle;
+    }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
     if (o.common.scaleTwo < o.common.lineWidth) o.common.scaleTwo = o.common.lineWidth;
     const offsetScaleOne = o.common.scaleOne / 2 - o.common.lineWidth / 2;
@@ -124,8 +128,12 @@ class Shapes {
     o.ctx.restore();
   }
 
-  static ellipse(options) {
+  static ellipse(options, multiple) {
     const o = options;
+    if (multiple) {
+      o.common.scaleOne = multiple.scaleOne;
+      o.common.rotationAngle = multiple.rotationAngle;
+    }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
     if (o.common.scaleTwo < o.common.lineWidth) o.common.scaleTwo = o.common.lineWidth;
     const offsetScaleOne = o.common.scaleOne / 2 - o.common.lineWidth / 2;
@@ -141,8 +149,12 @@ class Shapes {
     o.ctx.restore();
   }
 
-  static lemniscate(options) {
+  static lemniscate(options, multiple) {
     const o = options;
+    if (multiple) {
+      o.common.scaleOne = multiple.scaleOne;
+      o.common.rotationAngle = multiple.rotationAngle;
+    }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
     if (o.common.scaleTwo < o.common.lineWidth) o.common.scaleTwo = o.common.lineWidth;
     const offsetScaleOne = o.common.scaleOne / 2 - o.common.lineWidth / 2;
@@ -176,8 +188,12 @@ class Shapes {
      - Text
    ********************/
   
-  static text(options) {
+  static text(options, multiple) {
     const o = options;
+    if (multiple) {
+      o.common.scaleOne = multiple.scaleOne;
+      o.common.rotationAngle = multiple.rotationAngle;
+    }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
     if (o.common.scaleTwo < o.common.lineWidth) o.common.scaleTwo = o.common.lineWidth;
     const offsetScaleOne = o.common.scaleOne / 2 - o.common.lineWidth / 2;
@@ -217,8 +233,12 @@ class Shapes {
      - Rectangle
    ********************/
 
-  static rectangle(options) {
+  static rectangle(options, multiple) {
     const o = options;
+    if (multiple) {
+      o.common.scaleOne = multiple.scaleOne;
+      o.common.rotationAngle = multiple.rotationAngle;
+    }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
     if (o.common.scaleTwo < o.common.lineWidth) o.common.scaleTwo = o.common.lineWidth;
     const offsetScaleOne = o.common.scaleOne / 2 - o.common.lineWidth / 2;
@@ -248,8 +268,12 @@ class Shapes {
      - Polygon Star
    ********************/
   
-  static polygon(options) {
+  static polygon(options, multiple) {
     const o = options;
+    if (multiple) {
+      o.common.scaleOne = multiple.scaleOne;
+      o.common.rotationAngle = multiple.rotationAngle;
+    }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
     if (o.common.scaleTwo < o.common.lineWidth) o.common.scaleTwo = o.common.lineWidth;
     const offsetScaleOne = o.common.scaleOne / 2 - o.common.lineWidth / 2;
@@ -277,8 +301,12 @@ class Shapes {
     o.ctx.restore();
   }
   
-  static polygonStar(options) {
+  static polygonStar(options, multiple) {
     const o = options;
+    if (multiple) {
+      o.common.scaleOne = multiple.scaleOne;
+      o.common.rotationAngle = multiple.rotationAngle;
+    }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
     if (o.common.scaleTwo < o.common.lineWidth) o.common.scaleTwo = o.common.lineWidth;
     const offsetScaleOne = o.common.scaleOne / 2 - o.common.lineWidth / 2;
@@ -319,9 +347,13 @@ class Shapes {
      - FermatSpiral
    ********************/
 
-  static sin(options) {
+  static sin(options, multiple) {
     const o = options;
     o.common.theta *= 5;
+    if (multiple) {
+      o.common.scaleOne = multiple.scaleOne;
+      o.common.rotationAngle = multiple.rotationAngle;
+    }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
     if (o.common.scaleTwo < o.common.lineWidth) o.common.scaleTwo = o.common.lineWidth;
     const offsetScaleOne = o.common.scaleOne / 2 - o.common.lineWidth / 2;
@@ -348,9 +380,13 @@ class Shapes {
     o.ctx.restore();
   }
   
-  static cos(options) {
+  static cos(options, multiple) {
     const o = options;
     o.common.theta *= 5;
+    if (multiple) {
+      o.common.scaleOne = multiple.scaleOne;
+      o.common.rotationAngle = multiple.rotationAngle;
+    }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
     if (o.common.scaleTwo < o.common.lineWidth) o.common.scaleTwo = o.common.lineWidth;
     const offsetScaleOne = o.common.scaleOne / 2 - o.common.lineWidth / 2;
@@ -377,9 +413,13 @@ class Shapes {
     o.ctx.restore();
   }
   
-  static tan(options) {
+  static tan(options, multiple) {
     const o = options;
     o.common.theta *= 5;
+    if (multiple) {
+      o.common.scaleOne = multiple.scaleOne;
+      o.common.rotationAngle = multiple.rotationAngle;
+    }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
     if (o.common.scaleTwo < o.common.lineWidth) o.common.scaleTwo = o.common.lineWidth;
     const offsetScaleOne = o.common.scaleOne / 2 - o.common.lineWidth / 2;
@@ -406,8 +446,12 @@ class Shapes {
     o.ctx.restore();
   }
   
-  static heart(options) {
+  static heart(options, multiple) {
     const o = options;
+    if (multiple) {
+      o.common.scaleOne = multiple.scaleOne;
+      o.common.rotationAngle = multiple.rotationAngle;
+    }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
     if (o.common.scaleTwo < o.common.lineWidth) o.common.scaleTwo = o.common.lineWidth;
     const offsetScaleOne = o.common.scaleOne / 2 - o.common.lineWidth / 2;
@@ -446,8 +490,12 @@ class Shapes {
     o.ctx.restore();
   }
 
-  static rose(options) {
+  static rose(options, multiple) {
     const o = options;
+    if (multiple) {
+      o.common.scaleOne = multiple.scaleOne;
+      o.common.rotationAngle = multiple.rotationAngle;
+    }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
     if (o.common.scaleTwo < o.common.lineWidth) o.common.scaleTwo = o.common.lineWidth;
     const offsetScaleOne = o.common.scaleOne / 2 - o.common.lineWidth / 2;
@@ -476,8 +524,12 @@ class Shapes {
     o.ctx.restore();
   }
   
-  static astroid(options) {
+  static astroid(options, multiple) {
     const o = options;
+    if (multiple) {
+      o.common.scaleOne = multiple.scaleOne;
+      o.common.rotationAngle = multiple.rotationAngle;
+    }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
     if (o.common.scaleTwo < o.common.lineWidth) o.common.scaleTwo = o.common.lineWidth;
     const offsetScaleOne = o.common.scaleOne / 2 - o.common.lineWidth / 2;
@@ -505,8 +557,12 @@ class Shapes {
     o.ctx.restore();
   }
   
-  static lissajous(options) {
+  static lissajous(options, multiple) {
     const o = options;
+    if (multiple) {
+      o.common.scaleOne = multiple.scaleOne;
+      o.common.rotationAngle = multiple.rotationAngle;
+    }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
     if (o.common.scaleTwo < o.common.lineWidth) o.common.scaleTwo = o.common.lineWidth;
     const offsetScaleOne = o.common.scaleOne / 2 - o.common.lineWidth / 2;
@@ -534,8 +590,12 @@ class Shapes {
     o.ctx.restore();
   }
   
-  static archimedesSpiral(options) {
+  static archimedesSpiral(options, multiple) {
     const o = options;
+    if (multiple) {
+      o.common.scaleOne = multiple.scaleOne;
+      o.common.rotationAngle = multiple.rotationAngle;
+    }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
     if (o.common.scaleTwo < o.common.lineWidth) o.common.scaleTwo = o.common.lineWidth;
     const offsetScaleOne = o.common.scaleOne / 2 - o.common.lineWidth / 2;
@@ -564,8 +624,12 @@ class Shapes {
     o.ctx.restore();
   }
   
-  static fermatSpiral(options) {
+  static fermatSpiral(options, multiple) {
     const o = options;
+    if (multiple) {
+      o.common.scaleOne = multiple.scaleOne;
+      o.common.rotationAngle = multiple.rotationAngle;
+    }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
     if (o.common.scaleTwo < o.common.lineWidth) o.common.scaleTwo = o.common.lineWidth;
     const offsetScaleOne = o.common.scaleOne / 2 - o.common.lineWidth / 2;

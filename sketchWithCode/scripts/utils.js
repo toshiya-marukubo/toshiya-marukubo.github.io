@@ -11,6 +11,19 @@ class Utils {
   static getRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
+
+  /**
+   * delay
+   * @params {Number} time - delay time
+   * @return {Object} promise - promise
+   */
+  static delay(time) {
+    return new Promise((res, rej) => {
+      setTimeout(() => {
+        res();
+      }, time);
+    });
+  }
   
   /**
    * get html from options object
