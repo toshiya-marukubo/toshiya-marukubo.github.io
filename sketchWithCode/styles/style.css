@@ -197,6 +197,11 @@ nav {
   padding: 32px;
 }
 
+nav ul li {
+  display: inline-block;
+  padding-right: 16px;
+}
+
 /**
  * footer
  */
