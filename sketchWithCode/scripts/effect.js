@@ -1,52 +1,66 @@
-/**
- * Effect
- */
+/** Class Effect */
 class Effect {
   /**
    * choise effect
-   * @param {String} type - type
-   * @param {Object} ctx - canvas context object
-   * @param {Number} height - window height
-   * @param {Number} width - window width
-   * @param {Number} numberC - number c
-   * @param {Number} numberD - number d
-   * @param {Object} noise - simplex noise instance
-   * @return {Array} data - image data array
+   * @param {string} type - type
+   * @param {object} ctx - canvas context object
+   * @param {number} height - window height
+   * @param {number} width - window width
+   * @param {number} numberC - number C
+   * @param {number} numberD - number D
+   * @param {object} simplex - simplex noise instance
+   * @param {boolean} noise - true or false
+   * @param {number} noiseX - pass noise
+   * @param {number} noiseY - pass noise
+   * @return {array} data - effected image data array
    */
-  static choiseEffect(type, ctx, height, width, numberC, numberD, scaleOne, simplex) {
+  static choiseEffect(type, ctx, height, width, numberC, numberD, scaleOne, simplex, noise, noiseX, noiseY) {
     let data;
     switch (type) {
       case 'vertical':
-        data = this.vertical(ctx, height, width, numberC, numberD);
+        data = this.vertical(ctx, height, width, numberC, numberD, simplex, noise, noiseX, noiseY);
         return data;
         break;
       case 'horizontal':
-        data = this.horizontal(ctx, height, width, numberC, numberD);
+        data = this.horizontal(ctx, height, width, numberC, numberD, simplex, noise, noiseX, noiseY);
         return data;
         break;
       case 'sandstorm':
-        data = this.sandstorm(ctx, height, width, numberC, numberD);
+        data = this.sandstorm(ctx, height, width, numberC, numberD, simplex, noise, noiseX, noiseY);
         return data;
         break;
       case 'skew':
-        data = this.skew(ctx, height, width, numberC, numberD, scaleOne);
-        return data;
-        break;
-      case 'noise':
-        data = this.noise(ctx, height, width, numberC, numberD, scaleOne, simplex);
+        data = this.skew(ctx, height, width, numberC, numberD, scaleOne, simplex, noise, noiseX, noiseY);
         return data;
         break;
     }
   }
   
-  static vertical(ctx, height, width, numberC, numberD) {
+  /**
+   * common parameters
+   * @param {object} ctx - canvas context object
+   * @param {number} height - window height
+   * @param {number} width - window width
+   * @param {number} numberC - number C
+   * @param {number} numberD - number D
+   * @param {object} simplex - simplex noise instance
+   * @param {boolean} noise - true or false
+   * @param {number} noiseX - pass noise
+   * @param {number} noiseY - pass noise
+   * @return {array} data - effected image data array
+   */
+  static vertical(ctx, height, width, numberC, numberD, simplex, noise, noiseX, noiseY) {
     const imageData = ctx.getImageData(0, 0, width, height);
     const newImageData = ctx.createImageData(width, height);
     const wave = (numberC * Math.PI * 2) / height;
     
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
-        const offset = Math.floor(Math.sin(x * wave) * numberD);
+        let n = 1;
+        if (noise) {
+          n = simplex.noise2D(x / noiseX, y / noiseY);
+        }
+        const offset = Math.floor(Math.sin(x * wave) * numberD * n);
         const k = (y * width + x) * 4;
         const s = ((y + offset) * width + x) * 4;
         
@@ -67,14 +81,18 @@ class Effect {
     return newImageData;
   }
 
-  static horizontal(ctx, height, width, numberC, numberD) {
+  static horizontal(ctx, height, width, numberC, numberD, simplex, noise, noiseX, noiseY) {
     const imageData = ctx.getImageData(0, 0, width, height);
     const newImageData = ctx.createImageData(width, height);
     const wave = (numberC * Math.PI * 2) / width;
     
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
-        const offset = Math.floor(Math.sin(y * wave) * numberD);
+        let n = 1;
+        if (noise) {
+          n = simplex.noise2D(x / noiseX, y / noiseY);
+        }
+        const offset = Math.floor(Math.sin(y * wave) * numberD * n);
         const k = (y * width + x) * 4;
         const s = (y * width + x + offset) * 4;
         
@@ -95,18 +113,22 @@ class Effect {
     return newImageData;
   }
 
-  static sandstorm(ctx, height, width, numberC, numberD) {
+  static sandstorm(ctx, height, width, numberC, numberD, simplex, noise, noiseX, noiseY) {
     const imageData = ctx.getImageData(0, 0, width, height);
     const newImageData = ctx.createImageData(width, height);
     
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
+        let n = 1;
+        if (noise) {
+          n = simplex.noise2D(x / noiseX, y / noiseY);
+        }
         const k = (y * width + x) * 4;
         if (imageData.data[k + 3] > 0x00) {
           newImageData.data[k + 0] = imageData.data[k + 0];
           newImageData.data[k + 1] = imageData.data[k + 1];
           newImageData.data[k + 2] = imageData.data[k + 2];
-          newImageData.data[k + 3] = Math.random() < numberC / 360 ? Utils.getRandomNumber(0, 255) : imageData.data[k + 3];
+          newImageData.data[k + 3] = Math.random() < numberC / 360 ? 255 * n : imageData.data[k + 3];
         }
       }
     }  
@@ -114,7 +136,7 @@ class Effect {
     return newImageData;
   }
 
-  static skew(ctx, height, width, numberC, numberD, scaleOne) {
+  static skew(ctx, height, width, numberC, numberD, scaleOne, simplex, noise, noiseX, noiseY) {
     const imageData = ctx.getImageData(0, 0, width, height);
     const newImageData = ctx.createImageData(width, height);
     const angle = numberC;
@@ -125,10 +147,14 @@ class Effect {
 
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
+        let n = 1;
+        if (noise) {
+          n = simplex.noise2D(x / noiseX, y / noiseY);
+        }
         const k = (y * width + x) * 4;
         const cy = Math.floor(y - height / 2);
         const cx = Math.floor(x - width / 2);
-        const sa = Math.sin(Math.sqrt(cx * cx + cy * cy) * scale) * radian;
+        const sa = Math.sin(Math.sqrt(cx * cx + cy * cy) * scale) * radian * n;
         const co = Math.cos(sa);
         const si = Math.sin(sa);
         const ys = Math.floor((cy * co + cx * si) + height / 2);
@@ -148,26 +174,6 @@ class Effect {
         }
       }
     }
-  
-    return newImageData;
-  }
-  
-  static noise(ctx, height, width, numberC, numberD, scaleOne, simplex) {
-    const imageData = ctx.getImageData(0, 0, width, height);
-    const newImageData = ctx.createImageData(width, height);
-    
-    for (let y = 0; y < height; y++) {
-      for (let x = 0; x < width; x++) {
-        const k = (y * width + x) * 4;
-        if (imageData.data[k + 3] > 0x00) {
-          const n = simplex.noise2D(x / numberC, y / numberD);
-          newImageData.data[k + 0] = imageData.data[k + 0];
-          newImageData.data[k + 1] = imageData.data[k + 1];
-          newImageData.data[k + 2] = imageData.data[k + 2];
-          newImageData.data[k + 3] = imageData.data[k + 3] * n;
-        }
-      }
-    }  
   
     return newImageData;
   }

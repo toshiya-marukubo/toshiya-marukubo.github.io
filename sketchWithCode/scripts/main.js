@@ -1,12 +1,10 @@
-/**
- * main program, shape
- */
+/** Class main program, Class shape */
 class MainProgram {
   /**
    * constructor
    */
   constructor() {
-    // set up canvas
+    /** set up canvas */
     document
       .getElementById("container")
       .appendChild(document.createElement("canvas"));
@@ -17,13 +15,13 @@ class MainProgram {
     this.canvas.style.left = '0';
     this.canvas.style.zIndex = '-1';
     this.ctx = this.canvas.getContext("2d");
-    // create instance
+    /** create instance */
     this.Shapes = Shapes; // from other file
     this.dat = new Dat(this); // pass main program
     this.simplex = new SimplexNoise(); // use at effect 
-    // shape array
+    /** shape array */
     this.shapesArray = null;
-    // parameters
+    /** parameters */
     this.animationId = null;
     this.width = null;
     this.height = null;
@@ -41,14 +39,15 @@ class MainProgram {
   }
 
   /**
-   * shapes line up
-   * @param {String} type - line up type
-   * @return {Array} pos - array included shape
+   * line up shapes
+   * @param {string} type - line up type
+   * @return {array} pos - array included shape
    */
   lineUp(type) {
     let pos = new Array();
     const scale = this.dat.params.common.scaleOne;
     
+    /** put shape to center */
     if (this.dat.params.lineUp.on === false) {
       const arr = new Array();
       const s = new Shape(this, this.width / 2, this.height / 2);
@@ -58,8 +57,10 @@ class MainProgram {
       
       return pos;
     }
-    // from LineUp class
+
+    /** from LineUp class */
     pos = LineUp.arrangement(type, this, scale);
+
     return pos;
   }
 
@@ -117,7 +118,7 @@ class MainProgram {
 
   /**
    * add html
-   * @param {String}
+   * @param {string}
    */
   addHtml(str) {
     const jsCodeOne = document.getElementById('jsCodeOne');
@@ -127,7 +128,7 @@ class MainProgram {
 
   /**
    * get code (using datInstance file)
-   * @param {String} 
+   * @param {string} 
    */
   getCode(type) {
     const main = document.getElementById('main');
@@ -139,7 +140,7 @@ class MainProgram {
 
   /**
    * copy code
-   * @param {String}
+   * @param {string}
    */
   copyCode(code) {
     const body = document.getElementsByTagName('body')[0];
@@ -155,7 +156,8 @@ class MainProgram {
 
   /**
    * get background color
-   * @param {Object} params - background gradient parameters from dat instance
+   * @param {object} params - background gradient parameters from dat instance
+   * @return {string ot object} color - return color string or gradient object 
    */
   getBackgroundColor(params) {
     let color;
@@ -188,7 +190,7 @@ class MainProgram {
    * rendering
    */
   rendering() {
-    // draw background color
+    /** draw background color */
     this.ctx.clearRect(0, 0, this.width, this.height);
     this.ctx.fillStyle = this.getBackgroundColor(this.dat.params.backgroundGradient);
     this.ctx.save();
@@ -203,7 +205,7 @@ class MainProgram {
     );
     this.ctx.restore();
 
-    // draw shape
+    /** draw shape */
     for (let i = 0; i < this.shapesArray.length; i++) {
       this.ctx.save();
       this.ctx.translate(this.shapesArray[i].x, this.shapesArray[i].y);
@@ -211,7 +213,7 @@ class MainProgram {
       this.ctx.restore();
     }
 
-    // add effect
+    /** add effect */
     if (this.dat.params.effect.on) {
       const data = Effect.choiseEffect(
         this.dat.params.effect.type,
@@ -221,23 +223,25 @@ class MainProgram {
         this.dat.params.effect.numberC,
         this.dat.params.effect.numberD,
         this.dat.params.common.scaleOne,
-        this.simplex
+        this.simplex,
+        this.dat.params.effect.noise,
+        this.dat.params.effect.x,
+        this.dat.params.effect.y
       );
       this.ctx.putImageData(data, 0, 0);
     }
-    //this.animationId = requestAnimationFrame(() => this.rendering());
   }
 
   /**
    * Resize
    */
   resize() {
-    //cancelAnimationFrame(this.animationId);
     this.initialize();
     this.rendering();
   }
 }
 
+/** Class shape */
 class Shape {
   constructor(mainProgram, x, y, multiple) {
     this.mainProgram = mainProgram;
@@ -257,8 +261,8 @@ class Shape {
   
   /**
    * choise shape
-   * @param {String} type - params.common.type
-   * @param {Object} multiple - if chosen line up
+   * @param {string} type - params.common.type
+   * @param {object} multiple - if chosen line up
    */
   choiseShape(type, multiple) {
     const options = this.dat.getOptions(type);
@@ -312,6 +316,9 @@ class Shape {
       case 'fermatSpiral':
         this.Shapes.fermatSpiral(options, multiple);
         break;
+      case 'spirograf':
+        this.Shapes.spirograf(options, multiple);
+        break;
     }
   }
 
@@ -361,10 +368,11 @@ const loadingAnimation = () => {
 (() => {
   window.addEventListener('DOMContentLoaded', () => {
     console.clear();
-    // loading animation
+    console.log(':)');
+    /** loading animation */
     loadingAnimation();
     
-    // start main program
+    /** start main program */
     const jsClose = document.getElementById('jsClose');
     const jsCodeOne = document.getElementById('jsCodeOne');
     const jsAgainButton = document.getElementById('jsAgainButton');

@@ -1,10 +1,8 @@
-/**
- * Dat gui instance part
- */
+/** Class dat Instance */
 class Dat {
   /**
    * constructor
-   * @param {Object} mainProgram - reference main program
+   * @param {object} mainProgram - reference main program
    */
   constructor(mainProgram) {
     this.mainProgram = mainProgram;
@@ -42,11 +40,11 @@ class Dat {
 
   /**
    * set parameters
-   * @return {Object} params - parameters object
+   * @return {object} params - parameters object
    */
   setPrameter() {
     let params;
-    // initialize value
+    /** initialize value */
     params = {
       common: {
         type: 'circle',
@@ -117,7 +115,10 @@ class Dat {
         on: false,
         type: 'vertical',
         numberC: 4,
-        numberD: 10
+        numberD: 10,
+        noise: false,
+        x: 1,
+        y: 1
       },
       lineUp: {
         on: false,
@@ -134,7 +135,7 @@ class Dat {
 
   /**
    * add random parameters
-   * imcomplete
+   * making now
    */
   addRandomParams() {
     const type = Utils.getShapesTypeArray();
@@ -208,12 +209,13 @@ class Dat {
 
   /**
    * set controller
-   * @return {Object} ctrls - controller object
+   * @return {object} ctrls - controller object
    */
   setController() {
     let ctrls;
+
     ctrls = {
-      // common
+      /** common */
       common: {
         type: this.Common.add(this.params.common, 'type', Utils.getShapesTypeArray())
           .onChange(() => {
@@ -224,9 +226,9 @@ class Dat {
           .onChange(() => this.mainProgram.rendering()),
         y: this.Common.add(this.params.common, 'y', -window.innerHeight, window.innerHeight, 1)
           .onChange(() => this.mainProgram.rendering()),
-        scaleOne: this.Common.add(this.params.common, 'scaleOne', 0, 2000, 1)
+        scaleOne: this.Common.add(this.params.common, 'scaleOne', 0, 3000, 1)
           .onChange(() => this.mainProgram.rendering()),
-        scaleTwo: this.Common.add(this.params.common, 'scaleTwo', 0, 2000, 1)
+        scaleTwo: this.Common.add(this.params.common, 'scaleTwo', 0, 3000, 1)
           .onChange(() => this.mainProgram.rendering()),
         theta: this.Common.add(this.params.common, 'theta', 0, 360, 1)
           .onChange(() => this.mainProgram.rendering()),
@@ -239,7 +241,7 @@ class Dat {
         lineWidth: this.Common.add(this.params.common, 'lineWidth', 0.1, 1000, 0.1)
           .onChange(() => this.mainProgram.rendering())
       },
-      // text
+      /** text */
       text: {
         on: this.Text.add(this.params.text, 'on')
           .onChange(() => {
@@ -261,7 +263,7 @@ class Dat {
         weight: this.Text.add(this.params.text, 'weight', ['normal', 'bold', 'bolder', 'lighter', '100', '200', '300', '400', '500', '600', '700', '800', '900'])
           .onChange(() => this.mainProgram.rendering())
       },
-      // line
+      /** line */
       line: {
         on: this.Line.add(this.params.line, 'on')
           .onChange(() => {
@@ -275,7 +277,7 @@ class Dat {
         miterLimit: this.Line.add(this.params.line, 'miterLimit', 0, 100, 1)
           .onChange(() => this.mainProgram.rendering())
       },
-      // shadow
+      /** shadow */
       shadow: {
         on: this.Shadow.add(this.params.shadow, 'on')
           .onChange(() => {
@@ -291,7 +293,7 @@ class Dat {
         blur: this.Shadow.add(this.params.shadow, 'blur', 0, 1000, 1)
           .onChange(() => this.mainProgram.rendering())
       },
-      // composite
+      /** composite */
       composite: {
         on: this.Composite.add(this.params.composite, 'on')
           .onChange(() => {
@@ -303,7 +305,7 @@ class Dat {
         operation: this.Composite.add(this.params.composite, 'operation', Utils.getGlobalCompositeOperationArray())
           .onChange(() => this.mainProgram.rendering())
       },
-      // shape color
+      /** shape color */
       shapeColor: {
         fillTransparent: this.ShapeColor.add(this.params.shapeColor, 'fillTransparent')
           .onChange(() => {
@@ -320,7 +322,7 @@ class Dat {
         stroke: this.ShapeColor.addColor(this.params.shapeColor, 'stroke')
           .onChange(() => this.mainProgram.rendering())
       },
-      // shape color gradient
+      /** shape color gradient */
       shapeGradient: {
         on: this.ShapeGradient.add(this.params.shapeGradient, 'on')
           .onChange(() => {
@@ -336,7 +338,7 @@ class Dat {
         point: this.ShapeGradient.add(this.params.shapeGradient, 'point', 0.0, 1.0, 0.1)
           .onChange(() => this.mainProgram.rendering())
       },
-      // background color
+      /** background color */
       backgroundColor: {
         on: this.BackgroundColor.add(this.params.backgroundColor, 'on')
           .onChange(() => {
@@ -346,7 +348,7 @@ class Dat {
         color: this.BackgroundColor.addColor(this.params.backgroundColor, 'color')
           .onChange(() => this.mainProgram.rendering())
       },
-      // background gradient
+      /** background gradient */
       backgroundGradient: {
         on: this.BackgroundGradient.add(this.params.backgroundGradient, 'on')
           .onChange(() => {
@@ -364,11 +366,11 @@ class Dat {
         rotationAngle: this.BackgroundGradient.add(this.params.backgroundGradient, 'rotationAngle', 0, 360, 1)
           .onChange(() => this.mainProgram.rendering())
       },
-      // effect
+      /** effect */
       effect: {
         on: this.Effect.add(this.params.effect, 'on')
           .onChange(() => {
-            this.displayParams([48, 49, 50]);
+            this.displayParams([48, 49, 50, 51]);
             this.mainProgram.rendering();
           }),
         type: this.Effect.add(this.params.effect, 'type', Utils.getEffectArray())
@@ -376,33 +378,43 @@ class Dat {
         numberC: this.Effect.add(this.params.effect, 'numberC', 0, 360, 1)
           .onChange(() => this.mainProgram.rendering()),
         numberD: this.Effect.add(this.params.effect, 'numberD', 0, 360, 1)
+          .onChange(() => this.mainProgram.rendering()),
+        noise: this.Effect.add(this.params.effect, 'noise')
+          .onChange(() => {
+            this.displayParams([52, 53]);
+            this.mainProgram.rendering();
+          }),
+        x: this.Effect.add(this.params.effect, 'x', 1, 1000, 1)
+          .onChange(() => this.mainProgram.rendering()),
+        y: this.Effect.add(this.params.effect, 'y', 1, 1000, 1)
           .onChange(() => this.mainProgram.rendering())
       },
-      // line up
+      /** line up */
       lineUp: {
         on: this.LineUp.add(this.params.lineUp, 'on')
           .onChange(() => {
-            this.displayParams([52, 53]);
+            this.displayParams([55, 56]);
             this.mainProgram.resize();
           }),
-        type: this.LineUp.add(this.params.lineUp, 'type', ['lattice', 'random', 'notOverlap'])
+        type: this.LineUp.add(this.params.lineUp, 'type', ['lattice', 'random', 'notOverlap', 'fractalOne', 'fractalTwo'])
           .onChange(() => this.mainProgram.resize()),
         numberE: this.LineUp.add(this.params.lineUp, 'numberE', 1, 10000, 1)
           .onChange(() => this.mainProgram.resize())
       },
-      // etc
+      /** etc */
       reset: this.gui.add(this.params, 'reset'),
       getCode: this.gui.add(this.params, 'getCode'),
       downloadImage: this.gui.add(this.params, 'downloadImage')
       //getRandomShape: this.gui.add(this.params, 'getRandomShape')
     };
+
     return ctrls;
   }
   
   /**
    * get options
-   * @params {String} type - params.common.type
-   * @return {Object} options - options object
+   * @params {string} type - params.common.type
+   * @return {object} options - options object
    */
   getOptions(type) {
     const options = {
@@ -460,18 +472,19 @@ class Dat {
         point: this.params.shapeGradient.on === true ? this.params.shapeGradient.point : 0
       }
     };
+
     return options;
   }
 
   /**
    * hide parameters
-   * @params {Array} arr - want to hide index number
+   * @params {array} arr - want to hide index number
    */
   hideParams(arr) {
-    // dat gui added class name
+    /** dat gui added class name */
     const cs = document.getElementsByClassName('c');
     
-    // prepared hidden css class
+    /** prepared hidden css class */
     for (let i = 0; i < cs.length; i++) {
       cs[i].classList.remove('hidden');
     }
@@ -482,12 +495,12 @@ class Dat {
 
   /**
    * display parameters
-   * @params {Array} arr - want to display index number
+   * @params {array} arr - want to display index number
    */
   displayParams(arr) {
     const cs = document.getElementsByClassName('c');
     
-    // prepared hidden css class
+    /** prepared hidden css class */
     for (let i = 0; i < arr.length; i++) {
       cs[arr[i]].classList.toggle('hidden');
     }
@@ -522,26 +535,30 @@ class Dat {
       this.displayParams([42, 43, 44, 45, 46]);
     }
     if (this.params.effect.on) {
-      this.displayParams([48, 49, 50]);
+      this.displayParams([48, 49, 50, 51]);
+    }
+    if (this.params.effect.noise) {
+      this.displayParams([52, 53]);
     }
     if (this.params.lineUp.on) {
-      this.displayParams([52, 53]);
+      this.displayParams([55, 56]);
     }
   }
 
   /**
    * choise parameters
-   * @param {String} type - params.common.type
+   * @param {string} type - pass params.common.type
    */
   choiseParams(type) {
     this.ctrls.text.on.setValue(false);
+
     switch (type) {
       case 'circle':
         this.ctrls.common.scaleTwo.setValue(0);
         this.ctrls.common.theta.setValue(0);
         this.ctrls.common.numberA.setValue(0);
         this.ctrls.common.numberB.setValue(0);
-        this.hideParams([4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 52, 53]);
+        this.hideParams([4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
         this.checkOnOrOff();
         break;
       case 'ellipse':
@@ -549,7 +566,7 @@ class Dat {
         this.ctrls.common.theta.setValue(0);
         this.ctrls.common.numberA.setValue(0);
         this.ctrls.common.numberB.setValue(0);
-        this.hideParams([5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 52, 53]);
+        this.hideParams([5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
         this.checkOnOrOff();
         break;
       case 'lemniscate':
@@ -557,7 +574,7 @@ class Dat {
         this.ctrls.common.theta.setValue(360);
         this.ctrls.common.numberA.setValue(0);
         this.ctrls.common.numberB.setValue(0);
-        this.hideParams([4, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 52, 53]);
+        this.hideParams([4, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
         this.checkOnOrOff();
         break;
       case 'text':
@@ -567,7 +584,7 @@ class Dat {
         this.ctrls.common.theta.setValue(0);
         this.ctrls.common.numberA.setValue(0);
         this.ctrls.common.numberB.setValue(0);
-        this.hideParams([4, 5, 6, 7, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 52, 53]);
+        this.hideParams([4, 5, 6, 7, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
         this.checkOnOrOff();
         break;
       case 'rectangle':
@@ -575,7 +592,7 @@ class Dat {
         this.ctrls.common.theta.setValue(0);
         this.ctrls.common.numberA.setValue(0);
         this.ctrls.common.numberB.setValue(0);
-        this.hideParams([5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 52, 53]);
+        this.hideParams([5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
         this.checkOnOrOff();
         break;
       case 'polygon':
@@ -584,14 +601,14 @@ class Dat {
         this.ctrls.common.numberA.setValue(0);
         this.ctrls.common.numberB.setValue(0);
         this.checkOnOrOff();
-        this.hideParams([4, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 52, 53]);
+        this.hideParams([4, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
         break;
       case 'polygonStar':
         this.ctrls.common.scaleTwo.setValue(200);
         this.ctrls.common.theta.setValue(5);
         this.ctrls.common.numberA.setValue(0);
         this.ctrls.common.numberB.setValue(0);
-        this.hideParams([4, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 52, 53]);
+        this.hideParams([4, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
         this.checkOnOrOff();
         break;
       case 'sin':
@@ -600,7 +617,7 @@ class Dat {
         this.ctrls.common.theta.setValue(50);
         this.ctrls.common.numberA.setValue(50);
         this.ctrls.common.numberB.setValue(1);
-        this.hideParams([4, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 52, 53]);
+        this.hideParams([4, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
         this.checkOnOrOff();
         break;
       case 'cos':
@@ -609,7 +626,7 @@ class Dat {
         this.ctrls.common.theta.setValue(50);
         this.ctrls.common.numberA.setValue(50);
         this.ctrls.common.numberB.setValue(1);
-        this.hideParams([4, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 52, 53]);
+        this.hideParams([4, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
         this.checkOnOrOff();
         break;
       case 'tan':
@@ -618,7 +635,7 @@ class Dat {
         this.ctrls.common.theta.setValue(50);
         this.ctrls.common.numberA.setValue(50);
         this.ctrls.common.numberB.setValue(1);
-        this.hideParams([4, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 52, 53]);
+        this.hideParams([4, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
         this.checkOnOrOff();
         break;
       case 'heart':
@@ -628,7 +645,7 @@ class Dat {
         this.ctrls.common.rotationAngle.setValue(180);
         this.ctrls.common.numberA.setValue(0);
         this.ctrls.common.numberB.setValue(0);
-        this.hideParams([4, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 52, 53]);
+        this.hideParams([4, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
         this.checkOnOrOff();
         break;
       case 'rose':
@@ -637,7 +654,7 @@ class Dat {
         this.ctrls.common.theta.setValue(360);
         this.ctrls.common.numberA.setValue(5);
         this.ctrls.common.numberB.setValue(2);
-        this.hideParams([4, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 52, 53]);
+        this.hideParams([4, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
         this.checkOnOrOff();
         break; 
       case 'astroid':
@@ -646,7 +663,7 @@ class Dat {
         this.ctrls.common.theta.setValue(360);
         this.ctrls.common.numberA.setValue(0);
         this.ctrls.common.numberB.setValue(0);
-        this.hideParams([4, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 52, 53]);
+        this.hideParams([4, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
         this.checkOnOrOff();
         break;
       case 'lissajous':
@@ -655,7 +672,7 @@ class Dat {
         this.ctrls.common.theta.setValue(360);
         this.ctrls.common.numberA.setValue(5);
         this.ctrls.common.numberB.setValue(2);
-        this.hideParams([4, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 52, 53]);
+        this.hideParams([4, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
         this.checkOnOrOff();
         break; 
       case 'archimedesSpiral':
@@ -664,7 +681,7 @@ class Dat {
         this.ctrls.common.theta.setValue(360);
         this.ctrls.common.numberA.setValue(5);
         this.ctrls.common.numberB.setValue(0);
-        this.hideParams([4, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 52, 53]);
+        this.hideParams([4, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
         this.checkOnOrOff();
         break; 
       case 'fermatSpiral':
@@ -673,7 +690,16 @@ class Dat {
         this.ctrls.common.theta.setValue(360);
         this.ctrls.common.numberA.setValue(5);
         this.ctrls.common.numberB.setValue(0);
-        this.hideParams([4, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 52, 53]);
+        this.hideParams([4, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
+        this.checkOnOrOff();
+        break; 
+      case 'spirograf':
+        this.ctrls.common.scaleOne.setValue(200);
+        this.ctrls.common.scaleTwo.setValue(0);
+        this.ctrls.common.theta.setValue(360);
+        this.ctrls.common.numberA.setValue(36);
+        this.ctrls.common.numberB.setValue(36);
+        this.hideParams([4, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
         this.checkOnOrOff();
         break; 
     }
@@ -683,6 +709,7 @@ class Dat {
    * reset parameters
    */
   resetParams() {
+    /** common */
     this.ctrls.common.x.setValue(0);
     this.ctrls.common.y.setValue(0);
     this.ctrls.common.scaleOne.setValue(200);
@@ -692,6 +719,7 @@ class Dat {
     this.ctrls.common.numberB.setValue(0);
     this.ctrls.common.rotationAngle.setValue(0);
     this.ctrls.common.lineWidth.setValue(1);
+    /** text */
     this.ctrls.text.on.setValue(false);
     this.ctrls.text.value.setValue('Text');
     this.ctrls.text.family.setValue('sans-serif');
@@ -700,37 +728,47 @@ class Dat {
     this.ctrls.text.style.setValue('normal');
     this.ctrls.text.variant.setValue('normal');
     this.ctrls.text.weight.setValue('normal');
+    /** line */
     this.ctrls.line.on.setValue(false);
     this.ctrls.line.cap.setValue('');
     this.ctrls.line.join.setValue('');
     this.ctrls.line.miterLimit.setValue(0);
+    /** shadow */
     this.ctrls.shadow.on.setValue(false);
     this.ctrls.shadow.color.setValue('#000000');
     this.ctrls.shadow.offsetX.setValue(0);
     this.ctrls.shadow.offsetY.setValue(0);
     this.ctrls.shadow.blur.setValue(0);
+    /** composite */
     this.ctrls.composite.on.setValue(false);
     this.ctrls.composite.alpha.setValue(1);
     this.ctrls.composite.operation.setValue('');
+    /** shape color */
     this.ctrls.shapeColor.fillTransparent.setValue(true);
     this.ctrls.shapeColor.fill.setValue('#000000');
     this.ctrls.shapeColor.strokeTransparent.setValue(false);
     this.ctrls.shapeColor.stroke.setValue('#000000');
+    /** shape gradient */
     this.ctrls.shapeGradient.on.setValue(false);
     this.ctrls.shapeGradient.type.setValue('radial');
     this.ctrls.shapeGradient.startColor.setValue('#000000');
     this.ctrls.shapeGradient.endColor.setValue('#FFFFFF');
     this.ctrls.shapeGradient.point.setValue(0);
+    /** background color */
     this.ctrls.backgroundColor.on.setValue(true);
     this.ctrls.backgroundColor.color.setValue('#FFFFFF');
+    /** background gradient */
     this.ctrls.backgroundGradient.on.setValue(false);
     this.ctrls.backgroundGradient.type.setValue('radial');
     this.ctrls.backgroundGradient.startColor.setValue('#FFFFFF');
     this.ctrls.backgroundGradient.endColor.setValue('#000000');
     this.ctrls.backgroundGradient.point.setValue(0.0);
     this.ctrls.backgroundGradient.rotationAngle.setValue(0);
+    /** etc */
     this.ctrls.lineUp.on.setValue(false);
     this.ctrls.effect.on.setValue(false);
+    this.ctrls.effect.noise.setValue(false);
+    /** initialize parameters */
     this.choiseParams(this.params.common.type);
   }
 
@@ -741,11 +779,11 @@ class Dat {
     this.makeFolder(); 
     this.params = this.setPrameter(); 
     this.ctrls = this.setController();
-    // open only common
+    /** open only common */
     this.gui.close();
     this.Common.open();
-    // hide initialize parameters
-    this.hideParams([4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 52, 53]);
+    /** hide initialize parameters */
+    this.hideParams([4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
     this.checkOnOrOff();
   }
 }

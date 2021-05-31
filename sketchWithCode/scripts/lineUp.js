@@ -1,17 +1,15 @@
-/**
- * LineUp
- * @class LineUp
- */
+/** Class LineUp */
 class LineUp {
   /**
    * choise arrangement
-   * @param {String} type - arrangement
-   * @param {Object} main - main program
-   * @param {Number} scale - shape size
-   * @return {Array} arr - array included shapes
+   * @param {string} type - arrangement
+   * @param {object} main - main program
+   * @param {number} scale - shape size
+   * @return {array} arr - array included shapes
    */
   static arrangement(type, main, scale) {
     let arr;
+
     switch (type) {
       case 'lattice':
         arr = this.lattice(main, scale);
@@ -28,14 +26,24 @@ class LineUp {
         
         return arr;
         break;
+      case 'fractalOne':
+        arr = this.fractalOne(main, scale);
+
+        return arr;
+        break;
+      case 'fractalTwo':
+        arr = this.fractalTwo(main, scale);
+
+        return arr;
+        break;
     }
   }
 
   /**
    * line up lattice
-   * @param {Object} main - main program
-   * @param {Number} scale - shape size
-   * @return {Array} arr - array included shapes
+   * @param {object} main - main program
+   * @param {number} scale - shape size
+   * @return {array} arr - array included shapes
    */
   static lattice(main, scale) {
     const arr = new Array();
@@ -54,16 +62,20 @@ class LineUp {
 
   /**
    * line up random
-   * @param {Object} main - main program
-   * @param {Number} scale - shape size
-   * @return {Array} arr - array included shapes
+   * @param {object} main - main program
+   * @param {number} scale - shape size
+   * @return {array} arr - array included shapes
    */
   static random(main, scale) {
     const arr = new Array();
     const num = main.dat.params.lineUp.numberE;
     
     for (let i = 0; i < num; i++) {
-      const s = new Shape(main, main.width * Math.random(), main.height * Math.random());
+      const multiple = {
+        scaleOne: Utils.getRandomNumber(10, scale),
+        rotationAngle: Utils.getRandomNumber(0, 360)
+      };
+      const s = new Shape(main, main.width * Math.random(), main.height * Math.random(), multiple);
       arr.push(s);
     }
     return arr;
@@ -71,13 +83,13 @@ class LineUp {
 
   /**
    * line up notOverlap
-   * @param {Object} main - main program
-   * @param {Number} scale - shape size
-   * @return {Array} arr - array included shapes
+   * @param {object} main - main program
+   * @param {number} scale - shape size
+   * @return {array} arr - array included shapes
    */
   static notOverlap(main, scale) {
     const arr = new Array();
-    // from dat parameters
+    /** from dat parameters */
     const num = main.dat.params.lineUp.numberE;
     let intersection = false;
     
@@ -109,5 +121,87 @@ class LineUp {
     }
     
     return arr;
+  }
+
+  /**
+   * fractalOne
+   * @param {object} main - main program
+   * @param {number} scale - size
+   * @return {array} arr - array included shapes
+   */
+  static fractalOne(main, scale) {
+    const arr = new Array();
+    const num = main.dat.params.lineUp.numberE;
+    const n = Math.min(Math.floor(main.dat.params.lineUp.numberE / 1000), 6);
+
+    this.fract(main, 0, 0, Math.max(main.width, main.height), n, arr);
+
+    return arr;
+  }
+
+  static map(value, low1, high1, low2, high2) {
+    return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
+  }
+
+  static fract(main, x, y, scale, n, arr) {
+    const multiple = {
+      scaleOne: scale / 2,
+      rotationAngle: main.dat.params.common.rotationAngle
+    };
+    const s = new Shape(main, x + scale / 2, y + scale / 2, multiple);
+    
+    arr.push(s);
+    n--;
+    if (n >= 0) {
+      const ns = scale / 2;
+      const p = this.map(n, 0, 3 - 1, 0.5, 0);
+      if (Math.random() > p) {
+        this.fract(main, x, y, ns, n, arr);
+        this.fract(main, x + ns, y, ns, n, arr);
+        this.fract(main, x + ns, y + ns, ns, n, arr);
+        this.fract(main, x, y + ns, ns, n, arr);
+      }
+    }
+  }
+
+  /**
+   * fractalTwo
+   * @param {object} main - main program
+   * @param {number} scale - size
+   * @return {array} arr - array included shapes
+   */
+  static fractalTwo(main, scale) {
+    const arr = new Array();
+    const num = main.dat.params.lineUp.numberE;
+    const n = Math.min(Math.floor(main.dat.params.lineUp.numberE / 1000), 6);
+
+    this.fractTwo(main, 0, 0, Math.max(main.width, main.height), n, arr);
+
+    return arr;
+  }
+
+  static fractTwo(main, x, y, scale, n, arr) {
+    const multiple = {
+      scaleOne: scale,
+      rotationAngle: main.dat.params.common.rotationAngle
+    };
+    
+    if (n % 4 !== 0) {
+      const s = new Shape(main, x + scale / 2, y + scale / 2, multiple);
+      
+      arr.push(s);
+    }
+    
+    n--;
+    if (n >= 0) {
+      const ns = scale / 2;
+      const p = this.map(n, 0, 3 - 1, 0.5, 0);
+      if (Math.random() > p) {
+        this.fractTwo(main, x, y, ns, n, arr);
+        this.fractTwo(main, x + ns, y, ns, n, arr);
+        this.fractTwo(main, x + ns, y + ns, ns, n, arr);
+        this.fractTwo(main, x, y + ns, ns, n, arr);
+      }
+    }
   }
 }

@@ -1,6 +1,4 @@
-/**
- * use utility function or return erray in main program 
- */
+/** Class utility static function */
 class Utils {
   /**
    * get random number
@@ -14,8 +12,8 @@ class Utils {
 
   /**
    * delay
-   * @params {Number} time - delay time
-   * @return {Object} promise - promise
+   * @params {number} time - delay time
+   * @return {object} promise - promise
    */
   static delay(time) {
     return new Promise((res, rej) => {
@@ -27,9 +25,9 @@ class Utils {
   
   /**
    * get html from options object
-   * @param {String} type - from dat gui
-   * @param {Object} options - selected option
-   * @return {String} html - return html element
+   * @param {string} type - from dat gui
+   * @param {object} options - selected option
+   * @return {string} html - return html element
    */
   static getHtml(type, options) {
     let html = 
@@ -94,7 +92,7 @@ class Utils {
 
   /**
    * getShapesType
-   * @return {Array} arr - return shape type array
+   * @return {array} arr - return shape type array
    */
   static getShapesTypeArray() {
     let arr = new Array();
@@ -114,7 +112,8 @@ class Utils {
       'astroid',
       'lissajous',
       'archimedesSpiral',
-      'fermatSpiral'
+      'fermatSpiral',
+      'spirograf'
     ];
 
     return arr;
@@ -122,10 +121,11 @@ class Utils {
 
   /**
    * get global composite operation array
-   * @return {Array} arr - return global composite operation array
+   * @return {array} arr - return global composite operation array
    */
   static getGlobalCompositeOperationArray() {
     let arr = new Array();
+    
     arr = [
       'copy',
       'destination-atop',
@@ -145,6 +145,7 @@ class Utils {
 
   /**
    * get effect array
+   * @return {array} arr - return effect array
    */
   static getEffectArray() {
      let arr = new Array();
@@ -152,8 +153,7 @@ class Utils {
        'vertical',
        'horizontal',
        'sandstorm',
-       'skew',
-       'noise'
+       'skew'
      ];
 
      return arr;
@@ -164,5 +164,5 @@ class Utils {
    */
   static deleteDomElement(element) {
      element.parentNode.removeChild(element);
-   }
+  }
 }
