@@ -331,7 +331,7 @@ class Shape {
  * loading animation
  */
 const loadingAnimation = () => {
-  //document.getElementsByTagName('body')[0].setAttribute('style', '');
+  document.getElementsByTagName('body')[0].setAttribute('style', '');
   const container = document.getElementById('container');
   const jsLoadingFrame = document.getElementById('jsLoadingFrame');
   const jsTexts = document.getElementsByClassName('jsTexts');
