@@ -20,7 +20,7 @@ Paste the generated code into script tag.
 <script>
   /**
    * draw circle
-   * @param {Object} options - You can easily generate options by using Sketch with Code.
+   * @param {object} options - you can easily generate options by using sketch with code.
    */
   Shapes.circle({
     ctx: ctx,
