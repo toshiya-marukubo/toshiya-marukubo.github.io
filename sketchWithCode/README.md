@@ -9,7 +9,7 @@ But I think the world is more interesting when there are rules.
 - [Sketch with Code via CodePen(https://codepen.io/toshiya-marukubo/full/8545d5684ef53024cf9ee8d12050adbd)](https://codepen.io/toshiya-marukubo/full/8545d5684ef53024cf9ee8d12050adbd)
 
 ## Generated Code
-You can use generated code on your Canvas using ['my Shapes library']('https://github.com/toshiya-marukubo/toshiya-marukubo.github.io/blob/main/sketchWithCode/README.md'). 
+You can use generated code on your Canvas using ['my Shapes library']('https://github.com/toshiya-marukubo/toshiya-marukubo.github.io/blob/main/sketchWithCode/README.md').   
 Please download 'shapes.js' in scripts file. But not supported effect, line up.
 
 ### How to Use the Code
@@ -23,7 +23,7 @@ Paste the generated code into script tag.
    * @param {object} options - you can easily generate options by using sketch with code.
    */
   Shapes.circle({
-    ctx: ctx,
+    ctx: ctx, // canvas context variable name
     common: {
       x: 0,
       y: 0,

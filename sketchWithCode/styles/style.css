@@ -90,6 +90,9 @@ main {
   color: #FFF;
   text-decoration: none;
 }
+.frameInMain ul {
+  padding-bottom: 16px;
+}
 
 #jsClose {
   z-index: 9999;
