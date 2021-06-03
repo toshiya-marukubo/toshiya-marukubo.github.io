@@ -118,7 +118,8 @@ class Dat {
         numberD: 10,
         noise: false,
         x: 1,
-        y: 1
+        y: 1,
+        z: 1
       },
       lineUp: {
         on: false,
@@ -370,7 +371,7 @@ class Dat {
       effect: {
         on: this.Effect.add(this.params.effect, 'on')
           .onChange(() => {
-            this.displayParams([48, 49, 50, 51]);
+            this.displayParams([48, 49, 50, 51, 52, 53, 54]);
             this.mainProgram.rendering();
           }),
         type: this.Effect.add(this.params.effect, 'type', Utils.getEffectArray())
@@ -381,19 +382,20 @@ class Dat {
           .onChange(() => this.mainProgram.rendering()),
         noise: this.Effect.add(this.params.effect, 'noise')
           .onChange(() => {
-            this.displayParams([52, 53]);
             this.mainProgram.rendering();
           }),
         x: this.Effect.add(this.params.effect, 'x', 1, 1000, 1)
           .onChange(() => this.mainProgram.rendering()),
         y: this.Effect.add(this.params.effect, 'y', 1, 1000, 1)
+          .onChange(() => this.mainProgram.rendering()),
+        z: this.Effect.add(this.params.effect, 'z', 1, 1000, 1)
           .onChange(() => this.mainProgram.rendering())
       },
       /** line up */
       lineUp: {
         on: this.LineUp.add(this.params.lineUp, 'on')
           .onChange(() => {
-            this.displayParams([55, 56]);
+            this.displayParams([56, 57]);
             this.mainProgram.resize();
           }),
         type: this.LineUp.add(this.params.lineUp, 'type', ['lattice', 'random', 'notOverlap', 'fractalOne', 'fractalTwo'])
@@ -535,13 +537,11 @@ class Dat {
       this.displayParams([42, 43, 44, 45, 46]);
     }
     if (this.params.effect.on) {
-      this.displayParams([48, 49, 50, 51]);
-    }
-    if (this.params.effect.noise) {
-      this.displayParams([52, 53]);
+      //this.ctrls.effect.noise(true);
+      this.displayParams([48, 49, 50, 51, 52, 53, 54]);
     }
     if (this.params.lineUp.on) {
-      this.displayParams([55, 56]);
+      this.displayParams([56, 57]);
     }
   }
 
@@ -551,14 +551,14 @@ class Dat {
    */
   choiseParams(type) {
     this.ctrls.text.on.setValue(false);
-
+    
     switch (type) {
       case 'circle':
         this.ctrls.common.scaleTwo.setValue(0);
         this.ctrls.common.theta.setValue(0);
         this.ctrls.common.numberA.setValue(0);
         this.ctrls.common.numberB.setValue(0);
-        this.hideParams([4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
+        this.hideParams([4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 54, 56, 57]);
         this.checkOnOrOff();
         break;
       case 'ellipse':
@@ -566,7 +566,7 @@ class Dat {
         this.ctrls.common.theta.setValue(0);
         this.ctrls.common.numberA.setValue(0);
         this.ctrls.common.numberB.setValue(0);
-        this.hideParams([5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
+        this.hideParams([5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 54, 56, 57]);
         this.checkOnOrOff();
         break;
       case 'lemniscate':
@@ -574,7 +574,7 @@ class Dat {
         this.ctrls.common.theta.setValue(360);
         this.ctrls.common.numberA.setValue(0);
         this.ctrls.common.numberB.setValue(0);
-        this.hideParams([4, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
+        this.hideParams([4, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 54, 56, 57]);
         this.checkOnOrOff();
         break;
       case 'text':
@@ -584,7 +584,7 @@ class Dat {
         this.ctrls.common.theta.setValue(0);
         this.ctrls.common.numberA.setValue(0);
         this.ctrls.common.numberB.setValue(0);
-        this.hideParams([4, 5, 6, 7, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
+        this.hideParams([4, 5, 6, 7, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 54, 56, 57]);
         this.checkOnOrOff();
         break;
       case 'rectangle':
@@ -592,7 +592,7 @@ class Dat {
         this.ctrls.common.theta.setValue(0);
         this.ctrls.common.numberA.setValue(0);
         this.ctrls.common.numberB.setValue(0);
-        this.hideParams([5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
+        this.hideParams([5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 54, 56, 57]);
         this.checkOnOrOff();
         break;
       case 'polygon':
@@ -601,14 +601,14 @@ class Dat {
         this.ctrls.common.numberA.setValue(0);
         this.ctrls.common.numberB.setValue(0);
         this.checkOnOrOff();
-        this.hideParams([4, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
+        this.hideParams([4, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 54, 56, 57]);
         break;
       case 'polygonStar':
         this.ctrls.common.scaleTwo.setValue(200);
         this.ctrls.common.theta.setValue(5);
         this.ctrls.common.numberA.setValue(0);
         this.ctrls.common.numberB.setValue(0);
-        this.hideParams([4, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
+        this.hideParams([4, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 54, 56, 57]);
         this.checkOnOrOff();
         break;
       case 'sin':
@@ -617,7 +617,7 @@ class Dat {
         this.ctrls.common.theta.setValue(50);
         this.ctrls.common.numberA.setValue(50);
         this.ctrls.common.numberB.setValue(1);
-        this.hideParams([4, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
+        this.hideParams([4, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 54, 56, 57]);
         this.checkOnOrOff();
         break;
       case 'cos':
@@ -626,7 +626,7 @@ class Dat {
         this.ctrls.common.theta.setValue(50);
         this.ctrls.common.numberA.setValue(50);
         this.ctrls.common.numberB.setValue(1);
-        this.hideParams([4, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
+        this.hideParams([4, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 54, 56, 57]);
         this.checkOnOrOff();
         break;
       case 'tan':
@@ -635,7 +635,7 @@ class Dat {
         this.ctrls.common.theta.setValue(50);
         this.ctrls.common.numberA.setValue(50);
         this.ctrls.common.numberB.setValue(1);
-        this.hideParams([4, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
+        this.hideParams([4, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 54, 56, 57]);
         this.checkOnOrOff();
         break;
       case 'heart':
@@ -645,7 +645,7 @@ class Dat {
         this.ctrls.common.rotationAngle.setValue(180);
         this.ctrls.common.numberA.setValue(0);
         this.ctrls.common.numberB.setValue(0);
-        this.hideParams([4, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
+        this.hideParams([4, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 54, 56, 57]);
         this.checkOnOrOff();
         break;
       case 'rose':
@@ -654,7 +654,7 @@ class Dat {
         this.ctrls.common.theta.setValue(360);
         this.ctrls.common.numberA.setValue(5);
         this.ctrls.common.numberB.setValue(2);
-        this.hideParams([4, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
+        this.hideParams([4, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 54, 56, 57]);
         this.checkOnOrOff();
         break; 
       case 'astroid':
@@ -663,7 +663,7 @@ class Dat {
         this.ctrls.common.theta.setValue(360);
         this.ctrls.common.numberA.setValue(0);
         this.ctrls.common.numberB.setValue(0);
-        this.hideParams([4, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
+        this.hideParams([4, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 54, 56, 57]);
         this.checkOnOrOff();
         break;
       case 'lissajous':
@@ -672,7 +672,7 @@ class Dat {
         this.ctrls.common.theta.setValue(360);
         this.ctrls.common.numberA.setValue(5);
         this.ctrls.common.numberB.setValue(2);
-        this.hideParams([4, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
+        this.hideParams([4, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 54, 56, 57]);
         this.checkOnOrOff();
         break; 
       case 'archimedesSpiral':
@@ -681,7 +681,7 @@ class Dat {
         this.ctrls.common.theta.setValue(360);
         this.ctrls.common.numberA.setValue(5);
         this.ctrls.common.numberB.setValue(0);
-        this.hideParams([4, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
+        this.hideParams([4, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 54, 56, 57]);
         this.checkOnOrOff();
         break; 
       case 'fermatSpiral':
@@ -690,7 +690,7 @@ class Dat {
         this.ctrls.common.theta.setValue(360);
         this.ctrls.common.numberA.setValue(5);
         this.ctrls.common.numberB.setValue(0);
-        this.hideParams([4, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
+        this.hideParams([4, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 54, 56, 57]);
         this.checkOnOrOff();
         break; 
       case 'spirograf':
@@ -699,7 +699,7 @@ class Dat {
         this.ctrls.common.theta.setValue(360);
         this.ctrls.common.numberA.setValue(36);
         this.ctrls.common.numberB.setValue(36);
-        this.hideParams([4, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
+        this.hideParams([4, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 54, 56, 57]);
         this.checkOnOrOff();
         break; 
     }
@@ -783,7 +783,7 @@ class Dat {
     this.gui.close();
     this.Common.open();
     /** hide initialize parameters */
-    this.hideParams([4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56]);
+    this.hideParams([4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 28, 29, 31, 33, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46, 48, 49, 50, 51, 52, 53, 54, 56, 57]);
     this.checkOnOrOff();
   }
 }

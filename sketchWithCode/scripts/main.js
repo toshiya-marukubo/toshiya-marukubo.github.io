@@ -226,7 +226,8 @@ class MainProgram {
         this.simplex,
         this.dat.params.effect.noise,
         this.dat.params.effect.x,
-        this.dat.params.effect.y
+        this.dat.params.effect.y,
+        this.dat.params.effect.z
       );
       this.ctx.putImageData(data, 0, 0);
     }
