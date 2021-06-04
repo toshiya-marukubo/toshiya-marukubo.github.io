@@ -1,4 +1,4 @@
-# Shapes with Code version 0.0.1
+# Sketch with Code version 0.0.1
 You can give some parameter using GUI, so You will be able to watch many shapes.  
 If you find favorite shape you can generate code or image.
 
