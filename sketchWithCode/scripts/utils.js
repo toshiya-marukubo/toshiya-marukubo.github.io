@@ -160,6 +160,25 @@ class Utils {
    }
 
   /**
+   * get line up array
+   * @return {array} arr - return line up array
+   */
+  static getLineUpArray() {
+    let arr = new Array();
+    arr = [
+      'lattice',
+      'gap',
+      'random',
+      'notOverlap',
+      'fractalOne',
+      'fractalTwo',
+      'circular'
+    ];
+
+    return arr;
+  }
+
+  /**
    * delete own dom element
    */
   static deleteDomElement(element) {

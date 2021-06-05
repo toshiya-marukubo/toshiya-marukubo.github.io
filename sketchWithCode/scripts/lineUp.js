@@ -16,6 +16,11 @@ class LineUp {
         
         return arr;
         break;
+      case 'gap':
+        arr = this.gap(main, scale);
+
+        return arr;
+        break;
       case 'random':
         arr = this.random(main, scale);
         
@@ -33,6 +38,11 @@ class LineUp {
         break;
       case 'fractalTwo':
         arr = this.fractalTwo(main, scale);
+
+        return arr;
+        break;
+      case 'circular':
+        arr = this.circular(main, scale);
 
         return arr;
         break;
@@ -60,6 +70,33 @@ class LineUp {
     return arr;
   }
 
+  /**
+   * line up gap
+   * @param {object} main - main program
+   * @param {number} scale - shape size
+   * @return {array} arr - array included shapes
+   */
+  static gap(main, scale) {
+    const arr = new Array();
+    const yNum = Math.floor(main.height / scale) + 1;
+    const xNum = Math.floor(main.width / scale) + 1;
+    let s;
+
+    for (let y = 0; y <= yNum; y++) {
+      for (let x = 0; x <= xNum; x++) {
+        if (y % 2 === 0) {
+          s = new Shape(main, x * scale, y * scale);
+          arr.push(s);
+        } else {
+          s = new Shape(main, x * scale + scale / 2, y * scale);
+          arr.push(s);
+        }
+      }
+    }
+    
+    return arr;
+  }
+  
   /**
    * line up random
    * @param {object} main - main program
@@ -124,7 +161,7 @@ class LineUp {
   }
 
   /**
-   * fractalOne
+   * line up fractalOne
    * @param {object} main - main program
    * @param {number} scale - size
    * @return {array} arr - array included shapes
@@ -165,7 +202,7 @@ class LineUp {
   }
 
   /**
-   * fractalTwo
+   * line up fractalTwo
    * @param {object} main - main program
    * @param {number} scale - size
    * @return {array} arr - array included shapes
@@ -203,5 +240,31 @@ class LineUp {
         this.fractTwo(main, x, y + ns, ns, n, arr);
       }
     }
+  }
+  
+  /**
+   * line up circular
+   * @param {object} main - main program
+   * @param {number} scale - size
+   * @return {array} arr - array included shapes
+   */
+  static circular(main, scale) {
+    const arr = new Array();
+    const num = Math.floor(main.dat.params.lineUp.numberE / 100);
+    let s;
+
+    s = new Shape(main, main.width / 2, main.height / 2);
+    arr.push(s);
+    for (let i = 1; i < num; i++) {
+      for (let j = 0; j < i * 6; j++) {
+        const nx = Math.cos(Math.PI * 2 / (6 * i) * j) * scale * i + main.width / 2;
+        const ny = Math.sin(Math.PI * 2 / (6 * i) * j) * scale * i + main.height / 2;
+ 
+        s = new Shape(main, nx, ny);
+        arr.push(s);
+      }
+    }
+
+    return arr;
   }
 }

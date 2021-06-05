@@ -71,6 +71,7 @@ class MainProgram {
     const jsImageFrame = document.getElementById('jsImageFrame');
     const donwloadButton = document.getElementById('donwloadButton');
     const displayed = document.getElementsByClassName('displayed');
+    const fileName = Date.now();
      
     if (displayed.length) {
       for (let i = 0; i < displayed.length; i++) {
@@ -89,12 +90,13 @@ class MainProgram {
     img.setAttribute('src', imageLink.href);
     a.href = '#';
     a.setAttribute('class', 'displayed');
+    a.setAttribute('download', fileName + '.png');
     a.appendChild(img);
     jsImageFrame.appendChild(a);
     
     displayed[0].addEventListener('click', (e) => {
-      e.preventDefault()
-      imageLink.download = Date.now() + '.png';
+      e.preventDefault();
+      imageLink.download = fileName + '.png';
       imageLink.click();
       Utils.deleteDomElement(a);
       jsImageFrame.classList.toggle('jsSlideIn');
