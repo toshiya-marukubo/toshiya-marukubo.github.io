@@ -114,7 +114,7 @@ class Dat {
       effect: {
         on: false,
         type: 'vertical',
-        numberC: 4,
+        numberC: 10,
         numberD: 10,
         noise: false,
         x: 1,

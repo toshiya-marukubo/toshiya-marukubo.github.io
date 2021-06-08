@@ -33,6 +33,10 @@ class Effect {
         data = this.skew(ctx, height, width, numberC, numberD, scaleOne, simplex, noise, noiseX, noiseY, noiseZ);
         return data;
         break;
+      case 'anaglyph':
+        data = this.anaglyph(ctx, height, width, numberC, numberD, scaleOne, simplex, noise, noiseX, noiseY, noiseZ);
+        return data;
+        break;
     }
   }
   
@@ -170,6 +174,50 @@ class Effect {
           newImageData.data[k + 0] = imageData.data[k + 0];
           newImageData.data[k + 1] = imageData.data[k + 1];
           newImageData.data[k + 2] = imageData.data[k + 2];
+          newImageData.data[k + 3] = imageData.data[k + 3];
+        }
+      }
+    }
+  
+    return newImageData;
+  }
+  
+  static anaglyph(ctx, height, width, numberC, numberD, scaleOne, simplex, noise, noiseX, noiseY, noiseZ) {
+    const imageData = ctx.getImageData(0, 0, width, height);
+    const imageData2 = ctx.createImageData(width, height);
+    const newImageData = ctx.createImageData(width, height);
+
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        let n = 1;
+        if (noise) {
+          n = simplex.noise3D(x / noiseX, y / noiseY, noiseZ);
+        }
+        const offset = - Math.floor(numberC * n);
+        const k = (y * width + x) * 4;
+        const s = (y * width + x + offset) * 4;
+        
+        if (imageData.data[s + 3] > 0x00) {
+          imageData2.data[k + 0] = imageData.data[s + 0];
+          imageData2.data[k + 1] = imageData.data[s + 1];
+          imageData2.data[k + 2] = imageData.data[s + 2];
+          imageData2.data[k + 3] = imageData.data[s + 3];
+        }
+      }
+    }
+    
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        let n = 1;
+        if (noise) {
+          n = simplex.noise3D(x / noiseX, y / noiseY, noiseZ);
+        }
+        const k = (y * width + x) * 4;
+        
+        if (imageData.data[k + 3] > 0x00) {
+          newImageData.data[k + 0] = 255 * imageData.data[k + 0] / 0xff;
+          newImageData.data[k + 1] = 255 * imageData2.data[k + 1] / 0xff;
+          newImageData.data[k + 2] = 255 * imageData2.data[k + 2] / 0xff;
           newImageData.data[k + 3] = imageData.data[k + 3];
         }
       }

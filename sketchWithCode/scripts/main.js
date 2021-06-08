@@ -192,6 +192,7 @@ class MainProgram {
    * rendering
    */
   rendering() {
+    this.ctx.save();
     /** draw background color */
     this.ctx.clearRect(0, 0, this.width, this.height);
     this.ctx.fillStyle = this.getBackgroundColor(this.dat.params.backgroundGradient);
@@ -233,6 +234,7 @@ class MainProgram {
       );
       this.ctx.putImageData(data, 0, 0);
     }
+    this.ctx.restore();
   }
 
   /**

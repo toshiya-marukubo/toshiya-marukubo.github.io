@@ -153,7 +153,8 @@ class Utils {
        'vertical',
        'horizontal',
        'sandstorm',
-       'skew'
+       'skew',
+       'anaglyph'
      ];
 
      return arr;
@@ -168,6 +169,7 @@ class Utils {
     arr = [
       'lattice',
       'gap',
+      'pack',
       'random',
       'notOverlap',
       'fractalOne',

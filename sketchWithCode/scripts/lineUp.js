@@ -21,6 +21,11 @@ class LineUp {
 
         return arr;
         break;
+      case 'pack':
+        arr = this.pack(main, scale);
+
+        return arr;
+        break;
       case 'random':
         arr = this.random(main, scale);
         
@@ -97,6 +102,35 @@ class LineUp {
     return arr;
   }
   
+  /**
+   * line up pack
+   * @param {object} main - main program
+   * @param {number} scale - shape size
+   * @return {array} arr - array included shapes
+   */
+  static pack(main, scale) {
+    const arr = new Array();
+    const yNum = Math.floor(main.height / scale) + 2;
+    const xNum = Math.floor(main.width / scale) + 1;
+    const gapX = scale / 2;
+    const gapY = Math.cos(30 * Math.PI / 180) * scale;
+    let s;
+
+    for (let y = 0; y <= yNum; y++) {
+      for (let x = 0; x <= xNum; x++) {
+        if (y % 2 === 0) {
+          s = new Shape(main, x * scale, y * gapY);
+          arr.push(s);
+        } else {
+          s = new Shape(main, x * scale + gapX, y * gapY);
+          arr.push(s);
+        }
+      }
+    }
+    
+    return arr;
+  }
+
   /**
    * line up random
    * @param {object} main - main program
