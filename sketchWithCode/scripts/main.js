@@ -15,17 +15,23 @@ class MainProgram {
     this.canvas.style.left = '0';
     this.canvas.style.zIndex = '-1';
     this.ctx = this.canvas.getContext("2d");
+    
     /** create instance */
     this.Shapes = Shapes; // from other file
     this.dat = new Dat(this); // pass main program
     this.simplex = new SimplexNoise(); // use at effect 
+    
     /** shape array */
     this.shapesArray = null;
+    
     /** parameters */
     this.animationId = null;
     this.width = null;
     this.height = null;
     this.diagonal = null;
+    
+    /** image */
+    this.image = null;
   }
 
   /**
@@ -154,6 +160,30 @@ class MainProgram {
     inputText.select();
     document.execCommand('copy');
     inputText.parentNode.removeChild(inputText);
+  }
+
+  /**
+   * load file
+   * @param {object} e - event object
+   */
+  loadFile(e) {
+    if (e.target.files.length === 0) return;
+    const files = e.target.files;
+    const reader = new FileReader();
+
+    reader.readAsDataURL(files[0]);
+    reader.addEventListener('load', () => {
+      this.loadImage(reader.result);
+    }, false);
+  }
+
+  loadImage(result) {
+    this.image = new Image();
+    this.image.src = result;
+    this.image.addEventListener('load', () => {
+      this.initialize();
+      this.rendering();
+    }, false);
   }
 
   /**
@@ -324,6 +354,9 @@ class Shape {
       case 'spirograf':
         this.Shapes.spirograf(options, multiple);
         break;
+      case 'image':
+        this.Shapes.image(options, multiple, this.mainProgram.image);
+        break;
     }
   }
 
@@ -381,6 +414,7 @@ const loadingAnimation = () => {
     const jsClose = document.getElementById('jsClose');
     const jsCodeOne = document.getElementById('jsCodeOne');
     const jsAgainButton = document.getElementById('jsAgainButton');
+    const inputImageButton = document.getElementById('inputImage');
     const mainProgram = new MainProgram();
     
     mainProgram.initialize();
@@ -407,6 +441,10 @@ const loadingAnimation = () => {
     jsAgainButton.addEventListener('click', (e) => {
       e.preventDefault()
       mainProgram.removeImage();
+    }, false);
+
+    inputImageButton.addEventListener('change', (e) => {
+      mainProgram.loadFile(e);
     }, false);
   });
 })();

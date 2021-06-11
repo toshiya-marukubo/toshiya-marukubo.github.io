@@ -37,6 +37,34 @@ class Effect {
         data = this.anaglyph(ctx, height, width, numberC, numberD, scaleOne, simplex, noise, noiseX, noiseY, noiseZ);
         return data;
         break;
+      case 'edgeDetect':
+        data = this.edgeDetect(ctx, height, width, numberC, numberD, scaleOne, simplex, noise, noiseX, noiseY, noiseZ);
+        return data;
+        break;
+      case 'emboss':
+        data = this.emboss(ctx, height, width, numberC, numberD, scaleOne, simplex, noise, noiseX, noiseY, noiseZ);
+        return data;
+        break;
+      case 'mosaic':
+        data = this.mosaic(ctx, height, width, numberC, numberD, scaleOne, simplex, noise, noiseX, noiseY, noiseZ);
+        return data;
+        break;
+      case 'outOfFocus':
+        data = this.outOfFocus(ctx, height, width, numberC, numberD, scaleOne, simplex, noise, noiseX, noiseY, noiseZ);
+        return data;
+        break;
+      case 'invert':
+        data = this.invert(ctx, height, width, numberC, numberD, scaleOne, simplex, noise, noiseX, noiseY, noiseZ);
+        return data;
+        break;
+      case 'grayScale':
+        data = this.grayScale(ctx, height, width, numberC, numberD, scaleOne, simplex, noise, noiseX, noiseY, noiseZ);
+        return data;
+        break;
+      case 'blackAndWhite':
+        data = this.blackAndWhite(ctx, height, width, numberC, numberD, scaleOne, simplex, noise, noiseX, noiseY, noiseZ);
+        return data;
+        break;
     }
   }
   
@@ -223,6 +251,229 @@ class Effect {
       }
     }
   
+    return newImageData;
+  }
+
+  static edgeDetect(ctx, height, width, numberC, numberD, scaleOne, simplex, noise, noiseX, noiseY, noiseZ) {
+    const imageData = ctx.getImageData(0, 0, width, height);
+    const newImageData = ctx.createImageData(width, height);
+    
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        let n = 1;
+        if (noise) {
+          n = simplex.noise3D(x / noiseX, y / noiseY, noiseZ);
+        }
+        const intensity = Math.floor(numberC * n);
+        
+        const il = (y * width + x - 1) * 4;
+        const rl = imageData.data[il + 0];
+        const gl = imageData.data[il + 1];
+        const bl = imageData.data[il + 2];
+
+        const i2 = ((y - 1) * width + x) * 4;
+        const r2 = imageData.data[i2 + 0];
+        const g2 = imageData.data[i2 + 1];
+        const b2 = imageData.data[i2 + 2];
+
+        const i3 = (y * width + x) * 4;
+        const r = imageData.data[i3 + 0];
+        const g = imageData.data[i3 + 1];
+        const b = imageData.data[i3 + 2];
+
+        const nr = Math.min((Math.abs(r2 - r) + Math.abs(rl - r)) * intensity, 255);
+        const ng = Math.min((Math.abs(g2 - g) + Math.abs(gl - g)) * intensity, 255);
+        const nb = Math.min((Math.abs(b2 - b) + Math.abs(bl - b)) * intensity, 255);
+
+        if (imageData.data[i3 + 3] > 0) {
+          newImageData.data[i3 + 0] = nr;
+          newImageData.data[i3 + 1] = ng;
+          newImageData.data[i3 + 2] = nb;
+          newImageData.data[i3 + 3] = 0xff;
+        }
+      }
+    }
+    
+    return newImageData;
+  }
+
+  static emboss(ctx, height, width, numberC, numberD, scaleOne, simplex, noise, noiseX, noiseY, noiseZ) {
+    const imageData = ctx.getImageData(0, 0, width, height);
+    const newImageData = ctx.createImageData(width, height);
+    const bgR = 128, bgG = 128, bgB = 128;
+
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        let n = 1;
+        if (noise) {
+          n = simplex.noise3D(x / noiseX, y / noiseY, noiseZ);
+        }
+        const power = Math.floor(numberC * n);
+        
+        const il = (y * width + x - 1) * 4;
+        const rl = imageData.data[il + 0];
+        const gl = imageData.data[il + 1];
+        const bl = imageData.data[il + 2];
+        
+        const ni = (y * width + x) * 4;
+        const r = imageData.data[ni + 0];
+        const g = imageData.data[ni + 1];
+        const b = imageData.data[ni + 2];
+        
+        const nr = Math.min(Math.max(bgR + Math.floor((r - rl) * power), 0), 255);
+        const ng = Math.min(Math.max(bgG + Math.floor((g - gl) * power), 0), 255);
+        const nb = Math.min(Math.max(bgB + Math.floor((b - bl) * power), 0), 255);
+        
+        if (imageData.data[ni + 3] > 0) {
+          newImageData.data[ni + 0] = nr;
+          newImageData.data[ni + 1] = ng;
+          newImageData.data[ni + 2] = nb;
+          newImageData.data[ni + 3] = 0xff;
+        }
+      }
+    }
+
+    return newImageData;
+  }
+
+  static mosaic(ctx, height, width, numberC, numberD, scaleOne, simplex, noise, noiseX, noiseY, noiseZ) {
+    const imageData = ctx.getImageData(0, 0, width, height);
+    const newImageData = ctx.createImageData(width, height);
+    
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        let n = 1;
+        if (noise) {
+          n = simplex.noise3D(x / noiseX, y / noiseY, noiseZ);
+        }
+        const blockSize = Math.floor(numberC * n);
+        const k = (y * width + x) * 4;
+        const nx = Math.floor(x / blockSize) * blockSize;
+        const ny = Math.floor(y / blockSize) * blockSize;
+        const floorIndex = (ny * width + nx) * 4;
+        
+        if (imageData.data[k + 3] > 0) {
+          newImageData.data[k + 0] = imageData.data[floorIndex];
+          newImageData.data[k + 1] = imageData.data[floorIndex + 1];
+          newImageData.data[k + 2] = imageData.data[floorIndex + 2];
+          newImageData.data[k + 3] = imageData.data[floorIndex + 3];
+        }
+      }
+    }  
+    
+    return newImageData;
+  }
+
+  static outOfFocus(ctx, height, width, numberC, numberD, scaleOne, simplex, noise, noiseX, noiseY, noiseZ) {
+    const imageData = ctx.getImageData(0, 0, width, height);
+    const newImageData = ctx.createImageData(width, height);
+    
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        let rTotal = 0, gTotal = 0, bTotal = 0, nColors = 0;
+        let n = 1;
+        if (noise) {
+          n = simplex.noise3D(x / noiseX, y / noiseY, noiseZ);
+        }
+        const power = Math.floor(numberC / 100 * n);
+        
+        for (let dy = -power + y; dy <= power + y; dy++) {
+          for (let dx = -power + x; dx <= power + x; dx++) {
+            if (dx >= 0 && dx < width && dy >= 0 && dy < height) {
+              let ni = (dy * width + dx) * 4;
+              rTotal += imageData.data[ni + 0];
+              gTotal += imageData.data[ni + 1];
+              bTotal += imageData.data[ni + 2];
+              nColors++;
+            }
+          }
+        }
+        
+        const ni = (y * width + x) * 4;
+
+        if (imageData.data[ni + 3] > 0) {
+          newImageData.data[ni + 0] = rTotal / nColors;
+          newImageData.data[ni + 1] = gTotal / nColors;
+          newImageData.data[ni + 2] = bTotal / nColors;
+          newImageData.data[ni + 3] = 0xff;
+        }
+      }
+    }
+
+    return newImageData;
+  }
+
+  static invert(ctx, height, width, numberC, numberD, scaleOne, simplex, noise, noiseX, noiseY, noiseZ) {
+    const imageData = ctx.getImageData(0, 0, width, height);
+    const newImageData = ctx.createImageData(width, height);
+
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        let n = 1;
+        if (noise) {
+          n = simplex.noise3D(x / noiseX, y / noiseY, noiseZ);
+        }
+        const val = Math.floor(Math.min(numberC, 255) * n);
+        const k = (y * width + x) * 4;
+
+        if (imageData.data[k + 3] > 0) {
+          newImageData.data[k + 0] = val - imageData.data[k + 0];
+          newImageData.data[k + 1] = val - imageData.data[k + 1];
+          newImageData.data[k + 2] = val - imageData.data[k + 2];
+          newImageData.data[k + 3] = imageData.data[k + 3];
+        }
+      }
+    }
+
+    return newImageData;
+  }
+
+  static grayScale(ctx, height, width, numberC, numberD, scaleOne, simplex, noise, noiseX, noiseY, noiseZ) {
+    const imageData = ctx.getImageData(0, 0, width, height);
+    const newImageData = ctx.createImageData(width, height);
+    
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        const k = (y * width + x) * 4;
+        const r = imageData.data[k + 0];
+        const g = imageData.data[k + 1];
+        const b = imageData.data[k + 2];
+        const luminance = (r + g + b) / 3;
+        
+        if (imageData.data[k + 3] > 0) {
+          newImageData.data[k + 0] = luminance;
+          newImageData.data[k + 1] = luminance;
+          newImageData.data[k + 2] = luminance;
+          newImageData.data[k + 3] = imageData.data[k + 3];
+        }
+      }
+    }
+
+    return newImageData;
+  }
+
+  static blackAndWhite(ctx, height, width, numberC, numberD, scaleOne, simplex, noise, noiseX, noiseY, noiseZ) {
+    const imageData = ctx.getImageData(0, 0, width, height);
+    const newImageData = ctx.createImageData(width, height);
+    
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        const k = (y * width + x) * 4;
+        const r = imageData.data[k + 0];
+        const g = imageData.data[k + 1];
+        const b = imageData.data[k + 2];
+        const luminance = (r + g + b) / 3;
+        const value = luminance >= 128 ? 255 : 0;
+        
+        if (imageData.data[k + 3] > 0) {
+          newImageData.data[k + 0] = value;
+          newImageData.data[k + 1] = value;
+          newImageData.data[k + 2] = value;
+          newImageData.data[k + 3] = imageData.data[k + 3];
+        }
+      }
+    }
+
     return newImageData;
   }
 }

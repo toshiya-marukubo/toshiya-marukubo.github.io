@@ -126,6 +126,7 @@ class Dat {
         type: 'lattice',
         numberE: 1000
       },
+      loadImage: () => document.getElementById('inputImage').click(),
       reset: () => this.resetParams(),
       getCode: () => this.mainProgram.getCode(this.params.common.type),
       downloadImage: () => this.mainProgram.downloadImage()
@@ -393,6 +394,7 @@ class Dat {
           .onChange(() => this.mainProgram.resize())
       },
       /** etc */
+      loadImage: this.gui.add(this.params, 'loadImage'),
       reset: this.gui.add(this.params, 'reset'),
       getCode: this.gui.add(this.params, 'getCode'),
       downloadImage: this.gui.add(this.params, 'downloadImage')
@@ -673,6 +675,13 @@ class Dat {
         this.ctrls.common.numberA.setValue(36);
         this.ctrls.common.numberB.setValue(36);
         this.hideParams([4]);
+        break; 
+      case 'image':
+        this.ctrls.common.scaleOne.setValue(100);
+        this.ctrls.common.scaleTwo.setValue(0);
+        this.ctrls.common.numberA.setValue(360);
+        this.ctrls.common.numberB.setValue(360);
+        this.hideParams([4, 5, 9]);
         break; 
     }
   }

@@ -113,7 +113,8 @@ class Utils {
       'lissajous',
       'archimedesSpiral',
       'fermatSpiral',
-      'spirograf'
+      'spirograf',
+      'image'
     ];
 
     return arr;
@@ -154,7 +155,14 @@ class Utils {
        'horizontal',
        'sandstorm',
        'skew',
-       'anaglyph'
+       'anaglyph',
+       'edgeDetect',
+       'emboss',
+       'mosaic',
+       'outOfFocus',
+       'invert',
+       'grayScale',
+       'blackAndWhite'
      ];
 
      return arr;

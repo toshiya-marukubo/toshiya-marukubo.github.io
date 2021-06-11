@@ -697,4 +697,37 @@ class Shapes {
     }
     o.ctx.restore();
   }
+  
+  /********************
+   * image type
+     - Image
+   ********************/
+
+  static image(options, multiple, image) {
+    if (image === null) return;
+    const o = options;
+    if (multiple) {
+      o.common.scaleOne = multiple.scaleOne;
+      o.common.scaleTwo = multiple.scaleOne;
+      o.common.rotationAngle = multiple.rotationAngle;
+    }
+    if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
+    if (o.common.scaleTwo < o.common.lineWidth) o.common.scaleTwo = o.common.lineWidth;
+    const offsetScaleOne = o.common.scaleOne / 2 - o.common.lineWidth / 2;
+    const offsetScaleTwo = o.common.scaleTwo / 2 - o.common.lineWidth / 2;
+    const radian = Math.PI * 2 / o.common.theta;
+    const widthRatio = o.common.numberA / 360;
+    const heightRatio = o.common.numberB / 360;
+     
+    o.ctx.save();
+    this.addStyle(o, offsetScaleOne, offsetScaleTwo);
+    o.ctx.drawImage(
+      image,
+      o.common.x - image.width / 2 * widthRatio,
+      o.common.y - image.height / 2 * heightRatio,
+      image.width * widthRatio,
+      image.height * heightRatio
+    );
+    o.ctx.restore();
+  }
 }
