@@ -114,6 +114,7 @@ class Shapes {
     const o = options;
     if (multiple) {
       o.common.scaleOne = multiple.scaleOne;
+      o.common.scaleTwo = multiple.scaleOne;
       o.common.rotationAngle = multiple.rotationAngle;
     }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
@@ -135,6 +136,7 @@ class Shapes {
     const o = options;
     if (multiple) {
       o.common.scaleOne = multiple.scaleOne;
+      o.common.scaleTwo = multiple.scaleOne;
       o.common.rotationAngle = multiple.rotationAngle;
     }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
@@ -156,6 +158,7 @@ class Shapes {
     const o = options;
     if (multiple) {
       o.common.scaleOne = multiple.scaleOne;
+      o.common.scaleTwo = multiple.scaleOne;
       o.common.rotationAngle = multiple.rotationAngle;
     }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
@@ -195,6 +198,7 @@ class Shapes {
     const o = options;
     if (multiple) {
       o.common.scaleOne = multiple.scaleOne;
+      o.common.scaleTwo = multiple.scaleOne;
       o.common.rotationAngle = multiple.rotationAngle;
     }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
@@ -276,6 +280,7 @@ class Shapes {
     const o = options;
     if (multiple) {
       o.common.scaleOne = multiple.scaleOne;
+      o.common.scaleTwo = multiple.scaleOne;
       o.common.rotationAngle = multiple.rotationAngle;
     }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
@@ -309,6 +314,7 @@ class Shapes {
     const o = options;
     if (multiple) {
       o.common.scaleOne = multiple.scaleOne;
+      o.common.scaleTwo = multiple.scaleOne;
       o.common.rotationAngle = multiple.rotationAngle;
     }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
@@ -356,6 +362,7 @@ class Shapes {
     o.common.theta *= 5;
     if (multiple) {
       o.common.scaleOne = multiple.scaleOne;
+      o.common.scaleTwo = multiple.scaleOne;
       o.common.rotationAngle = multiple.rotationAngle;
     }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
@@ -389,6 +396,7 @@ class Shapes {
     o.common.theta *= 5;
     if (multiple) {
       o.common.scaleOne = multiple.scaleOne;
+      o.common.scaleTwo = multiple.scaleOne;
       o.common.rotationAngle = multiple.rotationAngle;
     }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
@@ -422,6 +430,7 @@ class Shapes {
     o.common.theta *= 5;
     if (multiple) {
       o.common.scaleOne = multiple.scaleOne;
+      o.common.scaleTwo = multiple.scaleOne;
       o.common.rotationAngle = multiple.rotationAngle;
     }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
@@ -454,6 +463,7 @@ class Shapes {
     const o = options;
     if (multiple) {
       o.common.scaleOne = multiple.scaleOne;
+      o.common.scaleTwo = multiple.scaleOne;
       o.common.rotationAngle = multiple.rotationAngle;
     }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
@@ -498,6 +508,7 @@ class Shapes {
     const o = options;
     if (multiple) {
       o.common.scaleOne = multiple.scaleOne;
+      o.common.scaleTwo = multiple.scaleOne;
       o.common.rotationAngle = multiple.rotationAngle;
     }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
@@ -532,6 +543,7 @@ class Shapes {
     const o = options;
     if (multiple) {
       o.common.scaleOne = multiple.scaleOne;
+      o.common.scaleTwo = multiple.scaleOne;
       o.common.rotationAngle = multiple.rotationAngle;
     }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
@@ -565,6 +577,7 @@ class Shapes {
     const o = options;
     if (multiple) {
       o.common.scaleOne = multiple.scaleOne;
+      o.common.scaleTwo = multiple.scaleOne;
       o.common.rotationAngle = multiple.rotationAngle;
     }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
@@ -598,6 +611,7 @@ class Shapes {
     const o = options;
     if (multiple) {
       o.common.scaleOne = multiple.scaleOne;
+      o.common.scaleTwo = multiple.scaleOne;
       o.common.rotationAngle = multiple.rotationAngle;
     }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
@@ -632,6 +646,7 @@ class Shapes {
     const o = options;
     if (multiple) {
       o.common.scaleOne = multiple.scaleOne;
+      o.common.scaleTwo = multiple.scaleOne;
       o.common.rotationAngle = multiple.rotationAngle;
     }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
@@ -666,6 +681,7 @@ class Shapes {
     const o = options;
     if (multiple) {
       o.common.scaleOne = multiple.scaleOne;
+      o.common.scaleTwo = multiple.scaleOne;
       o.common.rotationAngle = multiple.rotationAngle;
     }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;

@@ -182,7 +182,9 @@ class Utils {
       'notOverlap',
       'fractalOne',
       'fractalTwo',
-      'circular'
+      'sierpinski',
+      'circular',
+      'fibonacci'
     ];
 
     return arr;

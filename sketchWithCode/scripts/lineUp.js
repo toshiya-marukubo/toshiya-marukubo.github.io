@@ -46,8 +46,18 @@ class LineUp {
 
         return arr;
         break;
+      case 'sierpinski':
+        arr = this.sierpinski(main, scale);
+
+        return arr;
+        break;
       case 'circular':
         arr = this.circular(main, scale);
+
+        return arr;
+        break;
+      case 'fibonacci':
+        arr = this.fibonacci(main, scale);
 
         return arr;
         break;
@@ -277,6 +287,45 @@ class LineUp {
   }
   
   /**
+   * line up sierpinski
+   * @param {object} main - main program
+   * @param {number} scale - size
+   * @return {array} arr - array included shapes
+   */
+  static sierpinski(main, scale) {
+    const arr = new Array();
+    const num = main.dat.params.lineUp.numberE;
+    const n = Math.min(Math.floor(main.dat.params.lineUp.numberE / 1000), 5);
+
+    this.carpet(main, main.width, main.height, n, 0, 0, arr);
+
+    return arr;
+  }
+
+  static carpet(main, width, height, n, x0, y0, arr) {
+    const multiple = {
+      scaleOne: width / 3,
+      scaleTwo: height / 3,
+      rotationAngle: main.dat.params.common.rotationAngle
+    };
+
+    if (n === 0) return arr;
+    n--;
+    const tw = width / 3;
+    const th = height / 3;
+    const s = new Shape(main, tw + x0 + tw / 2, th + y0 + th / 2, multiple);
+    arr.push(s);
+
+    for (let y = 0; y < 3; y++) {
+      for (let x = 0; x < 3; x++) {
+        if (!(y === 1 && x === 1)) {
+          this.carpet(main, tw, th, n, x0 + x * tw, y0 + y * th, arr);
+        }
+      }
+    }
+  }
+  
+  /**
    * line up circular
    * @param {object} main - main program
    * @param {number} scale - size
@@ -299,6 +348,36 @@ class LineUp {
       }
     }
 
+    return arr;
+  }
+  
+  /**
+   * line up fibonacci
+   * @param {object} main - main program
+   * @param {number} scale - size
+   * @return {array} arr - array included shapes
+   */
+  static fibonacci(main, scale) {
+    const arr = new Array();
+    const num = Math.floor(main.dat.params.lineUp.numberE);
+    let size = num / 5;
+    let r = num;
+   
+    for (let i = 0; i < num / 3; i++) {
+      const multiple = {
+        scaleOne: size * 2,
+        rotationAngle: main.dat.params.common.rotationAngle
+      };
+      const rad = 137.5 * Math.PI / 180 * i;
+      const nx = Math.cos(rad) * r + main.width / 2;
+      const ny = Math.sin(rad) * r + main.height / 2;
+      const s = new Shape(main, nx, ny, multiple);
+      
+      arr.push(s);
+      size *= 0.974;
+      r *= 0.974;
+    }
+    
     return arr;
   }
 }
