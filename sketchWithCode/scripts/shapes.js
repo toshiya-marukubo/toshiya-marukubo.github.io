@@ -54,7 +54,11 @@ class Shapes {
     if (o.shapeColor.fillTransparent === true) {
       fillColor = 'rgba(0, 0, 0, 0)';
     } else {
-      fillColor = o.shapeColor.fill;
+      if (o.shapeColor.fillMultiColorNumber == 1) {
+        fillColor = o.shapeColor.fill[0];
+      } else {
+        fillColor = o.shapeColor.fill[Utils.getRandomNumber(0, o.shapeColor.fill.length - 1)];
+      }
     }
     /** fill gradient */
     if (o.shapeGradient.on) {

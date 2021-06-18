@@ -88,7 +88,10 @@ class Dat {
       },
       shapeColor: {
         fillTransparent: true,
-        fill: '#000000',
+        fillMultiColorNumber: 1,
+        fillOne: '#000000',
+        fillTwo: '#000000',
+        fillThree: '#000000',
         strokeTransparent: false,
         stroke: '#000000'
       },
@@ -309,7 +312,15 @@ class Dat {
           .onChange(() => {
             this.mainProgram.rendering();
           }),
-        fill: this.ShapeColor.addColor(this.params.shapeColor, 'fill')
+        fillMultiColorNumber: this.ShapeColor.add(this.params.shapeColor, 'fillMultiColorNumber', [1, 2, 3])
+          .onChange(() => {
+            this.mainProgram.rendering();
+          }),
+        fillOne: this.ShapeColor.addColor(this.params.shapeColor, 'fillOne')
+          .onChange(() => this.mainProgram.rendering()),
+        fillTwo: this.ShapeColor.addColor(this.params.shapeColor, 'fillTwo')
+          .onChange(() => this.mainProgram.rendering()),
+        fillThree: this.ShapeColor.addColor(this.params.shapeColor, 'fillThree')
           .onChange(() => this.mainProgram.rendering()),
         strokeTransparent: this.ShapeColor.add(this.params.shapeColor, 'strokeTransparent')
           .onChange(() => {
@@ -453,7 +464,8 @@ class Dat {
       },
       shapeColor: {
         fillTransparent: this.params.shapeColor.fillTransparent,
-        fill: this.params.shapeColor.fillTransparent === true ? '' : this.params.shapeColor.fill,
+        fillMultiColorNumber: this.params.shapeColor.fillMultiColorNumber,
+        fill: this.getColorArray(this.params.shapeColor.fillTransparent, this.params.shapeColor.fillMultiColorNumber),
         strokeTransparent: this.params.shapeColor.strokeTransparent,
         stroke: this.params.shapeColor.strokeTransparent === true ? '' : this.params.shapeColor.stroke
       },
@@ -467,6 +479,25 @@ class Dat {
     };
 
     return options;
+  }
+
+  /**
+   * get color array
+   * @params {boolean} transparent 
+   * @params {number} number
+   * @return {array} arr - colors
+   */
+  getColorArray(transparent, num) {
+    const arr = new Array();
+    
+    if (transparent) {
+
+      return '';
+    } else {
+      if (num == 1) return [this.params.shapeColor.fillOne];
+      if (num == 2) return [this.params.shapeColor.fillOne, this.params.shapeColor.fillTwo];
+      if (num == 3) return [this.params.shapeColor.fillOne, this.params.shapeColor.fillTwo, this.params.shapeColor.fillThree];
+    }
   }
 
   /**

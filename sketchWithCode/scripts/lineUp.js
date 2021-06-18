@@ -360,7 +360,7 @@ class LineUp {
   static fibonacci(main, scale) {
     const arr = new Array();
     const num = Math.floor(main.dat.params.lineUp.numberE);
-    let size = num / 5;
+    let size = num / Math.floor(scale / 100);
     let r = num;
    
     for (let i = 0; i < num / 3; i++) {
