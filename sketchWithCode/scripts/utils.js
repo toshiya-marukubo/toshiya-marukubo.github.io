@@ -9,7 +9,20 @@ class Utils {
   static getRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
-
+  
+  /**
+   * Get rgb color if not params return random
+   * @param {number} r - red
+   * @param {number} g - green
+   * @param {number} b - blue
+   */
+  static getRGBColor(r, g, b) {
+    const rr = r || this.getRandomNumber(0, 255);
+    const rg = g || this.getRandomNumber(0, 255);
+    const rb = b || this.getRandomNumber(0, 255);
+    return 'rgb(' + rr + ', ' + rg + ', ' + rb + ')';
+  }
+  
   /**
    * delay
    * @params {number} time - delay time
@@ -104,6 +117,7 @@ class Utils {
       'rectangle',
       'polygon',
       'polygonStar',
+      'box',
       'sin',
       'cos',
       'tan',
@@ -184,6 +198,7 @@ class Utils {
       'fractalTwo',
       'sierpinski',
       'circular',
+      'circleOnCircle',
       'fibonacci'
     ];
 

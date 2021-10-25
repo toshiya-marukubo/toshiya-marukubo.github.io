@@ -238,6 +238,12 @@ class MainProgram {
     );
     this.ctx.restore();
 
+    /** rotation */
+    this.ctx.translate(this.width / 2, this.height / 2);
+    this.ctx.rotate(this.dat.params.frame.angle * Math.PI / 180);
+    this.ctx.scale(this.dat.params.frame.scaleX, this.dat.params.frame.scaleY);
+    this.ctx.translate(-this.width / 2, -this.height / 2);
+    
     /** draw shape */
     for (let i = 0; i < this.shapesArray.length; i++) {
       this.ctx.save();
@@ -327,6 +333,9 @@ class Shape {
       case 'polygonStar':
         this.Shapes.polygonStar(options, multiple);
         break;
+      case 'box':
+        this.Shapes.box(options, multiple);
+        break;
       case 'sin':
         this.Shapes.sin(options, multiple);
         break;
@@ -373,30 +382,11 @@ const loadingAnimation = () => {
   const container = document.getElementById('container');
   const jsLoadingFrame = document.getElementById('jsLoadingFrame');
   const jsTexts = document.getElementsByClassName('jsTexts');
-  const children = jsTexts[0].children;
   
-  Utils.delay(4800)
+  Utils.delay(1600)
     .then(() => {
-      for (let i = 0; i < children.length; i++) {
-        if (i > 7) {
-          children[i].classList.add('jsDed');
-        }
-        Utils.delay(800).then(() => {
-          if (i === 8) children[i].textContent = 'E';
-          if (i === 9) children[i].textContent = 'D';
-          if (i === 10) children[i].textContent = ' ';
-        });
-      }
-      for (let i = 0; i < children.length; i++) {
-        const closeButton = document.getElementsByClassName('close-button')[0];
-        children[i].addEventListener('animationend', () => {
-          if (i === 10) {
-            container.classList.add('jsShowContainer');
-            closeButton.classList.add('showDat');
-          }
-          jsLoadingFrame.classList.add('jsLoaded');
-        });
-      }
+      container.classList.add('jsShowContainer');
+      jsLoadingFrame.classList.add('jsLoaded');
     });
 };
 

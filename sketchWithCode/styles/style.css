@@ -2,6 +2,9 @@
 
 html, body{
   height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
 }
 
 body {
@@ -11,20 +14,20 @@ body {
 }
 
 #container {
+  top: 0;
+  left: 0;
   visibility: hidden;
-  top: -10%;
   width: 100%;
   height: 100%;
   opacity: 0;
-  -webkit-transition: top 1.6s, visibility 1.6s, opacity 1.6s;
-  -o-transition: top 1.6s, visibility 1.6s, opacity 1.6s;
-  transition: top 1.6s, visibility 1.6s, opacity 1.6s;
-  position: relative;
+  position: absolute;
+  -webkit-transition: visibility 2.4s, opacity 2.4s;
+  -o-transition: visibility 2.4s, opacity 2.4s;
+  transition: visibility 2.4s, opacity 2.4s;
 }
 #container.jsShowContainer {
   visibility: visible;
   opacity: 1;
-  top: 0;
 }
 
 a {
@@ -286,7 +289,7 @@ small {
 
 @media (min-width: 500px) {
   h1 {
-    font-size: 3.2rem;
+    font-size: 2.4rem;
   }
   h2 {
     font-size: 1rem;

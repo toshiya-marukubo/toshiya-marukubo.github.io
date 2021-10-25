@@ -56,6 +56,11 @@ class LineUp {
 
         return arr;
         break;
+      case 'circleOnCircle':
+        arr = this.circleOnCircle(main, scale);
+
+        return arr;
+        break;
       case 'fibonacci':
         arr = this.fibonacci(main, scale);
 
@@ -378,6 +383,49 @@ class LineUp {
       r *= 0.974;
     }
     
+    return arr;
+  }
+  
+  /**
+   * line up circleOnCircle
+   * @param {object} main - main program
+   * @param {number} scale - size
+   * @return {array} arr - array included shapes
+   */
+  static circleOnCircle(main, scale) {
+    const arr = new Array();
+    const numTwo = Math.min(Math.floor(main.dat.params.lineUp.numberE / 500), 20);
+    //const numTwo = Math.min(Math.floor(main.dat.params.lineUp.numberE / 1000), 10);
+    //let size = numOne / Math.floor(scale / 100);
+    const numOne = scale;
+    let rad = Math.PI * 2 / numTwo;
+
+    let x = numOne;
+    let r = x * Math.tan(rad / 2);
+    let y2 = Math.sqrt(x * x + r * r) + r;
+    let y1 = Math.sqrt(x * x + r * r) - r;
+    let s = y2 / y1;
+    let array = new Array();
+
+    for (let i = 0; i < numTwo; i++) {
+      array.push([x, r, r]);
+      x = x * s;
+      r = r * s;
+    }
+
+    for (let j = 0; j < numTwo; j++) {
+      for (let i = 0; i < array.length; i++) {
+        const multiple = {
+          scaleOne: array[i][2] * 2,
+          rotationAngle: main.dat.params.common.rotationAngle
+        };
+        const nx = Math.cos(rad * j) * array[i][0] - Math.sin(rad * j) * array[i][1] + main.width / 2;
+        const ny = Math.sin(rad * j) * array[i][0] + Math.cos(rad * j) * array[i][1] + main.height / 2;
+        const s = new Shape(main, nx, ny, multiple);
+        arr.push(s);
+      }
+    }
+
     return arr;
   }
 }

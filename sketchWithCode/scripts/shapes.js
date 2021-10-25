@@ -48,7 +48,11 @@ class Shapes {
     if (o.shapeColor.strokeTransparent === true) {
       strokeColor = 'rgba(0, 0, 0, 0)';
     } else {
-      strokeColor = o.shapeColor.stroke;
+      if (o.shapeColor.strokeMultiColorNumber == 1) {
+        strokeColor = o.shapeColor.stroke[0];
+      } else {
+        strokeColor = o.shapeColor.stroke[Utils.getRandomNumber(0, o.shapeColor.stroke.length - 1)];
+      }
     }
     /** fill transparent */
     if (o.shapeColor.fillTransparent === true) {
@@ -126,7 +130,8 @@ class Shapes {
     const offsetScaleOne = o.common.scaleOne / 2 - o.common.lineWidth / 2;
     const offsetScaleTwo = o.common.scaleTwo / 2 - o.common.lineWidth / 2;
     const radian = Math.PI * 2 / o.common.theta;
-    
+
+    /** draw */ 
     o.ctx.save();
     this.addStyle(o, offsetScaleOne);
     o.ctx.beginPath();
@@ -134,6 +139,18 @@ class Shapes {
     o.ctx.fill();
     o.ctx.stroke();
     o.ctx.restore();
+    
+
+    if (o.common.iteration > 1) {
+      o.common.scaleOne -= o.common.iterationScale;
+      o.common.iteration--;
+      if (multiple) {
+        multiple.scaleOne = o.common.scaleOne;
+        multiple.scaleTwo = o.common.scaleTwo;
+      }
+      
+      this.circle(o, multiple);
+    }
   }
 
   static ellipse(options, multiple) {
@@ -156,6 +173,18 @@ class Shapes {
     o.ctx.fill();
     o.ctx.stroke();
     o.ctx.restore();
+
+    if (o.common.iteration > 1) {
+      o.common.scaleOne -= o.common.iterationScale;
+      o.common.scaleTwo -= o.common.iterationScale;
+      o.common.iteration--;
+      if (multiple) {
+        multiple.scaleOne = o.common.scaleOne;
+        multiple.scaleTwo = o.common.scaleTwo;
+      }
+      
+      this.ellipse(o, multiple);
+    }
   }
 
   static lemniscate(options, multiple) {
@@ -191,6 +220,17 @@ class Shapes {
       }
     }
     o.ctx.restore();
+
+    if (o.common.iteration > 1) {
+      o.common.scaleOne -= o.common.iterationScale;
+      o.common.iteration--;
+      if (multiple) {
+        multiple.scaleOne = o.common.scaleOne;
+        multiple.scaleTwo = o.common.scaleTwo;
+      }
+      
+      this.lemniscate(o, multiple);
+    }
   }
 
   /********************
@@ -219,6 +259,17 @@ class Shapes {
     o.ctx.fillText(o.text.value, o.common.x, o.common.y);
     o.ctx.strokeText(o.text.value, o.common.x, o.common.y);
     o.ctx.restore();
+
+    if (o.common.iteration > 1) {
+      o.common.scaleOne -= o.common.iterationScale;
+      o.common.iteration--;
+      if (multiple) {
+        multiple.scaleOne = o.common.scaleOne;
+        multiple.scaleTwo = o.common.scaleTwo;
+      }
+      
+      this.text(o, multiple);
+    }
   }
 
   /**
@@ -248,7 +299,7 @@ class Shapes {
     const o = options;
     if (multiple) {
       o.common.scaleOne = multiple.scaleOne;
-      o.common.scaleTwo = multiple.scaleOne;
+      o.common.scaleTwo = multiple.scaleTwo;
       o.common.rotationAngle = multiple.rotationAngle;
     }
     if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
@@ -272,6 +323,17 @@ class Shapes {
       o.common.scaleTwo - o.common.lineWidth
     );
     o.ctx.restore();
+
+    if (o.common.iteration > 1) {
+      o.common.scaleOne -= o.common.iterationScale;
+      o.common.iteration--;
+      if (multiple) {
+        multiple.scaleOne = o.common.scaleOne;
+        multiple.scaleTwo = o.common.scaleTwo;
+      }
+      
+      this.rectangle(o, multiple);
+    }
   }
   
   /********************
@@ -312,6 +374,75 @@ class Shapes {
       }
     }
     o.ctx.restore();
+
+    if (o.common.iteration > 1) {
+      o.common.scaleOne -= o.common.iterationScale;
+      o.common.iteration--;
+      if (multiple) {
+        multiple.scaleOne = o.common.scaleOne;
+        multiple.scaleTwo = o.common.scaleTwo;
+      }
+      
+      this.polygon(o, multiple);
+    }
+  }
+  
+  static box(options, multiple) {
+    const o = options;
+    if (multiple) {
+      o.common.scaleOne = multiple.scaleOne;
+      o.common.scaleTwo = multiple.scaleOne;
+      o.common.rotationAngle = multiple.rotationAngle;
+    }
+    if (o.common.scaleOne < o.common.lineWidth) o.common.scaleOne = o.common.lineWidth;
+    if (o.common.scaleTwo < o.common.lineWidth) o.common.scaleTwo = o.common.lineWidth;
+    const offsetScaleOne = o.common.scaleOne / 2 - o.common.lineWidth / 2;
+    const offsetScaleTwo = o.common.scaleTwo / 2 - o.common.lineWidth / 2;
+    const radian = Math.PI * 2 / o.common.theta;
+    
+    o.ctx.save();
+    this.addStyle(o, offsetScaleOne, offsetScaleTwo);
+    for (let i = 0; i < 6; i++) {
+      const nx = Math.cos(radian * i) * offsetScaleOne + o.common.x;
+      const ny = Math.sin(radian * i) * offsetScaleOne + o.common.y;
+      
+      if (i === 0) {
+        o.ctx.beginPath();
+        o.ctx.moveTo(nx, ny);
+      } else {
+        o.ctx.lineTo(nx, ny);
+      }
+      if (i === o.common.theta - 1) {
+        o.ctx.closePath();
+        o.ctx.fill();
+        o.ctx.stroke();
+        /** draw line to center */
+        o.ctx.beginPath();
+        o.ctx.moveTo(Math.cos(radian * 0) * offsetScaleOne + o.common.x, Math.sin(radian * 0) * offsetScaleOne + o.common.y);
+        o.ctx.lineTo(o.common.x, o.common.y);
+        o.ctx.stroke();
+        o.ctx.beginPath();
+        o.ctx.moveTo(Math.cos(radian * 2) * offsetScaleOne + o.common.x, Math.sin(radian * 2) * offsetScaleOne + o.common.y);
+        o.ctx.lineTo(o.common.x, o.common.y);
+        o.ctx.stroke();
+        o.ctx.beginPath();
+        o.ctx.moveTo(Math.cos(radian * 4) * offsetScaleOne + o.common.x, Math.sin(radian * 4) * offsetScaleOne + o.common.y);
+        o.ctx.lineTo(o.common.x, o.common.y);
+        o.ctx.stroke();
+      }
+    }
+    o.ctx.restore();
+
+    if (o.common.iteration > 1) {
+      o.common.scaleOne -= o.common.iterationScale;
+      o.common.iteration--;
+      if (multiple) {
+        multiple.scaleOne = o.common.scaleOne;
+        multiple.scaleTwo = o.common.scaleTwo;
+      }
+      
+      this.box(o, multiple);
+    }
   }
   
   static polygonStar(options, multiple) {
@@ -346,6 +477,17 @@ class Shapes {
       }
     }
     o.ctx.restore();
+
+    if (o.common.iteration > 1) {
+      o.common.scaleOne -= o.common.iterationScale;
+      o.common.iteration--;
+      if (multiple) {
+        multiple.scaleOne = o.common.scaleOne;
+        multiple.scaleTwo = o.common.scaleTwo;
+      }
+      
+      this.polygonStar(o, multiple);
+    }
   }
   
   /********************
@@ -506,6 +648,17 @@ class Shapes {
       }
     }
     o.ctx.restore();
+
+    if (o.common.iteration > 1) {
+      o.common.scaleOne -= o.common.iterationScale;
+      o.common.iteration--;
+      if (multiple) {
+        multiple.scaleOne = o.common.scaleOne;
+        multiple.scaleTwo = o.common.scaleTwo;
+      }
+      
+      this.heart(o, multiple);
+    }
   }
 
   static rose(options, multiple) {
@@ -541,6 +694,17 @@ class Shapes {
       }
     }
     o.ctx.restore();
+
+    if (o.common.iteration > 1) {
+      o.common.scaleOne -= o.common.iterationScale;
+      o.common.iteration--;
+      if (multiple) {
+        multiple.scaleOne = o.common.scaleOne;
+        multiple.scaleTwo = o.common.scaleTwo;
+      }
+      
+      this.rose(o, multiple);
+    }
   }
   
   static astroid(options, multiple) {
@@ -575,6 +739,17 @@ class Shapes {
       }
     }
     o.ctx.restore();
+
+    if (o.common.iteration > 1) {
+      o.common.scaleOne -= o.common.iterationScale;
+      o.common.iteration--;
+      if (multiple) {
+        multiple.scaleOne = o.common.scaleOne;
+        multiple.scaleTwo = o.common.scaleTwo;
+      }
+      
+      this.astroid(o, multiple);
+    }
   }
   
   static lissajous(options, multiple) {
@@ -609,6 +784,17 @@ class Shapes {
       }
     }
     o.ctx.restore();
+
+    if (o.common.iteration > 1) {
+      o.common.scaleOne -= o.common.iterationScale;
+      o.common.iteration--;
+      if (multiple) {
+        multiple.scaleOne = o.common.scaleOne;
+        multiple.scaleTwo = o.common.scaleTwo;
+      }
+      
+      this.lissajous(o, multiple);
+    }
   }
   
   static archimedesSpiral(options, multiple) {
@@ -716,6 +902,17 @@ class Shapes {
       }
     }
     o.ctx.restore();
+
+    if (o.common.iteration > 1) {
+      o.common.scaleOne -= o.common.iterationScale;
+      o.common.iteration--;
+      if (multiple) {
+        multiple.scaleOne = o.common.scaleOne;
+        multiple.scaleTwo = o.common.scaleTwo;
+      }
+      
+      this.spirograf(o, multiple);
+    }
   }
   
   /********************

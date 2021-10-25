@@ -7,16 +7,27 @@ class Dat {
   constructor(mainProgram) {
     this.mainProgram = mainProgram;
     this.gui = new dat.GUI();
+    
     // folders
+    this.Common = null;
+    this.Text = null;
     this.Line = null;
     this.Shadow = null;
     this.Composite = null;
     this.ShapeColor = null;
     this.ShapeGradient = null;
+    this.BackgroundColor = null;
+    this.BackgroundGradient = null;
+    this.Effect = null;
+    this.LineUp = null;
+    this.Frame = null;
+
     // parameters object
     this.params = null;
+    
     // controllers object
     this.ctrls = null;
+    
     // initialize
     this.initialize();
   }
@@ -36,6 +47,7 @@ class Dat {
     this.BackgroundGradient = this.gui.addFolder('BackgroundGradient');
     this.Effect = this.gui.addFolder('Effect');
     this.LineUp = this.gui.addFolder('LineUp');
+    this.Frame = this.gui.addFolder('Frame');
   }
 
   /**
@@ -55,6 +67,7 @@ class Dat {
         theta: 360,
         numberA: 4,
         numberB: 1,
+        iteration: 1,
         rotationAngle: 0,
         lineWidth: 1
       },
@@ -93,7 +106,10 @@ class Dat {
         fillTwo: '#000000',
         fillThree: '#000000',
         strokeTransparent: false,
-        stroke: '#000000'
+        strokeMultiColorNumber: 1,
+        strokeOne: '#000000',
+        strokeTwo: '#000000',
+        strokeThree: '#000000',
       },
       shapeGradient: {
         on: false,
@@ -127,12 +143,18 @@ class Dat {
       lineUp: {
         on: false,
         type: 'lattice',
-        numberE: 1000
+        numberE: 1000,
+        numberF: 1000
+      },
+      frame: {
+        angle: 0,
+        scaleX: 1,
+        scaleY: 1
       },
       loadImage: () => document.getElementById('inputImage').click(),
       reset: () => this.resetParams(),
       getCode: () => this.mainProgram.getCode(this.params.common.type),
-      downloadImage: () => this.mainProgram.downloadImage()
+      downloadImage: () => this.mainProgram.downloadImage(),
       //getRandomShape: () => this.addRandomParams()
     };
     return params;
@@ -144,72 +166,81 @@ class Dat {
    */
   addRandomParams() {
     const type = Utils.getShapesTypeArray();
-    // common
+    const lineCap = ['butt', 'round', 'square'];
+    const lineJoin = ['b?evel', 'round', 'miter'];
+    const effectType = Utils.getEffectArray();
+    const lineUpType = Utils.getLineUpArray();
+
+    /** common */
     this.ctrls.common.type.setValue(type[Utils.getRandomNumber(0, type.length - 1)]);
-    this.ctrls.common.scaleOne.setValue(Utils.getRandomNumber(100, 300));
-    this.ctrls.common.scaleTwo.setValue(Utils.getRandomNumber(100, 300));
+    this.ctrls.common.scaleOne.setValue(Utils.getRandomNumber(100, 500));
+    this.ctrls.common.scaleTwo.setValue(Utils.getRandomNumber(100, 500));
     this.ctrls.common.theta.setValue(Utils.getRandomNumber(0, 360));
     this.ctrls.common.numberA.setValue(Utils.getRandomNumber(0, 360));
     this.ctrls.common.numberB.setValue(Utils.getRandomNumber(0, 360));
+    this.ctrls.common.iteration.setValue(Utils.getRandomNumber(0, 10));
     this.ctrls.common.rotationAngle.setValue(Utils.getRandomNumber(0, 360));
-    this.ctrls.common.lineWidth.setValue(Utils.getRandomNumber(1, 5));
-    // line
+    this.ctrls.common.lineWidth.setValue(Utils.getRandomNumber(1, 10));
+    
+    /** line */
     this.ctrls.line.on.setValue(Math.random() < 0.5 ? true : false);
     if (this.params.line.on) {
-      this.ctrls.line.cap
+      this.ctrls.line.cap.setValue(lineCap[Utils.getRandomNumber(0, lineCap.length - 1)]);
+      this.ctrls.line.join.setValue(lineJoin[Utils.getRandomNumber(0, lineJoin.length - 1)]);
+      this.ctrls.line.join.setValue(Utils.getRandomNumber(0, 100));
+    }
+    
+    /** shadow */
+    this.ctrls.shadow.on.setValue(Math.random() < 0.5 ? true : false);
+    if (this.params.shadow.on) {
+      this.ctrls.shadow.color.setValue(Utils.getRGBColor());
+      this.ctrls.shadow.blur.setValue(Utils.getRandomNumber(0, 30));
+    }
+    
+    /** composite */
+    this.ctrls.composite.on.setValue(Math.random() < 0.5 ? true : false);
+    if (this.params.composite.on) {
+      this.ctrls.composite.alpha.setValue(Math.min(0.5, Math.random()));
+      this.ctrls.composite.operation.setValue(Math.random() < 0.5 ? 'xor' : 'lighter');
+    }
+
+    /** shape color */
+    this.ctrls.shapeColor.fillTransparent.setValue(Math.random() < 0.5 ? true : false);
+    if (!this.params.shapeColor.fillTransparent) {
+      this.ctrls.shapeColor.fillMultiColorNumber.setValue(Utils.getRandomNumber(1, 3));
+      this.ctrls.shapeColor.fillOne.setValue(Utils.getRGBColor());
+      this.ctrls.shapeColor.fillTwo.setValue(Utils.getRGBColor());
+      this.ctrls.shapeColor.fillThree.setValue(Utils.getRGBColor());
+    }
+    this.ctrls.shapeColor.strokeTransparent.setValue(Math.random() < 0.5 ? true : false);
+    if (!this.params.shapeColor.strokeTransparent) {
+      this.ctrls.shapeColor.strokeMultiColorNumber.setValue(Utils.getRandomNumber(1, 3));
+      this.ctrls.shapeColor.strokeOne.setValue(Utils.getRGBColor());
+      this.ctrls.shapeColor.strokeTwo.setValue(Utils.getRGBColor());
+      this.ctrls.shapeColor.strokeThree.setValue(Utils.getRGBColor());
+    }
+
+    /** effect */
+    this.ctrls.effect.on.setValue(Math.random() < 0.5 ? true : false);
+    if (this.params.effect.on) {
+      this.ctrls.effect.type.setValue(effectType[Utils.getRandomNumber(0, effectType.length - 1)]);
+      this.ctrls.effect.numberC.setValue(Utils.getRandomNumber(0, 100));
+      this.ctrls.effect.numberD.setValue(Utils.getRandomNumber(0, 100));
+      this.ctrls.effect.noise.setValue(Math.random() < 0.5 ? true : false);
+      if (this.params.effect.noise) {
+        this.ctrls.effect.x.setValue(Utils.getRandomNumber(0, 100));
+        this.ctrls.effect.y.setValue(Utils.getRandomNumber(0, 100));
+        this.ctrls.effect.z.setValue(Utils.getRandomNumber(0, 100));
+      }
+    }
+    
+    /** lineup */
+    this.ctrls.lineUp.on.setValue(Math.random() < 0.5 ? true : false);
+    if (this.params.lineUp.on) {
+      this.ctrls.lineUp.type.setValue(lineUpType[Utils.getRandomNumber(0, lineUpType.length - 1)]);
+      this.ctrls.lineUp.numberE.setValue(Utils.getRandomNumber(0, 1000));
     }
     this.mainProgram.rendering()
-    /*
-    this.ctrls.common.x.setValue(0);
-    this.ctrls.common.y.setValue(0);
-    this.ctrls.common.scaleOne.setValue(200);
-    this.ctrls.common.scaleTwo.setValue(0);
-    this.ctrls.common.theta.setValue(360);
-    this.ctrls.common.numberA.setValue(0);
-    this.ctrls.common.numberB.setValue(0);
-    this.ctrls.common.rotationAngle.setValue(0);
-    this.ctrls.common.lineWidth.setValue(1);
-    this.ctrls.text.on.setValue(false);
-    this.ctrls.text.value.setValue('Text');
-    this.ctrls.text.family.setValue('sans-serif');
-    this.ctrls.text.textAlign.setValue('center');
-    this.ctrls.text.textBaseline.setValue('middle');
-    this.ctrls.text.style.setValue('normal');
-    this.ctrls.text.variant.setValue('normal');
-    this.ctrls.text.weight.setValue('normal');
-    this.ctrls.line.on.setValue(false);
-    this.ctrls.line.cap.setValue('');
-    this.ctrls.line.join.setValue('');
-    this.ctrls.line.miterLimit.setValue(0);
-    this.ctrls.shadow.on.setValue(false);
-    this.ctrls.shadow.color.setValue('#000000');
-    this.ctrls.shadow.offsetX.setValue(0);
-    this.ctrls.shadow.offsetY.setValue(0);
-    this.ctrls.shadow.blur.setValue(0);
-    this.ctrls.composite.on.setValue(false);
-    this.ctrls.composite.alpha.setValue(1);
-    this.ctrls.composite.operation.setValue('');
-    this.ctrls.shapeColor.fillTransparent.setValue(false);
-    this.ctrls.shapeColor.fill.setValue('#000000');
-    this.ctrls.shapeColor.strokeTransparent.setValue(false);
-    this.ctrls.shapeColor.stroke.setValue('#000000');
-    this.ctrls.shapeGradient.on.setValue(false);
-    this.ctrls.shapeGradient.type.setValue('radial');
-    this.ctrls.shapeGradient.startColor.setValue('#000000');
-    this.ctrls.shapeGradient.endColor.setValue('#FFFFFF');
-    this.ctrls.shapeGradient.point.setValue(0);
-    this.ctrls.backgroundColor.on.setValue(true);
-    this.ctrls.backgroundColor.color.setValue('#FFFFFF');
-    this.ctrls.backgroundGradient.on.setValue(false);
-    this.ctrls.backgroundGradient.type.setValue('radial');
-    this.ctrls.backgroundGradient.startColor.setValue('#FFFFFF');
-    this.ctrls.backgroundGradient.endColor.setValue('#000000');
-    this.ctrls.backgroundGradient.point.setValue(0.0);
-    this.ctrls.backgroundGradient.rotationAngle.setValue(0);
-    this.ctrls.lineUp.setValue(false);
-    this.ctrls.effect.on.setValue(false);
-    */
-    //this.choiseParams(this.params.common.type);
   }
 
   /**
@@ -241,11 +272,14 @@ class Dat {
           .onChange(() => this.mainProgram.rendering()),
         numberB: this.Common.add(this.params.common, 'numberB', 0, 360, 1)
           .onChange(() => this.mainProgram.rendering()),
+        iteration: this.Common.add(this.params.common, 'iteration', 1, 100, 1)
+          .onChange(() => this.mainProgram.rendering()),
         rotationAngle: this.Common.add(this.params.common, 'rotationAngle', 0, 360, 1)
           .onChange(() => this.mainProgram.rendering()),
         lineWidth: this.Common.add(this.params.common, 'lineWidth', 0.1, 1000, 0.1)
           .onChange(() => this.mainProgram.rendering())
       },
+      
       /** text */
       text: {
         on: this.Text.add(this.params.text, 'on')
@@ -267,6 +301,7 @@ class Dat {
         weight: this.Text.add(this.params.text, 'weight', ['normal', 'bold', 'bolder', 'lighter', '100', '200', '300', '400', '500', '600', '700', '800', '900'])
           .onChange(() => this.mainProgram.rendering())
       },
+      
       /** line */
       line: {
         on: this.Line.add(this.params.line, 'on')
@@ -280,6 +315,7 @@ class Dat {
         miterLimit: this.Line.add(this.params.line, 'miterLimit', 0, 100, 1)
           .onChange(() => this.mainProgram.rendering())
       },
+      
       /** shadow */
       shadow: {
         on: this.Shadow.add(this.params.shadow, 'on')
@@ -295,6 +331,7 @@ class Dat {
         blur: this.Shadow.add(this.params.shadow, 'blur', 0, 1000, 1)
           .onChange(() => this.mainProgram.rendering())
       },
+      
       /** composite */
       composite: {
         on: this.Composite.add(this.params.composite, 'on')
@@ -306,6 +343,7 @@ class Dat {
         operation: this.Composite.add(this.params.composite, 'operation', Utils.getGlobalCompositeOperationArray())
           .onChange(() => this.mainProgram.rendering())
       },
+      
       /** shape color */
       shapeColor: {
         fillTransparent: this.ShapeColor.add(this.params.shapeColor, 'fillTransparent')
@@ -326,9 +364,18 @@ class Dat {
           .onChange(() => {
             this.mainProgram.rendering();
           }),
-        stroke: this.ShapeColor.addColor(this.params.shapeColor, 'stroke')
+        strokeMultiColorNumber: this.ShapeColor.add(this.params.shapeColor, 'strokeMultiColorNumber', [1, 2, 3])
+          .onChange(() => {
+            this.mainProgram.rendering();
+          }),
+        strokeOne: this.ShapeColor.addColor(this.params.shapeColor, 'strokeOne')
+          .onChange(() => this.mainProgram.rendering()),
+        strokeTwo: this.ShapeColor.addColor(this.params.shapeColor, 'strokeTwo')
+          .onChange(() => this.mainProgram.rendering()),
+        strokeThree: this.ShapeColor.addColor(this.params.shapeColor, 'strokeThree')
           .onChange(() => this.mainProgram.rendering())
       },
+      
       /** shape color gradient */
       shapeGradient: {
         on: this.ShapeGradient.add(this.params.shapeGradient, 'on')
@@ -344,6 +391,7 @@ class Dat {
         point: this.ShapeGradient.add(this.params.shapeGradient, 'point', 0.0, 1.0, 0.1)
           .onChange(() => this.mainProgram.rendering())
       },
+      
       /** background color */
       backgroundColor: {
         on: this.BackgroundColor.add(this.params.backgroundColor, 'on')
@@ -353,6 +401,7 @@ class Dat {
         color: this.BackgroundColor.addColor(this.params.backgroundColor, 'color')
           .onChange(() => this.mainProgram.rendering())
       },
+      
       /** background gradient */
       backgroundGradient: {
         on: this.BackgroundGradient.add(this.params.backgroundGradient, 'on')
@@ -370,6 +419,7 @@ class Dat {
         rotationAngle: this.BackgroundGradient.add(this.params.backgroundGradient, 'rotationAngle', 0, 360, 1)
           .onChange(() => this.mainProgram.rendering())
       },
+      
       /** effect */
       effect: {
         on: this.Effect.add(this.params.effect, 'on')
@@ -393,6 +443,7 @@ class Dat {
         z: this.Effect.add(this.params.effect, 'z', 1, 1000, 1)
           .onChange(() => this.mainProgram.rendering())
       },
+      
       /** line up */
       lineUp: {
         on: this.LineUp.add(this.params.lineUp, 'on')
@@ -402,13 +453,28 @@ class Dat {
         type: this.LineUp.add(this.params.lineUp, 'type', Utils.getLineUpArray())
           .onChange(() => this.mainProgram.resize()),
         numberE: this.LineUp.add(this.params.lineUp, 'numberE', 1, 10000, 1)
+          .onChange(() => this.mainProgram.resize()),
+        numberF: this.LineUp.add(this.params.lineUp, 'numberF', 1, 10000, 1)
           .onChange(() => this.mainProgram.resize())
       },
-      /** etc */
+      frame: {
+        angle: this.Frame.add(this.params.frame, 'angle', 0, 360, 1)
+          .onChange(() => {
+            this.mainProgram.rendering();
+          }),
+        scaleX: this.Frame.add(this.params.frame, 'scaleX', 0, 20, 0.1)
+          .onChange(() => {
+            this.mainProgram.rendering();
+          }),
+        scaleY: this.Frame.add(this.params.frame, 'scaleY', 0, 20, 0.1)
+          .onChange(() => {
+            this.mainProgram.rendering();
+          })
+      },
       loadImage: this.gui.add(this.params, 'loadImage'),
       reset: this.gui.add(this.params, 'reset'),
       getCode: this.gui.add(this.params, 'getCode'),
-      downloadImage: this.gui.add(this.params, 'downloadImage')
+      downloadImage: this.gui.add(this.params, 'downloadImage'),
       //getRandomShape: this.gui.add(this.params, 'getRandomShape')
     };
 
@@ -431,8 +497,10 @@ class Dat {
         theta: this.params.common.theta,
         numberA: this.params.common.numberA,
         numberB: this.params.common.numberB,
+        iteration: this.params.common.iteration,
         rotationAngle: this.params.common.rotationAngle,
-        lineWidth: this.params.common.lineWidth
+        lineWidth: this.params.common.lineWidth,
+        iterationScale: (this.params.common.scaleOne / this.params.common.iteration)
       },
       text: {
         on: this.params.text.on,
@@ -465,9 +533,10 @@ class Dat {
       shapeColor: {
         fillTransparent: this.params.shapeColor.fillTransparent,
         fillMultiColorNumber: this.params.shapeColor.fillMultiColorNumber,
-        fill: this.getColorArray(this.params.shapeColor.fillTransparent, this.params.shapeColor.fillMultiColorNumber),
+        fill: this.getFillColorArray(this.params.shapeColor.fillTransparent, this.params.shapeColor.fillMultiColorNumber),
         strokeTransparent: this.params.shapeColor.strokeTransparent,
-        stroke: this.params.shapeColor.strokeTransparent === true ? '' : this.params.shapeColor.stroke
+        strokeMultiColorNumber: this.params.shapeColor.strokeMultiColorNumber,
+        stroke: this.getStrokeColorArray(this.params.shapeColor.strokeTransparent, this.params.shapeColor.strokeMultiColorNumber),
       },
       shapeGradient: {
         on: this.params.shapeGradient.on,
@@ -487,7 +556,7 @@ class Dat {
    * @params {number} number
    * @return {array} arr - colors
    */
-  getColorArray(transparent, num) {
+  getFillColorArray(transparent, num) {
     const arr = new Array();
     
     if (transparent) {
@@ -497,6 +566,19 @@ class Dat {
       if (num == 1) return [this.params.shapeColor.fillOne];
       if (num == 2) return [this.params.shapeColor.fillOne, this.params.shapeColor.fillTwo];
       if (num == 3) return [this.params.shapeColor.fillOne, this.params.shapeColor.fillTwo, this.params.shapeColor.fillThree];
+    }
+  }
+  
+  getStrokeColorArray(transparent, num) {
+    const arr = new Array();
+    
+    if (transparent) {
+
+      return '';
+    } else {
+      if (num == 1) return [this.params.shapeColor.strokeOne];
+      if (num == 2) return [this.params.shapeColor.strokeOne, this.params.shapeColor.strokeTwo];
+      if (num == 3) return [this.params.shapeColor.strokeOne, this.params.shapeColor.strokeTwo, this.params.shapeColor.strokeThree];
     }
   }
 
@@ -626,6 +708,13 @@ class Dat {
         this.ctrls.common.numberB.setValue(0);
         this.hideParams([4, 6, 7]);
         break;
+      case 'box':
+        this.ctrls.common.scaleTwo.setValue(200);
+        this.ctrls.common.theta.setValue(6);
+        this.ctrls.common.numberA.setValue(0);
+        this.ctrls.common.numberB.setValue(0);
+        this.hideParams([4, 6, 7]);
+        break;
       case 'sin':
         this.ctrls.common.scaleOne.setValue(200);
         this.ctrls.common.scaleTwo.setValue(0);
@@ -729,6 +818,7 @@ class Dat {
     this.ctrls.common.theta.setValue(360);
     this.ctrls.common.numberA.setValue(0);
     this.ctrls.common.numberB.setValue(0);
+    this.ctrls.common.iteration.setValue(1);
     this.ctrls.common.rotationAngle.setValue(0);
     this.ctrls.common.lineWidth.setValue(1);
     /** text */
@@ -757,9 +847,13 @@ class Dat {
     this.ctrls.composite.operation.setValue('');
     /** shape color */
     this.ctrls.shapeColor.fillTransparent.setValue(true);
-    this.ctrls.shapeColor.fill.setValue('#000000');
+    this.ctrls.shapeColor.fillOne.setValue('#000000');
+    this.ctrls.shapeColor.fillTwo.setValue('#000000');
+    this.ctrls.shapeColor.fillThree.setValue('#000000');
     this.ctrls.shapeColor.strokeTransparent.setValue(false);
-    this.ctrls.shapeColor.stroke.setValue('#000000');
+    this.ctrls.shapeColor.strokeOne.setValue('#000000');
+    this.ctrls.shapeColor.strokeTwo.setValue('#000000');
+    this.ctrls.shapeColor.strokeThree.setValue('#000000');
     /** shape gradient */
     this.ctrls.shapeGradient.on.setValue(false);
     this.ctrls.shapeGradient.type.setValue('radial');
