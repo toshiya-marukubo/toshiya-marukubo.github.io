@@ -83,6 +83,7 @@ canvas {
   position: absolute;
   background: #fff;
   height: 100%;
+  width: 100%;
   z-index: 9999;
   visibility: visible;
   opacity: 1;
