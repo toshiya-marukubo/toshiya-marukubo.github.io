@@ -54,6 +54,11 @@ img, svg {
   vertical-align: bottom;
 }
 
+svg {
+  height: 24px;
+  width: 24px;
+}
+
 ul {
   list-style-type: none;
 }
