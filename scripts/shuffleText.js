@@ -107,5 +107,10 @@ function shuffleInit(settings) {
         classArr[i].iteration(true);
       }, false);
     })(i);
+    (function(i) {
+      classArr[i].element.addEventListener('touchstart', function() {
+        classArr[i].iteration(true);
+      }, false);
+    })(i);
   }
 }
