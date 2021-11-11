@@ -109,8 +109,8 @@ canvas {
   -webkit-transform: translate(-50%, -50%) scale(1, 1);
       -ms-transform: translate(-50%, -50%) scale(1, 1);
           transform: translate(-50%, -50%) scale(1, 1);
-  -webkit-animation: animation-circle 2.4s ease-in-out 0s infinite normal none running;
-          animation: animation-circle 2.4s ease-in-out 0s infinite normal none running;
+  -webkit-animation: animation-circle 1.6s ease-in-out 0s infinite normal none running;
+          animation: animation-circle 1.6s ease-in-out 0s infinite normal none running;
 }
 
 @-webkit-keyframes animation-circle {
