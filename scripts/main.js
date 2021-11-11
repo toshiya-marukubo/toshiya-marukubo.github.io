@@ -100,7 +100,7 @@ Sketch.prototype.draw = function (frame) {
 };
 
 (function() {
-  window.addEventListener('load', function() {
+  window.addEventListener('DOMContentLoaded', function() {
     console.clear();
     console.log('Hi there!');
 
