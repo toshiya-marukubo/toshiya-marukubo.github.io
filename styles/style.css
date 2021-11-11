@@ -82,14 +82,14 @@ canvas {
   z-index: 9999;
   visibility: visible;
   opacity: 1;
+  -webkit-transition: opacity 1.6s, visibility 1.6s;
+       -o-transition: opacity 1.6s, visibility 1.6s;
+          transition: opacity 1.6s, visibility 1.6s;
 }
 
 .loaded {
   visibility: hidden;
   opacity: 0;
-  -webkit-transition: opacity 1.6s, visibility 1.6s;
-       -o-transition: opacity 1.6s, visibility 1.6s;
-          transition: opacity 1.6s, visibility 1.6s;
 }
 
 .loading .circle {
