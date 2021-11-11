@@ -54,6 +54,7 @@ img, svg {
   vertical-align: bottom;
 }
 
+/* for ie11 */
 svg {
   height: 24px;
   width: 24px;
