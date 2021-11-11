@@ -152,6 +152,7 @@ canvas {
 header {
   position: relative;
   height: 50%;
+  width: 100%;
 }
 
 h1 {
