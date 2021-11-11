@@ -78,8 +78,12 @@ Arm.prototype.render = function (c, i, f, t) {
     // shadow
     c.save();
     c.globalAlpha = 0.03;
+    c.translate(this.x, this.y + this.length * 2);
+    c.scale(2, 0.5);
+    c.translate(-this.x, -this.y - this.length * 2);
     c.beginPath();
-    c.ellipse(this.x, this.y + this.length * 2, this.length * 3 * this.scale, this.length / 2 * this.scale, 0, Math.PI * 2, false);
+    c.arc(this.x, this.y + this.length * 2, this.length * 3 * this.scale, 0, Math.PI * 2, false);
+    //c.ellipse(this.x, this.y + this.length * 2, this.length * 3 * this.scale, this.length / 2 * this.scale, 0, Math.PI * 2, false);
     c.fill();
     c.restore();
   }

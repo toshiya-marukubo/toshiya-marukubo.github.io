@@ -87,7 +87,7 @@ canvas {
           transition: opacity 1.6s, visibility 1.6s;
 }
 
-.loaded {
+.loading.loaded {
   visibility: hidden;
   opacity: 0;
 }
