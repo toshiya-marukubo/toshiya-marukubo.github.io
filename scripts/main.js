@@ -48,7 +48,7 @@ Sketch.prototype.initialize = function () {
 
 Sketch.prototype.setupRunners = function () {
   this.runners = new Array();
-  this.numberOfRunners = this.width > 768 ? 100 : 50;
+  this.numberOfRunners = this.width > 768 ? 80 : 50;
   this.tall = 50;
 
   for (var i = 0; i < this.numberOfRunners; i++) {
