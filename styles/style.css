@@ -267,18 +267,17 @@ main {
 
 nav {
   position: absolute;
-  width: 100%;
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
       -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  white-space: nowrap;
 }
 
 h2, h3 {
   font-size: 14px;
   padding-bottom: 24px;
+  white-space: nowrap;
 }
 
 ul li {
