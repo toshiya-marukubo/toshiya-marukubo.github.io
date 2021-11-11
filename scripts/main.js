@@ -126,11 +126,10 @@ Sketch.prototype.draw = function (frame) {
       iteration_speed: 5,
       displayed_speed: 80,
     });
-    /* 
+    
     var loading = document.getElementsByClassName('loading')[0];
     
     //loading.classList.add('loaded');
     loading.setAttribute('class', 'loading loaded');
-    */
   });
 })();

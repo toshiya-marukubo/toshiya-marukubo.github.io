@@ -14,7 +14,7 @@ function Arm() {
 }
 
 Arm.prototype.create = function (length, centerAngle, rotationRange, phaseOffset, scale) {
-  var obj = new this.constructor();
+  var obj = new Arm();
   
   obj.initialize(length, centerAngle, rotationRange, phaseOffset, scale);
 
