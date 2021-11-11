@@ -260,6 +260,7 @@ h1 {
  * main
 ********************/
 main {
+  display: block;
   height: 50%;
   width: 100%;
   position: relative;
