@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" prefix="og: http://ogp.me/ns#">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -9,468 +9,100 @@
         gtag('js', new Date());
         gtag('config', 'UA-149600281-2');
     </script>
-    <!-- Meta -->
     <meta charset="utf-8">
-    <meta name="description" content="Unemployed.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Is this my site?">
+    <meta name="theme-color" content="#000000">
     <!-- Open Graph Protocol -->
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Toshiya Marukubo | Homepage">
+    <meta property="og:site_name" content="Toshiya Marukubo | Is this my site?">
     <meta property="og:url" content="https://toshiya-marukubo.github.io/">
-    <meta property="og:title" content="Toshiya Marukubo | Homepage">
+    <meta property="og:title" content="Toshiya Marukubo | Is this my site?">
     <meta property="og:image" content="https://toshiya-marukubo.github.io/og-home.png">
-    <meta property="og:description" content="Unemployed.">
+    <meta property="og:description" content="Is this my site?">
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@toshiyamarukubo">
     <meta name="twitter:creator" content="@toshiyamarukubo">
     <!-- Icons -->
     <link rel="icon" href="https://toshiya-marukubo.github.io/100workschallenge/home/img/favicon.svg" sizes="any" type="image/svg+xml">
-    <!-- Style -->
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        text-decoration: line-through;
-      }
-      *:hover {
-        text-decoration: none;
-      }
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-      }
-      a,
-      a:visited {
-        color: #fff;
-      }
-      html,
-      body {
-        height: 100%;
-        width: 100%;
-      }
-      body {
-        font-family: sans-serif;
-        color: #fff;
-        overflow: hidden;
-        position: relative;
-        background: #fff;
-        font-size: 67.5%;
-        line-height: 1.6rem;
-      }
-      body:after {
-        z-index: 1;
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.2));
-      }
-      .container {
-        z-index: 2;
-        overflow-y: scroll;
-        position: absolute;
-        padding: 32px;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-      }
-      h1,
-      h2,
-      h3,
-      p,
-      ul {
-        padding-bottom: 32px;
-      }
-      h1 {
-        font-size: 3.2rem;
-      }
-      h2 {
-        font-size: 2.4rem;
-      }
-      h3 {
-        font-size: 1.6rem;
-      }
-      p {
-        font-size: 1rem;
-      }
-      ul {
-        font-size: 0.8rem;
-      }
-      ul > li {
-        list-style-position: inside;
-        padding-bottom: 16px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-      }
-      ul > li.made {
-        list-style-type: square;
-      }
-      ul > li:last-child {
-        padding-bottom: 0;
-      }
-      ul > li:last-child > ul {
-        padding: 16px 0 0 16px;
-      }
-      canvas#canvas {
-        z-index: -1;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-      }
-      @media (min-width: 500px) {
-        .container {
-          padding: 64px;
-        }
-      }
-    </style>
-    <!-- Title -->
-    <title>Toshiya Marukubo | Homepage</title>
+    <!-- style -->
+    <link href="./styles/style.css" rel="stylesheet">
+    <title>Toshiya Marukubo | Is this my site?</title>
   </head>
   <body>
+    <div class="loading">
+      <div class="circle scale"></div>
+    </div>
     <div class="container">
       <header>
-        <p>header</p>
-        <h1>Hi :)</h1>
-        <p>I'm Toshiya Marukubo.<br/>By the way, Would you tell me who you are?</p>
+        <div id="hamburger">
+          <a href="#" role="button">
+            <div class="hamburger-container">
+            </div>
+          </a>
+        </div>
+        <h1 class="shuffleText" aria-live="assertive" aria-atomic="true">iHateCoding();</h1>
       </header>
       <main>
-        <p>main</p>
-        <h2>Links</h2>
-        <ul>
-          <li><a href="https://twitter.com/toshiyamarukubo">Twitter</a></li>
-          <li><a href="https://www.instagram.com/toshiyamarukubo/">Instagram</a></li>
-          <li><a href="https://codepen.io/toshiya-marukubo">CodePen</a></li>
-          <li><a href="https://github.com/toshiya-marukubo">GitHub</a></li>
-          <li><a href="https://www.dwitter.net/u/Toshiya-Marukubo">Dwitter</a></li>
-          <!--
-          <li><a href="http://www.marukubo.net/">Leaning Place (for node.js)</a></li>
-          -->
-          <li class="made">I made
-            <ul>
-              <li><a href="https://toshiya-marukubo.github.io/sketchWithCode/index.html">Sketch with Code</a></li>
-              <li><a href="https://toshiya-marukubo.github.io/works.html">WORKS & LEARNING</a></li>
-              <li><a href="https://toshiya-marukubo.github.io/scrollColors/index.html">SCROLL COLORS (prototype)</a></li>
-              <li><a href="https://toshiya-marukubo.github.io/pattern/index.html">Pattern (Not updated)</a></li>
-              <li><a href="https://toshiya-marukubo.github.io/100workschallenge/index.html">100 Works Challenge 2020 (Not updated)</a></li>
-            </ul>
-          </li>
-        </ul>
-        <h3>My Skill</h3>
-        <ul>
-          <li>Google</li>
-        </ul>
+        <nav>
+          <h2>Hi there. I'm Toshiya Marukubo.</h2>
+          <h3>I make trash with trash code for people.</h3>
+          <ul>
+            <li>
+              <a href="https://twitter.com/toshiyamarukubo">
+                <svg role="img" aria-label="twitter image" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter">
+                  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+                  </path>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com/toshiyamarukubo/">
+                <svg role="img" aria-label="instagram image" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a href="https://codepen.io/toshiya-marukubo">
+                <svg role="img" aria-label="codepen image" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-codepen">
+                  <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon>
+                  <line x1="12" y1="22" x2="12" y2="15.5"></line>
+                  <polyline points="22 8.5 12 15.5 2 8.5"></polyline>
+                  <polyline points="2 15.5 12 8.5 22 15.5"></polyline>
+                  <line x1="12" y1="2" x2="12" y2="8.5"></line>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/toshiya-marukubo">
+                <svg role="img" aria-label="github image" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+              </a>
+            </li>
+          </ul>
+          <p>My Skill : Google</p>
+        </nav>
       </main>
       <footer>
-        <p>footer</p>
         <small>&copy Toshiya Marukubo</small>
       </footer>
     </div>
-    <canvas id='canvas'>Canvas not supported.</canvas>
-    <script>
-      /**
-       * create multiple array
-       */
-      function createMultipleArray(number_one, number_two) {
-        var arr = new Array(number_one);
-        for (var y = 0; y < number_one; y++) {
-          arr[y] = new Array(number_two);
-          for (var x = 0; x < number_two; x++) {
-            arr[y][x] = 0;
-          }
-        }
-        return arr;
-      }
-
-      /**
-       * get random number
-       */
-      function getRandomNumber(min, max) {
-        return Math.floor(Math.random() * (max + 1 - min)) + min;
-      }
-
-      /**
-       * File Name / pixcelDataMap.js (prototype version)
-       * Created Date / Jan 18, 2021
-       * Aurhor / Toshiya Marukubo
-       * Twitter / https://twitter.com/toshiyamarukubo
-       */
-      function PixcelDataMap(ctx, x, y) {
-        this.ctx = ctx;
-        this.x = x;
-        this.y = y;
-        this.state = createMultipleArray(this.y, this.x);
-        this.lastState = createMultipleArray(this.y, this.x);
-        this.d = this.ctx.createImageData(this.x, this.y);
-        this.init();
-      }
-
-      PixcelDataMap.prototype.init = function () {
-        for (var y = 0; y < this.y; y++) {
-          for (var x = 0; x < this.x; x++) {
-            this.state[y][x] = getRandomNumber(0, 255);
-          }
-        }
-      };
-
-      PixcelDataMap.prototype.updateImageData = function () {
-        for (var y = 0; y < this.y; y++) {
-          for (var x = 0; x < this.x; x++) {
-            var i = y * this.x + x;
-            this.d.data[4 * i + 0] = 0;
-            this.d.data[4 * i + 1] = 0;
-            this.d.data[4 * i + 2] = 0;
-            this.d.data[4 * i + 3] = this.state[y][x];
-          }
-        }
-      };
-
-      PixcelDataMap.prototype.drawImageData = function () {
-        this.ctx.putImageData(this.d, 0, 0);
-      };
-
-      PixcelDataMap.prototype.updateState = function () {
-        var arr = createMultipleArray(this.y, this.x);
-
-        for (var y = 0; y < this.y; y++) {
-          for (var x = 0; x < this.x; x++) {
-            var total = 0;
-            var above = y - 1;
-            var below = y + 1;
-            var left = x - 1;
-            var right = x + 1;
-
-            if (above < 0) above = this.y - 1;
-            if (below == this.y) below = 0;
-            if (left < 0) left = this.x - 1;
-            if (right == this.x) right = 0;
-
-            var a = this.state[above][x];
-            var r = this.state[y][right];
-            var b = this.state[below][x];
-            var l = this.state[y][left];
-            var al = this.state[above][left];
-            var bl = this.state[below][left];
-            var br = this.state[below][right];
-            var ar = this.state[above][right];
-
-            total = a + r + b + l + al + bl + br + ar;
-            var average = Math.floor(total / 8);
-            var nextStateNum = 0;
-
-            if (average == 255) {
-              nextStateNum = 0;
-            } else if (average == 0) {
-              nextStateNum = 255;
-            } else {
-              nextStateNum = this.state[y][x] + average;
-              if (this.lastState[y][x] > 0) {
-                nextStateNum = nextStateNum - this.lastState[y][x];
-              }
-              if (nextStateNum > 255) {
-                nextStateNum = 255;
-              } else if (nextStateNum < 0) {
-                nextStateNum = 0;
-              }
-            }
-            arr[y][x] = nextStateNum;
-          }
-        }
-        this.lastState = this.state;
-        this.state = arr;
-      };
-
-      PixcelDataMap.prototype.render = function () {
-        this.drawImageData();
-        this.updateImageData();
-        this.updateState();
-      };
-
-      /**
-       * Shapes
-       */
-      function Shapes(ctx, x, y) {
-        this.ctx = ctx;
-        this.init(x, y);
-      }
-
-      Shapes.prototype.init = function (x, y) {
-        this.x = x;
-        this.y = y;
-        this.s = 50;
-        this.ga = 0.4;
-        this.c = 'black';
-        this.g = 6;
-        this.rad = Math.PI * 2 / this.g;
-        this.time = Date.now();
-      };
-
-      Shapes.prototype.draw = function () {
-        var ctx = this.ctx;
-        ctx.save();
-        ctx.globalAlpha = this.ga;
-        ctx.fillStyle = this.c;
-        ctx.translate(this.x, this.y);
-        ctx.rotate(Math.tan(this.time / 10000) * 10);
-        ctx.scale(Math.cos(this.time / 5000) * 1.5, Math.sin(this.time / 5000) * 1.5);
-        ctx.translate(-this.x, -this.y);
-        ctx.beginPath();
-        for (var i = 0; i < this.g; i++) {
-          var x = Math.cos(this.rad * i) * this.s + this.x;
-          var y = Math.sin(this.rad * i) * this.s + this.y;
-          if (i === 0) {
-            ctx.moveTo(x, y);
-          } else {
-            ctx.lineTo(x, y);
-          }
-        }
-        ctx.closePath();
-        ctx.fill();
-        ctx.restore();
-      };
-
-      Shapes.prototype.onHover = function (text, hover) {
-        this.t = text;
-        this.hover = hover;
-      };
-
-      Shapes.prototype.render = function () {
-        this.draw();
-        this.time = Date.now();
-        if (Math.random() < 0.05) {
-          this.ga = Math.random();
-          this.g = getRandomNumber(3, 12);
-          this.rad = Math.PI * 2 / this.g;
-          this.s = Math.sin(this.time / 5000) * 50;
-        }
-      };
-
-      /**
-       * Glitch
-       */
-      function Glitch(ctx, width, height) {
-        this.time;
-        this.ctx = ctx;
-        this.width = width;
-        this.height = height;
-        this.splitH = this.height / this.splitNum;
-        this.dataArr = [];
-        this.yPosArr = [];
-      }
-
-      Glitch.prototype.getImageData = function () {
-        var startHeight = 0;
-        for (var i = 0; i < this.height; i += randomHeight) {
-          var rand = Math.random();
-          var randomHeight = Math.floor(getRandomNumber(1, 30));
-          var d = this.ctx.getImageData(0, startHeight, this.width, startHeight + randomHeight);
-          if (rand < 0.05) {
-            for (var j = 0; j < d.data.length; j++) {
-              d.data[j * 4 + 0] = 200;
-              d.data[j * 4 + 2] = 100;
-            }
-          }
-          if (rand > 0.05 && rand < 0.1) {
-            for (var j = 0; j < d.data.length; j++) {
-              d.data[j * 4 + 1] = 200;
-              d.data[j * 4 + 2] = 200;
-            }
-          }
-          this.yPosArr.push(startHeight);
-          this.dataArr.push(d);
-          startHeight += randomHeight;
-        }
-      };
-
-      Glitch.prototype.addImage = function () {
-        for (var i = 0; i < this.dataArr.length; i++) {
-          if (Math.random() < 0.8) {
-            this.ctx.putImageData(
-              this.dataArr[i],
-              Math.sin(this.time * 1 + i * 10 * Math.PI / 180) * 30,
-              this.yPosArr[i]
-            );
-          } else {
-            this.ctx.putImageData(
-              this.dataArr[getRandomNumber(0, this.dataArr.length - 1)],
-              this.width * Math.random(),
-              this.height * Math.random()
-            );
-          }
-        }
-      };
-
-      Glitch.prototype.render = function () {
-        this.time = Date.now() / 100;
-        this.dataArr = [];
-        this.yPosArr = [];
-        this.getImageData();
-        this.addImage();
-      };
-
-      (function() {
-        'use strict';
-        window.addEventListener('DOMContentLoaded', function() {
-          var canvas = document.getElementById('canvas');
-
-          if (!canvas || !canvas.getContext) return false;
-          var c = canvas.getContext('2d');
-          var wx = window.innerWidth;
-          var wy = window.innerHeight;
-          var x = canvas.width = Math.floor(wx / 3);
-          var y = canvas.height = Math.floor(wy / 3);
-          var flg = false;
-
-          if (x % 2 !== 0) x += 1;
-          if (y % 2 !== 0) y += 1;
-
-          var g;
-          var p = new PixcelDataMap(c, x, y);
-          var s = new Shapes(c, x - x / 3, y / 2);
-
-          function render() {
-            c.clearRect(0, 0, x, y);
-            p.render();
-            s.render();
-            if (flg && Math.random() < 0.7) g.render();
-            window.requestAnimationFrame(render);
-          }
-
-          var timerId;
-
-          window.addEventListener('scroll', function () {
-            g = new Glitch(c, x, y);
-            flg = true;
-            clearTimeout(timerId);
-            timerId = setTimeout(function () {
-              g = null;
-              flg = false;
-            }, 200);
-          }, true);
-
-          window.addEventListener('resize', function () {
-            wx = window.innerWidth;
-            if (wx < 500) return;
-            wy = window.innerHeight;
-            x = canvas.width = Math.floor(wx / 3);
-            y = canvas.height = Math.floor(wy / 3);
-            if (x % 2 !== 0) x += 1;
-            if (y % 2 !== 0) y += 1;
-            p = new PixcelDataMap(c, x, y);
-            s = new Shapes(c, x - x / 3, y / 2);
-          }, false);
-
-          render();
-        }, false);
-      })(); 
-    </script>
+    <script src="./scripts/happyMeal.js"></script>
+    <script src="./scripts/shuffleText.js"></script>
+    <script src="./scripts/arm.js"></script>
+    <script src="./scripts/FKSystem.js"></script>
+    <script src="./scripts/main.js"></script>
+    <!--
+      I referenced kinematics on 'Coding Math YouTube Channel'.
+      Link : https://www.youtube.com/channel/UCF6F8LdCSWlRwQm_hfA2bcQ
+      I used svg file from 'Feather'.
+      Link : https://feathericons.com/
+      Thank you so much.
+    -->
   </body>
 </html>

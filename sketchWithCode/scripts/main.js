@@ -29,6 +29,7 @@ class MainProgram {
     this.width = null;
     this.height = null;
     this.diagonal = null;
+    this.override = false;
     
     /** image */
     this.image = null;
@@ -41,7 +42,6 @@ class MainProgram {
     this.width = this.canvas.width = window.innerWidth;
     this.height = this.canvas.height = window.innerHeight;
     this.diagonal = Math.sqrt(this.width * this.width + this.height * this.height);
-    this.shapesArray = this.lineUp(this.dat.params.lineUp.type);
   }
 
   /**
@@ -222,22 +222,30 @@ class MainProgram {
    * rendering
    */
   rendering() {
+    this.shapesArray = this.lineUp(this.dat.params.lineUp.type);
     this.ctx.save();
+    
     /** draw background color */
-    this.ctx.clearRect(0, 0, this.width, this.height);
-    this.ctx.fillStyle = this.getBackgroundColor(this.dat.params.backgroundGradient);
-    this.ctx.save();
-    this.ctx.translate(this.width / 2, this.height / 2);
-    this.ctx.rotate(this.dat.params.backgroundGradient.rotationAngle * Math.PI / 180);
-    this.ctx.translate(-this.width / 2, -this.height / 2);
-    this.ctx.fillRect(
-      0 - (this.diagonal - this.width) / 2,
-      0 - (this.diagonal - this.height) / 2,
-      this.diagonal * 2,
-      this.diagonal * 2
-    );
-    this.ctx.restore();
-
+    this.canvas.style.background = this.dat.params.backgroundColor.color;
+    
+    if (!this.override) {
+      this.ctx.clearRect(0, 0, this.width, this.height);
+      /* 
+      this.ctx.fillStyle = this.getBackgroundColor(this.dat.params.backgroundGradient);
+      this.ctx.save();
+      this.ctx.translate(this.width / 2, this.height / 2);
+      this.ctx.rotate(this.dat.params.backgroundGradient.rotationAngle * Math.PI / 180);
+      this.ctx.translate(-this.width / 2, -this.height / 2);
+      this.ctx.fillRect(
+        0 - (this.diagonal - this.width) / 2,
+        0 - (this.diagonal - this.height) / 2,
+        this.diagonal * 2,
+        this.diagonal * 2
+      );
+      this.ctx.restore();
+      */
+    }
+    
     /** rotation */
     this.ctx.translate(this.width / 2, this.height / 2);
     this.ctx.rotate(this.dat.params.frame.angle * Math.PI / 180);

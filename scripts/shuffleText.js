@@ -1,17 +1,12 @@
-/*
-* File Name / shuffleText.js
-* Created Date / Nov 15, 2020
-* Aurhor / Toshiya Marukubo
-* Twitter / https://twitter.com/toshiyamarukubo
-*/
-
-function ShuffleText(class_name, onload, delay, itere_number, itere_speed, displayed_speed, i) {
-  this.element = class_name;
-  this.itere_number = itere_number;
-  this.itere_speed = itere_speed;
+/**
+ * File Name / shuffleText.js
+ */
+function ShuffleText(element, delay, number_of_iterations, iteration_speed, displayed_speed, i) {
+  this.element = element;
   this.index = delay === true ? i + 1 : 1;
+  this.number_of_iterations = number_of_iterations;
+  this.iteration_speed = iteration_speed;
   this.displayed_speed = displayed_speed;
-  this.top = this.element.getBoundingClientRect().top;
   this.texts = this.element.textContent;
   this.start_texts = this.texts;
   this.texts_arr = [];
@@ -53,18 +48,25 @@ ShuffleText.prototype.render = function() {
 ShuffleText.prototype.iteration = function(ev) {
   if (this.isRunning !== false) return;
   if (ev === true) this.index = 1;
+
+  this.start_texts = Math.random() < 0.5 ? this.texts : 'iLoveCoding();';
+
   this.isRunning = true;
   var that = this;
-  for (var i = 0; i < this.itere_number; i++) {
+  
+  for (var i = 0; i < this.number_of_iterations; i++) {
     (function(i) {
       setTimeout(function() {
         that.render();
-        if (i === that.itere_number - 1) {
+        
+        if (i === that.number_of_iterations - 1) {
           that.element.textContent = '';
+          
           for (var j = 0; j < that.start_texts.length; j++) {
             (function(j) {
               setTimeout(function() {
                 that.element.textContent += that.start_texts[j];
+                
                 if (j === that.start_texts.length - 1) {
                   that.isRunning = false;
                 }
@@ -72,34 +74,38 @@ ShuffleText.prototype.iteration = function(ev) {
             })(j);
           }
         }
-      }, i * that.index * that.itere_speed);
+      }, i * that.index * that.iteration_speed);
     })(i);
   }
 };
 
-function shuffleInit(class_name, onload, delay, itere_number, itere_speed, displayed_speed) {
-  window.addEventListener('load', function() {
-    var classArr = [];
-    var classes = document.getElementsByClassName(class_name);
-    for (var i = 0; i < classes.length; i++) {
-      var s = new ShuffleText(classes[i], onload, delay, itere_number, itere_speed, displayed_speed, i);
-      classArr.push(s);
-    }
+function shuffleInit(settings) {
+  var class_name = settings.class_name;
+  var onload = settings.onload;
+  var delay = settings.delay;
+  var number_of_iterations = settings.number_of_iterations;
+  var iteration_speed = settings.iteration_speed;
+  var displayed_speed = settings.displayed_speed;
+  var classArr = [];
+  var classes = document.getElementsByClassName(class_name);
+ 
+  for (var i = 0; i < classes.length; i++) {
+    var s = new ShuffleText(classes[i], delay, number_of_iterations, iteration_speed, displayed_speed, i);
     
-    if (onload === true) {
-      for (var i = 0; i < classArr.length; i++) {
-        classArr[i].iteration();
-      }
-    }
+    classArr.push(s);
+  }
 
+  if (onload === true) {
     for (var i = 0; i < classArr.length; i++) {
-      (function(i) {
-        classArr[i].element.addEventListener('mouseover', function() {
-          classArr[i].iteration(true);
-        }, false);
-      })(i);
+      classArr[i].iteration();
     }
-  }, false);
-}
+  }
 
-shuffleInit('shuffleText', true, true, 50, 10, 80); // classname, itere_number, itere_speed, displayed_speed
+  for (var i = 0; i < classArr.length; i++) {
+    (function(i) {
+      classArr[i].element.addEventListener('mouseover', function() {
+        classArr[i].iteration(true);
+      }, false);
+    })(i);
+  }
+}

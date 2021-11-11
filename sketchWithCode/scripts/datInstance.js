@@ -151,6 +151,7 @@ class Dat {
         scaleX: 1,
         scaleY: 1
       },
+      override: false,
       loadImage: () => document.getElementById('inputImage').click(),
       reset: () => this.resetParams(),
       getCode: () => this.mainProgram.getCode(this.params.common.type),
@@ -158,89 +159,6 @@ class Dat {
       //getRandomShape: () => this.addRandomParams()
     };
     return params;
-  }
-
-  /**
-   * add random parameters
-   * making now
-   */
-  addRandomParams() {
-    const type = Utils.getShapesTypeArray();
-    const lineCap = ['butt', 'round', 'square'];
-    const lineJoin = ['b?evel', 'round', 'miter'];
-    const effectType = Utils.getEffectArray();
-    const lineUpType = Utils.getLineUpArray();
-
-    /** common */
-    this.ctrls.common.type.setValue(type[Utils.getRandomNumber(0, type.length - 1)]);
-    this.ctrls.common.scaleOne.setValue(Utils.getRandomNumber(100, 500));
-    this.ctrls.common.scaleTwo.setValue(Utils.getRandomNumber(100, 500));
-    this.ctrls.common.theta.setValue(Utils.getRandomNumber(0, 360));
-    this.ctrls.common.numberA.setValue(Utils.getRandomNumber(0, 360));
-    this.ctrls.common.numberB.setValue(Utils.getRandomNumber(0, 360));
-    this.ctrls.common.iteration.setValue(Utils.getRandomNumber(0, 10));
-    this.ctrls.common.rotationAngle.setValue(Utils.getRandomNumber(0, 360));
-    this.ctrls.common.lineWidth.setValue(Utils.getRandomNumber(1, 10));
-    
-    /** line */
-    this.ctrls.line.on.setValue(Math.random() < 0.5 ? true : false);
-    if (this.params.line.on) {
-      this.ctrls.line.cap.setValue(lineCap[Utils.getRandomNumber(0, lineCap.length - 1)]);
-      this.ctrls.line.join.setValue(lineJoin[Utils.getRandomNumber(0, lineJoin.length - 1)]);
-      this.ctrls.line.join.setValue(Utils.getRandomNumber(0, 100));
-    }
-    
-    /** shadow */
-    this.ctrls.shadow.on.setValue(Math.random() < 0.5 ? true : false);
-    if (this.params.shadow.on) {
-      this.ctrls.shadow.color.setValue(Utils.getRGBColor());
-      this.ctrls.shadow.blur.setValue(Utils.getRandomNumber(0, 30));
-    }
-    
-    /** composite */
-    this.ctrls.composite.on.setValue(Math.random() < 0.5 ? true : false);
-    if (this.params.composite.on) {
-      this.ctrls.composite.alpha.setValue(Math.min(0.5, Math.random()));
-      this.ctrls.composite.operation.setValue(Math.random() < 0.5 ? 'xor' : 'lighter');
-    }
-
-    /** shape color */
-    this.ctrls.shapeColor.fillTransparent.setValue(Math.random() < 0.5 ? true : false);
-    if (!this.params.shapeColor.fillTransparent) {
-      this.ctrls.shapeColor.fillMultiColorNumber.setValue(Utils.getRandomNumber(1, 3));
-      this.ctrls.shapeColor.fillOne.setValue(Utils.getRGBColor());
-      this.ctrls.shapeColor.fillTwo.setValue(Utils.getRGBColor());
-      this.ctrls.shapeColor.fillThree.setValue(Utils.getRGBColor());
-    }
-    this.ctrls.shapeColor.strokeTransparent.setValue(Math.random() < 0.5 ? true : false);
-    if (!this.params.shapeColor.strokeTransparent) {
-      this.ctrls.shapeColor.strokeMultiColorNumber.setValue(Utils.getRandomNumber(1, 3));
-      this.ctrls.shapeColor.strokeOne.setValue(Utils.getRGBColor());
-      this.ctrls.shapeColor.strokeTwo.setValue(Utils.getRGBColor());
-      this.ctrls.shapeColor.strokeThree.setValue(Utils.getRGBColor());
-    }
-
-    /** effect */
-    this.ctrls.effect.on.setValue(Math.random() < 0.5 ? true : false);
-    if (this.params.effect.on) {
-      this.ctrls.effect.type.setValue(effectType[Utils.getRandomNumber(0, effectType.length - 1)]);
-      this.ctrls.effect.numberC.setValue(Utils.getRandomNumber(0, 100));
-      this.ctrls.effect.numberD.setValue(Utils.getRandomNumber(0, 100));
-      this.ctrls.effect.noise.setValue(Math.random() < 0.5 ? true : false);
-      if (this.params.effect.noise) {
-        this.ctrls.effect.x.setValue(Utils.getRandomNumber(0, 100));
-        this.ctrls.effect.y.setValue(Utils.getRandomNumber(0, 100));
-        this.ctrls.effect.z.setValue(Utils.getRandomNumber(0, 100));
-      }
-    }
-    
-    /** lineup */
-    this.ctrls.lineUp.on.setValue(Math.random() < 0.5 ? true : false);
-    if (this.params.lineUp.on) {
-      this.ctrls.lineUp.type.setValue(lineUpType[Utils.getRandomNumber(0, lineUpType.length - 1)]);
-      this.ctrls.lineUp.numberE.setValue(Utils.getRandomNumber(0, 1000));
-    }
-    this.mainProgram.rendering()
   }
 
   /**
@@ -448,14 +366,14 @@ class Dat {
       lineUp: {
         on: this.LineUp.add(this.params.lineUp, 'on')
           .onChange(() => {
-            this.mainProgram.resize();
+            this.mainProgram.rendering();
           }),
         type: this.LineUp.add(this.params.lineUp, 'type', Utils.getLineUpArray())
-          .onChange(() => this.mainProgram.resize()),
+          .onChange(() => this.mainProgram.rendering()),
         numberE: this.LineUp.add(this.params.lineUp, 'numberE', 1, 10000, 1)
-          .onChange(() => this.mainProgram.resize()),
+          .onChange(() => this.mainProgram.rendering()),
         numberF: this.LineUp.add(this.params.lineUp, 'numberF', 1, 10000, 1)
-          .onChange(() => this.mainProgram.resize())
+          .onChange(() => this.mainProgram.rendering())
       },
       frame: {
         angle: this.Frame.add(this.params.frame, 'angle', 0, 360, 1)
@@ -471,6 +389,10 @@ class Dat {
             this.mainProgram.rendering();
           })
       },
+      override: this.gui.add(this.params, 'override', false)
+        .onChange(() => {
+          this.mainProgram.override = this.params.override;
+        }),
       loadImage: this.gui.add(this.params, 'loadImage'),
       reset: this.gui.add(this.params, 'reset'),
       getCode: this.gui.add(this.params, 'getCode'),
