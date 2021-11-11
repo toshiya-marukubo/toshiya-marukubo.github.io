@@ -29,7 +29,6 @@ html {
 html,
 body {
   height: 100%;
-  width: 100%;
 }
 
 @media (min-width: 768px) {
@@ -66,7 +65,6 @@ ul {
 
 .container {
   height: 100%;
-  width: 100%;
   overflow: hidden;
   max-width: 768px;
   margin: 0 auto;
@@ -85,7 +83,6 @@ canvas {
   position: absolute;
   background: #fff;
   height: 100%;
-  width: 100%;
   z-index: 9999;
   visibility: visible;
   opacity: 1;
@@ -157,7 +154,6 @@ canvas {
 header {
   position: relative;
   height: 50%;
-  width: 100%;
 }
 
 h1 {
@@ -266,7 +262,6 @@ h1 {
 ********************/
 .main {
   height: 50%;
-  width: 100%;
   position: relative;
 }
 
