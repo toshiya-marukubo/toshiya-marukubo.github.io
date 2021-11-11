@@ -129,6 +129,7 @@ Sketch.prototype.draw = function (frame) {
     
     var loading = document.getElementsByClassName('loading')[0];
     
-    loading.classList.add('loaded');
+    //loading.classList.add('loaded');
+    loading.setAttribute('class', 'loading loaded');
   });
 })();
