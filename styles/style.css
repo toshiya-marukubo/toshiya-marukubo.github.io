@@ -84,7 +84,7 @@ canvas {
   opacity: 1;
 }
 
-.loading.loaded {
+.loaded {
   visibility: hidden;
   opacity: 0;
   -webkit-transition: opacity 1.6s, visibility 1.6s;
