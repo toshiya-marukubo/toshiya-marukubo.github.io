@@ -49,8 +49,6 @@ ShuffleText.prototype.iteration = function(ev) {
   if (this.isRunning !== false) return;
   if (ev === true) this.index = 1;
 
-  this.start_texts = Math.random() < 0.5 ? this.texts : 'iLoveCoding();';
-
   this.isRunning = true;
   var that = this;
   

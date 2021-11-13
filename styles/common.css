@@ -1,0 +1,156 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.3.6,
+* Autoprefixer: v10.3.1
+* Browsers: last 4 version
+*/
+
+@charset "utf-8";
+
+/********************
+ * total settings
+********************/
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html *,
+::before,
+::after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html {
+  font-size: 14px;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+body {
+  position: relative;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+img, svg {
+  max-width: 100%;
+  height: auto;
+  vertical-align: bottom;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+@media (min-width: 768px) {
+  h1 {
+    font-size: 40px;
+  }
+}
+
+/* for ie11 */
+svg {
+  height: 24px;
+  width: 24px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.container {
+  height: 100%;
+  overflow: hidden;
+  max-width: 768px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/********************
+ * loading
+********************/
+.loading {
+  position: fixed;
+  background: #fff;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 9999;
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0.4s, opacity 0.4s;
+}
+
+.loading.loaded {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.loading .circle {
+  opacity: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: #000;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  -webkit-transform: translate(-50%, -50%) scale(1, 1);
+      -ms-transform: translate(-50%, -50%) scale(1, 1);
+          transform: translate(-50%, -50%) scale(1, 1);
+  -webkit-animation: animation-circle 2.4s ease-in-out 0s infinite normal none running;
+          animation: animation-circle 2.4s ease-in-out 0s infinite normal none running;
+}
+
+@-webkit-keyframes animation-circle {
+  0% {
+    opacity: 1;
+    -webkit-transform: translate(-50%, -50%) scale(1, 1);
+            transform: translate(-50%, -50%) scale(1, 1);
+  }
+  50% {
+    opacity: 0;
+    -webkit-transform: translate(-50%, -50%) scale(5, 5);
+            transform: translate(-50%, -50%) scale(5, 5);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translate(-50%, -50%) scale(1, 1);
+            transform: translate(-50%, -50%) scale(1, 1);
+  }
+}
+
+@keyframes animation-circle {
+  0% {
+    opacity: 1;
+    -webkit-transform: translate(-50%, -50%) scale(1, 1);
+            transform: translate(-50%, -50%) scale(1, 1);
+  }
+  50% {
+    opacity: 0;
+    -webkit-transform: translate(-50%, -50%) scale(5, 5);
+            transform: translate(-50%, -50%) scale(5, 5);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translate(-50%, -50%) scale(1, 1);
+            transform: translate(-50%, -50%) scale(1, 1);
+  }
+}

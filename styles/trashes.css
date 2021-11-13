@@ -1,0 +1,167 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.3.6,
+* Autoprefixer: v10.3.1
+* Browsers: last 4 version
+*/
+
+@charset "utf-8";
+
+body::-webkit-scrollbar {
+ display:none;
+}
+
+body {
+ -ms-overflow-style: none;
+ scrollbar-width: none;
+}
+
+header {
+  padding: 32px 0;
+}
+
+.container-trashes {
+  max-width: 768px;
+  margin: 0 auto;
+}
+
+/********************
+ * trashes
+********************/
+#trashes {
+  position: relative;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+  grid-template-columns: 1fr;
+  grid-auto-rows: minmax(100px, auto);
+  -webkit-column-gap: 32px;
+     -moz-column-gap: 32px;
+          column-gap: 32px;
+  row-gap: 0px;
+  margin: 0 64px;
+}
+
+@media (min-width: 768px) {
+  #trashes {
+    -ms-grid-columns: 1fr 32px 1fr 32px 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    -webkit-column-gap: 32px;
+       -moz-column-gap: 32px;
+            column-gap: 32px;
+    margin: 0;
+  }
+}
+
+.trash {
+  position: relative;
+  -webkit-transform: translateY(10%);
+      -ms-transform: translateY(10%);
+          transform: translateY(10%);
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: opacity ease-in-out 0.4s, visibility ease-in-out 0.4s, -webkit-transform ease-in-out 0.4s;
+  transition: opacity ease-in-out 0.4s, visibility ease-in-out 0.4s, -webkit-transform ease-in-out 0.4s;
+  -o-transition: opacity ease-in-out 0.4s, visibility ease-in-out 0.4s, transform ease-in-out 0.4s;
+  transition: opacity ease-in-out 0.4s, visibility ease-in-out 0.4s, transform ease-in-out 0.4s;
+  transition: opacity ease-in-out 0.4s, visibility ease-in-out 0.4s, transform ease-in-out 0.4s, -webkit-transform ease-in-out 0.4s;
+}
+
+.show {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transform: none;
+      -ms-transform: none;
+          transform: none;
+}
+
+.hide {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transform: scale(5, 5);
+      -ms-transform: scale(5, 5);
+          transform: scale(5, 5);
+}
+
+ul {
+  padding: 16px 0;
+  display: inline-block;
+}
+
+ul li {
+  display: inline-block;
+}
+
+ul li:last-child {
+  margin-left: 16px;
+}
+
+a:hover + p {
+  opacity: 1;
+  visibility: visible;
+}
+
+p {
+  pointer-events: none;
+  font-size: 12px;
+  opacity: 0;
+  visibility: hidden;
+  color: #FFF;
+  position: absolute;
+  background: #000;
+  padding: 8px;
+  top: 0;
+  left: 0;
+  -webkit-transition: opacity 0.8s, visibility 0.8s;
+  -o-transition: opacity 0.8s, visibility 0.8s;
+  transition: opacity 0.8s, visibility 0.8s;
+}
+
+/********************
+ * nav
+********************/
+nav {
+  position: fixed;
+  top: 50%;
+  left: 90%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+@media (min-width: 768px) {
+  nav {
+    left: calc(50% + 420px);
+  }  
+}
+
+ol li {
+  list-style-type: none;
+}
+
+ol li:not(:last-child) {
+  padding-bottom: 32px;
+}
+
+.return {
+  position: fixed;
+  top: 50%;
+  right: 90%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+@media (min-width: 768px) {
+  .return {
+    right: calc(50% + 420px);
+  }
+}
+
+.active a svg {
+  stroke: tomato;
+}
+
+footer {
+  padding: 32px;
+}
