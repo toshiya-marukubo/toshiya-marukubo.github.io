@@ -109,6 +109,11 @@ h1 {
           transform: scale(1.1, 1.1);
 }
 
+canvas {
+  -webkit-box-shadow: 0 0 10px black;
+          box-shadow: 0 0 10px black;
+}
+
 /********************
  * main
 ********************/
