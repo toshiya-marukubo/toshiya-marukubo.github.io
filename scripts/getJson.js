@@ -163,7 +163,6 @@ GetJSON.prototype.addItems = function () {
   this.addItem(this.data, this.index).then(function (obj) {
     that.index++;
     that.count++;
-    console.log(that.index, that.count);
     
     return that.loadImage(obj);
   }).then(function (elm) {
