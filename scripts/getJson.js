@@ -1,12 +1,13 @@
 function GetJSON() {
   this.file = 'codepen.json';
   this.targetElement = document.getElementById('trashes');
+  this.counterElement = document.getElementById('counter');
   this.count = 0;
   this.now = 0;
   this.index = 0;
   this.data = null;
   this.flg = false;
-  this.number = 18;
+  this.number = 24;
 
   this.initialize();
 }
@@ -167,10 +168,19 @@ GetJSON.prototype.addItems = function () {
   }).then(function (elm) {
     return that.delay(40, elm);
   }).then(function (elm) {
+    that.drawCounter(); 
+    
     return that.displayImage(elm);
   }).then(function () {
     that.addItems();
   });
+};
+
+GetJSON.prototype.drawCounter = function (e) {
+  var len = document.getElementsByClassName('trash').length;
+  var number = Math.ceil(len / this.data.length * 100);
+  
+  this.counterElement.textContent = number + ' %';
 };
 
 GetJSON.prototype.onScroll = function (e) {
@@ -180,7 +190,7 @@ GetJSON.prototype.onScroll = function (e) {
   
   if (this.flg) return;
 
-  if (docHeight * 0.8 <= scrollPosition) {
+  if (docHeight * 0.9 <= scrollPosition) {
     this.addItems();
     this.flg = true;
   } else {
