@@ -153,7 +153,7 @@ GetJSON.prototype.delay = function (time, elm) {
 GetJSON.prototype.addItems = function () {
   var that = this;
   
-  if (this.count > this.number) {
+  if (this.count >= this.number) {
     this.count = 0;
     this.flg = false;
     
@@ -163,6 +163,7 @@ GetJSON.prototype.addItems = function () {
   this.addItem(this.data, this.index).then(function (obj) {
     that.index++;
     that.count++;
+    console.log(that.index, that.count);
     
     return that.loadImage(obj);
   }).then(function (elm) {
