@@ -136,11 +136,8 @@ nav {
 }
 
 ol li {
+  padding: 16px 0;
   list-style-type: none;
-}
-
-ol li:not(:last-child) {
-  padding-bottom: 32px;
 }
 
 .return {
