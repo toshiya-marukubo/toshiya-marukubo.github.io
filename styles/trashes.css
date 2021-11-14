@@ -77,9 +77,9 @@ header {
 .hide {
   visibility: hidden;
   opacity: 0;
-  -webkit-transform: scale(5, 5);
-      -ms-transform: scale(5, 5);
-          transform: scale(5, 5);
+  -webkit-transform: none;
+      -ms-transform: none;
+          transform: none;
 }
 
 ul {

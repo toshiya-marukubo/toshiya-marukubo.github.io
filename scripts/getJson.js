@@ -138,7 +138,7 @@ GetJSON.prototype.loadImage = function (obj) {
 
 GetJSON.prototype.displayImage = function (elm) {
   elm.classList.add('show');
-};
+}
 
 GetJSON.prototype.deleteItems = function () {
   var that = this;
