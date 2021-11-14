@@ -155,7 +155,7 @@ ol li {
   }
 }
 
-.active a svg {
+a.active svg {
   stroke: tomato;
 }
 

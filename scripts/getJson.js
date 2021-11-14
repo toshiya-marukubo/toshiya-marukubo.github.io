@@ -7,7 +7,7 @@ function GetJSON() {
   this.index = 0;
   this.data = null;
   this.flg = false;
-  this.number = 24;
+  this.number = 18;
 
   this.initialize();
 }
@@ -25,6 +25,7 @@ GetJSON.prototype.initialize = function () {
 };
 
 GetJSON.prototype.getJson = function (file) {
+
   return new Promise(function (resolve, reject) {
     var req = new XMLHttpRequest();
     
@@ -39,6 +40,10 @@ GetJSON.prototype.getJson = function (file) {
   });
 };
 
+GetJSON.prototype.sortNumberToLarge = function (a, b) {
+  return Number(a.number) - Number(b.number);
+};
+
 GetJSON.prototype.sortLovesToSmall = function (a, b) {
   return Number(b.loves) - Number(a.loves);
 };
@@ -51,6 +56,9 @@ GetJSON.prototype.sortJson = function (data, type, dir) {
   var that = this;
 
   return new Promise(function (resolve, reject) {
+    if (type === 'number' && dir === 'large') {
+      that.data.sort(that.sortNumberToLarge);
+    }
     if (type === 'loves' && dir === 'small') {
       that.data.sort(that.sortLovesToSmall);
     }
@@ -134,8 +142,7 @@ GetJSON.prototype.displayImage = function (elm) {
 
 GetJSON.prototype.deleteItems = function () {
   var that = this;
-  var trashes = document.getElementsByClassName('trash');
-  
+
   return new Promise(function (resolve, reject) {
     that.targetElement.textContent = null;
     resolve();
@@ -152,10 +159,10 @@ GetJSON.prototype.delay = function (time, elm) {
 
 GetJSON.prototype.addItems = function () {
   var that = this;
-  
-  if (this.count >= this.number) {
-    this.count = 0;
-    this.flg = false;
+
+  if (that.count >= that.number) {
+    that.count = 0;
+    that.flg = false;
     
     return;
   }
@@ -202,17 +209,18 @@ GetJSON.prototype.setUpEvent = function () {
   
   window.addEventListener('scroll', this.onScroll.bind(this), false);
 
-  var ol = document.getElementsByTagName('ol')[0];
-  this.olLi = ol.children;
+  this.buttons = document.getElementsByClassName('sortButton');
 
-  for (var i = 0; i < this.olLi.length; i++) {
+  for (var i = 0; i < this.buttons.length; i++) {
     var that = this;
     
-    this.olLi[i].addEventListener('click', function(e) {
+    this.buttons[i].addEventListener('click', function(e) {
       e.preventDefault();
+      
+      if (this.flg) return;
        
-      for (var j = 0; j < that.olLi.length; j++) {
-        that.olLi[j].classList.remove('active');
+      for (var j = 0; j < that.buttons.length; j++) {
+        that.buttons[j].classList.remove('active');
       }
 
       this.classList.add('active');
@@ -222,7 +230,11 @@ GetJSON.prototype.setUpEvent = function () {
       switch (this.id) {
         case 'reset':
           that.deleteItems().then(function () {
-            that.initialize();
+            
+            return that.sortJson(that.data, 'number', 'large');
+          }).then(function () {
+            
+            return that.addItems();
           });
           break;
         case 'sortLovesToSmallBtn':
@@ -246,7 +258,7 @@ GetJSON.prototype.setUpEvent = function () {
         default:
           break;
       }
-    });
+    }, false);
   }
 };
 
