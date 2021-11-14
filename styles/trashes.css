@@ -34,7 +34,6 @@ header {
   display: grid;
   -ms-grid-columns: 1fr;
   grid-template-columns: 1fr;
-  grid-auto-rows: minmax(100px, auto);
   -webkit-column-gap: 32px;
      -moz-column-gap: 32px;
           column-gap: 32px;
@@ -84,7 +83,7 @@ header {
 }
 
 ul {
-  padding: 16px 0;
+  padding: 32px 0;
   display: inline-block;
 }
 
@@ -138,12 +137,25 @@ nav {
 ol li {
   padding: 24px 0;
   list-style-type: none;
+  position: relative;
+}
+
+ol li a::after, .return::after {
+  content: '';
+  display: block;
+  position: absolute;
+  background: transparent;
+  width: 48px;
+  height: 48px;
+  top: 12px;
+  left: -11px;
 }
 
 .return {
   position: fixed;
   top: 50%;
   right: 90%;
+  padding: 24px 0;
   -webkit-transform: translateY(-50%);
       -ms-transform: translateY(-50%);
           transform: translateY(-50%);
