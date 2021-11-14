@@ -196,7 +196,7 @@ GetJSON.prototype.onScroll = function (e) {
   
   if (this.flg) return;
 
-  if (docHeight * 0.9 <= scrollPosition) {
+  if (docHeight * 0.8 <= scrollPosition) {
     this.addItems();
     this.flg = true;
   } else {

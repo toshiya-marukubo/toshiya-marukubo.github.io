@@ -14,7 +14,7 @@ var getJSON = function (file) {
 };
 
 var loadImages = function (file) {
-  for (let i = 0; i < 100; i++) {
+  for (var i = 0; i < 54; i++) {
     var img = document.createElement('img');
     img.src = file[i].image;
   }
