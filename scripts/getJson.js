@@ -173,7 +173,7 @@ GetJSON.prototype.addItems = function () {
     
     return that.loadImage(obj);
   }).then(function (elm) {
-    return that.delay(1, elm);
+    return that.delay(40, elm);
   }).then(function (elm) {
     that.drawCounter(); 
     return that.displayImage(elm);
