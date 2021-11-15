@@ -150,7 +150,7 @@ GetJSON.prototype.deleteItems = function () {
 };
 
 GetJSON.prototype.delay = function (time, elm) {
-  return new Promise((resolve, reject) => {
+  return new Promise(function (resolve, reject) {
     setTimeout(function () {
       resolve(elm);
     }, time);
