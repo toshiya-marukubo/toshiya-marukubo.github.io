@@ -95,6 +95,8 @@ ul {
   z-index: 9999;
   visibility: visible;
   opacity: 1;
+  -webkit-transition: visibility 0.4s, opacity 0.4s;
+  -o-transition: visibility 0.4s, opacity 0.4s;
   transition: visibility 0.4s, opacity 0.4s;
 }
 
