@@ -29,25 +29,12 @@ header {
  * trashes
 ********************/
 #trashes {
-  position: relative;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 1fr;
-  grid-template-columns: 1fr;
-  -webkit-column-gap: 32px;
-     -moz-column-gap: 32px;
-          column-gap: 32px;
-  row-gap: 0px;
-  margin: 0 64px;
+  text-align: left;
+  margin: 0 32px;
 }
 
 @media (min-width: 768px) {
   #trashes {
-    -ms-grid-columns: 1fr 32px 1fr 32px 1fr;
-    grid-template-columns: 1fr 1fr 1fr;
-    -webkit-column-gap: 32px;
-       -moz-column-gap: 32px;
-            column-gap: 32px;
     margin: 0;
   }
 }
@@ -58,12 +45,23 @@ header {
       -ms-transform: translateY(10%);
           transform: translateY(10%);
   visibility: hidden;
+  display: inline-block;
   opacity: 0;
+  width: 100%;
+  padding: 0 32px;
+  text-align: center;
   -webkit-transition: opacity ease-in-out 0.4s, visibility ease-in-out 0.4s, -webkit-transform ease-in-out 0.4s;
   transition: opacity ease-in-out 0.4s, visibility ease-in-out 0.4s, -webkit-transform ease-in-out 0.4s;
   -o-transition: opacity ease-in-out 0.4s, visibility ease-in-out 0.4s, transform ease-in-out 0.4s;
   transition: opacity ease-in-out 0.4s, visibility ease-in-out 0.4s, transform ease-in-out 0.4s;
   transition: opacity ease-in-out 0.4s, visibility ease-in-out 0.4s, transform ease-in-out 0.4s, -webkit-transform ease-in-out 0.4s;
+}
+
+@media (min-width: 768px) {
+  .trash {
+    width: 33.3%;
+    padding: 0 16px;
+  }
 }
 
 .show {
@@ -84,7 +82,6 @@ header {
 
 ul {
   padding: 32px 0;
-  display: inline-block;
 }
 
 ul li {
@@ -110,7 +107,6 @@ p {
   background: #000;
   padding: 8px;
   top: 0;
-  left: 0;
   -webkit-transition: opacity 0.8s, visibility 0.8s;
   -o-transition: opacity 0.8s, visibility 0.8s;
   transition: opacity 0.8s, visibility 0.8s;
@@ -128,9 +124,9 @@ nav {
           transform: translateY(-50%);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 800px) {
   nav {
-    left: calc(50% + 420px);
+    left: calc(50% + 416px);
   }  
 }
 
@@ -161,9 +157,9 @@ ol li a::after, .return::after {
           transform: translateY(-50%);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 800px) {
   .return {
-    right: calc(50% + 420px);
+    right: calc(50% + 416px);
   }
 }
 
