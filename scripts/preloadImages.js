@@ -21,7 +21,9 @@ var loadImages = function (file) {
 };
 
 (function () {
-  getJSON('codepen.json').then(function(file) {
-    loadImages(file);
+  window.addEventListener('load', function () {
+    getJSON('codepen.json').then(function(file) {
+      loadImages(file);
+    });
   });
 })();

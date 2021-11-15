@@ -263,7 +263,7 @@ GetJSON.prototype.setUpEvent = function () {
 };
 
 (function () {
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     console.clear();
 
     shuffleInit({
