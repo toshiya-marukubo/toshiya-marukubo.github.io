@@ -40,7 +40,6 @@ header {
 }
 
 .trash {
-  position: relative;
   -webkit-transform: translateY(10%);
       -ms-transform: translateY(10%);
           transform: translateY(10%);
@@ -55,6 +54,53 @@ header {
   -o-transition: opacity ease-in-out 0.4s, visibility ease-in-out 0.4s, transform ease-in-out 0.4s;
   transition: opacity ease-in-out 0.4s, visibility ease-in-out 0.4s, transform ease-in-out 0.4s;
   transition: opacity ease-in-out 0.4s, visibility ease-in-out 0.4s, transform ease-in-out 0.4s, -webkit-transform ease-in-out 0.4s;
+}
+
+.trash div {
+  position: relative;
+}
+
+a:hover + p {
+  opacity: 1;
+  visibility: visible;
+}
+
+.trash img {
+  opacity: 0;
+  -webkit-transform: translateY(10%);
+      -ms-transform: translateY(10%);
+          transform: translateY(10%);
+  -webkit-transition: opacity 0.4s, -webkit-transform 0.4s;
+  transition: opacity 0.4s, -webkit-transform 0.4s;
+  -o-transition: opacity 0.4s, transform 0.4s;
+  transition: opacity 0.4s, transform 0.4s;
+  transition: opacity 0.4s, transform 0.4s, -webkit-transform 0.4s;
+}
+
+img.showImage {
+  opacity: 1;
+  -webkit-transform: none;
+      -ms-transform: none;
+          transform: none;
+}
+
+p {
+  pointer-events: none;
+  font-size: 12px;
+  opacity: 0;
+  visibility: hidden;
+  color: #FFF;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background: #000;
+  padding: 8px;
+  -webkit-transition: opacity 0.8s, visibility 0.8s;
+  -o-transition: opacity 0.8s, visibility 0.8s;
+  transition: opacity 0.8s, visibility 0.8s;
 }
 
 @media (min-width: 768px) {
@@ -90,26 +136,6 @@ ul li {
 
 ul li:last-child {
   margin-left: 16px;
-}
-
-a:hover + p {
-  opacity: 1;
-  visibility: visible;
-}
-
-p {
-  pointer-events: none;
-  font-size: 12px;
-  opacity: 0;
-  visibility: hidden;
-  color: #FFF;
-  position: absolute;
-  background: #000;
-  padding: 8px;
-  top: 0;
-  -webkit-transition: opacity 0.8s, visibility 0.8s;
-  -o-transition: opacity 0.8s, visibility 0.8s;
-  transition: opacity 0.8s, visibility 0.8s;
 }
 
 /********************
@@ -175,5 +201,5 @@ a.active svg {
 }
 
 footer {
-  padding: 32px;
+  padding: 32px 0;
 }

@@ -11,9 +11,10 @@ function Sketch() {
 Sketch.prototype.setupCanvas = function () {
   document
     .getElementsByTagName("body")[0]
-    .appendChild(document.createElement("canvas"));
+    .appendChild(document.createElement("canvas"))
+    .setAttribute('id', 'sketch');
   
-  this.canvas = document.getElementsByTagName('canvas')[0];
+  this.canvas = document.getElementById('sketch');
   this.canvas.style.position = 'absolute';
   this.canvas.style.top = '0';
   this.canvas.style.left = '0';
@@ -100,35 +101,10 @@ Sketch.prototype.draw = function (frame) {
 };
 
 (function() {
-  window.addEventListener('load', function() {
-    console.clear();
-    console.log('Hi there!');
-
+  window.addEventListener('DOMContentLoaded', function() {
     new Sketch();
- 
-    happyMealInit({
-      button_id: 'hamburger', // Your favorite id name (same name).
-      min_size: 30, // min happy meal size.
-      max_size: 100, // max happy meal size.
-      direction_x: -1, // x direction 1 = to right : -1 = to left.
-      direction_y: -1, // y direction 1 = to down : -1 = to up.
-      mult_x: 10, // multiply to direction_x.
-      mult_y: 5, // multiply to direction_y.
-      gravity: 0.1, // gravity.
-      gravity_random: true // make gravity random number.
-    });
-
-    shuffleInit({
-      class_name: 'shuffleText', // input your favorite class name.
-      onload: true, // shuffle when loaded.
-      delay: true, // displayed in order.
-      number_of_iterations: 100,
-      iteration_speed: 5,
-      displayed_speed: 80,
-    });
-    
     var loading = document.getElementsByClassName('loading')[0];
-    
+
     loading.classList.add('loaded');
   });
 })();

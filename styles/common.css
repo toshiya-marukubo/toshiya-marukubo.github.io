@@ -95,9 +95,9 @@ ul {
   z-index: 9999;
   visibility: visible;
   opacity: 1;
-  -webkit-transition: visibility 0.4s, opacity 0.4s;
-  -o-transition: visibility 0.4s, opacity 0.4s;
-  transition: visibility 0.4s, opacity 0.4s;
+  -webkit-transition: visibility 0.8s, opacity 0.8s;
+  -o-transition: visibility 0.8s, opacity 0.8s;
+  transition: visibility 0.8s, opacity 0.8s;
 }
 
 .loading.loaded {

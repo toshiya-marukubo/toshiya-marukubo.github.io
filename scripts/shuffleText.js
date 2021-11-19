@@ -77,15 +77,15 @@ ShuffleText.prototype.iteration = function(ev) {
   }
 };
 
-function shuffleInit(settings) {
-  var class_name = settings.class_name;
-  var onload = settings.onload;
-  var delay = settings.delay;
-  var number_of_iterations = settings.number_of_iterations;
-  var iteration_speed = settings.iteration_speed;
-  var displayed_speed = settings.displayed_speed;
+window.addEventListener('DOMContentLoaded', function () {
   var classArr = [];
-  var classes = document.getElementsByClassName(class_name);
+  var classes = document.getElementsByClassName('shuffleText');
+  var onload = true;
+  var delay = true;
+  var number_of_iterations = 100;
+  var iteration_speed = 5;
+  var displayed_speed = 80;
+  var delay = 0;
  
   for (var i = 0; i < classes.length; i++) {
     var s = new ShuffleText(classes[i], delay, number_of_iterations, iteration_speed, displayed_speed, i);
@@ -93,10 +93,12 @@ function shuffleInit(settings) {
     classArr.push(s);
   }
 
-  if (onload === true) {
-    for (var i = 0; i < classArr.length; i++) {
-      classArr[i].iteration();
-    }
+  if (onload) {
+    setTimeout(function() {
+      for (var i = 0; i < classArr.length; i++) {
+        classArr[i].iteration();
+      }
+    }, delay);
   }
 
   for (var i = 0; i < classArr.length; i++) {
@@ -111,4 +113,4 @@ function shuffleInit(settings) {
       }, {passive: true});
     })(i);
   }
-}
+});
