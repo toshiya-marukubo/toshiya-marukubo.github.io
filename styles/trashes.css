@@ -144,7 +144,7 @@ ul li:last-child {
 nav {
   position: fixed;
   top: 50%;
-  left: calc(50% + 143.86px);
+  left: 85%;
   -webkit-transform: translateY(-50%);
       -ms-transform: translateY(-50%);
           transform: translateY(-50%);
@@ -176,7 +176,7 @@ ol li a::after, .return::after {
 .return {
   position: fixed;
   top: 50%;
-  right: calc(50% + 143.86px);
+  right: 85%;
   padding: 24px 0;
   -webkit-transform: translateY(-50%);
       -ms-transform: translateY(-50%);
