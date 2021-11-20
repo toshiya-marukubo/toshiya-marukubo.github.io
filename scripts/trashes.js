@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('load', function () {
   var getJSON = getItemsDataFromJSON;
   getJSON.initialize('codepen.json');
 
