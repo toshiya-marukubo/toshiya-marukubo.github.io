@@ -103,10 +103,18 @@ h1 {
   background: #F29B06;
 }
 
-#hamburger:hover {
+#hamburger:active {
   -webkit-transform: scale(1.2, 1.2) rotate(-180deg);
       -ms-transform: scale(1.2, 1.2) rotate(-180deg);
           transform: scale(1.2, 1.2) rotate(-180deg);
+}
+
+@media (min-width: 768px) {
+  #hamburger:hover {
+    -webkit-transform: scale(1.2, 1.2) rotate(-180deg);
+        -ms-transform: scale(1.2, 1.2) rotate(-180deg);
+            transform: scale(1.2, 1.2) rotate(-180deg);
+  }
 }
 
 canvas {
