@@ -103,7 +103,7 @@ h1 {
   background: #F29B06;
 }
 
-#hamburger:active {
+#hamburger.active {
   -webkit-transform: scale(1.2, 1.2) rotate(-180deg);
       -ms-transform: scale(1.2, 1.2) rotate(-180deg);
           transform: scale(1.2, 1.2) rotate(-180deg);

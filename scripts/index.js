@@ -106,5 +106,18 @@ Sketch.prototype.draw = function (frame) {
     var loading = document.getElementsByClassName('loading')[0];
 
     loading.classList.add('loaded');
+
+    var hamburger = document.getElementById('hamburger');
+    var started = false;
+    hamburger.addEventListener('touchstart', function () {
+      if (started) return;
+      started = true;
+      this.classList.add('active');
+
+      setTimeout(function () {
+        started = false;
+        hamburger.classList.remove('active');
+      }, 400);
+    });
   });
 })();
