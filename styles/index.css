@@ -30,15 +30,15 @@ h1 {
 
 #hamburger {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 32px;
+  right: 32px;
   width: 40px;
   height: 40px;
-  -webkit-transition: -webkit-transform 0.2s cubic-bezier(0.68, -0.6, 0.32, 1.6);
-  transition: -webkit-transform 0.2s cubic-bezier(0.68, -0.6, 0.32, 1.6);
-  -o-transition: transform 0.2s cubic-bezier(0.68, -0.6, 0.32, 1.6);
-  transition: transform 0.2s cubic-bezier(0.68, -0.6, 0.32, 1.6);
-  transition: transform 0.2s cubic-bezier(0.68, -0.6, 0.32, 1.6), -webkit-transform 0.2s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  -webkit-transition: -webkit-transform 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  transition: -webkit-transform 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  -o-transition: transform 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  transition: transform 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  transition: transform 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6), -webkit-transform 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
 }
 
 #hamburger a {
@@ -103,10 +103,10 @@ h1 {
   background: #F29B06;
 }
 
-#hamburger:active {
-  -webkit-transform: scale(1.1, 1.1);
-      -ms-transform: scale(1.1, 1.1);
-          transform: scale(1.1, 1.1);
+#hamburger:hover {
+  -webkit-transform: scale(1.2, 1.2) rotate(-180deg);
+      -ms-transform: scale(1.2, 1.2) rotate(-180deg);
+          transform: scale(1.2, 1.2) rotate(-180deg);
 }
 
 canvas {
