@@ -110,7 +110,7 @@ Sketch.prototype.draw = function (frame) {
     var hamburger = document.getElementById('hamburger');
     var started = false;
     hamburger.addEventListener('touchstart', function (e) {
-      e.preventDefault();
+      e.stopPropagation();
       if (started) return;
       started = true;
       this.classList.add('active');
