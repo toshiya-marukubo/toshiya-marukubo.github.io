@@ -108,7 +108,8 @@ li {
  **********/
 .header,
 .header-container {
-  height: 100vh;
+  height: 100vh; /* 変数をサポートしていないブラウザのフォールバック */
+  height: calc(var(--vh, 1vh) * 100);
 }
 .header-container {
   position: relative;
