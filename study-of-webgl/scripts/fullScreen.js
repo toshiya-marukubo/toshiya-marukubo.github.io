@@ -1,10 +1,11 @@
 (() => {
   window.addEventListener('load', () => {
-    const headerContainer = document.getElementsByClassName('header-container')[0];
-    headerContainer.style.height = window.innerHeight;
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
 
     window.addEventListener('resize', () => {
-      headerContainer.style.height = window.innerHeight;
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
     });
   });
 })();

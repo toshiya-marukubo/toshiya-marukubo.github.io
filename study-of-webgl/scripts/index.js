@@ -256,6 +256,9 @@ class Sketch {
   }
   
   onResize() {
+    if (window.innerWidth < 480) {
+      return;
+    }
     this.initialize();
   }
 }
