@@ -1,0 +1,83 @@
+@charset 'UTF-8';
+/**********
+ * works
+ **********/
+.back,
+.question {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.back {
+  left: 0;
+}
+.question {
+  right: 0;
+}
+.back a,
+.question a {
+  color: #888;
+  transition: color 0.8s ease-in-out;
+}
+
+.what {
+  text-align: left;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9998;
+  padding: 32px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity ease-in-out 0.4s, visibility ease-in-out 0.4s, transform ease-in-out 0.4s;
+}
+.what.show {
+  transform: translate(-50%, -50%);
+  opacity: 1;
+  visibility: visible;
+}
+@media (max-width: 480px) {
+  .what {
+    width: 92%;
+  }
+}
+h3,
+h4,
+.what ol {
+  padding-bottom: 16px;
+}
+h3 {
+  font-size: 2.4rem;
+}
+h4 {
+  font-size: 1.6rem;
+}
+.what ol:last-of-type {
+  padding-bottom: 0;
+}
+.what li {
+  list-style-type: disc;
+  list-style-position: inside;
+  font-size: 1.2rem;
+}
+.close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.works-description {
+  text-align: right;
+  position: absolute;
+  right: 0;
+  bottom: 32px;
+}
+.works-description h2 {
+  font-size: 4rem;
+  padding-bottom: 8px;
+}
+.works-description p {
+  padding-bottom: 8px;
+}

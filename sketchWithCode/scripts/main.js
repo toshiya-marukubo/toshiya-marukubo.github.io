@@ -225,26 +225,20 @@ class MainProgram {
     this.shapesArray = this.lineUp(this.dat.params.lineUp.type);
     this.ctx.save();
     
+    this.ctx.clearRect(0, 0, this.width, this.height);
     /** draw background color */
-    this.canvas.style.background = this.dat.params.backgroundColor.color;
-    
-    if (!this.override) {
-      this.ctx.clearRect(0, 0, this.width, this.height);
-      /* 
-      this.ctx.fillStyle = this.getBackgroundColor(this.dat.params.backgroundGradient);
-      this.ctx.save();
-      this.ctx.translate(this.width / 2, this.height / 2);
-      this.ctx.rotate(this.dat.params.backgroundGradient.rotationAngle * Math.PI / 180);
-      this.ctx.translate(-this.width / 2, -this.height / 2);
-      this.ctx.fillRect(
-        0 - (this.diagonal - this.width) / 2,
-        0 - (this.diagonal - this.height) / 2,
-        this.diagonal * 2,
-        this.diagonal * 2
-      );
-      this.ctx.restore();
-      */
-    }
+    this.ctx.fillStyle = this.getBackgroundColor(this.dat.params.backgroundGradient);
+    this.ctx.save();
+    this.ctx.translate(this.width / 2, this.height / 2);
+    this.ctx.rotate(this.dat.params.backgroundGradient.rotationAngle * Math.PI / 180);
+    this.ctx.translate(-this.width / 2, -this.height / 2);
+    this.ctx.fillRect(
+      0 - (this.diagonal - this.width) / 2,
+      0 - (this.diagonal - this.height) / 2,
+      this.diagonal * 2,
+      this.diagonal * 2
+    );
+    this.ctx.restore();
     
     /** rotation */
     this.ctx.translate(this.width / 2, this.height / 2);

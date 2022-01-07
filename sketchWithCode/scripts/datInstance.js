@@ -190,7 +190,7 @@ class Dat {
           .onChange(() => this.mainProgram.rendering()),
         numberB: this.Common.add(this.params.common, 'numberB', 0, 360, 1)
           .onChange(() => this.mainProgram.rendering()),
-        iteration: this.Common.add(this.params.common, 'iteration', 1, 100, 1)
+        iteration: this.Common.add(this.params.common, 'iteration', 1, 500, 1)
           .onChange(() => this.mainProgram.rendering()),
         rotationAngle: this.Common.add(this.params.common, 'rotationAngle', 0, 360, 1)
           .onChange(() => this.mainProgram.rendering()),
