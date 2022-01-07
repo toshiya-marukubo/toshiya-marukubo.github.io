@@ -106,11 +106,8 @@ li {
 /**********
  * header
  **********/
-.header,
 .header-container {
   height: 100vh;
-  height: calc(var(--vh, 1vh) * 100);
-  overflow: hidden;
 }
 .header-container {
   position: relative;
