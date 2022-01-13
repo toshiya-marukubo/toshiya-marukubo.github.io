@@ -124,7 +124,7 @@ class Mouse {
   onTouchmove(e) {
     const touch = e.targetTouches[0];
 
-    this.mouse.x = (touch.pageX / window.innerWidth) * 2 - 1;;
+    this.mouse.x = (touch.pageX / window.innerWidth) * 2 - 1;
     this.mouse.y =  -(touch.pageY / window.innerHeight) * 2 + 1;
     this.mouse.z = 0;
   }
