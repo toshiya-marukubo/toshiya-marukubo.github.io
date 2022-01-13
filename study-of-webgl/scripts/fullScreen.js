@@ -15,5 +15,9 @@
 (() => {
   window.addEventListener('load', () => {
     document.getElementsByClassName('header-container')[0].style.height = window.innerHeight + 'px';
+
+    window.addEventListener('resize', () => {
+      document.getElementsByClassName('header-container')[0].style.height = window.innerHeight + 'px';
+    });
   });
 })();
