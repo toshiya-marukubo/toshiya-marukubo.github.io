@@ -63,6 +63,7 @@ html *,
   box-sizing: border-box;
 }
 html {
+  overscroll-behavior: none;
   font-size: 62.5%;
 }
 body {
