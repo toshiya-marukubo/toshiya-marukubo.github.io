@@ -64,10 +64,10 @@ html *,
 }
 html {
   font-size: 62.5%;
+  overscroll-behavior: none;
 }
 html,
 body {
-  overscroll-behavior: none;
   user-select: none;
 }
 body {
@@ -102,6 +102,7 @@ li {
   list-style-type: none;
 }
 .body-container {
+  user-select: none;
   overflow-x: hidden;
   padding: 0 32px;
 }
@@ -121,6 +122,7 @@ li {
  * header
  **********/
 .header-container {
+  user-select: none;
   height: 100vh; /* Use vh as a fallback for browsers that do not support Custom Properties */
   height: calc(var(--vh, 1vh) * 100);
 }
