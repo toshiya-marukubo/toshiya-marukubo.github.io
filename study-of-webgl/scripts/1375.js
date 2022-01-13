@@ -131,7 +131,7 @@ class Sketch {
     this.camera.position.set(
       this.mouse.mouse.x * this.width / 4,
       this.mouse.mouse.y * this.height / 4,
-      this.dist * (1 + this.mouse.delta)
+      this.dist
     );
     this.camera.lookAt(new THREE.Vector3());
   }
