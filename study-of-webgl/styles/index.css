@@ -63,8 +63,12 @@ html *,
   box-sizing: border-box;
 }
 html {
-  overscroll-behavior: none;
   font-size: 62.5%;
+}
+html,
+body {
+  overscroll-behavior: none;
+  user-select: none;
 }
 body {
   min-height: 100%;
