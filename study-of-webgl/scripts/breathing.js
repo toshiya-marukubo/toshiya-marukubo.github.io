@@ -1,12 +1,12 @@
-/** vertex shader source */
+// vertex shader source
 const vertexShader = `
 attribute float number;
 uniform float uTime;
 uniform vec2 uMouse;
 float PI = 3.14159265359;
 
-//	Simplex 4D Noise 
-//	by Ian McEwan, Ashima Arts
+// Simplex 4D Noise 
+// by Ian McEwan, Ashima Arts
 vec4 permute(vec4 x){return mod(((x*34.0)+1.0)*x, 289.0);}
 float permute(float x){return floor(mod(((x*34.0)+1.0)*x, 289.0));}
 vec4 taylorInvSqrt(vec4 r){return 1.79284291400159 - 0.85373472095314 * r;}
@@ -116,41 +116,20 @@ void main(){
   gl_PointSize = 2.0 * (4.0 / - mvPosition.z);
   gl_Position = projectionMatrix * mvPosition;
 }
-
 `;
 
-/** fragment shader source */
+// fragment shader source
 const fragmentShader = `
 void main () {
-  /**
-   * Square to Circle.
-   * Referred to
-   * https://qiita.com/uma6661/items/20accc9b5fb9845fc73a
-   * Thank you so much.
-   */
+  // Reference
+  // https://qiita.com/uma6661/items/20accc9b5fb9845fc73a
+  // Thank you so much.
   float f = length(gl_PointCoord - vec2(0.5, 0.5));
   if ( f > 0.1 ) discard;
   
   gl_FragColor = vec4(0.5, 0.8, 1.0, 1.0);
 }
-
 `;
-
-/**
- * Utils
- */
-const createMultipleArray = (one, two) => {
-  const arr = [];
-  
-  for (let y = 0; y < one; y++) {
-    arr[y] = [];
-    for (let x = 0; x < two; x++) {
-      arr[y][x] = 0;
-    }
-  }
-
-  return arr;  
-};
 
 /**
  * Mouse class
@@ -162,12 +141,15 @@ class Mouse {
   }
   
   initialize() {
-    this.delta = 1;
+    this.delta = 0;
+    this.mouse = new THREE.Vector3();
     this.setupEvents();
   }
   
   setupEvents() {
     window.addEventListener('scroll', this.onScroll.bind(this), false);
+    window.addEventListener('mousemove', this.onMousemove.bind(this), false);
+    window.addEventListener('touchmove', this.onTouchmove.bind(this), false);
   }
 
   onScroll(e) {
@@ -175,7 +157,21 @@ class Mouse {
     const docHeight = document.body.scrollHeight - window.innerHeight;
     const scrollPercent = docScrollTop / docHeight;
 
-    this.delta = 1.0 - scrollPercent;
+    this.delta = scrollPercent;
+  }
+
+  onMousemove(e) {
+    this.mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+    this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    this.mouse.z = 0;
+  }
+
+  onTouchmove(e) {
+    const touch = e.targetTouches[0];
+
+    this.mouse.x = (touch.pageX / window.innerWidth) * 2 - 1;;
+    this.mouse.y =  -(touch.pageY / window.innerHeight) * 2 + 1;
+    this.mouse.z = 0;
   }
 }
 
@@ -198,8 +194,19 @@ class Sketch {
         alpha: true
       });
     
-    document.getElementsByClassName('body-container')[0].
-      appendChild(this.renderer.domElement);
+    document.body.appendChild(this.renderer.domElement);
+  }
+  
+  setupEvents() {
+    window.addEventListener('resize', this.onResize.bind(this), false);
+  }
+  
+  onResize() {
+    if (this.preWidth === window.innerWidth && window.innerWidth < 480) {
+      return;
+    }
+
+    this.initialize();
   }
   
   initialize() {
@@ -207,7 +214,7 @@ class Sketch {
       cancelAnimationFrame(this.animationId);
     }
     
-    this.width = Math.ceil(window.innerWidth);
+    this.preWidth = this.width = Math.ceil(window.innerWidth); 
     this.height = Math.ceil(window.innerHeight);
 
     this.scene = new THREE.Scene();
@@ -256,9 +263,9 @@ class Sketch {
   
   updateCamera(time) {
     this.camera.position.set(
-      Math.cos(-time * 0.3) * this.dist,
-      Math.sin( time * 0.3) * this.dist / 2,
-      Math.sin(-time * 0.3) * this.dist
+      this.mouse.mouse.x,
+      this.mouse.mouse.y,
+      2
     );
     this.camera.lookAt(new THREE.Vector3());
   }
@@ -278,7 +285,7 @@ class Sketch {
     this.shapes = new Array();
     this.num = 1;
     
-    for (let y = 0; y < this.num; y++) {
+    for (let i = 0; i < this.num; i++) {
       const s = new Shape(this, 0, 0, 0);
       this.shapes.push(s);
     }
@@ -291,19 +298,11 @@ class Sketch {
       this.shapes[i].render(time);
     }
     
-    //this.updateCamera(time);
+    this.updateCamera(time);
     
     this.renderer.render(this.scene, this.camera);
     
     this.animationId = requestAnimationFrame(this.draw.bind(this));
-  }
-  
-  setupEvents() {
-    window.addEventListener('resize', this.onResize.bind(this), false);
-  }
-  
-  onResize() {
-    this.initialize();
   }
 }
 
@@ -317,12 +316,9 @@ class Shape {
     this.initialize();
   }
   
-  /**
-   * initialize shape
-   */
   initialize() {
-    /** particles */
-    this.count = this.sketch.width < 500 ? 80000 : 160000;
+    // particles
+    this.count = this.sketch.width < 480 ? 80000 : 160000;
     this.geometry = new THREE.BufferGeometry();
     this.vertices = new Float32Array(this.count * 3);
     this.numbers = new Float32Array(this.count);
@@ -344,7 +340,6 @@ class Shape {
       side: THREE.DoubleSide,
       uniforms: {
         uTime: {type: 'f', value: 0},
-        //uMouse: {type: 'v2', value: this.sketch.mouse},
         uResolution: {
           type: 'v2',
           value: new THREE.Vector2(this.sketch.width, this.sketch.height),
@@ -359,7 +354,7 @@ class Shape {
     this.mesh = new THREE.Points(this.geometry, this.material);
     this.sketch.scene.add(this.mesh);
 
-    /** sphere */
+    // sphere
     this.sphereGeometry = new THREE.SphereGeometry(0.3, 36, 36);
     this.sphereMaterial = new THREE.MeshLambertMaterial({
       color: 0x94ff,
@@ -369,12 +364,8 @@ class Shape {
     this.sketch.scene.add(this.sphereMesh);  
   }
   
-  /**
-   * render shape
-   */
   render(time) {
     this.mesh.material.uniforms.uTime.value = time;
-    //this.mesh.material.uniforms.uMouse.value = this.sketch.mouse;
     this.sphereMesh.position.y = Math.sin(time) * 0.1;
     this.sphereMesh.rotation.z = time * 0.6;
     this.sphereMesh.rotation.x = time * 0.4;

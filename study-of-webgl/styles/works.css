@@ -1,7 +1,7 @@
 @charset 'UTF-8';
 /**********
- * works
- **********/
+  back and question
+**********/
 .back,
 .question {
   position: absolute;
@@ -16,13 +16,58 @@
 }
 .back a,
 .question a {
+  display: block;
   color: #888;
+  padding: 16px;
   transition: color 0.8s ease-in-out;
+}
+.back a {
+  padding-left: 0;
+}
+.question a {
+  padding-right: 0;
+}
+
+/**********
+  works description
+**********/
+.works-description {
+  text-align: right;
+  position: absolute;
+  right: 0;
+  bottom: 32px;
+}
+.works-description h2 {
+  font-size: 4rem;
+  padding-bottom: 8px;
+}
+.works-description p {
+  padding-bottom: 0;
+}
+
+/**********
+  what is this???
+**********/
+[href^="http"]:not([href*="toshiya-marukubo.github.io"])::after {
+  display: inline-block;
+  background-image: url('../images/external-link.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-left: 4px;
+  background-size: contain;
+  /* alt text */
+  content: '(External link)';
+  overflow: hidden;
+  white-space: nowrap;
+  text-indent: 1.2rem;
 }
 
 .what {
   text-align: left;
   position: fixed;
+  min-width: 40%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -40%);
@@ -43,6 +88,7 @@
     width: 92%;
   }
 }
+
 h3,
 h4,
 .what ol {
@@ -50,6 +96,22 @@ h4,
 }
 h3 {
   font-size: 2.4rem;
+  margin-bottom: 16px;
+  position: relative;
+}
+h3::after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #FFF;
+  transition: width ease-in-out 0.4s 0.4s;
+}
+.what.show h3::after {
+  width: 100%;
 }
 h4 {
   font-size: 1.6rem;
@@ -64,20 +126,91 @@ h4 {
 }
 .close {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 0;
+  right: 0;
+  transform: rotate(0deg);
+  transition: transform ease-in-out 0.4s 0.8s;
+}
+.close a {
+  display: block;
+  padding: 16px;
+}
+.what.show .close {
+  transform: rotate(180deg);
 }
 
-.works-description {
-  text-align: right;
+/**********
+  nav
+**********/
+.nav {
+  white-space: nowrap;
   position: absolute;
-  right: 0;
   bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
 }
-.works-description h2 {
-  font-size: 4rem;
-  padding-bottom: 8px;
+.nav ul li {
+  font-size: 1.6rem;
 }
-.works-description p {
-  padding-bottom: 8px;
+.nav ul li a {
+  display: block;
+  border: 16px solid transparent;
+  border-bottom: 0px;
+  background-clip: padding-box;
+}
+.nav ul li:first-of-type {
+  padding-right: 0;
+}
+.nav ul li:last-of-type {
+  padding-left: 0;
+}
+.loading.loaded + .body-container .cur {
+  opacity: 0;
+  transform: translateY(100%);
+  animation: cur-animation 0.8s ease-in-out 1.2s 1 forwards running;
+}
+@keyframes cur-animation {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+.loading.loaded + .body-container .prev {
+  opacity: 0;
+  transform: translateX(-100%);
+  animation: prev-animation 0.8s ease-in-out 1.4s 1 forwards running;
+}
+.loading.loaded + .body-container .next {
+  opacity: 0;
+  transform: translateX(100%);
+  animation: next-animation 0.8s ease-in-out 1.4s 1 forwards running;
+}
+@keyframes prev-animation {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes next-animation {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.disabled {
+  pointer-events:none;
+  opacity: 0.3;
 }

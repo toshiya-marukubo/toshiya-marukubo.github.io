@@ -49,6 +49,14 @@
 /**********
  * common 
  **********/
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
 html *,
 ::before,
 ::after {
@@ -90,7 +98,7 @@ li {
 }
 .body-container {
   overflow-x: hidden;
-  padding: 0 4%;
+  padding: 0 32px;
 }
 @media (min-width: 480px) and (max-width: 1024px) {
   .body-container {
@@ -142,6 +150,7 @@ ul li {
   display: inline-block;
   padding: 0 16px;
 }
+
 .frame-bottom-left,
 .frame-top-right {
   position: absolute;
@@ -160,6 +169,7 @@ ul li {
   border-right: 2px solid #FFF;
   border-top: 2px solid #FFF;
 }
+
 .scroll-down {
   font-size: 1.6rem;
   position: absolute;
@@ -213,7 +223,7 @@ ul li {
   position: relative;
   overflow: hidden;
 }
-.slide {
+.overlay {
   background: rgba(0, 0, 0, 0.4);
   position: absolute;
   top: 10%;
@@ -224,7 +234,7 @@ ul li {
   visibility: hidden;
   transition: top ease-in-out 0.4s, opacity ease-in-out 0.4s, visibility ease-in-out 0.4s;
 }
-.image:hover .slide {
+.image:hover .overlay {
   top: 0;
   opacity: 1;
   visibility: visible;
@@ -244,7 +254,7 @@ ul li {
   height: 2px;
   width: 0;
   background: #FFF;
-  transition: width ease-in-out 0.2s 0.3s;
+  transition: width ease-in-out 0.4s 0.4s;
 }
 .image:hover .view:after {
   width: 100%;
