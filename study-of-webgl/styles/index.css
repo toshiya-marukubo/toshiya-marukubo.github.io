@@ -65,6 +65,7 @@ html {
   font-size: 62.5%;
 }
 body {
+  min-height: 100%;
   background: #000;
   color: #FFF;
   font-family: serif;
@@ -114,7 +115,6 @@ li {
  * header
  **********/
 .header-container {
-  height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
   position: relative;
 }
