@@ -24,7 +24,6 @@
   background: #FFF;
   border-radius: 50%;
   opacity: 0;
-  transform: scale(0, 0);
   animation: circle-animation 1.6s ease-in-out 0s infinite normal none;
 }
 .loading.loaded {
