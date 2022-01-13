@@ -9,21 +9,22 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 9999;
+  z-index: 9998;
   visibility: visible;
   opacity: 1;
   transition: visibility ease-in-out 1.6s, opacity ease-in-out 1.6s;
 }
 .circle {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(1, 1);
+  transform: scale(0, 0) translate(-50%, -50%);
   width: 32px;
   height: 32px;
   background: #FFF;
   border-radius: 50%;
   opacity: 0;
+  z-index: 9999;
   animation: circle-animation 1.6s ease-in-out 0s infinite normal none;
 }
 .loading.loaded {
@@ -33,15 +34,15 @@
 @keyframes circle-animation {
   0% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(1, 1);
+    transform: scale(0, 0) translate(-50%, -50%);
   }
   50% {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(0, 0);
+    transform: scale(1, 1) translate(-50%, -50%);
   }
   100% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(1, 1);
+    transform: scale(0, 0) translate(-50%, -50%);
   }
 }
 
