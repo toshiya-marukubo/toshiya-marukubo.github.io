@@ -296,7 +296,6 @@ class Shape {
   
   render(time) {
     this.updateTexture();
-    
     this.boxMesh.material.uniforms.uTime.value = time;
   }
 }
