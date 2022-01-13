@@ -157,11 +157,9 @@ class Sketch {
   }
   
   onResize() {
-    /*
     if (this.preWidth === window.innerWidth && window.innerWidth < 480) {
       return;
     }
-    */
 
     this.initialize();
   }
