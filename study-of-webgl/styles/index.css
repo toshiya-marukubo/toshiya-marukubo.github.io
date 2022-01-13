@@ -18,7 +18,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0, 0);
+  transform: translate(-50%, -50%) scale(1, 1);
   width: 32px;
   height: 32px;
   background: #FFF;
@@ -33,15 +33,15 @@
 @keyframes circle-animation {
   0% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0, 0);
+    transform: translate(-50%, -50%) scale(1, 1);
   }
   50% {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1, 1);
+    transform: translate(-50%, -50%) scale(0, 0);
   }
   100% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0, 0);
+    transform: translate(-50%, -50%) scale(1, 1);
   }
 }
 
