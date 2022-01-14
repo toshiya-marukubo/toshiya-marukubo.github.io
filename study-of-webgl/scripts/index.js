@@ -398,11 +398,8 @@ class Shape {
 
     const loading = document.getElementsByClassName('loading')[0];
     loading.classList.add('loaded');
-
-    toFullScreen();
-    window.addEventListener('resize', () => {
-      toFullScreen();
-    });
+    
+    new FullScreen();
 
     new Sketch();
   });
