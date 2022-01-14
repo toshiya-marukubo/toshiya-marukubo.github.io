@@ -307,6 +307,8 @@ class Shape {
     const loading = document.getElementsByClassName('loading')[0];
     loading.classList.add('loaded');
 
+    new FullScreen();
+
     new Sketch();
   });
 })();

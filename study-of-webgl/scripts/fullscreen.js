@@ -29,10 +29,3 @@ class FullScreen {
     this.initialize();
   }
 }
-
-(() => {
-  window.addEventListener('load', () => {
-    alert(window.innerWidth);
-    new FullScreen();
-  });
-})();
