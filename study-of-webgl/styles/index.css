@@ -9,7 +9,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 9998;
+  z-index: 9999;
   visibility: visible;
   opacity: 1;
   transition: visibility ease-in-out 1.6s, opacity ease-in-out 1.6s;
@@ -24,7 +24,6 @@
   background: #FFF;
   border-radius: 50%;
   opacity: 0;
-  z-index: 9999;
   animation: circle-animation 1.6s ease-in-out 0s infinite normal none;
 }
 .loading.loaded {
@@ -115,7 +114,7 @@ li {
  * header
  **********/
 .header-container {
-  height: calc(var(--vh, 1vh) * 100);
+  height: calc(var(--vh, 1vh) * 90);
 }
 
 .header-container {
