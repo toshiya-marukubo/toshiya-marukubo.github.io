@@ -114,7 +114,8 @@ li {
  * header
  **********/
 .header-container {
-  height: calc(var(--vh, 1vh) * 100);
+  min-height: 100vh; /* Fallback */
+  min-height: calc(var(--vh, 1vh) * 100);
 }
 
 .header-container {
