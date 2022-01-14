@@ -387,7 +387,7 @@ class Shape {
     const scale = 1 - this.sketch.mouse.delta;
 
     //this.sphereMesh.scale.set(scale, scale, scale);
-    //this.groundMesh.scale.set(scale, scale, scale);
+    this.groundMesh.scale.set(scale, scale, scale);
     this.rainGeometry.setDrawRange(0, Math.max(this.num * scale, 1000));
   }
 }
