@@ -3,7 +3,7 @@
 // Thank you so much.
 class FullScreen {
   constructor() {
-    console.log(window.innerWidth);
+    alert(window.innerWidth);
     this.preWidth = window.innerWidth;
     this.setupEvents();
     this.initialize();
