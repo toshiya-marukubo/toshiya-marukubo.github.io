@@ -1,9 +1,10 @@
 // Reference
 // https://coliss.com/articles/build-websites/operation/css/viewport-units-on-mobile.html
 // Thank you so much.
+alert(window.innerWidth);
+
 class FullScreen {
   constructor() {
-    alert(window.innerWidth);
     this.preWidth = window.innerWidth;
     this.setupEvents();
     this.initialize();
