@@ -3,13 +3,13 @@
 // Thank you so much.
 class FullScreen {
   constructor() {
+    console.log(window.innerWidth);
     this.preWidth = window.innerWidth;
     this.setupEvents();
     this.initialize();
   }
 
   initialize() {
-    alert(window.innerWidth);
     this.vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${this.vh}px`);
   }

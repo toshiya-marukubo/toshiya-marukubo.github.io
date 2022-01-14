@@ -15,7 +15,6 @@
   transition: visibility ease-in-out 1.6s, opacity ease-in-out 1.6s;
 }
 .circle {
-  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0, 0);
@@ -24,6 +23,7 @@
   background: #FFF;
   border-radius: 50%;
   opacity: 0;
+  visibility: visible;
   animation: circle-animation 1.6s ease-in-out 0s infinite normal none;
 }
 .loading.loaded {
