@@ -123,16 +123,23 @@ class Sketch {
       );
     this.camera.position.set(0, 200, this.dist / 3);
     this.camera.lookAt(new THREE.Vector3());
+
+    this.cameraV = new THREE.Vector3();
+    this.cameraP = new THREE.Vector3();
     
     this.scene.add(this.camera);
   }
   
   updateCamera(time) {
+    this.cameraV.subVectors(this.mouse.mouse, this.cameraP).multiplyScalar(0.05);
+    this.cameraP.add(this.cameraV);
+
     this.camera.position.set(
-      this.mouse.mouse.x * 300,
-      this.mouse.mouse.y * 500,
-      this.dist
+      this.cameraP.x * this.dist,
+      this.cameraP.y * this.dist,
+      this.dist 
     );
+
     this.camera.lookAt(new THREE.Vector3());
   }
   

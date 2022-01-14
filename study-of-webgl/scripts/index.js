@@ -223,7 +223,7 @@ class Sketch {
     this.cameraP.add(this.cameraV);
     
     this.camera.position.set(
-      this.cameraP.x * 300,
+      this.cameraP.x * this.dist,
       Math.max(this.cameraP.y * 150, -150),
       this.dist * (1 + this.mouse.delta) 
     );

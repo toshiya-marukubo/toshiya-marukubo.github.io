@@ -256,17 +256,23 @@ class Sketch {
       );
     this.camera.position.set(0, 0, 2);
     this.camera.lookAt(new THREE.Vector3());
+
+    this.cameraV = new THREE.Vector3();
+    this.cameraP = new THREE.Vector3();
     
     this.scene.add(this.camera);
-    //this.controls = new OrbitControls(this.camera, this.renderer.domElement);
   }
   
   updateCamera(time) {
+    this.cameraV.subVectors(this.mouse.mouse, this.cameraP).multiplyScalar(0.05);
+    this.cameraP.add(this.cameraV);
+    
     this.camera.position.set(
-      this.mouse.mouse.x,
-      this.mouse.mouse.y,
+      this.cameraP.x * 2,
+      this.cameraP.y * 2,
       2
     );
+
     this.camera.lookAt(new THREE.Vector3());
   }
   
