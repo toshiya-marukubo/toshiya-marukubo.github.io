@@ -32,7 +32,6 @@ class FullScreen {
 
 (() => {
   window.addEventListener('load', () => {
-    alert(window.innerWidth);
     new FullScreen();
   });
 })();
