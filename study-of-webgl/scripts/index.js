@@ -399,6 +399,14 @@ class Shape {
     const loading = document.getElementsByClassName('loading')[0];
     loading.classList.add('loaded');
 
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+
     new Sketch();
+
+    window.addEventListener('resize', () => {
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    });
   });
 })();
