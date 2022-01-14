@@ -224,9 +224,10 @@ class Sketch {
     
     this.camera.position.set(
       this.cameraP.x * 300,
-      this.cameraP.y * 150,
+      Math.max(this.cameraP.y * 150, -150),
       this.dist * (1 + this.mouse.delta) 
     );
+    
     this.camera.lookAt(new THREE.Vector3());
   }
   
