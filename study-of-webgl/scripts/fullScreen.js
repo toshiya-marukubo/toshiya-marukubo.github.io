@@ -14,6 +14,7 @@
 (() => {
   window.addEventListener('load', () => {
     document.getElementsByClassName('header-container')[0].style.height = window.innerHeight + 'px';
+    alert(window.innerHeight);
 
     window.addEventListener('resize', () => {
       document.getElementsByClassName('header-container')[0].style.height = window.innerHeight + 'px';
