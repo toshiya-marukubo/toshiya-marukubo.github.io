@@ -224,7 +224,7 @@ class Sketch {
 
     this.camera.position.set(
       this.cameraP.x * this.dist,
-      this.cameraP.y * this.dist,
+      this.cameraP.y * this.dist / 2,
       this.dist
     );
 
@@ -512,13 +512,8 @@ class CellAutomaton {
 
 (() => {
   window.addEventListener('load', () => {
-    console.log('HI. I\'m Toshiya Marukubo. Nice to meet you.');
-
-    const loading = document.getElementsByClassName('loading')[0];
-    loading.classList.add('loaded');
-
+    new Loading('loading', 'loaded');
     new FullScreen();
-
     new Sketch();
   });
 })();

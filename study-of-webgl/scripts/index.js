@@ -394,13 +394,8 @@ class Shape {
 
 (() => {
   window.addEventListener('load', () => {
-    console.log('HI. I\'m Toshiya Marukubo. Nice to meet you.');
-
-    const loading = document.getElementsByClassName('loading')[0];
-    loading.classList.add('loaded');
-
+    new Loading('loading', 'loaded');
     new FullScreen();
-    
     new Sketch();
   });
 })();

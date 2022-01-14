@@ -224,13 +224,8 @@ class Shape {
 
 (() => {
   window.addEventListener('load', () => {
-    console.clear();
-
-    const loading = document.getElementsByClassName('loading')[0];
-    loading.classList.add('loaded');
-
+    new Loading('loading', 'loaded');
     new FullScreen();
-
     new Sketch();
   });
 })();
