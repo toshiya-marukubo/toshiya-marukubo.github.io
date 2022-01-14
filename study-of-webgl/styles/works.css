@@ -76,7 +76,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -40%);
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.8);
   z-index: 9998;
   padding: 32px;
   opacity: 0;
