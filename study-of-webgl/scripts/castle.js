@@ -140,7 +140,7 @@ class Sketch {
 
     this.camera.position.set(
       this.cameraP.x * this.dist,
-      this.cameraP.y * this.dist,
+      this.cameraP.y * this.dist / 2,
       this.dist 
     );
 

@@ -71,8 +71,8 @@ body {
 
 .what {
   text-align: left;
-  position: fixed;
-  min-width: 80%;
+  position: absolute;
+  width: 80%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -40%);
@@ -90,7 +90,7 @@ body {
 }
 @media (max-width: 480px) {
   .what {
-    width: 92%;
+    min-width: calc(100% - 64px);
   }
 }
 
