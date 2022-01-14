@@ -1,9 +1,6 @@
-/**
- * class CellAutomaton
- * References
- * Generative Art: A Practical Guide Using Processing / Matt Pearson
- * Thank you so much.
- */
+// References
+// Generative Art: A Practical Guide Using Processing / Matt Pearson
+// Thank you so much.
 class CellAutomaton {
   constructor(ctx, width, height) {
     this.ctx = ctx;

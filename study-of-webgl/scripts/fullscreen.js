@@ -1,25 +1,38 @@
+// Reference
 // https://coliss.com/articles/build-websites/operation/css/viewport-units-on-mobile.html
+// Thank you so much.
 class FullScreen {
   constructor() {
-    this.preHeight = this.height = window.innerHeight;
+    this.preWidth = window.innerWidth;
     this.setupEvents();
     this.initialize();
   }
 
   initialize() {
-    this.vh = this.height * 0.01;
+    this.vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${this.vh}px`);
   }
 
   setupEvents() {
-    window.addEventListener('load', this.onResize.bind(this), false);
+    window.addEventListener('resize', this.onResize.bind(this), false);
   }
 
   onResize() {
-    if (this.preHeight === window.innerHeight) {
+    const w = window.innerWidth;
+
+    if (this.preWidth === w) {
       return;
     }
+
+    this.preWidth = w;
 
     this.initialize();
   }
 }
+
+(() => {
+  window.addEventListener('load', () => {
+    alert(window.innerWidth);
+    new FullScreen();
+  });
+})();
