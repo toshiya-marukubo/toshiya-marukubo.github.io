@@ -219,13 +219,13 @@ class Sketch {
   }
   
   updateCamera(time) {
-    this.cameraV.subVectors(this.mouse.mouse, this.cameraP).multiplyScalar(0.1);
+    this.cameraV.subVectors(this.mouse.mouse, this.cameraP).multiplyScalar(0.05);
     this.cameraP.add(this.cameraV);
     
     this.camera.position.set(
       this.cameraP.x * 300,
       this.cameraP.y * 150,
-      this.dist * (1 + this.mouse.delta)
+      this.dist 
     );
     this.camera.lookAt(new THREE.Vector3());
   }
@@ -385,6 +385,7 @@ class Shape {
 
     const scale = 1 - this.sketch.mouse.delta;
 
+    this.sphereMesh.scale.set(scale, scale, scale);
     this.groundMesh.scale.set(scale, scale, scale);
     this.rainGeometry.setDrawRange(0, Math.max(this.num * scale, 1000));
   }
