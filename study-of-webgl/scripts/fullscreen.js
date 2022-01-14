@@ -9,6 +9,7 @@ class FullScreen {
   }
 
   initialize() {
+    alert(window.innerWidth);
     this.vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${this.vh}px`);
   }
