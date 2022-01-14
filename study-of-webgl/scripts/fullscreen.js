@@ -5,6 +5,7 @@ alert(window.innerWidth);
 
 class FullScreen {
   constructor() {
+    alert(window.innerWidth);
     this.preWidth = window.innerWidth;
     this.setupEvents();
     this.initialize();
