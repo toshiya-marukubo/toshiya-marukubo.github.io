@@ -98,7 +98,7 @@ class Sketch {
     this.renderer.setSize(this.width, this.height);
     this.renderer.setPixelRatio(window.devicePixelRatio);
     //this.renderer.setPixelRatio(1.0);
-    this.renderer.setClearColor('#089DA0', 1.0);
+    this.renderer.setClearColor('#FBDD0A', 1.0);
     
     this.renderer.domElement.style.position = 'fixed';
     this.renderer.domElement.style.top = '0';
@@ -136,7 +136,7 @@ class Sketch {
 
     this.camera.position.set(
       this.cameraP.x * this.dist,
-      this.cameraP.y * this.dist,
+      Math.max(this.cameraP.y * this.dist, 10),
       this.dist 
     );
 
@@ -168,26 +168,36 @@ class Sketch {
   }
   
   setupShape() {
-    this.shapes = new Array();
-    this.size = 30;
+    this.shapes = [];
+    this.size = this.width <= 500 ? 25 : 50;
     this.num = 4;
+    
+    const diff = this.num * this.size / 2 - this.size / 2;
     
     let index = 0;
     
-    for (let y = -this.num; y < this.num; y++) {
-      for (let x = -this.num; x < this.num; x++) {
-        for (let z = -this.num; z < this.num; z++) {
-          const tx = this.size * x + this.size / 2;
-          const ty = this.size * y + this.size / 2;
-          const tz = this.size * z + this.size / 2;
-          const a = Math.atan2(x, y);
-          // sketch, x, y, z, size, index
-          const s = new Shape(this, tx, ty, tz, this.size, a, index++);
-          
-          this.shapes.push(s);
-        }
+    for (let x = -this.num; x < this.num; x++) {
+      for (let z = -this.num; z < this.num; z++) {
+        const tx = this.size * x + this.size / 2;
+        const tz = this.size * z + this.size / 2;
+        const a = Math.atan2(tz, tx);
+        // sketch, x, y, z, size, index
+        const s = new Shape(this, tx, -this.size * 2, tz, this.size, index++, a);
+
+        this.shapes.push(s);
       }
     }
+    
+    // ground
+    this.geometry = new THREE.PlaneGeometry(1000, 1000);
+    this.material = new THREE.MeshBasicMaterial({
+      color: '#FBDD0A',
+      side: THREE.DoubleSide
+    });
+    this.plane = new THREE.Mesh(this.geometry, this.material);
+    this.plane.position.set(0, -this.size * 2, 0);
+    this.plane.rotation.x = 90 * Math.PI / 180;
+    this.scene.add(this.plane);
   }
   
   draw() {
@@ -213,13 +223,14 @@ class Shape {
    * @constructor
    * @param {object} sketch - canvas
    */
-  constructor(sketch, x, y, z, size, a, index) {
+  constructor(sketch, x, y, z, size, index, a) {
     this.sketch = sketch;
-    this.size = size;
-    this.a = a * 0.1;
-    this.index = index;
-    this.color = new THREE.Color(`hsl(${360 * Math.random()}, 80%, 60%)`); 
     this.position = new THREE.Vector3(x, y, z);
+    this.size = size / 2;
+    this.index = index;
+    this.a = a * 0.5;
+    this.height = this.sketch.width <= 500 ? 50 : 100;
+    this.dist = this.position.distanceTo(new THREE.Vector3());
     
     this.initialize();
   }
@@ -228,52 +239,64 @@ class Shape {
    * initialize shape
    */
   initialize() {
-    this.vector = new THREE.Vector3(0, 0, 0);
+    // cylinder mesh
+    this.cylinderGeometry = new THREE.CylinderGeometry(this.size, this.size, this.height, 36, 1, false, 0, Math.PI * 2);
+    this.cylinderMaterial = new THREE.MeshPhongMaterial(this.getMaterial(this.index));
+    this.cylindereMesh = new THREE.Mesh(this.cylinderGeometry, this.cylinderMaterial);
+    this.cylindereMesh.position.set(this.position.x, this.position.y, this.position.z);
     
-    this.dist = this.position.distanceTo(new THREE.Vector3());
+    this.sketch.scene.add(this.cylindereMesh);
     
-    // mesh
-    this.boxGeometry = new THREE.BoxGeometry(this.size, this.size, this.size);
-    this.boxMaterial = new THREE.MeshPhongMaterial({
-      color: this.color
-    });
-    this.boxMesh = new THREE.Mesh(this.boxGeometry, this.boxMaterial);
-    this.boxMesh.position.set(this.position.x, this.position.y, this.position.z);
+    // sphere mesh
+    this.sphereGeometry = new THREE.SphereGeometry(this.size * 0.9, 32, 32);
+    this.sphereMaterial = new THREE.MeshPhongMaterial(this.getMaterial(this.index));
+    this.sphereMesh = new THREE.Mesh(this.sphereGeometry, this.sphereMaterial);
+    this.sphereMesh.position.set(this.position.x, this.position.y + this.height / 2, this.position.z);
     
-    this.sketch.scene.add(this.boxMesh);
+    this.sketch.scene.add(this.sphereMesh);
   }
   
-  updatePosition(time) {
-    let v, s = 1;
+  getMaterial(index) {
+    const i = Math.floor(index % 3);
     
-    //if (this.index % 2 === 0) {
-      s = this.scaling(this.index * this.a * 0.01 - time - this.dist * 0.001, 0.05, 1.0, 1.0 / 4.0) * 0.3 + 1.0;
-      v = this.position.clone().multiplyScalar(s);
-      
-      if (Math.sin(time) > 0) {
-        this.boxMesh.position.set(Math.abs(Math.sin(time)) * v.x + v.x, v.y, v.z);
-      } else {
-        this.boxMesh.position.set(v.x, v.y, v.z);
-      }
-    //} else {
-      /*
-      s = this.scaling(this.index * this.a * 0.01 + time + this.dist * 0.001, 0.05, 1.0, 1.0 / 4.0) * 0.3 + 1.0;
-      v = this.position.clone().multiplyScalar(s);
-      
-      if (Math.sin(time) < 0) {
-        this.boxMesh.position.set(v.x, Math.abs(Math.sin(time)) * v.y + v.y, v.z);
-      } else {
-        this.boxMesh.position.set(v.x, v.y, v.z);
-      }
-      */
-    //}
+    let obj;
     
-    this.boxMesh.scale.set(s, s, s);
+    if (i === 0) {
+      obj = {
+        side: THREE.DoubleSide,
+        color: '#AAFF00',
+        emissive: 0x0,
+        specular: 0xffffff,
+        shininess: 8
+      };
+    }
+    
+    if (i === 1) {
+      obj = {
+        side: THREE.DoubleSide,
+        color: '#FFAA00',
+        emissive: 0x0,
+        specular: 0xffffff,
+        shininess: 8
+      };
+    }
+    
+    if (i === 2) {
+      obj = {
+        side: THREE.DoubleSide,
+        color: '#FF00A9',
+        emissive: 0x0,
+        specular: 0xffffff,
+        shininess: 8
+      };
+    }
+    
+    return obj;
   }
   
-  scaling(t, d, a, f) {
-    
-    return ((2.0 * a) / Math.PI) * Math.atan(Math.sin(2.0 * Math.PI * t * f) / d);
+  updateParameters(time) {
+    this.cylindereMesh.scale.y = Math.abs(Math.sin(this.dist * 0.005 - this.a - time)) * 2 + 1.5;
+    this.sphereMesh.position.y = Math.abs(Math.sin(this.dist * 0.005 - this.a - time)) * this.height * 2.5;
   }
   
   /**
@@ -281,7 +304,7 @@ class Shape {
    * @param {number} time - time 
    */
   render(time) {
-    this.updatePosition(time);
+    this.updateParameters(time);
   }
 }
 

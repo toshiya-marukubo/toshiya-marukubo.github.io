@@ -22,7 +22,7 @@ body {
 .back a,
 .question a {
   display: block;
-  color: #888;
+  color: #999;
   padding: 16px;
   transition: color 0.8s ease-in-out;
 }
@@ -44,10 +44,20 @@ body {
 }
 .works-description h2 {
   font-size: 4rem;
-  padding-bottom: 8px;
+  padding-bottom: 0px;
 }
 .works-description p {
   padding-bottom: 0;
+  display: none;
+}
+@media (min-width: 480px) {
+  .works-description p {
+    display: block;
+  }
+  .works-description h2 {
+    font-size: 4rem;
+    padding-bottom: 8px;
+  }
 }
 
 /**********
@@ -71,8 +81,7 @@ body {
 
 .what {
   text-align: left;
-  position: absolute;
-  width: 80%;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -40%);
@@ -90,7 +99,7 @@ body {
 }
 @media (max-width: 480px) {
   .what {
-    min-width: calc(100% - 64px);
+    width: calc(100% - 64px);
   }
 }
 
@@ -151,20 +160,32 @@ h4 {
   nav
 **********/
 .nav {
+  color: #999;
   white-space: nowrap;
   position: absolute;
-  bottom: 32px;
+  bottom: 15%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
+}
+@media (min-width: 480px) {
+  .nav {
+    transform: translate(-50%, 0);
+    bottom: 32px;
+  }
 }
 .nav ul li {
   font-size: 1.6rem;
 }
 .nav ul li a {
+  color: #999;
   display: block;
   border: 16px solid transparent;
-  border-bottom: 0px;
   background-clip: padding-box;
+}
+@media (min-width: 480px) {
+  .nav ul li a {
+    border-bottom: 0;
+  }
 }
 .nav ul li:first-of-type {
   padding-right: 0;
