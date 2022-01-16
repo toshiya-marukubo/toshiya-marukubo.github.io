@@ -373,8 +373,8 @@ class Sketch {
   
   setupCanvas() {
     this.renderer.setSize(this.width, this.height);
-    this.renderer.setPixelRatio(window.devicePixelRatio);
-    //this.renderer.setPixelRatio(1.0);
+    //this.renderer.setPixelRatio(window.devicePixelRatio);
+    this.renderer.setPixelRatio(1.0);
     this.renderer.setClearColor(0x000000, 1.0);
     
     this.renderer.domElement.style.position = 'fixed';
@@ -499,7 +499,7 @@ class Shape {
       fragmentShader: fragmentShader
     });
     
-    this.num = this.sketch.width < 500 ? 256 : 512;
+    this.num = this.sketch.width < 500 ? 512 : 512;
     
     let positions = new Float32Array(this.num * this.num * 3);
     let reference = new Float32Array(this.num * this.num * 2);
