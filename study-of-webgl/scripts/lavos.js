@@ -499,7 +499,7 @@ class Shape {
       fragmentShader: fragmentShader
     });
     
-    this.num = this.sketch.width < 500 ? 512 : 512;
+    this.num = this.sketch.width < 500 ? 256 : 512;
     
     let positions = new Float32Array(this.num * this.num * 3);
     let reference = new Float32Array(this.num * this.num * 2);
