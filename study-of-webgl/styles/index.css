@@ -121,17 +121,32 @@ h1 {
   font-size: 3.2rem;
   position: absolute;
   top: 32px;
+  left: 0;
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: transform 0.4s 1.6s ease-in-out, opacity 0.4s 1.6s ease-in-out;
+}
+.loading.loaded + .body-container h1 {
+  transform: none;
+  opacity: 1;
 }
 
 .description {
   white-space: nowrap;
   position: absolute;
-  bottom: 15%;
+  bottom: 10%;
   left: 50%;
-  transform: translateX(-50%);
   background: rgba(0, 0, 0, 0.4);
   padding: 32px;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: bottom 0.8s 2.0s ease-in-out, opacity 0.8s 2.0s ease-in-out;
 }
+.loading.loaded + .body-container .description {
+  bottom: 15%;
+  opacity: 1;
+}
+
 h2 {
   font-size: 3.2rem;
   padding-bottom: 16px;
@@ -156,34 +171,63 @@ ul li {
   left: 0;
   border-left: 2px solid #FFF;
   border-bottom: 2px solid #FFF;
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: transform 0.4s 1.8s ease-in-out, opacity 0.4s 1.8s ease-in-out;
+}
+.loading.loaded + .body-container .frame-bottom-left {
+  transform: none;
+  opacity: 1;
 }
 .frame-top-right {
   top: 32px;
   right: 0;
   border-right: 2px solid #FFF;
   border-top: 2px solid #FFF;
+  transform: translateX(100%);
+  opacity: 0;
+  transition: transform 0.4s 1.6s ease-in-out, opacity 0.4s 1.6s ease-in-out;
+}
+.loading.loaded + .body-container .frame-top-right {
+  transform: none;
+  opacity: 1;
 }
 
 .scroll-down {
   font-size: 1.6rem;
   position: absolute;
   bottom: 32px;
-  left: 50%;
-  transform: translate(-50%, -100%);
-  animation: scroll-down-animation 2.4s ease-in-out 0s infinite normal none running;
+  right: 0;
+  transform: translateX(100%);
+  opacity: 0;
+  transition: transform 0.4s 1.8s ease-in-out, opacity 0.4s 1.8s ease-in-out;
+  animation: scroll-down-animation 2.4s ease-in-out 3.8s infinite normal none running;
 }
+.loading.loaded + .body-container .scroll-down {
+  transform: translateX(0);
+  opacity: 1;
+}
+
 @keyframes scroll-down-animation {
   0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  25% {
     opacity: 0;
-    transform: translate(-50%, -100%);
+    transform: translateY(100%);
   }
   50% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  75% {
     opacity: 1;
-    transform: translate(-50%, 0);
+    transform: translateY(0);
   }
   100% {
-    opacity: 0;
-    transform: translate(-50%, 100%);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -195,18 +239,12 @@ ul li {
 }
 
 .works {
-  display: block;
+  display: inline-block;
+  width: 50%;
+  padding: 0 8px;
 }
-@media (min-width: 480px) and (max-width: 768px) {
+@media (min-width: 480px) {
   .works {
-    display: inline-block;
-    width: 50%;
-    padding: 0 8px;
-  }
-}
-@media (min-width: 768px) {
-  .works {
-    display: inline-block;
     width: 33.3%;
     padding: 0 8px;
   }
@@ -254,10 +292,18 @@ ul li {
   width: 100%;
 }
 .title {
+  display: none;
   padding-bottom: 8px;
   font-size: 1.6rem;
 }
 .date {
+  display: none;
   padding-bottom: 16px;
   font-size: 1.2rem;
+}
+@media (min-width: 480px) {
+  .title,
+  .date {
+    display: block;
+  }
 }

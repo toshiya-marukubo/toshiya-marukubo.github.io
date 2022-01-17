@@ -15,9 +15,23 @@ body {
 }
 .back {
   left: 0;
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: transform 0.4s 2.0s ease-in-out, opacity 0.4s 2.0s ease-in-out;
+}
+.loading.loaded + .body-container .back {
+  transform: translateX(0);
+  opacity: 1;
 }
 .question {
   right: 0;
+  transform: translateX(100%);
+  opacity: 0;
+  transition: transform 0.4s 2.0s ease-in-out, opacity 0.4s 2.0s ease-in-out;
+}
+.loading.loaded + .body-container .question {
+  transform: translateX(0);
+  opacity: 1;
 }
 .back a,
 .question a {
@@ -41,6 +55,13 @@ body {
   position: absolute;
   right: 0;
   bottom: 32px;
+  transform: translateX(100%);
+  opacity: 0;
+  transition: transform 0.4s 1.8s ease-in-out, opacity 0.4s 1.8s ease-in-out;
+}
+.loading.loaded + .body-container .works-description {
+  transform: translateX(0);
+  opacity: 1;
 }
 .works-description h2 {
   font-size: 4rem;
@@ -196,7 +217,7 @@ h4 {
 .loading.loaded + .body-container .cur {
   opacity: 0;
   transform: translateY(100%);
-  animation: cur-animation 0.8s ease-in-out 1.2s 1 forwards running;
+  animation: cur-animation 0.8s ease-in-out 2.2s 1 forwards running;
 }
 @keyframes cur-animation {
   0% {
@@ -211,12 +232,12 @@ h4 {
 .loading.loaded + .body-container .prev {
   opacity: 0;
   transform: translateX(-100%);
-  animation: prev-animation 0.8s ease-in-out 1.4s 1 forwards running;
+  animation: prev-animation 1.2s ease-in-out 2.4s 1 forwards running;
 }
 .loading.loaded + .body-container .next {
   opacity: 0;
   transform: translateX(100%);
-  animation: next-animation 0.8s ease-in-out 1.4s 1 forwards running;
+  animation: next-animation 1.2s ease-in-out 2.4s 1 forwards running;
 }
 @keyframes prev-animation {
   0% {

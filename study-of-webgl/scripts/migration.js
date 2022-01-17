@@ -3,7 +3,6 @@ const vertexShader = `
 attribute vec2 reference;
 
 uniform float uTime;
-uniform bool uPressed;
 uniform sampler2D texturePosition;
 
 varying vec3 vPosition;
@@ -14,20 +13,12 @@ float PI = 3.14159265359;
 
 void main(){
   vec3 pos = texture2D(texturePosition, reference).xyz;
-  
-  float dist = length(pos);
-  // Referred to https://t.co/9RSKLLVOrB?amp=1
-  float shrink = 2.0 / PI * atan(sin(PI * 2.0 * (uTime * 0.3 - dist * 0.9) * (1.0 / 4.0)) / 0.1);
-  float scale = 1.0 + shrink * 0.9;
-  
-  pos *= scale;
+  vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
   
   vPosition = pos;
   vUv = reference;
   
-  vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
-  
-  gl_PointSize = 1.0 * (2.0 / - mvPosition.z);
+  gl_PointSize = 50.0 * (50.0 / - mvPosition.z);
   gl_Position = projectionMatrix * mvPosition;
 }
 
@@ -38,8 +29,8 @@ const fragmentShader = `
 uniform float uTime;
 varying vec3 vPosition;
 
-// Simplex 3D Noise 
-// by Ian McEwan, Ashima Arts
+//	Simplex 3D Noise 
+//	by Ian McEwan, Ashima Arts
 vec4 permute(vec4 x){return mod(((x*34.0)+1.0)*x, 289.0);}
 vec4 taylorInvSqrt(vec4 r){return 1.79284291400159 - 0.85373472095314 * r;}
 
@@ -112,7 +103,7 @@ float snoise(vec3 v){
                                 dot(p2,x2), dot(p3,x3) ) );
 }
 
-const float scale = 0.1;
+const float scale = 0.001;
 
 void main () {
   /**
@@ -121,8 +112,8 @@ void main () {
    * https://qiita.com/uma6661/items/20accc9b5fb9845fc73a
    * Thank you so much.
    */
-  //float f = length(gl_PointCoord - vec2(0.5, 0.5));
-  //if (f > 0.1) discard;
+  float f = length(gl_PointCoord - vec2(0.5, 0.5));
+  if (f > 0.1) discard;
   
   vec3 color;
   color.r = abs(snoise(vec3(vPosition.x * scale, vPosition.y * scale, uTime * 0.1)));
@@ -130,6 +121,7 @@ void main () {
   color.b = abs(snoise(vec3(vPosition.x * scale, vPosition.y * scale, uTime * 0.3)));
   
   gl_FragColor = vec4(color, 1.0);
+  
 }
 
 `;
@@ -137,11 +129,9 @@ void main () {
 /** fragment simulation */
 const positionSimulation = `
 uniform float uTime;
-uniform float uScale;
 
 //	Simplex 4D Noise 
 //	by Ian McEwan, Ashima Arts
-//
 vec4 permute(vec4 x){return mod(((x*34.0)+1.0)*x, 289.0);}
 float permute(float x){return floor(mod(((x*34.0)+1.0)*x, 289.0));}
 vec4 taylorInvSqrt(vec4 r){return 1.79284291400159 - 0.85373472095314 * r;}
@@ -162,22 +152,20 @@ vec4 grad4(float j, vec4 ip){
 float snoise(vec4 v){
   const vec2  C = vec2( 0.138196601125010504,  // (5 - sqrt(5))/20  G4
                         0.309016994374947451); // (sqrt(5) - 1)/4   F4
-// First corner
+  // First corner
   vec4 i  = floor(v + dot(v, C.yyyy) );
   vec4 x0 = v -   i + dot(i, C.xxxx);
 
-// Other corners
-
-// Rank sorting originally contributed by Bill Licea-Kane, AMD (formerly ATI)
+  // Other corners
+  // Rank sorting originally contributed by Bill Licea-Kane, AMD (formerly ATI)
   vec4 i0;
-
   vec3 isX = step( x0.yzw, x0.xxx );
   vec3 isYZ = step( x0.zww, x0.yyz );
-//  i0.x = dot( isX, vec3( 1.0 ) );
+  // i0.x = dot( isX, vec3( 1.0 ) );
   i0.x = isX.x + isX.y + isX.z;
   i0.yzw = 1.0 - isX;
 
-//  i0.y += dot( isYZ.xy, vec2( 1.0 ) );
+  // i0.y += dot( isYZ.xy, vec2( 1.0 ) );
   i0.y += isYZ.x + isYZ.y;
   i0.zw += 1.0 - isYZ.xy;
 
@@ -189,13 +177,13 @@ float snoise(vec4 v){
   vec4 i2 = clamp( i0-1.0, 0.0, 1.0 );
   vec4 i1 = clamp( i0-2.0, 0.0, 1.0 );
 
-  //  x0 = x0 - 0.0 + 0.0 * C 
+  // x0 = x0 - 0.0 + 0.0 * C 
   vec4 x1 = x0 - i1 + 1.0 * C.xxxx;
   vec4 x2 = x0 - i2 + 2.0 * C.xxxx;
   vec4 x3 = x0 - i3 + 3.0 * C.xxxx;
   vec4 x4 = x0 - 1.0 + 4.0 * C.xxxx;
 
-// Permutations
+  // Permutations
   i = mod(i, 289.0); 
   float j0 = permute( permute( permute( permute(i.w) + i.z) + i.y) + i.x);
   vec4 j1 = permute( permute( permute( permute (
@@ -203,19 +191,17 @@ float snoise(vec4 v){
            + i.z + vec4(i1.z, i2.z, i3.z, 1.0 ))
            + i.y + vec4(i1.y, i2.y, i3.y, 1.0 ))
            + i.x + vec4(i1.x, i2.x, i3.x, 1.0 ));
-// Gradients
-// ( 7*7*6 points uniformly over a cube, mapped onto a 4-octahedron.)
-// 7*7*6 = 294, which is close to the ring size 17*17 = 289.
-
-  vec4 ip = vec4(1.0/294.0, 1.0/49.0, 1.0/7.0, 0.0) ;
-
+  // Gradients
+  // ( 7*7*6 points uniformly over a cube, mapped onto a 4-octahedron.)
+  // 7*7*6 = 294, which is close to the ring size 17*17 = 289.
+  vec4 ip = vec4(1.0/294.0, 1.0/49.0, 1.0/7.0, 0.0);
   vec4 p0 = grad4(j0,   ip);
   vec4 p1 = grad4(j1.x, ip);
   vec4 p2 = grad4(j1.y, ip);
   vec4 p3 = grad4(j1.z, ip);
   vec4 p4 = grad4(j1.w, ip);
 
-// Normalise gradients
+  // Normalise gradients
   vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3)));
   p0 *= norm.x;
   p1 *= norm.y;
@@ -223,42 +209,34 @@ float snoise(vec4 v){
   p3 *= norm.w;
   p4 *= taylorInvSqrt(dot(p4,p4));
 
-// Mix contributions from the five corners
+  // Mix contributions from the five corners
   vec3 m0 = max(0.6 - vec3(dot(x0,x0), dot(x1,x1), dot(x2,x2)), 0.0);
   vec2 m1 = max(0.6 - vec2(dot(x3,x3), dot(x4,x4)            ), 0.0);
   m0 = m0 * m0;
   m1 = m1 * m1;
   return 49.0 * ( dot(m0*m0, vec3( dot( p0, x0 ), dot( p1, x1 ), dot( p2, x2 )))
                + dot(m1*m1, vec2( dot( p3, x3 ), dot( p4, x4 ) ) ) ) ;
-
 }
 
-
-const float scale = 0.05;
-float PI = 3.14159265359;
+const float scale = 0.01;
 
 void main () {
   vec2 uv = gl_FragCoord.xy / resolution.xy;
   vec4 tmpPos = texture2D(texturePosition, uv);
   vec4 tmpVel = texture2D(textureVelocity, uv);
-  vec4 pos = tmpPos.xyzw;
-  vec4 vel = tmpVel.xyzw;
+  vec3 pos = tmpPos.xyz;
+  vec3 vel = tmpVel.xyz;
   
-  float noisyX = snoise(vec4(pos.x * uScale, pos.y / uScale, pos.z / uScale, uTime));
-  float noisyY = snoise(vec4(pos.x / uScale, pos.y * uScale, pos.z / uScale, uTime));
-  float noisyZ = snoise(vec4(pos.x / uScale, pos.y / uScale, pos.z * uScale, uTime));
+  float noisy = snoise(vec4(pos.x * scale, pos.y * scale, pos.z * scale, uTime));
   
-  pos.x += (noisyX + tmpVel.x) * scale;
-  pos.y += (noisyY + tmpVel.y) * scale;
-  pos.z += (noisyZ + tmpVel.z) * scale;
+  pos.x += noisy + vel.x * 0.1;
+  pos.y += noisy + vel.y * 0.1;
+  pos.z += noisy + vel.z * 0.1;
+  pos.x += 1.0;
   
-  if (length(pos.xyz) > 5.0) {
-    pos.x = 0.0;
-    pos.y = 0.0;
-    pos.z = 0.0;
-  }
+  if (pos.x > resolution.x / 2.0) pos.x = 0.0 - resolution.x / 2.0;
   
-  gl_FragColor = pos;
+  gl_FragColor = vec4(pos, 1.0);
 }
 `;
 
@@ -266,12 +244,10 @@ const velocitySimulation = `
 void main() {
   vec2 uv = gl_FragCoord.xy / resolution.xy;
   //float idParticle = uv.y * resolution.x + uv.x;
-  vec4 tmpVel = texture2D(textureVelocity, uv);
-  vec4 tmpPos = texture2D(texturePosition, uv);
-  vec4 pos = tmpPos.xyzw;
-  vec4 vel = tmpVel.xyzw;
-  
-  gl_FragColor = vel;
+  vec4 tmpVel = texture2D( textureVelocity, uv );
+  vec3 vel = tmpVel.xyz;
+
+  gl_FragColor = vec4(vel.xyz, 1.0);
 }
 `;
 
@@ -412,9 +388,9 @@ class Sketch {
     this.cameraP.add(this.cameraV);
 
     this.camera.position.set(
-      this.cameraP.x * 3,
-      this.cameraP.y * 3,
-      3 
+      this.cameraP.x * this.dist,
+      this.cameraP.y * this.dist,
+      this.dist
     );
 
     this.camera.lookAt(new THREE.Vector3());
@@ -488,8 +464,7 @@ class Shape {
     this.material = new THREE.ShaderMaterial({
       side: THREE.DoubleSide,
       uniforms: {
-        uTime: {type: 'f', value: 0},
-        uPressed: {value: this.sketch.pressed},
+        uTime: {type: 'f', tvalue: 0},
         texturePosition: {type: 'v4', value: null},
         textureVelocity: {type: 'v4', value: null},
       },
@@ -499,7 +474,7 @@ class Shape {
       fragmentShader: fragmentShader
     });
     
-    this.num = this.sketch.width < 500 ? 512 : 512;
+    this.num = this.sketch.width < 500 ? 200 : 400;
     
     let positions = new Float32Array(this.num * this.num * 3);
     let reference = new Float32Array(this.num * this.num * 2);
@@ -528,8 +503,9 @@ class Shape {
     
     this.dataTexturePosition = this.gpuCompute.createTexture();
     this.dataTextureVelocity = this.gpuCompute.createTexture();
+
     this.dataTexturePosition.needsUpdate = true;
-    this.dataTextureVelocity.needsUpdate = true; 
+    this.dataTextureVelocity.needsUpdate = true;
     
     this.setPositions(this.dataTexturePosition);
     this.setVelocities(this.dataTextureVelocity);
@@ -541,8 +517,7 @@ class Shape {
     this.gpuCompute.setVariableDependencies( this.velocityVariable, [ this.positionVariable, this.velocityVariable ] );
     this.gpuCompute.setVariableDependencies( this.positionVariable, [ this.positionVariable, this.velocityVariable ] );
     
-    this.positionVariable.material.uniforms['uTime'] = {type: 'f', value: 0};
-    this.positionVariable.material.uniforms['uScale'] = {type: 'f', value: 0.001};
+    this.positionVariable.material.uniforms['uTime'] = {value: 0};
     this.gpuCompute.init();
   }
   
@@ -550,12 +525,10 @@ class Shape {
     const arr = texture.image.data;
     
     for (let i = 0; i < arr.length; i += 4) {
-      const r = Math.PI * 2 * Math.random();
-      const rand = Math.random();
-      arr[i + 0] = Math.cos(r) * rand;
-      arr[i + 1] = Math.sin(r) * rand;
-      arr[i + 2] = Math.sin(Math.PI * 2 * Math.random()) * Math.random();
-      arr[i + 3] = 0.0;
+      arr[i + 0] = Math.random() * 2 - 1;
+      arr[i + 1] = Math.random() * 2 - 1;
+      arr[i + 2] = Math.random() * 2 - 1;
+      arr[i + 3] = 1;
     }
   }
   
@@ -563,13 +536,10 @@ class Shape {
     const arr = texture.image.data;
     
     for (let i = 0; i < arr.length; i += 4) {
-      const r = Math.random();
-      const x = 0.0;
-      const y = 0.0;
-      arr[i + 0] = 0.0;
-      arr[i + 1] = 0.0;
-      arr[i + 2] = 0.0;
-      arr[i + 3] = r;
+      arr[i + 0] = Math.random() * this.sketch.width - this.sketch.width / 2;
+      arr[i + 1] = Math.random() * this.sketch.height - this.sketch.height / 2;
+      arr[i + 2] = Math.random() * 500 - 250;
+      arr[i + 3] = 1;
     }
   }
   
@@ -580,20 +550,10 @@ class Shape {
   update(time) {
     this.gpuCompute.compute();
     
-    this.material.uniforms.texturePosition.value =
-      this.gpuCompute.getCurrentRenderTarget(this.positionVariable).texture;
-    this.material.uniforms.textureVelocity.value =
-      this.gpuCompute.getCurrentRenderTarget(this.velocityVariable).texture;
+    this.material.uniforms.texturePosition.value = this.gpuCompute.getCurrentRenderTarget(this.positionVariable).texture;
+    this.material.uniforms.textureVelocity.value = this.gpuCompute.getCurrentRenderTarget(this.velocityVariable).texture;
     
     this.mesh.material.uniforms.uTime.value = time;
-    this.mesh.material.uniforms.uPressed.value = this.sketch.pressed;
-
-    //this.mesh.rotation.x = time * 0.1;
-    //this.mesh.rotation.z = time * 0.2;
-    
-    // does not pass time to positionVariable
-    this.positionVariable.material.uniforms.uTime.value = time;
-    this.positionVariable.material.uniforms.uScale.value = (time * 0.1 + 0.0001) % 15.0;
   }
 }
 
