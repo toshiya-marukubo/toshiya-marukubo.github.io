@@ -138,7 +138,7 @@ h1 {
   right: 0;
   transform: translateX(100%);
   opacity: 0;
-  transition: transform 0.4s 1.6s ease-in-out, opacity 0.4s 1.6s ease-in-out;
+  transition: transform 0.4s 1.8s ease-in-out, opacity 0.4s 1.8s ease-in-out;
 }
 .count p {
   font-size: 2.4rem;
