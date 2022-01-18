@@ -404,9 +404,10 @@ class Shape {
 }
 
 (() => {
-  window.addEventListener('load', () => {
+  window.addEventListener('DOMContentLoaded', () => {
     new Loading('loading', 'loaded');
     new FullScreen();
+    new ObserveWorks('works');
     new Sketch();
   });
 })();
