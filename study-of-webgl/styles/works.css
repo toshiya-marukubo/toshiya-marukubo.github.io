@@ -36,7 +36,6 @@ body {
 .back a,
 .question a {
   display: block;
-  color: #999;
   padding: 16px;
   transition: color 0.8s ease-in-out;
 }
@@ -181,7 +180,6 @@ h4 {
   nav
 **********/
 .nav {
-  color: #999;
   white-space: nowrap;
   position: absolute;
   bottom: 15%;
@@ -198,7 +196,6 @@ h4 {
   font-size: 1.6rem;
 }
 .nav ul li a {
-  color: #999;
   display: block;
   border: 16px solid transparent;
   background-clip: padding-box;
