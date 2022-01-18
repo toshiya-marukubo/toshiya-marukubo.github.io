@@ -157,6 +157,7 @@ class Sketch {
     this.setupEvents();
     this.time = new THREE.Clock(true);
     this.mouse = new Mouse(this);
+
     this.initialize();
   }
   
@@ -202,8 +203,7 @@ class Sketch {
   
   setupCanvas() {
     this.renderer.setSize(this.width, this.height);
-    //this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.renderer.setPixelRatio(1.0);
+    this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setClearColor('#001033', 1.0);
     
     this.renderer.domElement.style.position = 'fixed';
@@ -225,14 +225,14 @@ class Sketch {
         fov,
         this.width / this.height,
         0.01,
-        this.dist * 5
+        this.dist * 10
       );
-    this.camera.position.set(0, 0, this.dist);
+    
+    this.cameraV = new THREE.Vector3();
+    this.cameraP = new THREE.Vector3(0, 0, this.dist);
+    this.camera.position.set(this.cameraP);
     this.camera.lookAt(new THREE.Vector3());
 
-    this.cameraV = new THREE.Vector3();
-    this.cameraP = new THREE.Vector3();
-    
     this.scene.add(this.camera);
   }
   
@@ -243,7 +243,7 @@ class Sketch {
     this.camera.position.set(
       this.cameraP.x * this.dist,
       this.cameraP.y * this.dist,
-      this.dist 
+      this.dist
     );
 
     this.camera.lookAt(new THREE.Vector3());
@@ -261,12 +261,28 @@ class Sketch {
   }
   
   setupShape() {
+    this.setupSize();
+
     this.shapes = [];
     this.num = 1;
     
     for (let i = 0; i < this.num; i++) {
-      const s = new Shape(this, 0, 0, 0);
+      const s = new Shape(this, 0, 0, 0, this.cubeSize, this.lineNumber);
       this.shapes.push(s);
+    }
+  }
+
+  setupSize() {
+    this.cubeSize = null;
+    this.lineNumber = null;
+
+    if (this.width <= 768) {
+      this.cubeSize = 120;
+      this.lineNumber = 500;
+    }
+    if (this.width >= 768) {
+      this.cubeSize = 192;
+      this.lineNumber = 1000;
     }
   }
   
@@ -289,17 +305,18 @@ class Sketch {
  * shape class
  */
 class Shape {
-  constructor(sketch) {
+  constructor(sketch, x, y, z, s, ln) {
     this.sketch = sketch;
-    
+    this.position = new THREE.Vector3(x, y, z);
+    this.cubeSize = s;
+    this.lineNumber = ln;
+
     this.initialize();
   }
   
   initialize() {
-    this.size = 150;
-    
     // box
-    this.boxGeometry = new THREE.BoxGeometry(this.size * 0.8, this.size * 0.8, this.size * 0.8, 36, 36, 36);
+    this.boxGeometry = new THREE.BoxGeometry(this.cubeSize * 0.8, this.cubeSize * 0.8, this.cubeSize * 0.8, 36, 36, 36);
     this.boxMaterial = new THREE.ShaderMaterial({
       side: THREE.DoubleSide,
       uniforms: {
@@ -310,30 +327,20 @@ class Shape {
       vertexShader: vertexBoxShader,
       fragmentShader: fragmentBoxShader
     });
+
     this.boxMesh = new THREE.Mesh(this.boxGeometry, this.boxMaterial);
     this.sketch.scene.add(this.boxMesh);
     
     // line
-    this.number = 1000;
-
     this.particleGeometry = new THREE.BufferGeometry();
-    this.positions = new Float32Array(this.number * 3);
-    this.numbers = new Float32Array(this.number);
+    this.positions = new Float32Array(this.lineNumber * 3);
+    this.numbers = new Float32Array(this.lineNumber);
     
-    for (let i = 0; i < this.number; i++) {
-      /*
-      const a = 100;
-      const b = 100;
-      let u = i * Math.PI / 180 * 0.01;
-      
-      const x = (a + b * Math.cos(u)) * Math.cos(i);
-      const y = (a + b * Math.cos(u)) * Math.sin(i);
-      const z = b * Math.sin(u);
-      */
+    for (let i = 0; i < this.lineNumber; i++) {
       this.positions.set([0, 0, 0], i * 3);
     }
     
-    for (let i = 0; i < this.number; i++) {
+    for (let i = 0; i < this.lineNumber; i++) {
       this.numbers.set([i], i);
     }
     
@@ -356,14 +363,14 @@ class Shape {
       fragmentShader: fragmentLineShader
     });
     
-    this.particlePoint = new THREE.Line(this.particleGeometry, this.particleMaterial);
-    this.sketch.scene.add(this.particlePoint);
+    this.linePoint = new THREE.Line(this.particleGeometry, this.particleMaterial);
+    this.sketch.scene.add(this.linePoint);
   }
   
   updateParameters(time) {
-    this.particlePoint.material.uniforms.uTime.value = time;
-    this.particlePoint.material.uniforms.uSize.value = this.size;
-    this.particlePoint.rotation.z = -time;
+    this.linePoint.material.uniforms.uTime.value = time;
+    this.linePoint.material.uniforms.uSize.value = this.cubeSize;
+    this.linePoint.rotation.z = -time;
     
     this.boxMesh.material.uniforms.uTime.value = time;
     this.boxMesh.rotation.z = -time;
@@ -376,7 +383,7 @@ class Shape {
 }
 
 (() => {
-  window.addEventListener('load', () => {
+  window.addEventListener('DOMContentLoaded', () => {
     new Loading('loading', 'loaded');
     new FullScreen();
     new Sketch();

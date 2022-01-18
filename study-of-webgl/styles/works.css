@@ -11,26 +11,25 @@ body {
 .question {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
 }
 .back {
   left: 0;
-  transform: translateX(-100%);
+  transform: translate(-100%, -50%);
   opacity: 0;
   transition: transform 0.4s 2.0s ease-in-out, opacity 0.4s 2.0s ease-in-out;
 }
 .loading.loaded + .body-container .back {
-  transform: translateX(0);
+  transform: translate(0, -50%);
   opacity: 1;
 }
 .question {
   right: 0;
-  transform: translateX(100%);
+  transform: translate(100%, -50%);
   opacity: 0;
   transition: transform 0.4s 2.0s ease-in-out, opacity 0.4s 2.0s ease-in-out;
 }
 .loading.loaded + .body-container .question {
-  transform: translateX(0);
+  transform: translate(0, -50%);
   opacity: 1;
 }
 .back a,

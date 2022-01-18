@@ -73,7 +73,7 @@ void main(){
 }
 `;
 
-/** rain fragment shader */
+// rain fragment shader
 const fragmentRainShader = `
 
 void main () {

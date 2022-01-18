@@ -1,9 +1,7 @@
 // vertex shader source
 const vertexShader = `
 uniform float uTime;
-
 varying vec2 vUv;
-
 float PI = 3.14159265359;
 
 float random (vec2 st) {
@@ -27,7 +25,6 @@ void main(){
 const fragmentShader = `
 uniform sampler2D uImage;
 uniform float uTime;
-
 varying vec2 vUv;
 
 float random (vec2 st) {
@@ -35,7 +32,6 @@ float random (vec2 st) {
                          vec2(12.9898,78.233)))*
         43758.5453123);
 }
-
 
 void main () {  
   vec2 offset = random(vUv) * vec2(0.05, 0.0);
@@ -167,7 +163,6 @@ class Sketch {
   setupCanvas() {
     this.renderer.setSize(this.width, this.height);
     this.renderer.setPixelRatio(window.devicePixelRatio);
-    //this.renderer.setPixelRatio(1.0);
     this.renderer.setClearColor('#000000', 1.0);
     
     this.renderer.domElement.style.position = 'fixed';
@@ -191,11 +186,10 @@ class Sketch {
         0.01,
         this.dist * 10
       );
-    this.camera.position.set(0, this.dist, this.dist);
-    this.camera.lookAt(new THREE.Vector3());
-
     this.cameraV = new THREE.Vector3();
-    this.cameraP = new THREE.Vector3();
+    this.cameraP = new THREE.Vector3(this.dist, 0, this.dist);
+    this.camera.position.set(this.cameraP);
+    this.camera.lookAt(new THREE.Vector3());
     
     this.scene.add(this.camera);
   }
@@ -205,23 +199,12 @@ class Sketch {
     this.cameraP.add(this.cameraV);
 
     this.camera.position.set(
-      this.cameraP.x * this.dist,
-      Math.max(this.cameraP.y * this.dist, 50),
+      this.cameraP.x * this.dist * 2,
+      Math.max(this.cameraP.y * this.dist, this.sphereSize),
       this.dist 
     );
 
     this.camera.lookAt(new THREE.Vector3());
-    
-    this.spotLightV.subVectors(this.mouse.mouse, this.spotLightP).multiplyScalar(0.05);
-    this.spotLightP.add(this.spotLightV);
-
-    this.spotLight.position.set(
-      this.spotLightP.x * this.dist,
-      this.spotLightP.y * this.dist,
-      this.dist 
-    );
-
-    this.spotLight.lookAt(new THREE.Vector3());
   }
   
   setupLight() {
@@ -236,11 +219,38 @@ class Sketch {
     this.spotLightP = new THREE.Vector3();
     this.scene.add(this.spotLight);
   }
+
+  updateLight() {
+    this.spotLightV.subVectors(this.mouse.mouse, this.spotLightP).multiplyScalar(0.05);
+    this.spotLightP.add(this.spotLightV);
+
+    this.spotLight.position.set(
+      this.spotLightP.x * this.dist,
+      Math.max(this.spotLightP.y * this.dist, 50),
+      this.dist 
+    );
+
+    this.spotLight.lookAt(new THREE.Vector3());
+  }
   
   setupShape() {
+    this.setupSize();
+
     this.shapes = [];
-    const s = new Shape(this);
+    const s = new Shape(this, 0, this.sphereSize, 0, this.sphereSize, this.groundSize);
     this.shapes.push(s);
+  }
+
+  setupSize() {
+    this.sphereSize = null;
+    this.groundSize = Math.max(this.width, this.height);
+
+    if (this.width <= 768) {
+      this.sphereSize = 120;
+    }
+    if (this.width >= 768) {
+      this.sphereSize = 150;
+    }
   }
   
   draw() {
@@ -262,28 +272,22 @@ class Sketch {
  * shape class
  */
 class Shape {
-  /**
-   * @constructor
-   * @param {object} sketch - canvas
-   */
-  constructor(sketch) {
+  constructor(sketch, x, y, z, ss, gs) {
     this.sketch = sketch;
-    
+    this.position = new THREE.Vector3(x, y, z);
+    this.sphereSize = ss;
+    this.groundSize = gs;
+
     this.initialize();
   }
   
-  /**
-   * initialize shape
-   */
   initialize() {
     this.texture = new createTexture(this.sketch);
     
-    // box
-    this.size = 150;
-    
+    // sphere
     this.sphereGeometry =
       new THREE.SphereGeometry(
-        this.size, this.size, this.size
+        this.sphereSize, 64, 64
       );
     
     this.sphereMaterial = new THREE.ShaderMaterial({
@@ -297,7 +301,7 @@ class Shape {
     });
     
     this.sphereMesh = new THREE.Mesh(this.sphereGeometry, this.sphereMaterial);
-    this.sphereMesh.position.y = this.size;
+    this.sphereMesh.position.y = this.sphereSize;
     this.sphereMesh.rotation.z = -90 * Math.PI / 180;
     
     this.sketch.scene.add(this.sphereMesh);
@@ -305,7 +309,7 @@ class Shape {
     // ground
     this.length = Math.max(this.sketch.width, this.sketch.height) * 3;
     
-    this.groundGeometry = new THREE.PlaneGeometry(this.length, this.length, 100);
+    this.groundGeometry = new THREE.PlaneGeometry(this.length, this.length, 128);
     this.groundMaterial = new THREE.ShaderMaterial({
       side: THREE.DoubleSide,
       uniforms: {
@@ -323,10 +327,6 @@ class Shape {
     this.sketch.scene.add(this.groundMesh);
   }
   
-  /**
-   * render shape
-   * @param {number} time - time 
-   */
   render(time) {
     this.sphereMesh.material.uniforms.uTime.value = time;
     this.groundMesh.material.uniforms.uTime.value = time;
@@ -344,8 +344,8 @@ class createTexture {
     this.canvas = document.createElement('canvas');
     this.ctx = this.canvas.getContext('2d');
     
-    this.length = 400;
-    this.fontSize = 400;
+    this.length = 256;
+    this.fontSize = 256;
     
     this.canvas.width = this.length;
     this.canvas.height = this.length;
@@ -366,6 +366,7 @@ class createTexture {
       return this.drawTexture();
     }
     
+    this.ctx.clearRect(0, 0, this.length, this.length); 
     this.ctx.lineWidth = 20;
     this.ctx.strokeStyle = 'white';
     this.ctx.strokeRect(0, 0, this.length, this.length);
@@ -386,9 +387,9 @@ class createTexture {
 }
 
 (() => {
-  window.addEventListener('load', () => {
-    new Loading('loading', 'loaded');
+  window.addEventListener('DOMContentLoaded', () => {
     new FullScreen();
+    new Loading('loading', 'loaded');
     new Sketch();
   });
 })();
