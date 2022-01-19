@@ -387,7 +387,7 @@ class createTexture {
 }
 
 (() => {
-  window.addEventListener('DOMContentLoaded', () => {
+  window.addEventListener('load', () => {
     new FullScreen();
     new Loading('loading', 'loaded');
     new Sketch();

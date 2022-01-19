@@ -97,7 +97,6 @@ class Sketch {
   setupCanvas() {
     this.renderer.setSize(this.width, this.height);
     this.renderer.setPixelRatio(window.devicePixelRatio);
-    //this.renderer.setPixelRatio(1.0);
     this.renderer.setClearColor('#089DA0', 1.0);
     
     this.renderer.domElement.style.position = 'fixed';
@@ -119,13 +118,13 @@ class Sketch {
         fov,
         this.width / this.height,
         0.01,
-        this.dist * 5
+        this.dist * 10
       );
-    this.camera.position.set(0, 200, this.dist / 3);
-    this.camera.lookAt(new THREE.Vector3());
-
+    
     this.cameraV = new THREE.Vector3();
-    this.cameraP = new THREE.Vector3();
+    this.cameraP = new THREE.Vector3(0, 0, this.dist);
+    this.camera.position.set(this.cameraP);
+    this.camera.lookAt(new THREE.Vector3());
     
     this.scene.add(this.camera);
   }
@@ -141,8 +140,26 @@ class Sketch {
     );
 
     this.camera.lookAt(new THREE.Vector3());
+  }
+  
+  setupLight() {
+    // directinal light
+    this.directionalLight = new THREE.DirectionalLight(0xffffff);
+    this.scene.add(this.directionalLight);
+
+    // point light
+    this.spotLight = new THREE.SpotLight(0xffffff);
     
-    this.spotLightV.subVectors(this.mouse.mouse, this.spotLightP).multiplyScalar(0.05);
+    this.spotLightV = new THREE.Vector3();
+    this.spotLightP = new THREE.Vector3(0, 0, this.dist);
+    this.spotLight.position.set(this.spotLightP);
+    this.spotLight.lookAt(new THREE.Vector3());
+    
+    this.scene.add(this.spotLight);
+  }
+
+  updateLight(time) {
+    this.spotLightV.subVectors(this.mouse.mouse, this.spotLightP).multiplyScalar(0.08);
     this.spotLightP.add(this.spotLightV);
 
     this.spotLight.position.set(
@@ -154,22 +171,10 @@ class Sketch {
     this.spotLight.lookAt(new THREE.Vector3());
   }
   
-  setupLight() {
-    // directinal light
-    this.directionalLight = new THREE.DirectionalLight(0xffffff);
-    this.scene.add(this.directionalLight);
-
-    // point light
-    this.spotLight = new THREE.SpotLight(0xffffff);
-    this.spotLight.position.set(0, 0, this.dist);
-    this.spotLightV = new THREE.Vector3();
-    this.spotLightP = new THREE.Vector3();
-    this.scene.add(this.spotLight);
-  }
-  
   setupShape() {
+    this.setupSize();
+
     this.shapes = new Array();
-    this.size = 30;
     this.num = 4;
     
     let index = 0;
@@ -189,6 +194,17 @@ class Sketch {
       }
     }
   }
+
+  setupSize() {
+    this.size = null;
+  
+    if (this.width <= 768) {
+      this.size = 15;
+    }
+    if (this.width >= 768) {
+      this.size = 20;
+    }
+  }
   
   draw() {
     const time = this.time.getElapsedTime();
@@ -198,6 +214,7 @@ class Sketch {
     }
 
     this.updateCamera(time);
+    this.updateLight(time);
     
     this.renderer.render(this.scene, this.camera);
     
@@ -209,10 +226,6 @@ class Sketch {
  * shape class
  */
 class Shape {
-  /**
-   * @constructor
-   * @param {object} sketch - canvas
-   */
   constructor(sketch, x, y, z, size, a, index) {
     this.sketch = sketch;
     this.size = size;
@@ -224,9 +237,6 @@ class Shape {
     this.initialize();
   }
   
-  /**
-   * initialize shape
-   */
   initialize() {
     this.vector = new THREE.Vector3(0, 0, 0);
     
@@ -246,40 +256,22 @@ class Shape {
   updatePosition(time) {
     let v, s = 1;
     
-    //if (this.index % 2 === 0) {
-      s = this.scaling(this.index * this.a * 0.01 - time - this.dist * 0.001, 0.05, 1.0, 1.0 / 4.0) * 0.3 + 1.0;
-      v = this.position.clone().multiplyScalar(s);
-      
-      if (Math.sin(time) > 0) {
-        this.boxMesh.position.set(Math.abs(Math.sin(time)) * v.x + v.x, v.y, v.z);
-      } else {
-        this.boxMesh.position.set(v.x, v.y, v.z);
-      }
-    //} else {
-      /*
-      s = this.scaling(this.index * this.a * 0.01 + time + this.dist * 0.001, 0.05, 1.0, 1.0 / 4.0) * 0.3 + 1.0;
-      v = this.position.clone().multiplyScalar(s);
-      
-      if (Math.sin(time) < 0) {
-        this.boxMesh.position.set(v.x, Math.abs(Math.sin(time)) * v.y + v.y, v.z);
-      } else {
-        this.boxMesh.position.set(v.x, v.y, v.z);
-      }
-      */
-    //}
+    s = this.scaling(this.index * this.a * 0.01 - time - this.dist * 0.001, 0.05, 1.0, 1.0 / 4.0) * 0.3 + 1.0;
+    v = this.position.clone().multiplyScalar(s);
+    
+    if (Math.sin(time) > 0) {
+      this.boxMesh.position.set(Math.abs(Math.sin(time)) * v.x + v.x, v.y, v.z);
+    } else {
+      this.boxMesh.position.set(v.x, v.y, v.z);
+    }
     
     this.boxMesh.scale.set(s, s, s);
   }
   
   scaling(t, d, a, f) {
-    
     return ((2.0 * a) / Math.PI) * Math.atan(Math.sin(2.0 * Math.PI * t * f) / d);
   }
   
-  /**
-   * render shape
-   * @param {number} time - time 
-   */
   render(time) {
     this.updatePosition(time);
   }

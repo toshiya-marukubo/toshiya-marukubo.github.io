@@ -97,7 +97,6 @@ class Sketch {
   setupCanvas() {
     this.renderer.setSize(this.width, this.height);
     this.renderer.setPixelRatio(window.devicePixelRatio);
-    //this.renderer.setPixelRatio(1.0);
     this.renderer.setClearColor('#FBDD0A', 1.0);
     
     this.renderer.domElement.style.position = 'fixed';
@@ -119,13 +118,13 @@ class Sketch {
         fov,
         this.width / this.height,
         0.01,
-        this.dist * 5
+        this.dist * 10
       );
-    this.camera.position.set(0, 200, this.dist / 3);
-    this.camera.lookAt(new THREE.Vector3());
-
+    
     this.cameraV = new THREE.Vector3();
-    this.cameraP = new THREE.Vector3();
+    this.cameraP = new THREE.Vector3(0, this.dist * 0.005, this.dist);
+    this.camera.position.set(this.cameraP);
+    this.camera.lookAt(new THREE.Vector3());
     
     this.scene.add(this.camera);
   }
@@ -141,17 +140,6 @@ class Sketch {
     );
 
     this.camera.lookAt(new THREE.Vector3());
-    
-    this.spotLightV.subVectors(this.mouse.mouse, this.spotLightP).multiplyScalar(0.05);
-    this.spotLightP.add(this.spotLightV);
-
-    this.spotLight.position.set(
-      this.spotLightP.x * this.dist,
-      this.spotLightP.y * this.dist,
-      this.dist 
-    );
-
-    this.spotLight.lookAt(new THREE.Vector3());
   }
   
   setupLight() {
@@ -161,18 +149,33 @@ class Sketch {
 
     // point light
     this.spotLight = new THREE.SpotLight(0xffffff);
-    this.spotLight.position.set(0, 0, this.dist);
+    
     this.spotLightV = new THREE.Vector3();
-    this.spotLightP = new THREE.Vector3();
+    this.spotLightP = new THREE.Vector3(this.dist * 0.005, this.dist * 0.005, this.dist);
+    this.spotLight.position.set(this.spotLightP);
+    this.spotLight.lookAt(new THREE.Vector3());
+
     this.scene.add(this.spotLight);
+  }
+
+  updateLight() {
+    this.spotLightV.subVectors(this.mouse.mouse, this.spotLightP).multiplyScalar(0.05);
+    this.spotLightP.add(this.spotLightV);
+
+    this.spotLight.position.set(
+      this.spotLightP.x * this.dist,
+      Math.max(this.spotLightP.y * this.dist, 10),
+      this.dist 
+    );
+
+    this.spotLight.lookAt(new THREE.Vector3());
   }
   
   setupShape() {
+    this.setupSize();
+
     this.shapes = [];
-    this.size = this.width <= 500 ? 25 : 50;
     this.num = 4;
-    
-    const diff = this.num * this.size / 2 - this.size / 2;
     
     let index = 0;
     
@@ -182,7 +185,7 @@ class Sketch {
         const tz = this.size * z + this.size / 2;
         const a = Math.atan2(tz, tx);
         // sketch, x, y, z, size, index
-        const s = new Shape(this, tx, -this.size * 2, tz, this.size, index++, a);
+        const s = new Shape(this, tx, -this.size * 2, tz, this.size, this.shapeHeight, index++, a);
 
         this.shapes.push(s);
       }
@@ -199,6 +202,22 @@ class Sketch {
     this.plane.rotation.x = 90 * Math.PI / 180;
     this.scene.add(this.plane);
   }
+
+  setupSize() {
+    this.size = null;
+    this.shapeHeight =  null;
+    this.groundSize = Math.max(this.width * 3, this.height * 3);
+
+    if (this.width <= 768) {
+      this.size = 25;
+      this.shapeHeight = 50;
+    }
+    if (this.width >= 768) {
+      this.size = 40;
+      this.shapeHeight = 80;
+    }
+  }
+ 
   
   draw() {
     const time = this.time.getElapsedTime();
@@ -208,6 +227,7 @@ class Sketch {
     }
 
     this.updateCamera(time);
+    this.updateLight(time);
     
     this.renderer.render(this.scene, this.camera);
     
@@ -219,25 +239,18 @@ class Sketch {
  * shape class
  */
 class Shape {
-  /**
-   * @constructor
-   * @param {object} sketch - canvas
-   */
-  constructor(sketch, x, y, z, size, index, a) {
+  constructor(sketch, x, y, z, size, height, index, a) {
     this.sketch = sketch;
     this.position = new THREE.Vector3(x, y, z);
     this.size = size / 2;
     this.index = index;
     this.a = a * 0.5;
-    this.height = this.sketch.width <= 500 ? 50 : 100;
+    this.height = height;
     this.dist = this.position.distanceTo(new THREE.Vector3());
     
     this.initialize();
   }
   
-  /**
-   * initialize shape
-   */
   initialize() {
     // cylinder mesh
     this.cylinderGeometry = new THREE.CylinderGeometry(this.size, this.size, this.height, 36, 1, false, 0, Math.PI * 2);
@@ -299,10 +312,6 @@ class Shape {
     this.sphereMesh.position.y = Math.abs(Math.sin(this.dist * 0.005 - this.a - time)) * this.height * 2.5;
   }
   
-  /**
-   * render shape
-   * @param {number} time - time 
-   */
   render(time) {
     this.updateParameters(time);
   }

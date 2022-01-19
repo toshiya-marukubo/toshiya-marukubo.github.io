@@ -406,6 +406,7 @@ class Shape {
 (() => {
   window.addEventListener('DOMContentLoaded', () => {
     new FullScreen();
+    new Observe('progress'); 
     new Loading('loading', 'loaded');
     new Sketch();
   });

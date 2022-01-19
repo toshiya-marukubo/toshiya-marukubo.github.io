@@ -74,7 +74,7 @@ void main(){
 }
 `;
 
-/** rain fragment shader */
+// rain fragment shader
 const fragmentRainShader = `
 varying vec3 vPosition;
 
@@ -184,8 +184,7 @@ class Sketch {
   
   setupCanvas() {
     this.renderer.setSize(this.width, this.height);
-    //this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.renderer.setPixelRatio(1.0);
+    this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setClearColor('#EDECE8', 1.0);
     
     this.renderer.domElement.style.position = 'fixed';
@@ -207,13 +206,14 @@ class Sketch {
         fov,
         this.width / this.height,
         0.01,
-        this.dist * 5
+        this.dist * 10
       );
-    this.camera.position.set(0, 0, this.dist);
-    this.camera.lookAt(new THREE.Vector3());
-
+    
     this.cameraV = new THREE.Vector3();
-    this.cameraP = new THREE.Vector3();
+    this.cameraP = new THREE.Vector3(0, 0, this.dist);
+
+    this.camera.position.set(this.cameraP);
+    this.camera.lookAt(new THREE.Vector3());
     
     this.scene.add(this.camera);
   }
@@ -224,7 +224,7 @@ class Sketch {
 
     this.camera.position.set(
       this.cameraP.x * this.dist,
-      this.cameraP.y * this.dist / 2,
+      Math.max(this.cameraP.y * 150, -150),
       this.dist
     );
 
@@ -243,12 +243,29 @@ class Sketch {
   }
   
   setupShape() {
+    this.setupSize();
+
     this.shapes = [];
-    this.num = 1;
     
-    for (let y = 0; y < this.num; y++) {
-      const s = new Shape(this, 0, 0, 0);
+    for (let i = 0; i < 1; i++) {
+      const s = new Shape(this, 0, 0, 0, this.sphereSize, this.rainNumber, this.groundSize);
+      
       this.shapes.push(s);
+    }
+  }
+
+  setupSize() {
+    this.sphereSize = null;
+    this.groundSize = Math.max(this.width, this.height);
+    this.rainNumber = null;
+
+    if (this.width <= 768) {
+      this.sphereSize = 120;
+      this.rainNumber = 5000;
+    }
+    if (this.width >= 768) {
+      this.sphereSize = 192;
+      this.rainNumber = 20000;
     }
   }
   
@@ -271,19 +288,21 @@ class Sketch {
  * shape class
  */
 class Shape {
-  constructor(sketch, x, y, z) {
+  constructor(sketch, x, y, z, s, n, g) {
     this.sketch = sketch;
+    this.sphereSize = s;
+    this.rainNumber = n;
+    this.groundSize = g;
     this.position = new THREE.Vector3(x, y, z);
+    
     this.initialize();
   }
   
   initialize() {
     this.createTexture();
     
-    // sphere
-    const sphereSize = Math.max(Math.min(this.sketch.width / 7, this.sketch.height / 2), 130);
-
-    this.sphereGeometry = new THREE.SphereGeometry(sphereSize, 16, 16);
+    // sphere 
+    this.sphereGeometry = new THREE.SphereGeometry(this.sphereSize, 32, 32);
     this.sphereMaterial = new THREE.ShaderMaterial({
       side: THREE.DoubleSide,
       uniforms: {
@@ -299,18 +318,17 @@ class Shape {
     this.sketch.scene.add(this.sphereMesh);
     
     // rain
-    this.num = this.sketch.width < 480 ? 5000 : 15000; 
     this.rainGeometry = new THREE.BufferGeometry();
-    this.vertices = new Float32Array(this.num * 3);
-    this.numbers = new Float32Array(this.num);
+    this.vertices = new Float32Array(this.rainNumber * 3);
+    this.numbers = new Float32Array(this.rainNumber);
     
-    for (let i = 0; i < this.num * 3; i++) {
+    for (let i = 0; i < this.rainNumber * 3; i++) {
       this.vertices[i * 3 + 0] = Math.random() * this.sketch.width - this.sketch.width / 2;
       this.vertices[i * 3 + 1] = Math.random() * this.sketch.height - this.sketch.height / 2;
       this.vertices[i * 3 + 2] = Math.random() * this.sketch.dist - this.sketch.dist / 2;
     }
     
-    for (let i = 0; i < this.num; i++) {
+    for (let i = 0; i < this.rainNumber; i++) {
       this.numbers[i] = Math.random();
     }
     
@@ -321,10 +339,6 @@ class Shape {
       side: THREE.DoubleSide,
       uniforms: {
         uTime: {type: 'f', value: 0},
-        uResolution: {
-          type: 'v2',
-          value: new THREE.Vector2(this.sketch.width, this.sketch.height)
-        }
       },
       //blending: THREE.AdditiveBlending,
       //transparent: true,
@@ -332,13 +346,12 @@ class Shape {
       fragmentShader: fragmentRainShader
     });
     
-    this.rainPoint = new THREE.Points(this.rainGeometry, this.rainMaterial);
-    this.sketch.scene.add(this.rainPoint);
+    this.rain = new THREE.Points(this.rainGeometry, this.rainMaterial);
+    
+    this.sketch.scene.add(this.rain);
     
     // ground
-    const groundSize = Math.max(this.sketch.width, this.sketch.height);
-
-    this.groundGeometry = new THREE.PlaneGeometry(groundSize, groundSize, 32, 32);
+    this.groundGeometry = new THREE.PlaneGeometry(this.groundSize, this.groundSize, 32, 32);
     this.groundMaterial = new THREE.ShaderMaterial({
       side: THREE.DoubleSide,
       uniforms: {
@@ -350,7 +363,7 @@ class Shape {
     });
     this.groundMesh = new THREE.Mesh(this.groundGeometry, this.groundMaterial);
     this.groundMesh.rotation.x = -90 * Math.PI / 180;
-    this.groundMesh.position.y = -sphereSize;
+    this.groundMesh.position.y = -this.sphereSize;
     
     this.sketch.scene.add(this.groundMesh);
   }
@@ -365,6 +378,7 @@ class Shape {
     this.canvas.height = length;
     
     this.pdm = new CellAutomaton(this.ctx, length, length);
+    
     this.texture = new THREE.CanvasTexture(this.canvas);
   }
   
@@ -377,26 +391,15 @@ class Shape {
   }
   
   render(time) {
-    this.texture.needsUpdate = true;
+    this.texture.needsUpdate = true; // important
     this.updateTexture(time);
     
-    this.rainPoint.material.uniforms.uTime.value = time;
+    this.rain.material.uniforms.uTime.value = time;
     this.groundMesh.material.uniforms.uTime.value = time;
     this.sphereMesh.material.uniforms.uTime.value = time;
-
-    const scale = 1 - this.sketch.mouse.delta;
-
-    this.groundMesh.scale.set(scale, scale, scale);
-    this.rainGeometry.setDrawRange(0, Math.max(this.num * scale, 1000));
   }
 }
 
-/**
- * class CellAutomaton
- * References
- * Generative Art: A Practical Guide Using Processing / Matt Pearson
- * Thank you so much.
- */
 class CellAutomaton {
   constructor(ctx, width, height) {
     this.ctx = ctx;

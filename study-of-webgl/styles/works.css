@@ -228,12 +228,12 @@ h4 {
 .loading.loaded + .body-container .prev {
   opacity: 0;
   transform: translateX(-100%);
-  animation: prev-animation 1.2s ease-in-out 2.4s 1 forwards running;
+  animation: prev-animation 0.8s ease-in-out 2.4s 1 forwards running;
 }
 .loading.loaded + .body-container .next {
   opacity: 0;
   transform: translateX(100%);
-  animation: next-animation 1.2s ease-in-out 2.4s 1 forwards running;
+  animation: next-animation 0.8s ease-in-out 2.4s 1 forwards running;
 }
 @keyframes prev-animation {
   0% {

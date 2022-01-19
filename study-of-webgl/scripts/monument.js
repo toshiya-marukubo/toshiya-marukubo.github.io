@@ -163,7 +163,6 @@ class Sketch {
   setupCanvas() {
     this.renderer.setSize(this.width, this.height);
     this.renderer.setPixelRatio(window.devicePixelRatio);
-    //this.renderer.setPixelRatio(1.0);
     this.renderer.setClearColor('#084C4A', 1.0);
     
     this.renderer.domElement.style.position = 'fixed';
@@ -185,20 +184,19 @@ class Sketch {
         fov,
         this.width / this.height,
         0.01,
-        1000
+        this.dist * 10
       );
-    this.camera.position.set(0, 0, this.dist);
-    this.camera.lookAt(new THREE.Vector3());
 
     this.cameraV = new THREE.Vector3();
-    this.cameraP = new THREE.Vector3();
+    this.cameraP = new THREE.Vector3(this.dist * 0.01, this.dist * 0.01, this.dist);
+    this.camera.position.set(this.cameraP);
+    this.camera.lookAt(new THREE.Vector3());
     
     this.scene.add(this.camera);
-    //this.controls = new OrbitControls(this.camera, this.renderer.domElement);
   }
   
   updateCamera(time) {
-    this.cameraV.subVectors(this.mouse.mouse, this.cameraP).multiplyScalar(0.05);
+    this.cameraV.subVectors(this.mouse.mouse, this.cameraP).multiplyScalar(0.01);
     this.cameraP.add(this.cameraV);
 
     this.camera.position.set(
@@ -222,12 +220,24 @@ class Sketch {
   }
   
   setupShape() {
+    this.setupSize();
+
     this.shapes = [];
-    this.num = 1;
     
-    for (let i = 0; i < this.num; i++) {
-      const s = new Shape(this, 0, 0, 0);
+    for (let i = 0; i < 1; i++) {
+      const s = new Shape(this, 0, 0, 0, this.cubeSize);
       this.shapes.push(s);
+    }
+  }
+
+  setupSize() {
+    this.cubeSize = null;
+
+    if (this.width <= 768) {
+      this.cubeSize = 120;
+    }
+    if (this.width >= 768) {
+      this.cubeSize = 200;
     }
   }
   
@@ -250,18 +260,19 @@ class Sketch {
  * shape class
  */
 class Shape {
-  constructor(sketch, x, y, z) {
+  constructor(sketch, x, y, z, s) {
     this.sketch = sketch;
     this.position = new THREE.Vector3(x, y, z);
+    this.size = s;
+
     this.initialize();
   }
   
   initialize() {
     this.createTexture();
-    this.updateTexture();
     
     // box
-    this.boxGeometry = new THREE.BoxGeometry(200, 200, 200, 36, 36, 36);
+    this.boxGeometry = new THREE.BoxGeometry(this.size, this.size, this.size, 36, 36, 36);
     this.boxMaterial = new THREE.ShaderMaterial({
       side: THREE.DoubleSide,
       uniforms: {
@@ -315,22 +326,6 @@ class Shape {
   });
 })();
 
-/**
- * create multiple array
- */
-const createMultipleArray = (one, two) => {
-  const arr = [];
-
-  for (let y = 0; y < one; y++) {
-    arr[y] = [];
-    for (let x = 0; x < two; x++) {
-      arr[y][x] = 0;
-    }
-  }
-
-  return arr;
-};
-
 class CellAutomaton {
   constructor(ctx, width, height) {
     this.ctx = ctx;
@@ -338,11 +333,24 @@ class CellAutomaton {
     this.height = height;
     this.mod = 3;
 
-    this.state = createMultipleArray(this.height, this.width);
+    this.state = this.createMultArr(this.height, this.width);
 
     this.d = this.ctx.createImageData(this.width, this.height);
 
     this.setupData();
+  }
+
+  createMultArr(one, two) {
+    const arr = [];
+
+    for (let y = 0; y < one; y++) {
+      arr[y] = [];
+      for (let x = 0; x < two; x++) {
+        arr[y][x] = 0;
+      }
+    }
+
+    return arr;
   }
 
   setupData() {
@@ -379,7 +387,7 @@ class CellAutomaton {
   // Referred to 数学から創るジェネラティブアート ―Processingで学ぶかたちのデザイン / 巴山 竜来
   // ありがとうございます。
   updateState() {
-    const array = createMultipleArray(this.height, this.width);
+    const array = this.createMultArr(this.height, this.width);
 
     for (let y = 0; y < this.height; y++) {
       for (let x = 0; x < this.width; x++) {
