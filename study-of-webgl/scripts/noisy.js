@@ -236,9 +236,7 @@ class Sketch {
   setupShape() {
     this.setupSize();
 
-    this.shapes = [];
-    const s = new Shape(this, 0, this.sphereSize, 0, this.sphereSize, this.groundSize);
-    this.shapes.push(s);
+    this.shape = new Shape(this, 0, this.sphereSize, 0, this.sphereSize, this.groundSize);
   }
 
   setupSize() {
@@ -256,9 +254,7 @@ class Sketch {
   draw() {
     const time = this.time.getElapsedTime();
     
-    for (let i = 0; i < this.shapes.length; i++) {
-      this.shapes[i].render(time);
-    }
+    this.shape.render(time);
 
     this.updateCamera(time);
     

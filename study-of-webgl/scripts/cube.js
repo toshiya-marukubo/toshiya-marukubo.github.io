@@ -262,14 +262,8 @@ class Sketch {
   
   setupShape() {
     this.setupSize();
-
-    this.shapes = [];
-    this.num = 1;
     
-    for (let i = 0; i < this.num; i++) {
-      const s = new Shape(this, 0, 0, 0, this.cubeSize, this.lineNumber);
-      this.shapes.push(s);
-    }
+    this.shape = new Shape(this, 0, 0, 0, this.cubeSize, this.lineNumber);
   }
 
   setupSize() {
@@ -289,9 +283,7 @@ class Sketch {
   draw() {
     const time = this.time.getElapsedTime();
     
-    for (let i = 0; i < this.shapes.length; i++) {
-      this.shapes[i].render(time);
-    }
+    this.shape.render(time);
 
     this.updateCamera(time);
     
