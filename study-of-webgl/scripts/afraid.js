@@ -1,4 +1,4 @@
-/** rain vertex shader*/
+// rain vertex shader
 const vertexRainShader = `
 attribute float number;
 
@@ -21,17 +21,17 @@ void main(){
 }
 `;
 
-/** rain fragment shader */
+// rain fragment shader
 const fragmentRainShader = `
 void main () {
   float f = length(gl_PointCoord - vec2(0.5, 0.5));
   if ( f > 0.1 ) discard;
   
-  gl_FragColor = vec4(0.5, 0.8, 1.0, 0.4);
+  gl_FragColor = vec4(0.5, 0.8, 1.0, 0.2);
 }
 `;
 
-/** vertex shader source */
+// vertex shader source
 const vertexShader = `
 attribute vec2 reference;
 
@@ -48,9 +48,9 @@ void main(){
   
   //pos.x = cos(pos.x * 0.1 + uTime) * 10.0 + pos.x;
   //pos.y = sin(pos.y * 0.1 + uTime) * 10.0 + pos.y;
-  pos.z = sin(pos.x * 0.01 + uTime * 0.5) * 50.0 + pos.z;
-  pos.x = cos(pos.y * 0.01 + uTime * 0.5) * 50.0 + pos.x;
-  pos.y = sin(pos.z * 0.01 + uTime * 0.5) * 50.0 + pos.y;
+  pos.z = sin(pos.x * 0.01 + uTime * 0.5) * 30.0 + pos.z;
+  pos.x = cos(pos.y * 0.01 + uTime * 0.5) * 30.0 + pos.x;
+  pos.y = sin(pos.z * 0.01 + uTime * 0.5) * 30.0 + pos.y;
 
   vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
   
@@ -60,7 +60,7 @@ void main(){
 
 `;
 
-/** fragment shader source */
+// fragment shader source
 const fragmentShader = `
 uniform float uTime;
 uniform sampler2D textureState;
@@ -80,13 +80,13 @@ void main () {
       distance(vUv, vec2(0.5)) - uTime * 0.1,
       vec3(0.5,0.5,0.5),vec3(0.5,0.5,0.5),vec3(1.0,1.0,1.0),vec3(0.3,0.20,0.20)
     );
-  //gl_FragColor = vec4(0.5, 0.8, 1.0, color.w / 255.0);
+  
   gl_FragColor = vec4(col, color.w / 255.0);
 }
 
 `;
 
-/** state simulation */
+// state simulation
 const stateSimulation = `
 void main () {
   vec2 uv = gl_FragCoord.xy / resolution.xy;
@@ -267,7 +267,7 @@ class Sketch {
     
     this.setupCanvas();
     this.setupCamera();
-    this.setupLight();
+    //this.setupLight();
     this.setupShape();
     
     this.draw();
@@ -275,8 +275,7 @@ class Sketch {
   
   setupCanvas() {
     this.renderer.setSize(this.width, this.height);
-    //this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.renderer.setPixelRatio(1.0);
+    this.renderer.setPixelRatio(0.75);
     this.renderer.setClearColor(0x072336, 1.0);
     
     this.renderer.domElement.style.position = 'fixed';
@@ -298,39 +297,28 @@ class Sketch {
         fov,
         this.width / this.height,
         0.01,
-        this.dist * 5
+        this.dist * 10
       );
-    this.camera.position.set(0, 200, this.dist / 3);
-    this.camera.lookAt(new THREE.Vector3());
-
+    
     this.cameraV = new THREE.Vector3();
-    this.cameraP = new THREE.Vector3();
+    this.cameraP = new THREE.Vector3(0, this.dist * 0.01, this.dist);
+    this.camera.position.set(this.cameraP);
+    this.camera.lookAt(new THREE.Vector3());
     
     this.scene.add(this.camera);
   }
   
   updateCamera(time) {
-    this.cameraV.subVectors(this.mouse.mouse, this.cameraP).multiplyScalar(0.05);
+    this.cameraV.subVectors(this.mouse.mouse, this.cameraP).multiplyScalar(0.03);
     this.cameraP.add(this.cameraV);
 
     this.camera.position.set(
       this.cameraP.x * this.dist,
       Math.max(this.cameraP.y * this.dist, 100),
-      this.dist * 0.6 
+      this.dist * 0.5 
     );
 
     this.camera.lookAt(new THREE.Vector3());
-    
-    this.spotLightV.subVectors(this.mouse.mouse, this.spotLightP).multiplyScalar(0.05);
-    this.spotLightP.add(this.spotLightV);
-
-    this.spotLight.position.set(
-      this.spotLightP.x * this.dist,
-      this.spotLightP.y * this.dist,
-      this.dist 
-    );
-
-    this.spotLight.lookAt(new THREE.Vector3());
   }
   
   setupLight() {
@@ -371,22 +359,32 @@ class Sketch {
  * shape class
  */
 class Shape {
-  /**
-   * @constructor
-   * @param {object} sketch - canvas
-   */
   constructor(sketch) {
     this.sketch = sketch;
+    this.setupSizes();
+
     this.init();
   }
+
+  setupSizes() {
+    this.groundNum = null;
+    this.rainNum = null;
+
+    if (this.sketch.width < 768) {
+      this.groundNum = 512;
+      this.rainNum = 10000;
+    }
+
+    if (this.sketch.width >= 768) {
+      this.groundNum = 768;
+      this.rainNum = 20000;
+    }
+  }
   
-  /**
-   * initialize shape
-   */
   init() {
     this.initGPGPU();
     
-    /** ground */
+    // ground
     this.geometry = new THREE.BufferGeometry();
     this.material = new THREE.ShaderMaterial({
       side: THREE.DoubleSide,
@@ -400,12 +398,11 @@ class Shape {
       fragmentShader: fragmentShader
     });
     
-    this.groundNum = 512;
     let positions = new Float32Array(this.groundNum * this.groundNum  * 3);
     
     for (let y = 0; y < this.groundNum ; y++) {
       for (let x = 0; x < this.groundNum ; x++) {
-        const index = y * this.groundNum  + x;
+        const index = y * this.groundNum + x;
         
         positions.set([x - this.groundNum  / 2, y - this.groundNum  / 2, 0.0], index * 3);
       }
@@ -415,7 +412,7 @@ class Shape {
     
     for (let y = 0; y < this.groundNum ; y++) {
       for (let x = 0; x < this.groundNum ; x++) {
-        const index = y * this.groundNum  + x;
+        const index = y * this.groundNum + x;
         
         reference.set([x / this.groundNum , y / this.groundNum ], index * 2);
       }
@@ -427,22 +424,22 @@ class Shape {
     this.mesh = new THREE.Points(this.geometry, this.material);
 
     this.mesh.rotation.x = -90 * Math.PI / 180;
+    this.mesh.scale.set(2, 2, 2);
     
     this.sketch.scene.add(this.mesh);
     
-    /** rain */
-    this.num = 20000; 
+    // rain 
     this.rainGeometry = new THREE.BufferGeometry();
-    this.vertices = new Float32Array(this.num * 3);
-    this.numbers = new Float32Array(this.num);
+    this.vertices = new Float32Array(this.rainNum * 3);
+    this.numbers = new Float32Array(this.rainNum);
     
-    for (let i = 0; i < this.num * 3; i++) {
-      this.vertices[i * 3 + 0] = Math.random() * this.groundNum - this.groundNum / 2;
+    for (let i = 0; i < this.rainNum * 3; i++) {
+      this.vertices[i * 3 + 0] = Math.random() * this.groundNum * 2 - this.groundNum;
       this.vertices[i * 3 + 1] = Math.random() * this.groundNum * 2 - this.groundNum;
-      this.vertices[i * 3 + 2] = Math.random() * this.groundNum - this.groundNum / 2;
+      this.vertices[i * 3 + 2] = Math.random() * this.groundNum * 2 - this.groundNum;
     }
     
-    for (let i = 0; i < this.num; i++) {
+    for (let i = 0; i < this.rainNum; i++) {
       this.numbers[i] = Math.random();
     }
     
@@ -469,7 +466,7 @@ class Shape {
   }
   
   initGPGPU() {
-    this.gpuCompute = new GPUComputationRenderer(this.sketch.width, this.sketch.height, this.sketch.renderer).setDataType( THREE.HalfFloatType );
+    this.gpuCompute = new GPUComputationRenderer(THREE, this.sketch.width, this.sketch.height, this.sketch.renderer).setDataType( THREE.HalfFloatType ); // important
     
     this.statesTextureState = this.gpuCompute.createTexture();
     
@@ -523,288 +520,8 @@ class Shape {
   }
 }
 
-/**
- * GPGPU
- * This code from https://github.com/mrdoob/three.js/blob/342946c8392639028da439b6dc0597e58209c696/examples/js/misc/GPUComputationRenderer.js
- */
-class GPUComputationRenderer {
-  constructor(sizeX, sizeY, renderer) {
-    this.variables = [];
-    this.currentTextureIndex = 0;
-    let dataType = THREE.FloatType;
-    const scene = new THREE.Scene();
-    const camera = new THREE.Camera();
-    camera.position.z = 1;
-    const passThruUniforms = {
-      passThruTexture: {
-        value: null
-      }
-    };
-    const passThruShader = createShaderMaterial(
-      getPassThroughFragmentShader(),
-      passThruUniforms
-    );
-    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), passThruShader);
-    scene.add(mesh);
-
-    this.setDataType = function (type) {
-      dataType = type;
-      return this;
-    };
-
-    this.addVariable = function (
-      variableName,
-      computeFragmentShader,
-      initialValueTexture
-    ) {
-      const material = this.createShaderMaterial(computeFragmentShader);
-      const variable = {
-        name: variableName,
-        initialValueTexture: initialValueTexture,
-        material: material,
-        dependencies: null,
-        renderTargets: [],
-        wrapS: null,
-        wrapT: null,
-        minFilter: THREE.NearestFilter,
-        magFilter: THREE.NearestFilter
-      };
-      this.variables.push(variable);
-      return variable;
-    };
-
-    this.setVariableDependencies = function (variable, dependencies) {
-      variable.dependencies = dependencies;
-    };
-
-    this.init = function () {
-      if (
-        renderer.capabilities.isWebGL2 === false &&
-        renderer.extensions.has("OES_texture_float") === false
-      ) {
-        return "No OES_texture_float support for float textures.";
-      }
-
-      if (renderer.capabilities.maxVertexTextures === 0) {
-        return "No support for vertex shader textures.";
-      }
-
-      for (let i = 0; i < this.variables.length; i++) {
-        const variable = this.variables[i]; // Creates rendertargets and initialize them with input texture
-
-        variable.renderTargets[0] = this.createRenderTarget(
-          sizeX,
-          sizeY,
-          variable.wrapS,
-          variable.wrapT,
-          variable.minFilter,
-          variable.magFilter
-        );
-        variable.renderTargets[1] = this.createRenderTarget(
-          sizeX,
-          sizeY,
-          variable.wrapS,
-          variable.wrapT,
-          variable.minFilter,
-          variable.magFilter
-        );
-        this.renderTexture(
-          variable.initialValueTexture,
-          variable.renderTargets[0]
-        );
-        this.renderTexture(
-          variable.initialValueTexture,
-          variable.renderTargets[1]
-        ); // Adds dependencies uniforms to the THREE.ShaderMaterial
-
-        const material = variable.material;
-        const uniforms = material.uniforms;
-
-        if (variable.dependencies !== null) {
-          for (let d = 0; d < variable.dependencies.length; d++) {
-            const depVar = variable.dependencies[d];
-
-            if (depVar.name !== variable.name) {
-              // Checks if variable exists
-              let found = false;
-
-              for (let j = 0; j < this.variables.length; j++) {
-                if (depVar.name === this.variables[j].name) {
-                  found = true;
-                  break;
-                }
-              }
-
-              if (!found) {
-                return (
-                  "Variable dependency not found. Variable=" +
-                  variable.name +
-                  ", dependency=" +
-                  depVar.name
-                );
-              }
-            }
-
-            uniforms[depVar.name] = {
-              value: null
-            };
-            material.fragmentShader =
-              "\nuniform sampler2D " +
-              depVar.name +
-              ";\n" +
-              material.fragmentShader;
-          }
-        }
-      }
-
-      this.currentTextureIndex = 0;
-      return null;
-    };
-
-    this.compute = function () {
-      const currentTextureIndex = this.currentTextureIndex;
-      const nextTextureIndex = this.currentTextureIndex === 0 ? 1 : 0;
-
-      for (let i = 0, il = this.variables.length; i < il; i++) {
-        const variable = this.variables[i]; // Sets texture dependencies uniforms
-
-        if (variable.dependencies !== null) {
-          const uniforms = variable.material.uniforms;
-
-          for (let d = 0, dl = variable.dependencies.length; d < dl; d++) {
-            const depVar = variable.dependencies[d];
-            uniforms[depVar.name].value =
-              depVar.renderTargets[currentTextureIndex].texture;
-          }
-        } // Performs the computation for this variable
-
-        this.doRenderTarget(
-          variable.material,
-          variable.renderTargets[nextTextureIndex]
-        );
-      }
-
-      this.currentTextureIndex = nextTextureIndex;
-    };
-
-    this.getCurrentRenderTarget = function (variable) {
-      return variable.renderTargets[this.currentTextureIndex];
-    };
-
-    this.getAlternateRenderTarget = function (variable) {
-      return variable.renderTargets[this.currentTextureIndex === 0 ? 1 : 0];
-    };
-
-    function addResolutionDefine(materialShader) {
-      materialShader.defines.resolution =
-        "vec2( " + sizeX.toFixed(1) + ", " + sizeY.toFixed(1) + " )";
-    }
-
-    this.addResolutionDefine = addResolutionDefine; // The following functions can be used to compute things manually
-
-    function createShaderMaterial(computeFragmentShader, uniforms) {
-      uniforms = uniforms || {};
-      const material = new THREE.ShaderMaterial({
-        uniforms: uniforms,
-        vertexShader: getPassThroughVertexShader(),
-        fragmentShader: computeFragmentShader
-      });
-      addResolutionDefine(material);
-      return material;
-    }
-
-    this.createShaderMaterial = createShaderMaterial;
-
-    this.createRenderTarget = function (
-      sizeXTexture,
-      sizeYTexture,
-      wrapS,
-      wrapT,
-      minFilter,
-      magFilter
-    ) {
-      sizeXTexture = sizeXTexture || sizeX;
-      sizeYTexture = sizeYTexture || sizeY;
-      wrapS = wrapS || THREE.ClampToEdgeWrapping;
-      wrapT = wrapT || THREE.ClampToEdgeWrapping;
-      minFilter = minFilter || THREE.NearestFilter;
-      magFilter = magFilter || THREE.NearestFilter;
-      const renderTarget = new THREE.WebGLRenderTarget(
-        sizeXTexture,
-        sizeYTexture,
-        {
-          wrapS: wrapS,
-          wrapT: wrapT,
-          minFilter: minFilter,
-          magFilter: magFilter,
-          format: THREE.RGBAFormat,
-          type: dataType,
-          depthBuffer: false
-        }
-      );
-      return renderTarget;
-    };
-
-    this.createTexture = function () {
-      const data = new Float32Array(sizeX * sizeY * 4);
-      return new THREE.DataTexture(
-        data,
-        sizeX,
-        sizeY,
-        THREE.RGBAFormat,
-        THREE.FloatType
-      );
-
-    };
-
-    this.renderTexture = function (input, output) {
-      // Takes a texture, and render out in rendertarget
-      // input = Texture
-      // output = RenderTarget
-      passThruUniforms.passThruTexture.value = input;
-      this.doRenderTarget(passThruShader, output);
-      passThruUniforms.passThruTexture.value = null;
-    };
-
-    this.doRenderTarget = function (material, output) {
-      const currentRenderTarget = renderer.getRenderTarget();
-      mesh.material = material;
-      renderer.setRenderTarget(output);
-      renderer.render(scene, camera);
-      mesh.material = passThruShader;
-      renderer.setRenderTarget(currentRenderTarget);
-    }; // Shaders
-
-    function getPassThroughVertexShader() {
-      return (
-        "void main()	{\n" +
-        "\n" +
-        "	gl_Position = vec4( position, 1.0 );\n" +
-        "\n" +
-        "}\n"
-      );
-    }
-
-    function getPassThroughFragmentShader() {
-      return (
-        "uniform sampler2D passThruTexture;\n" +
-        "\n" +
-        "void main() {\n" +
-        "\n" +
-        "	vec2 uv = gl_FragCoord.xy / resolution.xy;\n" +
-        "\n" +
-        "	gl_FragColor = texture2D( passThruTexture, uv );\n" +
-        "\n" +
-        "}\n"
-      );
-    }
-  }
-}
-
-
-
 (() => {
-  window.addEventListener('load', () => {
+  window.addEventListener('DOMContentLoaded', () => {
     new Loading('loading', 'loaded');
     new FullScreen();
     new Sketch();
