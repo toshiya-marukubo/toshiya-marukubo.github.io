@@ -4,7 +4,7 @@ class Observe {
     this.targetArr = Array.from(this.target);
     this.options = {
       root: null,
-      rootMargin: '0% 0% -5% 0%',
+      rootMargin: '0px',
       threshhold: 0
     };
     

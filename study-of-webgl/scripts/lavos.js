@@ -23,7 +23,7 @@ void main(){
   
   vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
   
-  gl_PointSize = 3.0 * (6.0 / - mvPosition.z);
+  gl_PointSize = 2.0 * (3.0 / - mvPosition.z);
   gl_Position = projectionMatrix * mvPosition;
 }
 
@@ -117,8 +117,8 @@ void main () {
    * https://qiita.com/uma6661/items/20accc9b5fb9845fc73a
    * Thank you so much.
    */
-  float f = length(gl_PointCoord - vec2(0.5, 0.5));
-  if (f > 0.1) discard;
+  //float f = length(gl_PointCoord - vec2(0.5, 0.5));
+  //if (f > 0.1) discard;
   
   vec3 color;
   color.r = abs(snoise(vec3(vPosition.x * scale, vPosition.y * scale, uTime * 0.1)));
@@ -569,8 +569,8 @@ class Shape {
     
     this.mesh.material.uniforms.uTime.value = time;
 
-    this.mesh.rotation.y = time * 0.1;
-    this.mesh.rotation.z = time * 0.2;
+    //this.mesh.rotation.y = time * 0.1;
+    //this.mesh.rotation.z = time * 0.2;
     
     this.positionVariable.material.uniforms.uTime.value = time;
     this.positionVariable.material.uniforms.uScale.value = (time * 0.3 + 0.0001) % 15.0;
@@ -578,7 +578,7 @@ class Shape {
 }
 
 (() => {
-  window.addEventListener('DOMContentLoaded', () => {
+  window.addEventListener('load', () => {
     new Loading('loading', 'loaded');
     new FullScreen();
     new Sketch();
