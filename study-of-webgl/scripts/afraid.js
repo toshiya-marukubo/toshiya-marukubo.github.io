@@ -510,7 +510,7 @@ class Shape {
     this.material.uniforms.textureState.value =
       this.gpuCompute.getCurrentRenderTarget(this.stateVariable).texture;
     
-    this.mesh.material.uniforms.uTime.value = time;
+    this.mesh.material.uniforms.uTime.value = time * 2;
     
     this.rainPoint.material.uniforms.uTime.value = time;
     
