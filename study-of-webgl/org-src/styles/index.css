@@ -273,7 +273,7 @@ ul li {
   overflow: hidden;
 }
 .progress {
-  filter: blur(2px);
+  filter: blur(2px) grayscale(100%);
   transition: filter 0.4s 0.2s ease-in-out;
 }
 .progress.show {
