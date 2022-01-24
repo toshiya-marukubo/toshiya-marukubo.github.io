@@ -1,3 +1,62 @@
+// vertex shader source
+const vertexShader = `
+uniform float uTime;
+float PI = 3.14159265359;
+varying vec3 vPosition;
+
+void main(){
+
+  vec3 pos = position;
+  pos.x = position.x * cos(uTime * 0.3) - position.y * sin(uTime * 0.3);
+  pos.y = position.x * sin(uTime * 0.3) + position.y * cos(uTime * 0.3);
+  
+  float q = sin(cos(position.z * sin(uTime * 0.1) * 12.0) - uTime);
+  
+  pos.x = pos.x * q;
+  pos.y = pos.y * q;
+  pos.z = tan(uTime * 0.3 * q) * 0.1;
+  
+  vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+  
+  vPosition = pos;
+  
+  gl_PointSize = 2.0 * (14.0 / - mvPosition.z);
+  gl_Position = projectionMatrix * mvPosition;
+}
+`;
+
+// fragment shader source
+const fragmentShader = `
+uniform float uTime;
+varying vec3 vPosition;
+
+// Reference
+// https://iquilezles.org/www/articles/palettes/palettes.htm
+// Thank you so much.
+vec3 palette( in float t, in vec3 a, in vec3 b, in vec3 c, in vec3 d ) {
+  return a + b*cos( 6.28318*(c*t+d) );
+}
+
+void main () {
+  // Reference
+  // https://qiita.com/uma6661/items/20accc9b5fb9845fc73a
+  // Thank you so much.
+  float f = length(gl_PointCoord - vec2(0.5, 0.5));
+  if ( f > 0.1 ) discard;
+  
+  vec3 color =
+    palette(
+      length(vPosition) - uTime * 0.5, 
+      vec3(0.5,0.5,0.5),
+      vec3(0.5,0.5,0.5),
+      vec3(1.0,1.0,1.0),
+      vec3(0.0,0.33,0.67)
+    );
+  
+  gl_FragColor = vec4(color, 1.0);
+}
+`;
+
 /**
  * Mouse class
  */
@@ -30,15 +89,15 @@ class Mouse {
   onMousemove(e) {
     this.mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
     this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-    this.mouse.z = 0;
+    this.mouse.z = 1;
   }
 
   onTouchmove(e) {
     const touch = e.targetTouches[0];
 
-    this.mouse.x = (touch.pageX / window.innerWidth) * 2 - 1;
+    this.mouse.x = (touch.pageX / window.innerWidth) * 2 - 1;;
     this.mouse.y =  -(touch.pageY / window.innerHeight) * 2 + 1;
-    this.mouse.z = 0;
+    this.mouse.z = 1;
   }
 }
 
@@ -61,7 +120,7 @@ class Sketch {
         alpha: true
       });
     
-    document.body.appendChild(this.renderer.domElement); 
+    document.body.appendChild(this.renderer.domElement);
   }
   
   setupEvents() {
@@ -81,14 +140,14 @@ class Sketch {
       cancelAnimationFrame(this.animationId);
     }
     
-    this.preWidth = this.width = Math.ceil(window.innerWidth);
+    this.preWidth = this.width = Math.ceil(window.innerWidth); 
     this.height = Math.ceil(window.innerHeight);
 
     this.scene = new THREE.Scene();
     
     this.setupCanvas();
     this.setupCamera();
-    this.setupLight();
+    //this.setupLight();
     this.setupShape();
     
     this.draw();
@@ -96,9 +155,9 @@ class Sketch {
   
   setupCanvas() {
     this.renderer.setSize(this.width, this.height);
-    //this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.renderer.setPixelRatio(1.0);
-    this.renderer.setClearColor(0xF4D0D9, 1.0);
+    this.renderer.setPixelRatio(window.devicePixelRatio);
+    //this.renderer.setPixelRatio(1.0);
+    this.renderer.setClearColor('#0a0927', 1.0);
     
     this.renderer.domElement.style.position = 'fixed';
     this.renderer.domElement.style.top = '0';
@@ -119,13 +178,13 @@ class Sketch {
         fov,
         this.width / this.height,
         0.01,
-        this.dist * 5
+        4
       );
-    this.camera.position.set(0, 200, this.dist / 5);
-    this.camera.lookAt(new THREE.Vector3());
-
+    
     this.cameraV = new THREE.Vector3();
-    this.cameraP = new THREE.Vector3();
+    this.cameraP = new THREE.Vector3(0, 0, 2);
+    this.camera.position.set(this.cameraP);
+    this.camera.lookAt(new THREE.Vector3());
     
     this.scene.add(this.camera);
   }
@@ -135,9 +194,9 @@ class Sketch {
     this.cameraP.add(this.cameraV);
 
     this.camera.position.set(
-      this.cameraP.x * this.dist,
-      this.cameraP.y * this.dist,
-      this.dist 
+      this.cameraP.x * 2,
+      this.cameraP.y * 2,
+      2
     );
 
     this.camera.lookAt(new THREE.Vector3());
@@ -149,28 +208,20 @@ class Sketch {
     this.scene.add(this.directionalLight);
 
     // point light
-    this.pointLight = new THREE.PointLight(0xffffff, 1, this.dist);
-    this.pointLight.position.set(0, this.dist, 0);
-    this.scene.add(this.pointLight);
+    this.spotLight = new THREE.SpotLight(0xffffff);
+    this.spotLight.position.set(0, 0, 2);
+    this.scene.add(this.spotLight);
   }
   
   setupShape() {
-    this.shapes = [];
-    this.num = 1;
-    
-    for (let y = 0; y < this.num; y++) {
-      const s = new Shape(this, 0, 0, 0);
-      this.shapes.push(s);
-    }
+    this.shape = new Shape(this, 0, 0, 0);
   }
   
   draw() {
     const time = this.time.getElapsedTime();
     
-    for (let i = 0; i < this.shapes.length; i++) {
-      this.shapes[i].render(time * 2);
-    }
-
+    this.shape.render(time);
+    
     this.updateCamera(time);
     
     this.renderer.render(this.scene, this.camera);
@@ -183,42 +234,58 @@ class Sketch {
  * shape class
  */
 class Shape {
-  constructor(sketch, x, y, z) {
+  constructor(sketch) {
     this.sketch = sketch;
-    this.position = new THREE.Vector3(x, y, z);
-    this.initialize();
+    this.setupSizes();
+    this.init();
   }
-  
-  initialize() {
-    let radius = 10;
-    let size = radius / 5;
-  
-    for (let i = 0; i < 130; i++) {
-      const rad = 137.5 * Math.PI / 180 * i;
-      const x = Math.cos(rad) * radius;
-      const z = Math.sin(rad) * radius;
-      
-      this.material = new THREE.MeshPhongMaterial({
-        side: THREE.DoubleSide,
-        color: new THREE.Color(`hsl(${360 / 8 * i}, 90%, 90%)`)
-      });
-      this.geometry = new THREE.SphereGeometry(size, 32, 32);
-      this.mesh = new THREE.Mesh(this.geometry, this.material);
-      this.mesh.position.set(x, (0 + size), z);
-      this.sketch.scene.add(this.mesh);
 
-      radius /= 0.9745;
-      size /= 0.9745;
+  setupSizes() {
+    this.count = null;
+
+    if (this.sketch.width < 768) {
+      this.count = 5000;
+    }
+
+    if (this.sketch.width >= 768) {
+      this.count = 20000;
     }
   }
   
-  render(time) {
-    this.sketch.scene.traverse((obj) => {
-      if (obj instanceof THREE.Mesh) {
-        const dist = obj.position.distanceTo(new THREE.Vector3()) * 0.01;
-        obj.position.y = Math.sin(dist + time) * 80;
-      }
+  init() {
+    // particles
+    this.geometry = new THREE.BufferGeometry();
+    this.vertices = new Float32Array(this.count * 3);
+    
+    for (let i = 0; i < this.count * 3; i++) {
+      const rad = Math.PI * 2 / this.count * (i * 3);
+      const x = Math.cos(rad);
+      const y = Math.sin(rad);
+      
+      this.vertices[i * 3 + 0] = x;
+      this.vertices[i * 3 + 1] = y;
+      this.vertices[i * 3 + 2] = Math.atan2(y, x);
+    }
+    
+    this.geometry.setAttribute('position', new THREE.BufferAttribute(this.vertices, 3));
+    
+    this.material = new THREE.ShaderMaterial({
+      side: THREE.DoubleSide,
+      uniforms: {
+        uTime: {type: 'f', value: 0}
+      },
+      blending: THREE.AdditiveBlending,
+      transparent: true,
+      vertexShader: vertexShader,
+      fragmentShader: fragmentShader
     });
+    
+    this.mesh = new THREE.Points(this.geometry, this.material);
+    this.sketch.scene.add(this.mesh);
+  }
+  
+  render(time) {
+    this.mesh.material.uniforms.uTime.value = time;
   }
 }
 

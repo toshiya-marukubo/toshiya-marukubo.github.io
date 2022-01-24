@@ -151,7 +151,7 @@ class Sketch {
     this.spotLight = new THREE.SpotLight(0xffffff);
     
     this.spotLightV = new THREE.Vector3();
-    this.spotLightP = new THREE.Vector3(this.dist * 0.005, this.dist * 0.005, this.dist);
+    this.spotLightP = new THREE.Vector3(0, this.dist * 0.005, this.dist);
     this.spotLight.position.set(this.spotLightP);
     this.spotLight.lookAt(new THREE.Vector3());
 
@@ -164,7 +164,7 @@ class Sketch {
 
     this.spotLight.position.set(
       this.spotLightP.x * this.dist,
-      Math.max(this.spotLightP.y * this.dist, 10),
+      Math.max(this.spotLightP.y * this.dist, 100),
       this.dist 
     );
 
@@ -192,7 +192,7 @@ class Sketch {
     }
     
     // ground
-    this.geometry = new THREE.PlaneGeometry(1000, 1000);
+    this.geometry = new THREE.PlaneGeometry(this.groundSize, this.groundSize);
     this.material = new THREE.MeshBasicMaterial({
       color: '#FBDD0A',
       side: THREE.DoubleSide
@@ -206,7 +206,7 @@ class Sketch {
   setupSize() {
     this.size = null;
     this.shapeHeight =  null;
-    this.groundSize = Math.max(this.width * 3, this.height * 3);
+    this.groundSize = Math.max(this.width * 5, this.height * 5);
 
     if (this.width <= 768) {
       this.size = 25;

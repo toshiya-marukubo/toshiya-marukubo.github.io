@@ -1,62 +1,3 @@
-// vertex shader source
-const vertexShader = `
-uniform float uTime;
-float PI = 3.14159265359;
-varying vec3 vPosition;
-
-void main(){
-
-  vec3 pos = position;
-  pos.x = position.x * cos(uTime * 0.3) - position.y * sin(uTime * 0.3);
-  pos.y = position.x * sin(uTime * 0.3) + position.y * cos(uTime * 0.3);
-  
-  float q = sin(cos(position.z * sin(uTime * 0.1) * 12.0) - uTime);
-  
-  pos.x = pos.x * q;
-  pos.y = pos.y * q;
-  pos.z = tan(uTime * 0.3 * q) * 0.1;
-  
-  vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
-  
-  vPosition = pos;
-  
-  gl_PointSize = 2.0 * (16.0 / - mvPosition.z);
-  gl_Position = projectionMatrix * mvPosition;
-}
-`;
-
-// fragment shader source
-const fragmentShader = `
-uniform float uTime;
-varying vec3 vPosition;
-
-// Reference
-// https://iquilezles.org/www/articles/palettes/palettes.htm
-// Thank you so much.
-vec3 palette( in float t, in vec3 a, in vec3 b, in vec3 c, in vec3 d ) {
-  return a + b*cos( 6.28318*(c*t+d) );
-}
-
-void main () {
-  // Reference
-  // https://qiita.com/uma6661/items/20accc9b5fb9845fc73a
-  // Thank you so much.
-  float f = length(gl_PointCoord - vec2(0.5, 0.5));
-  if ( f > 0.1 ) discard;
-  
-  vec3 color =
-    palette(
-      length(vPosition) - uTime * 0.5, 
-      vec3(0.5,0.5,0.5),
-      vec3(0.5,0.5,0.5),
-      vec3(1.0,1.0,1.0),
-      vec3(0.0,0.33,0.67)
-    );
-  
-  gl_FragColor = vec4(color, 1.0);
-}
-`;
-
 /**
  * Mouse class
  */
@@ -120,7 +61,7 @@ class Sketch {
         alpha: true
       });
     
-    document.body.appendChild(this.renderer.domElement);
+    document.body.appendChild(this.renderer.domElement); 
   }
   
   setupEvents() {
@@ -140,14 +81,14 @@ class Sketch {
       cancelAnimationFrame(this.animationId);
     }
     
-    this.preWidth = this.width = Math.ceil(window.innerWidth); 
+    this.preWidth = this.width = Math.ceil(window.innerWidth);
     this.height = Math.ceil(window.innerHeight);
 
     this.scene = new THREE.Scene();
     
     this.setupCanvas();
     this.setupCamera();
-    //this.setupLight();
+    this.setupLight();
     this.setupShape();
     
     this.draw();
@@ -156,8 +97,7 @@ class Sketch {
   setupCanvas() {
     this.renderer.setSize(this.width, this.height);
     this.renderer.setPixelRatio(window.devicePixelRatio);
-    //this.renderer.setPixelRatio(1.0);
-    this.renderer.setClearColor('#0a0927', 1.0);
+    this.renderer.setClearColor(0x444444, 1.0);
     
     this.renderer.domElement.style.position = 'fixed';
     this.renderer.domElement.style.top = '0';
@@ -178,25 +118,25 @@ class Sketch {
         fov,
         this.width / this.height,
         0.01,
-        1000
+        this.dist * 10
       );
-    this.camera.position.set(0, 0, 2);
-    this.camera.lookAt(new THREE.Vector3());
 
     this.cameraV = new THREE.Vector3();
-    this.cameraP = new THREE.Vector3();
+    this.cameraP = new THREE.Vector3(-this.dist * 0.1, 0, this.dist);
+    this.camera.position.set(this.cameraP);
+    this.camera.lookAt(new THREE.Vector3());
     
     this.scene.add(this.camera);
   }
   
   updateCamera(time) {
-    this.cameraV.subVectors(this.mouse.mouse, this.cameraP).multiplyScalar(0.05);
+    this.cameraV.subVectors(this.mouse.mouse, this.cameraP).multiplyScalar(0.03);
     this.cameraP.add(this.cameraV);
 
     this.camera.position.set(
-      this.cameraP.x * 2,
-      this.cameraP.y * 2,
-      2
+      this.cameraP.x * this.dist,
+      this.cameraP.y * this.dist,
+      this.dist 
     );
 
     this.camera.lookAt(new THREE.Vector3());
@@ -206,30 +146,17 @@ class Sketch {
     // directinal light
     this.directionalLight = new THREE.DirectionalLight(0xffffff);
     this.scene.add(this.directionalLight);
-
-    // point light
-    this.spotLight = new THREE.SpotLight(0xffffff);
-    this.spotLight.position.set(0, 0, 2);
-    this.scene.add(this.spotLight);
   }
   
   setupShape() {
-    this.shapes = [];
-    this.num = 1;
-    
-    for (let i = 0; i < this.num; i++) {
-      const s = new Shape(this, 0, 0, 0);
-      this.shapes.push(s);
-    }
+    this.shape = new Shape(this, 0, 0, 0);
   }
   
   draw() {
     const time = this.time.getElapsedTime();
     
-    for (let i = 0; i < this.shapes.length; i++) {
-      this.shapes[i].render(time);
-    }
-    
+    this.shape.update(time);
+
     this.updateCamera(time);
     
     this.renderer.render(this.scene, this.camera);
@@ -248,45 +175,102 @@ class Shape {
   }
   
   init() {
-    // particles
-    this.count = this.sketch.width < 500 ? 5000 : 20000;
-    this.geometry = new THREE.BufferGeometry();
-    this.vertices = new Float32Array(this.count * 3);
-    
-    for (let i = 0; i < this.count * 3; i++) {
-      const rad = Math.PI * 2 / this.count * (i * 3);
-      const rand = Math.random() * 0.5;
-      const x = Math.cos(rad);
-      const y = Math.sin(rad);
-      this.vertices[i * 3 + 0] = x;
-      this.vertices[i * 3 + 1] = y;
-      this.vertices[i * 3 + 2] = Math.atan2(y, x);
-    }
-    
-    this.geometry.setAttribute('position', new THREE.BufferAttribute(this.vertices, 3));
-    
-    this.material = new THREE.ShaderMaterial({
-      side: THREE.DoubleSide,
-      uniforms: {
-        uTime: {type: 'f', value: 0},
-        uResolution: {
-          type: 'v2',
-          value: new THREE.Vector2(this.sketch.width, this.sketch.height),
-        },
-      },
-      blending: THREE.AdditiveBlending,
-      transparent: true,
-      vertexShader: vertexShader,
-      fragmentShader: fragmentShader
+    this.initPositions = this.getInitPositions(0);
+    this.positions = this.getPositions(0);
+      
+    this.material = new THREE.MeshPhongMaterial({
+      color: 0xffffff,
+      shininess: 70,
+      emissive: 0x232323,
+      specular: 0xffffff
     });
     
-    this.mesh = new THREE.Points(this.geometry, this.material);
-    //this.mesh.rotation.set(-90 * Math.PI / 180, 0.0, 0.0);
-    this.sketch.scene.add(this.mesh);
+    for (let i = 0; i < this.positions.length; i++) {
+      this.geometry = new THREE.SphereGeometry(this.positions[i][2], 16, 16);
+      this.mesh = new THREE.Mesh(this.geometry, this.material);
+      this.mesh.position.set(this.positions[i][0], 0, this.positions[i][1]);
+      this.sketch.scene.add(this.mesh);
+    }
   }
   
-  render(time) {
-    this.mesh.material.uniforms.uTime.value = time;
+  getInitPositions(t) {
+    const arr = new Array();
+    
+    this.num = 16;
+    this.rad = Math.PI * 2 / this.num;
+    
+    const initDist = this.sketch.width < 768 ? 20 : 40;
+
+    let x = initDist;
+    let r = initDist * Math.tan(this.rad / 2);
+    
+    const y2 = Math.sqrt(x * x + r * r) + r;
+    const y1 = Math.sqrt(x * x + r * r) - r;
+    const scale = y2 / y1;
+
+    for (let i = 0; i < 6; i++) {
+      arr.push([x, r]);
+      x = x * scale;
+      r = r * scale;
+    }
+    
+    return arr;
+  }
+  
+  getPositions(t) {
+    const arr = new Array();
+    
+    for (let j = 0; j < this.num; j++) {
+      for (let i = 0; i < this.initPositions.length; i++) {
+        let ix = this.initPositions[i][0];
+        let iy = this.initPositions[i][1];
+        let nx = Math.cos(this.rad * j) * ix - Math.sin(this.rad * j) * iy;
+        let ny = Math.sin(this.rad * j) * ix + Math.cos(this.rad * j) * iy;
+        
+        if (i % 2 === 0) {
+          if (Math.sin(t * 4) > 0) {
+            nx = Math.cos(this.rad * j + t) * ix - Math.sin(this.rad * j + t) * iy;
+            ny = Math.sin(this.rad * j + t) * ix + Math.cos(this.rad * j + t) * iy;
+          }
+        } else {
+          if (Math.sin(t * 4) > 0) {
+            nx = Math.cos(this.rad * j - t) * ix - Math.sin(this.rad * j - t) * iy;
+            ny = Math.sin(this.rad * j - t) * ix + Math.cos(this.rad * j - t) * iy;
+          }
+        }
+        
+        arr.push([nx, ny, this.initPositions[i][1] * Math.abs(Math.cos(t * 4)), j]);
+      }
+    }
+    
+    return arr;
+  }
+  
+  update(time) {
+    let index = 0;
+    
+    this.sketch.scene.traverse((obj) => {
+      if (obj instanceof THREE.Mesh) {
+        obj.position.set(this.positions[index][0], 0, this.positions[index][1]);
+        
+        if (this.positions[index][3] % 2 === 0) {
+          obj.scale.set(
+            Math.abs(Math.sin(time)),
+            Math.abs(Math.sin(time)),
+            Math.abs(Math.sin(time))
+          );
+        } else {
+          obj.scale.set(
+            Math.abs(Math.cos(time)),
+            Math.abs(Math.cos(time)),
+            Math.abs(Math.cos(time))
+          );
+        }
+        index++;
+      }
+    });
+    
+    this.positions = this.getPositions(time);
   }
 }
 

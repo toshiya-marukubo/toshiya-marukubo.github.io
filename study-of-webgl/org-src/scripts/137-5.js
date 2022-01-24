@@ -36,7 +36,7 @@ class Mouse {
   onTouchmove(e) {
     const touch = e.targetTouches[0];
 
-    this.mouse.x = (touch.pageX / window.innerWidth) * 2 - 1;;
+    this.mouse.x = (touch.pageX / window.innerWidth) * 2 - 1;
     this.mouse.y =  -(touch.pageY / window.innerHeight) * 2 + 1;
     this.mouse.z = 0;
   }
@@ -73,10 +73,6 @@ class Sketch {
       return;
     }
 
-    for (let i = 0; i < this.shapes.length; i++) {
-      this.shapes[i].onResize();
-    }
-
     this.initialize();
   }
   
@@ -101,8 +97,7 @@ class Sketch {
   setupCanvas() {
     this.renderer.setSize(this.width, this.height);
     this.renderer.setPixelRatio(window.devicePixelRatio);
-    //this.renderer.setPixelRatio(1.0);
-    this.renderer.setClearColor(0x000000, 1.0);
+    this.renderer.setClearColor(0xF4D0D9, 1.0);
     
     this.renderer.domElement.style.position = 'fixed';
     this.renderer.domElement.style.top = '0';
@@ -123,13 +118,13 @@ class Sketch {
         fov,
         this.width / this.height,
         0.01,
-        this.dist * 5
+        this.dist * 10
       );
-    this.camera.position.set(0, 0, this.dist);
-    this.camera.lookAt(new THREE.Vector3());
-
+    
     this.cameraV = new THREE.Vector3();
-    this.cameraP = new THREE.Vector3();
+    this.cameraP = new THREE.Vector3(this.dist * 0.01, 0, this.dist);
+    this.camera.position.set(this.cameraP);
+    this.camera.lookAt(new THREE.Vector3());
     
     this.scene.add(this.camera);
   }
@@ -140,7 +135,7 @@ class Sketch {
 
     this.camera.position.set(
       this.cameraP.x * this.dist,
-      this.cameraP.y * this.dist / 2,
+      this.cameraP.y * this.dist,
       this.dist 
     );
 
@@ -153,27 +148,19 @@ class Sketch {
     this.scene.add(this.directionalLight);
 
     // point light
-    this.spotLight = new THREE.SpotLight(0xffffff);
-    this.spotLight.position.set(0, this.dist * 0.5, 0);
-    this.scene.add(this.spotLight);
+    this.pointLight = new THREE.PointLight(0xffffff, 1, this.dist);
+    this.pointLight.position.set(0, this.dist, 0);
+    this.scene.add(this.pointLight);
   }
   
   setupShape() {
-    this.shapes = [];
-    this.num = 1;
-    
-    for (let i = 0; i < this.num; i++) {
-      const s = new Shape(this, 0, 0, 0);
-      this.shapes.push(s);
-    }
+    this.shape = new Shape(this, 0, 0, 0);
   }
   
   draw() {
     const time = this.time.getElapsedTime();
     
-    for (let i = 0; i < this.shapes.length; i++) {
-      this.shapes[i].render(time * 0.1);
-    }
+    this.shape.render(time * 2);
 
     this.updateCamera(time);
     
@@ -187,104 +174,54 @@ class Sketch {
  * shape class
  */
 class Shape {
-  constructor(sketch) {
+  constructor(sketch, x, y, z) {
     this.sketch = sketch;
-    
-    this.depth = 5;
-    this.length = 15;
-    this.angle = 0;
-    this.radian = 0;
-    this.startX = 0 - this.length * 31 / 2;
-    this.startY = 0 - this.length * 31 / 2;
-    this.height = 100;
-    this.pos = [];
-    this.timeoutArray = [];
-    
-    this.fractal(90, this.depth);
-    this.init();
-  }
-  
-  getCoordinate() {
-    const rad = this.angle * Math.PI / 180;
-    const nx = Math.cos(rad) * this.length + this.startX;
-    const ny = Math.sin(rad) * this.length + this.startY;
-    const dist = Math.sqrt(nx * nx + ny * ny) * 0.01;
+    this.position = new THREE.Vector3(x, y, z);
 
-    this.pos.push([this.startX, this.startY, nx, ny, dist]);
-    this.startX = nx;
-    this.startY = ny;
+    this.setupSizes();
+    this.initialize();
   }
-  
-  turn(increaseNumber) {
-    this.angle += increaseNumber;
-  };
-  
-  fractal(angle, depth) {
-    if (depth > 0) {
-      this.turn(angle);
-      this.fractal(-angle, depth - 1);
-      this.getCoordinate(this.length);
-      this.turn(-angle);
-      this.fractal(angle, depth - 1);
-      this.getCoordinate(this.length);
-      this.fractal(angle, depth - 1);
-      this.turn(-angle);
-      this.getCoordinate(this.length);
-      this.fractal(-angle, depth - 1);
-      this.turn(angle);
+
+  setupSizes() {
+    this.radius = null;
+    this.size = null;
+
+    if (this.sketch.width < 768) {
+      this.radius = 5;
+      this.size = this.radius / 5;
     }
-  };
+
+    if (this.sketch.width >= 768) {
+      this.radius = 10;
+      this.size = this.radius / 5;
+    }
+  }
   
-  init() {
-    // floor
-    this.floorGeometry = new THREE.PlaneGeometry(this.length * 32, this.length * 32);
-    this.floorMaterial = new THREE.MeshBasicMaterial({side: THREE.DoubleSide, color: 0xffffff});
-    this.floor = new THREE.Mesh(this.floorGeometry, this.floorMaterial);
-    this.floor.rotation.set(90 * Math.PI / 180, 0, 0);
-    this.sketch.scene.add(this.floor);
-
-    // wall
-    this.wallMaterial = new THREE.MeshPhongMaterial({
-      side: THREE.DoubleSide,
-      color: 0xffffff
-    });
-    
-    for (let i = 0; i < this.pos.length; i++) {
-      this.timeoutId = setTimeout(() => {
-        const x = this.pos[i][0] - this.pos[i][2];
-        const z = this.pos[i][1] - this.pos[i][3];
-
-        this.wallGeometry =
-          new THREE.BoxGeometry(
-            x + 2,
-            this.height / this.pos[i][4],
-            z + 2
-          );
-        this.mesh = new THREE.Mesh(this.wallGeometry, this.wallMaterial);
-        this.mesh.position.set(
-          this.pos[i][0] - x / 2,
-          0 + this.height / this.pos[i][4] / 2,
-          this.pos[i][1] - z / 2
-        );
-        this.sketch.scene.add(this.mesh);
-      }, i * 20);
+  initialize() {
+    for (let i = 0; i < 130; i++) {
+      const rad = 137.5 * Math.PI / 180 * i;
+      const x = Math.cos(rad) * this.radius;
+      const z = Math.sin(rad) * this.radius;
       
-      this.timeoutArray.push(this.timeoutId);
-    }
-  }
-  
-  onResize() {
-    for (var i = 0; i < this.timeoutArray.length; i++) {
-      clearInterval(this.timeoutArray[i]);
+      this.material = new THREE.MeshPhongMaterial({
+        side: THREE.DoubleSide,
+        color: new THREE.Color(`hsl(${360 / 8 * i}, 90%, 90%)`)
+      });
+      this.geometry = new THREE.SphereGeometry(this.size, 32, 32);
+      this.mesh = new THREE.Mesh(this.geometry, this.material);
+      this.mesh.position.set(x, (0 + this.size), z);
+      this.sketch.scene.add(this.mesh);
+
+      this.radius /= 0.9745;
+      this.size /= 0.9745;
     }
   }
   
   render(time) {
     this.sketch.scene.traverse((obj) => {
       if (obj instanceof THREE.Mesh) {
-        const dist = obj.position.distanceTo(new THREE.Vector3()) * 0.1;
-        
-        obj.material.color.setHSL(Math.abs(Math.sin(time)), 0.8, 0.6);
+        const dist = obj.position.distanceTo(new THREE.Vector3()) * 0.01;
+        obj.position.y = Math.sin(dist + time) * 80;
       }
     });
   }

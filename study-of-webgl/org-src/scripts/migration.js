@@ -370,7 +370,7 @@ class Sketch {
         this.dist * 10
       );
     this.cameraV = new THREE.Vector3();
-    this.cameraP = new THREE.Vector3(0, 0, this.dist / 2);
+    this.cameraP = new THREE.Vector3(0, this.dist * 0.01, this.dist / 2);
     this.camera.position.set(this.cemaraP);
     this.camera.lookAt(new THREE.Vector3());
 
@@ -378,7 +378,7 @@ class Sketch {
   }
   
   updateCamera(time) {
-    this.cameraV.subVectors(this.mouse.mouse, this.cameraP).multiplyScalar(0.05);
+    this.cameraV.subVectors(this.mouse.mouse, this.cameraP).multiplyScalar(0.03);
     this.cameraP.add(this.cameraV);
 
     this.camera.position.set(

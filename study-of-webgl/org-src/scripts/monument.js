@@ -196,7 +196,7 @@ class Sketch {
   }
   
   updateCamera(time) {
-    this.cameraV.subVectors(this.mouse.mouse, this.cameraP).multiplyScalar(0.01);
+    this.cameraV.subVectors(this.mouse.mouse, this.cameraP).multiplyScalar(0.02);
     this.cameraP.add(this.cameraV);
 
     this.camera.position.set(
