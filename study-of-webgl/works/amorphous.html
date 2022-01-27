@@ -16,8 +16,8 @@
     <!-- Open Graph Protocol -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Toshiya Marukubo | Study of WebGL">
-    <meta property="og:url" content="https://toshiya-marukubo.github.io/study-of-webgl/works/noisy.html">
-    <meta property="og:title" content="Toshiya Marukubo | Study of WebGL | Noisy">
+    <meta property="og:url" content="https://toshiya-marukubo.github.io/study-of-webgl/works/amorphous.html">
+    <meta property="og:title" content="Toshiya Marukubo | Study of WebGL | Amorphous">
     <meta property="og:image" content="https://toshiya-marukubo.github.io/study-of-webgl/images/og-home.png">
     <meta property="og:description" content="Study of WebGL">
     <!-- Twitter Card -->
@@ -32,9 +32,9 @@
     <link href="../styles/index.min.css" rel="stylesheet">
     <link href="../styles/works.min.css" rel="stylesheet">
     <script>console.log('Hi, I\'m Toshiya Marukubo. Nice to meet you:)')</script>
-    <title>Toshiya Marukubo | Study of WebGL | Noisy</title>
+    <title>Toshiya Marukubo | Study of WebGL | Amorphous</title>
   </head>
-  <body>
+  <body style="background: #FFFFFF">
     <div class="loading">
       <div class="circle"></div>
     </div><!-- end loading -->
@@ -43,8 +43,8 @@
         <div class="header-container">
           <h1><a href="../index.html">TM</a></h1>
           <div class="works-description">
-            <h2>Noisy</h2>
-            <p>Sep 30, 2021</p>
+            <h2>Amorphous</h2>
+            <p>Jan 27, 2022</p>
           </div><!-- works-description -->
           <div class="question">
             <a href="#" role="button">
@@ -57,10 +57,19 @@
           </div><!-- end question -->
           <div class="what" aria-live="assertive">
             <h3>What's this?</h3>
-            <p>I wanted to use canvas2d as a texture.</p>
+            <p>This is a Gray-Scott model of Turing Pattern.</p>
             <h4>References</h4>
             <ol>
-              <li><a href="https://codepen.io/bokoko33/pen/vYmWjOB?editors=0010" target="_blank" rel="noopener">How to make color gap. - https://codepen.io/bokoko33/pen/vYmWjOB?editors=0010</a></li>
+              <li>
+                <a href="https://www.oreilly.co.jp/books/9784873118475/" target="_blank" rel="noopener">
+                  O'Reilly | 作って動かすALife - How to make cellular automaton.
+                </a>
+              </li>
+              <li>
+                <a href="https://memorandums.hatenablog.com/entry/2020/03/10/230100" target="_blank" rel="noopener">
+                  Hatena Blog | memorandums - About roll function of python. I did not think of it. 
+                </a>
+              </li>
             </ol>
             <h4>Libraries</h4>
             <ol>
@@ -68,8 +77,8 @@
             </ol>
             <h4>Code</h4>
             <ol>
-              <li><a href="https://codepen.io/toshiya-marukubo/pen/ZEyPbRa" target="_blank" rel="noopener">CodePen</a></li>
-              <li><a href="https://github.com/toshiya-marukubo/toshiya-marukubo.github.io/tree/main/study-of-webgl/org-src/scripts/noisy.js">GitHub</a></li>
+              <li><a href="https://codepen.io/toshiya-marukubo/pen/podvabY" target="_blank" rel="noopener">CodePen</a></li>
+              <li><a href="https://github.com/toshiya-marukubo/toshiya-marukubo.github.io/tree/main/study-of-webgl/org-src/scripts/amorphous.js">GitHub</a></li>
             </ol>
             <div class="close">
               <a href="#" role="button">
@@ -82,9 +91,9 @@
           </div><!-- end what -->
           <div class="nav">
             <ul>
-              <li class="prev"><a href="./amorphous.html"><span aria-label="Previous Page"><</span></a></li>
-              <li class="cur">#014</li>
-              <li class="next"><a href="./cube.html"><span aria-label="Next Page">></span></a></li>
+              <li class="prev"><a href="#" class="disabled"><span aria-label="Previous Page"><</span></a></li>
+              <li class="cur">#015</li>
+              <li class="next"><a href="./noisy.html"><span aria-label="Next Page">></span></a></li>
             </ul>
           </div><!-- end nav -->
           <div class="back">
@@ -105,6 +114,7 @@
     <script defer src="../scripts/loading.min.js"></script>
     <script defer src="../scripts/fullscreen.min.js"></script>
     <script defer src="../scripts/popup.min.js"></script>
-    <script defer src="../scripts/noisy.min.js"></script>
+    <script defer src="../scripts/TuringPattern.min.js"></script>
+    <script defer src="../scripts/amorphous.min.js"></script>
   </body>
 </html>
