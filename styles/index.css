@@ -145,18 +145,25 @@ h2, h3 {
   white-space: nowrap;
 }
 
+ul {
+}
+
 ul li {
   display: inline-block;
   padding-bottom: 24px;
 }
 
 li {
-  padding: 0 12px;
+  padding: 0 6px;
 }
 
 @media (min-width: 768px) {
   h2, h3 {
     font-size: 16px;
+  }
+  
+  li {
+    padding: 0 12px;
   }
 }
 
