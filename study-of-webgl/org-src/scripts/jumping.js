@@ -192,15 +192,14 @@ class Sketch {
     }
     
     // ground
-    this.geometry = new THREE.PlaneGeometry(this.groundSize, this.groundSize);
+    this.geometry = new THREE.BoxGeometry(this.groundSize, this.groundSize, this.groundSize);
     this.material = new THREE.MeshBasicMaterial({
       color: '#FBDD0A',
       side: THREE.DoubleSide
     });
-    this.plane = new THREE.Mesh(this.geometry, this.material);
-    this.plane.position.set(0, -this.size * 2, 0);
-    this.plane.rotation.x = 90 * Math.PI / 180;
-    this.scene.add(this.plane);
+    this.box = new THREE.Mesh(this.geometry, this.material);
+    this.box.position.set(0, -this.groundSize / 2 - this.size * 2, 0);
+    this.scene.add(this.box);
   }
 
   setupSize() {
