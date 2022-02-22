@@ -262,7 +262,7 @@ class Sketch {
         this.dist * 10
       );
     this.cameraV = new THREE.Vector3();
-    this.cameraP = new THREE.Vector3(0, this.dist * 0.1, this.dist);
+    this.cameraP = new THREE.Vector3(0, this.dist * 0.05, this.dist);
     this.camera.position.set(this.cameraP);
     this.camera.lookAt(new THREE.Vector3());
 
