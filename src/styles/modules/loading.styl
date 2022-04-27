@@ -1,0 +1,39 @@
+@charset "utf-8";
+
+.loading
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  background: #fff;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 9999;
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 1.6s, opacity 1.6s;
+  &.loaded
+    visibility: hidden;
+    opacity: 0;
+
+.circle
+  opacity: 0;
+  transform: scale(0, 0);
+  background: #000;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  animation: animation-circle 1.6s ease-in-out 0s infinite normal none running;
+
+@keyframes animation-circle
+  0%
+    opacity: 1;
+    transform: scale(0, 0);
+  50%
+    opacity: 0;
+    transform: scale(1, 1);
+  100%
+    opacity: 1;
+    transform: scale(0, 0);

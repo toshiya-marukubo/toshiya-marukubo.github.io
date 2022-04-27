@@ -1,0 +1,105 @@
+[
+  {
+    "image": "../dist/assets/images/study-of-webgl/erosion.png",
+    "link": "./works/erosion.html",
+    "title": "Erosion",
+    "date": "Feb 01, 2022"
+  },
+  {
+    "image": "../dist/assets/images/study-of-webgl/tender.png",
+    "link": "./works/tender.html",
+    "title": "Tender",
+    "date": "Jan 31, 2022"
+  },
+  {
+    "image": "../dist/assets/images/study-of-webgl/amorphous.png",
+    "link": "./works/amorphous.html",
+    "title": "Amorphous",
+    "date": "Jan 27, 2022"
+  },
+  {
+    "image": "../dist/assets/images/study-of-webgl/noisy.png",
+    "link": "./works/noisy.html",
+    "title": "Noisy",
+    "date": "Sep 30, 2021"
+  },
+  {
+    "image": "../dist/assets/images/study-of-webgl/cube.png",
+    "link": "./works/cube.html",
+    "title": "Cube",
+    "date": "Sep 26, 2021"
+  },
+  {
+    "image": "../dist/assets/images/study-of-webgl/jumping.png",
+    "link": "./works/jumping.html",
+    "title": "Jumping",
+    "date": "Sep 21, 2021"
+  },
+  {
+    "image": "../dist/assets/images/study-of-webgl/monument.png",
+    "link": "./works/monument.html",
+    "title": "Monument",
+    "date": "Sep 17, 2021"
+  },
+  {
+    "image": "../dist/assets/images/study-of-webgl/liquid.png",
+    "link": "./works/liquid.html",
+    "title": "Liquid",
+    "date": "Sep 17, 2021"
+  },
+  {
+    "dammy": "../dist/assets/images/study-of-webgl/cubes-dammy.png",
+    "image": "../dist/assets/images/study-of-webgl/cubes.png",
+    "link": "./works/cubes.html",
+    "title": "Cubes",
+    "date": "Sep 17, 2021"
+  },
+  {
+    "image": "../dist/assets/images/study-of-webgl/afraid.png",
+    "link": "./works/afraid.html",
+    "title": "Afraid",
+    "date": "Sep 07, 2021"
+  },
+  {
+    "image": "../dist/assets/images/study-of-webgl/lavos.png",
+    "link": "./works/lavos.html",
+    "title": "Lavos",
+    "date": "Aug 31, 2021"
+  },
+  {
+    "image": "../dist/assets/images/study-of-webgl/breathing.png",
+    "link": "./works/breathing.html",
+    "title": "Breathing",
+    "date": "Aug 27, 2021"
+  },
+  {
+    "image": "../dist/assets/images/study-of-webgl/migration.png",
+    "link": "./works/migration.html",
+    "title": "Migration",
+    "date": "Aug 24, 2021"
+  },
+  {
+    "image": "../dist/assets/images/study-of-webgl/blooming.png",
+    "link": "./works/blooming.html",
+    "title": "Blooming",
+    "date": "Aug 19, 2021"
+  },
+  {
+    "image": "../dist/assets/images/study-of-webgl/rotation.png",
+    "link": "./works/rotation.html",
+    "title": "Rotation",
+    "date": "Aug 19, 2021"
+  },
+  {
+    "image": "../dist/assets/images/study-of-webgl/castle.png",
+    "link": "./works/castle.html",
+    "title": "Castle",
+    "date": "Aug 13, 2021"
+  },
+  {
+    "image": "../dist/assets/images/study-of-webgl/137-5.png",
+    "link": "./works/137-5.html",
+    "title": "137.5",
+    "date": "Aug 12, 2021"
+  }
+]

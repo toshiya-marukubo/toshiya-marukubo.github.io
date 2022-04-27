@@ -1,0 +1,80 @@
+- 
+  const infos = {
+    uppercaseFileName: '137-5',
+    lowercaseFileName: '137-5',
+    date: 'Aug 12, 2021',
+    navs: {
+      pre: 'castle',
+      cur: '#001',
+      next: ''
+    },
+    codepen: 'poPGqBd',
+  };
+
+doctype html
+html(lang="en", prefix="og: http://ogp.me/ns#")
+  head
+    meta(property="og:url", content=`https://toshiya-marukubo.github.io/study-of-webgl/works/${infos.lowercaseFileName}.html`)
+    meta(property="og:title", content=`Toshiya Marukubo | Study of WebGL | ${infos.uppercaseFileName}`)
+    title Toshiya Marukubo | Study of WebGL | #{infos.uppercaseFileName}
+    include ../modules/head-not-included-variable.pug  
+  body(style="background: #F4D0D9")
+    include ../modules/loading.pug
+    .body-container
+      .content
+        h1
+          a(href="../index.html") TM
+        .works-description
+          h2 #{infos.uppercaseFileName}
+          p #{infos.date}
+        .question
+          a(href="#", role="button")
+            svg.feather.feather-help-circle(role="img", aria-label="Question Button Image", xmlns="http://www.w3.org/2000/svg", width="24", height="24", viewBox="0 0 24 24", fill="none", stroke="currentColor", stroke-width="2", stroke-linecap="round", stroke-linejoin="round")
+              circle(cx="12", cy="12", r="10")
+              path(d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3")
+              line(x1="12", y1="17", x2="12.01", y2="17")
+        //-
+        //- description
+        //-
+        .what(aria-live="assertive")
+          h3 What&apos;s this?
+          p Lined up the spheres at a golden angle.
+          h4 References
+          ol
+            li None.
+          h4 Libraries
+          ol
+            li
+              a(href="https://threejs.org/", target="_blank", rel="noopener") Three.js
+          //-
+          //- end description
+          //-
+          h4 Code
+          ol
+            li
+              a(href=`https://codepen.io/toshiya-marukubo/pen/${infos.codepen}`, target="_blank", rel="noopener") CodePen
+            li
+              a(href=`https://github.com/toshiya-marukubo/toshiya-marukubo.github.io/tree/main/src/scripts/pages/study-of-webgl/works/${infos.lowercaseFileName}/`) GitHub
+          .close
+            a(href="#", role="button")
+              svg.feather.feather-x(role="img", aria-label="Close Button Image", xmlns="http://www.w3.org/2000/svg", width="24", height="24", viewBox="0 0 24 24", fill="none", stroke="currentColor", stroke-width="2", stroke-linecap="round", stroke-linejoin="round")
+                line(x1="18", y1="6", x2="6", y2="18")
+                line(x1="6", y1="6", x2="18", y2="18")
+        .nav
+          ul
+            li.prev
+              a(href=`./${infos.navs.pre}.html`)
+                span(aria-label="Previous Page") &lt;
+            li.cur #{infos.navs.cur}
+            li.next
+              a.disabled(href=`./${infos.navs.next}.html`)
+                span(aria-label="Next Page") &gt;
+        .back
+          a(href="../index.html")
+            svg.feather.feather-arrow-left-circle(role="img", aria-label="Back to Home Image", xmlns="http://www.w3.org/2000/svg", width="24", height="24", viewBox="0 0 24 24", fill="none", stroke="currentColor", stroke-width="2", stroke-linecap="round", stroke-linejoin="round")
+              circle(cx="12", cy="12", r="10")
+              polyline(points="12 8 8 12 12 16")
+              line(x1="16", y1="12", x2="8", y2="12")
+        .frame-top-right
+        .frame-bottom-left
+    script(defer, src=`../../dist/js/${infos.lowercaseFileName}.bundle.js`)

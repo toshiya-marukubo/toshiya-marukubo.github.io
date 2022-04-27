@@ -1,0 +1,68 @@
+doctype html
+html(lang="en", prefix="og: http://ogp.me/ns#")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    meta(name="description", content="Toshiya Marukubo | Website")
+    meta(name="theme-color", content="#000000")
+    // Open Graph Protocol
+    meta(property="og:type", content="website")
+    meta(property="og:site_name", content="Toshiya Marukubo | Website")
+    meta(property="og:url", content="https://toshiya-marukubo.github.io/")
+    meta(property="og:title", content="Toshiya Marukubo | Website")
+    meta(property="og:image", content="https://toshiya-marukubo.github.io/og-home.png")
+    meta(property="og:description", content="Toshiya Marukubo | Website")
+    // Twitter Card
+    meta(name="twitter:card", content="summary_large_image")
+    meta(name="twitter:site", content="@toshiyamarukubo")
+    meta(name="twitter:creator", content="@toshiyamarukubo")
+    // Icons
+    link(rel="apple-touch-icon", type="image/png", href="./dist/assets/images/icons/apple-touch-icon-180x180.png")
+    link(rel="icon", type="image/png", href="./dist/assets/images/icons/icon-192x192.png")
+    // style
+    link(rel="stylesheet", href="./dist/css/works.bundle.css")
+    // Global site tag (gtag.js) - Google Analytics
+    script(async, src="https://www.googletagmanager.com/gtag/js?id=UA-149600281-2")
+    script.
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-149600281-2');
+    title Toshiya Marukubo | Works
+  body
+    .loading
+      .circle
+    .container
+      header
+        h1 Something
+      .main
+        .main-container(aria-live="polite", aria-atomic="true")
+      footer
+        p
+          small &amp;copy; Toshiya Marukubo
+      nav
+        ol
+          li
+            a.return(href="./index.html", role="button", aria-label="return home", tabindex="4")
+              svg.feather.feather-home(role="img", aria-label="home button image", xmlns="http://www.w3.org/2000/svg", width="24", height="24", viewBox="0 0 24 24", fill="none", stroke="currentColor", stroke-width="2", stroke-linecap="round", stroke-linejoin="round")
+                path(d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z")
+                polyline(points="9 22 9 12 15 12 15 22")
+          li
+            a#reset.sortButton(href="#", role="button", aria-label="reset items", tabindex="1")
+              svg.feather.feather-refresh-cw(role="img", aria-label="reset button image", xmlns="http://www.w3.org/2000/svg", width="24", height="24", viewBox="0 0 24 24", fill="none", stroke="currentColor", stroke-width="2", stroke-linecap="round", stroke-linejoin="round")
+                polyline(points="23 4 23 10 17 10")
+                polyline(points="1 20 1 14 7 14")
+                path(d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15")
+          li
+            a#sortLovesToSmallBtn.sortButton(href="#", role="button", aria-label="sort loves to small", tabindex="2")
+              svg.feather.feather-heart(role="img", aria-label="heart button image", xmlns="http://www.w3.org/2000/svg", width="24", height="24", viewBox="0 0 24 24", fill="none", stroke="currentColor", stroke-width="2", stroke-linecap="round", stroke-linejoin="round")
+                path(d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z")
+          li
+            a#sortViewsToSmallBtn.sortButton(href="#", role="button", aria-label="sort views to small", tabindex="3")
+              svg.feather.feather-eye(role="img", aria-label="view button image", xmlns="http://www.w3.org/2000/svg", width="24", height="24", viewBox="0 0 24 24", fill="none", stroke="currentColor", stroke-width="2", stroke-linecap="round", stroke-linejoin="round")
+                path(d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z")
+                circle(cx="12", cy="12", r="3")
+    // end container
+    script(defer, src="https://polyfill.io/v3/polyfill.min.js?features=Promise")
+    script(defer, src="./dist/js/works.bundle.js")
+

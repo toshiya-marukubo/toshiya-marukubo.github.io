@@ -1,0 +1,127 @@
+@import './modules/reset.styl';
+@import './modules/common.styl';
+@import './modules/loading.styl';
+
+body
+  font-family: sans-serif;
+  text-align: center;
+
+a
+  color: #000;
+  display: block;
+
+svg
+  width: 16px;
+  height: 16px;
+
+.container
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 0 1%;
+
+h1
+  font-weight: bold;
+  font-size: 3.6rem;
+  white-space: nowrap;
+  letter-spacing: 1px;
+  padding: 16px;
+
+.main-container
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  min-height: 100vh;
+
+.work
+  position: relative;
+  width: 31.3%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 1%;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+  &::before
+    content: "";
+    display: block;
+    padding-top: 100%;
+  a
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    .infos
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      opacity: 0;
+      justify-content: center;
+      align-items: center;
+      flex-flow: column;
+      transition: opacity 0.4s ease-in-out;
+      &:hover
+        opacity: 1;
+      &:hover ul
+        transform: translateY(0);
+        opacity: 1;
+      ul
+        transform: translateY(50%);
+        transition: transform 0.2s 0.2s ease-in-out, opacity 0.2s 0.2s ease-in-out;
+        opacity: 0;
+      ul li
+        font-size: 1.2rem;
+        padding: 12px 4px;
+        color: #FFF;
+        display: inline-block;
+      &:hover p
+        transform: translateY(0);
+        opacity: 1;
+      p
+        font-size: 1.2rem;
+        color: #FFF;
+        opacity: 0;
+        transform: translateY(-50%);
+        transition: transform 0.2s 0.2s ease-in-out, opacity 0.2s 0.2s ease-in-out;
+        border: solid 1px #FFF;
+        border-radius: 4px;
+        padding: 8px;
+
+.work.show
+  opacity: 1;
+
+nav
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 8px;
+  white-space: nowrap;
+  ol li
+    display: inline-block;
+  ol li a
+    padding: 16px;
+    width: 100%;
+    height: 100%;
+  ol li a:hover svg
+      color: deeppink;
+    svg
+      transition: color 0.4s ease-in-out;
+      color: #FFF;
+    svg.active
+      color: deeppink;
+
+@media (min-width: 768px)
+  nav
+    top: 50%;
+    left: calc(50% + 416px);
+    bottom: auto;
+    right: auto;
+    transform: translate(-50%, -50%);
+    ol li
+      display: block;
+
+footer
+  font-size: 1.2rem;
+  padding: 16px;

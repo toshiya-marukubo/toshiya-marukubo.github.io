@@ -1,0 +1,79 @@
+@import './modules/reset.styl';
+@import './modules/common.styl';
+@import './modules/loading.styl';
+
+html,
+body
+  height: 100%;
+  overflow: hidden;
+
+body
+  position: relative;
+  font-family: sans-serif;
+  text-align: center;
+
+a
+  color: #000;
+  display: block;
+
+svg
+  height: 24px;
+  width: 24px;
+
+.container
+  height: 100%;
+  overflow: hidden;
+  max-width: 768px;
+  margin: 0 auto;
+  position: relative;
+
+header
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
+h1
+  font-weight: bold;
+  font-size: 3.6rem;
+  color: #FFF;
+  white-space: nowrap;
+  letter-spacing: 1px;
+  padding-bottom: 16px;
+
+canvas
+  box-shadow: 0 0 10px black;
+
+.main
+  position: relative;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+h2, h3
+  font-size: 1.6rem;
+  padding-bottom: 24px;
+  white-space: nowrap;
+
+h3
+  padding-bottom: 0;
+
+ul
+  padding-top: 24px;
+
+ul
+  li
+    display: inline-block;
+    a
+      padding: 12px;
+      transition: color 0.4s ease-in-out;
+    a:hover
+      color: deeppink
+
+footer
+  font-size: 1.2rem;
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);

@@ -1,646 +1,77 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns#">
   <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-149600281-2"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-149600281-2');
-    </script>
-    <!-- Meta -->
     <meta charset="utf-8">
-    <meta name="description" content="Unemployed.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Open Graph Protocol -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Toshiya Marukubo | Website">
+    <meta name="theme-color" content="#000000">
+    <!-- Open Graph Protocol-->
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Toshiya Marukubo | Homepage">
+    <meta property="og:site_name" content="Toshiya Marukubo | Website">
     <meta property="og:url" content="https://toshiya-marukubo.github.io/">
-    <meta property="og:title" content="Toshiya Marukubo | Homepage">
+    <meta property="og:title" content="Toshiya Marukubo | Website">
     <meta property="og:image" content="https://toshiya-marukubo.github.io/og-home.png">
-    <meta property="og:description" content="Unemployed.">
-    <!-- Twitter Card -->
+    <meta property="og:description" content="Toshiya Marukubo | Website">
+    <!-- Twitter Card-->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@toshiyamarukubo">
     <meta name="twitter:creator" content="@toshiyamarukubo">
-    <!-- Icons -->
-    <link rel="icon" href="https://toshiya-marukubo.github.io/100workschallenge/home/img/favicon.svg" sizes="any" type="image/svg+xml">
-    <!-- Style -->
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-      }
-      *:hover {
-        text-decoration: none;
-      }
-      *,
-      *::before,
-      *::after {
-        -webkit-box-sizing: border-box;
-                box-sizing: border-box;
-      }
-      a,
-      a:visited {
-        text-decoration: none;
-        color: #fff;
-      }
-      /*
-      html, body {
-        height: 100%;
-      }
-      */
-      body {
-        text-align: center;
-        overflow: hidden;
-        font-family: sans-serif;
-        font-style: italic;
-        color: #000;
-        font-size: 67.5%;
-        background: #fff;
-      }
-      #container {
-        position: relative;
-        height: 100vh;
-        height: calc(var(--vh, 1vh) * 100);
-        max-width: 1500px;
-        margin: 0 auto;
-        overflow-y: scroll;
-        -ms-scroll-snap-type: y mandatory;
-            scroll-snap-type: y mandatory;
-      }
-      h1 {
-        font-size: 5rem;
-        color: #eee;
-        position: fixed;
-        top: 50vh;
-        top: calc(var(--vh, 1vh) * 50);
-        left: 50%;
-        -webkit-transform: translate(-50%, -50%);
-            -ms-transform: translate(-50%, -50%);
-                transform: translate(-50%, -50%);
-      }
-      h2 {
-        color: #000;
-        font-size: 1rem;
-        position: absolute;
-        text-align: center;
-        padding: 4.8rem 0;
-        left: 0;
-        right: 0;
-        margin: auto;
-        opacity: 0;
-        -webkit-transform: translateX(-50px);
-            -ms-transform: translateX(-50px);
-                transform: translateX(-50px);
-        -webkit-transition: opacity 0.8s 0.8s, -webkit-transform 0.8s 0.8s;
-        transition: opacity 0.8s 0.8s, -webkit-transform 0.8s 0.8s;
-        -o-transition: opacity 0.8s 0.8s, transform 0.8s 0.8s;
-        transition: opacity 0.8s 0.8s, transform 0.8s 0.8s;
-        transition: opacity 0.8s 0.8s, transform 0.8s 0.8s, -webkit-transform 0.8s 0.8s;
-      }
-      h3 {
-        color: #FFF;
-        font-size: 0.6rem;
-        position: absolute;
-        font-style: normal;
-        top: 50%;
-        left: 50%;
-        border-radius: 8px;
-        background: rgba(0, 0, 0, 0.8);
-        padding: 1.6rem;
-        opacity: 0;
-        pointer-events: none;
-        -webkit-transform: translate(-50%, -50%);
-            -ms-transform: translate(-50%, -50%);
-                transform: translate(-50%, -50%);
-        -webkit-transition: opacity 0.8s;
-        -o-transition: opacity 0.8s;
-        transition: opacity 0.8s;
-      }
-      ol {
-        background: rgba(0, 0, 0, 0.5);
-        border-radius: 4px;
-      }
-      ol > li {
-        color: #FFF;
-        font-style: normal;
-        list-style-type: none;
-        -webkit-transition: -webkit-transform 0.4s;
-        transition: -webkit-transform 0.4s;
-        -o-transition: transform 0.4s;
-        transition: transform 0.4s;
-        transition: transform 0.4s, -webkit-transform 0.4s;
-      }
-      ol.lovesSortBtn, ol.viewsSortBtn {
-        font-size: 0.6rem;
-        z-index: 999;
-        position: fixed;
-        top: 50vh;
-        top: calc(var(--vh, 1vh) * 50);
-        -webkit-transform: translateY(-50%);
-            -ms-transform: translateY(-50%);
-                transform: translateY(-50%);
-      }
-      ol.lovesSortBtn li, ol.viewsSortBtn li {
-        padding: 0.4rem;
-      }
-      ol.lovesSortBtn {
-        left: 16px;
-      }
-      ol.viewsSortBtn {
-        right: 16px;
-      }
-      ul {
-        font-size: 1rem;
-        text-align: center;
-        padding: 4.8rem 0;
-        font-style: normal;
-        position: absolute;
-        bottom: 0;
-        color: #000;
-        left: 0;
-        right: 0;
-        margin: auto;
-        opacity: 0;
-        -webkit-transition: opacity 0.8s 1.2s;
-        -o-transition: opacity 0.8s 1.2s;
-        transition: opacity 0.8s 1.2s;
-      }
-      ul > li {
-        display: inline-block;
-        list-style-type: none;
-      }
-      ul > li:last-child {
-        padding-left: 0.8rem;
-      }
-      section {
-        height: 100vh;
-        height: calc(var(--vh, 1vh) * 100);
-        overflow: hidden;
-        position: relative;
-        scroll-snap-align: start;
-      }
-      section p {
-        width: 90%;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        -webkit-transform: translate(-50%, -50%);
-            -ms-transform: translate(-50%, -50%);
-                transform: translate(-50%, -50%);
-      }
-      section p img {
-        width: 100%;
-        opacity: 0;
-        -webkit-box-shadow: 0.8rem 0.8rem 0.8rem #DDD;
-                box-shadow: 0.8rem 0.8rem 0.8rem #DDD;
-        -webkit-transform: translateY(50px);
-            -ms-transform: translateY(50px);
-                transform: translateY(50px);
-        -webkit-transition: opacity 0.8s 0.4s, -webkit-transform 0.8s 0.4s;
-        transition: opacity 0.8s 0.4s, -webkit-transform 0.8s 0.4s;
-        -o-transition: opacity 0.8s 0.4s, transform 0.8s 0.4s;
-        transition: opacity 0.8s 0.4s, transform 0.8s 0.4s;
-        transition: opacity 0.8s 0.4s, transform 0.8s 0.4s, -webkit-transform 0.8s 0.4s;
-      }
-      section p:hover + h3 {
-        opacity: 1;
-      }
-      .arrowSVG {
-        fill: #FFF;
-        -webkit-transition: fill 0.4s;
-        -o-transition: fill 0.4s;
-        transition: fill 0.4s;
-      }
-      .arrowSVG:hover {
-        fill: tomato;
-      }
-      .show {
-        -webkit-transform: none;
-            -ms-transform: none;
-                transform: none;
-        opacity: 1;
-      }
-      .backBtn {
-        position: fixed;
-        z-index: 999;
-        top: 16px;
-        left: 16px;
-      }
-      .backBtnSVG {
-        fill: #DDD;
-        -webkit-transition: fill 0.4s;
-        -o-transition: fill 0.4s;
-        transition: fill 0.4s;
-      }
-      .backBtnSVG:hover {
-        fill: #000;
-      }
-      .dataFrom {
-        color: #DDD;
-        font-size: 0.8rem;
-        position: fixed;
-        bottom: 16px;
-        left: 16px;
-        /*
-        top: 96vh;
-        top: calc(var(--vh, 1vh) * 96);
-        */
-        -webkit-transform: translateY(-50%);
-            -ms-transform: translateY(-50%);
-                transform: translateY(-50%);
-      }
-      #now {
-        color: #DDD;
-        font-size: 0.8rem;
-        position: fixed;
-        bottom: 16px;
-        right: 16px;
-        /*
-        top: 96vh;
-        top: calc(var(--vh, 1vh) * 96);
-        */
-        -webkit-transform: translateY(-50%);
-            -ms-transform: translateY(-50%);
-                transform: translateY(-50%);
-      }
-      .active {
-        background: #000;
-        border-radius: 4px;
-        -webkit-transform: scale(1.05);
-            -ms-transform: scale(1.05);
-                transform: scale(1.05);
-      }
-      #loading {
-        height: 48px;
-        width: 48px;
-        background: #DDD;
-        border-radius: 50%;
-        position: fixed;
-        top: 50vh;
-        top: calc(var(--vh, 1vh) * 50);
-        left: 50%;
-        opacity: 0;
-        -webkit-animation: load-animation ease-in-out 1.6s 0s infinite alternate;
-                animation: load-animation ease-in-out 1.6s 0s infinite alternate;
-        -webkit-transform: translate(-50%, -50%);
-            -ms-transform: translate(-50%, -50%);
-                transform: translate(-50%, -50%);
-      }
-      @-webkit-keyframes load-animation {
-        0% {
-          -webkit-transform: translate(-50%, -50%) scale(1);
-                  transform: translate(-50%, -50%) scale(1);
-          opacity: 0;
-        }
-        50% {
-          -webkit-transform: translate(-50%, -50%) scale(2);
-                  transform: translate(-50%, -50%) scale(2);
-          opacity: 1;
-        }
-      }
-      @keyframes load-animation {
-        0% {
-          -webkit-transform: translate(-50%, -50%) scale(1);
-                  transform: translate(-50%, -50%) scale(1);
-          opacity: 0;
-        }
-        50% {
-          -webkit-transform: translate(-50%, -50%) scale(2);
-                  transform: translate(-50%, -50%) scale(2);
-          opacity: 1;
-        }
-      }
-      @media (min-width: 500px) {
-        h1 {
-          font-size: 16rem;
-        }
-        section p {
-          width: 60%;
-        }
-        h2 {
-          font-size: 2.4rem;
-          padding: 2.4rem 0;
-        }
-        h3 {
-          font-size: 0.8rem;
-        }
-        ul {
-          font-size: 1.6rem;
-          padding: 2.4rem 0;
-        }
-        .dataFrom {
-          font-size: 1.6rem;
-        }
-        #now {
-          font-size: 1.6rem;
-        }
-        ol.lovesSortBtn {
-          left: 10%;
-        }
-        ol.viewsSortBtn {
-          right: 10%;
-        }
-      }
-    </style>
-    <!-- Title -->
-    <title>Toshiya Marukubo | Homepage | Works & Learning</title>
+    <!-- Icons-->
+    <link rel="apple-touch-icon" type="image/png" href="./dist/assets/images/icons/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="./dist/assets/images/icons/icon-192x192.png">
+    <!-- style-->
+    <link rel="stylesheet" href="./dist/css/works.bundle.css">
+    <!-- Global site tag (gtag.js) - Google Analytics-->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-149600281-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-149600281-2');
+    </script>
+    <title>Toshiya Marukubo | Works</title>
   </head>
   <body>
-    <div id="container">
-      <div id="loading"></div>
-      <div class="backBtn">
-        <a href="https://toshiya-marukubo.github.io/">
-          <svg viewBox="0 0 256 512" width="32" title="angle-left" class="backBtnSVG">
-            <path d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z" />
-          </svg>
-        </a>
-      </div>
-      <p class="dataFrom">Data from CodePen.</p>
-      <p id="now">0.00 %</p>
-      <ol class="lovesSortBtn">
-        <li id="sortLovesToLargeBtn">
-          <a href="#">
-            <svg viewBox="0 0 320 512" width="24" title="angle-up" class="arrowSVG">
-              <path d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z" />
-            </svg>
-          </a>
-        </li>
-        <li>Loves</li>
-        <li id="sortLovesToSmallBtn">
-          <a href="#">
-            <svg viewBox="0 0 320 512" width="24" title="angle-down" class="arrowSVG">
-              <path d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z" />
-            </svg>
-          </a>
-        </li>
-      </ol>
-      <ol class="viewsSortBtn">
-        <li id="sortViewsToLargeBtn">
-          <a href="#">
-            <svg viewBox="0 0 320 512" width="24" title="angle-up" class="arrowSVG">
-              <path d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z" />
-            </svg>
-          </a>
-        </li>
-        <li>Views</li>
-        <li id="sortViewsToSmallBtn">
-          <a href="#">
-            <svg viewBox="0 0 320 512" width="24" title="angle-down" class="arrowSVG">
-              <path d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z" />
-            </svg>
-          </a>
-        </li>
-      </ol>
-      <main></main>
+    <div class="loading">
+      <div class="circle"></div>
     </div>
-    <script>
-      (function () {
-        'use strict';
-        var container, main,
-            percent, count, now, olLi,
-            index,
-            data,
-            vh, W, H,
-            sortLovesToSmallBtn, sortLovesToLargeBtn, sortViewsToSmallBtn, sortViewsToLargeBtn;
-
-        var getJson = function () {
-          return new Promise(function (resolve, reject) {
-            var req = new XMLHttpRequest();
-            req.addEventListener('load', function () {
-              var json = JSON.parse(req.responseText);
-              resolve(json);
-            }, false);
-            req.open('GET', 'codepen.json', true);
-            req.send(null);
-          });
-        }
-
-        var sortLovesToSmall = function (a, b) {
-          return Number(b.loves) - Number(a.loves);
-        };
-
-        var sortLovesToLarge = function (a, b) {
-          return Number(a.loves) - Number(b.loves);
-        };
-
-        var sortViewsToSmall = function (a, b) {
-          return Number(b.views) - Number(a.views);
-        };
-
-        var sortViewsToLarge = function (a, b) {
-          return Number(a.views) - Number(b.views);
-        };
-
-        var sortJson = function (data, type, dir) {
-          return new Promise(function (resolve, reject) {
-            if (type === 'loves' && dir === 'small') {
-              data.sort(sortLovesToSmall);
-            }
-            if (type === 'loves' && dir === 'large') {
-              data.sort(sortLovesToLarge);
-            }
-            if (type === 'views' && dir === 'small') {
-              data.sort(sortViewsToSmall);
-            }
-            if (type === 'views' && dir === 'large') {
-              data.sort(sortViewsToLarge);
-            }
-            resolve();
-          });
-        };
-
-        var createElement = function (elem, content) {
-          var element = document.createElement(elem);
-          if (content !== null) element.textContent = content;
-          return element;
-        };
-
-        var addItem = function (json, index) {
-          return new Promise(function (resolve, reject) {
-            var data = json[index];
-            // section
-            var section = createElement('section', null);
-            // h3 - text
-            var h3 = createElement('h3', 'Go to CodePen with new window.');
-            // h2 - title 
-            var h2 = createElement('h2', data.item);
-            // loves and views
-            var ul = createElement('ul', null);
-            var liH = createElement('li', '❤️ ' + data.loves);
-            var liV = createElement('li', '👀 ' + data.views);
-            ul.appendChild(liH);
-            ul.appendChild(liV);
-            // image
-            var p = createElement('p', null);
-            var image = createElement('img', null);
-            image.setAttribute('src', data.image);
-            // link
-            var a = createElement('a', null);
-            a.setAttribute('href', data.link);
-            a.setAttribute('target', '_blank');
-            // append
-            a.appendChild(image);
-            p.appendChild(a);
-            section.appendChild(p);
-            section.appendChild(h3);
-            section.appendChild(h2);
-            section.appendChild(ul);
-            main.appendChild(section);
-            // resolve
-            resolve(data.image);
-          });
-        };
-
-        var loadImage = function (src) {
-          return new Promise(function (resolve, reject) {
-            var img = new Image();
-            img.src = src;
-            img.addEventListener('load', function () {
-              resolve();
-            }, false);
-          });
-        };
-
-        var displayImage = function () {
-          var imgs = document.getElementsByTagName('img');
-          var h2s = document.getElementsByTagName('h2');
-          var uls = document.getElementsByTagName('ul');
-          for (var i = 0; i < imgs.length; i++) {
-            var s = imgs[i].getBoundingClientRect().top + H / 2;
-            if (H > s) {
-              imgs[i].classList.add('show');
-              h2s[i].classList.add('show');
-              uls[i].classList.add('show');
-            } else {
-              imgs[i].classList.remove('show');
-              h2s[i].classList.remove('show');
-              uls[i].classList.remove('show');
-            }
-          }
-        };
-
-        var init = function () {
-          W = window.innerWidth;
-          H = window.innerHeight;
-          main = document.getElementsByTagName('main')[0];
-          container = document.getElementById('container');
-          now = document.getElementById('now');
-          var ol = document.getElementsByTagName('ol');
-          olLi = [];
-          for (var i = 0 ; i < ol.length; i++) {
-            var child = ol[i].children;
-            for (var j = 0; j < child.length; j++) {
-              if (j % 2 === 0) olLi.push(child[j]);
-            }
-          }
-          sortLovesToSmallBtn = document.getElementById('sortLovesToSmallBtn');
-          sortLovesToLargeBtn = document.getElementById('sortLovesToLargeBtn');
-          sortViewsToSmallBtn = document.getElementById('sortViewsToSmallBtn');
-          sortViewsToLargeBtn = document.getElementById('sortViewsToLargeBtn');
-          vh = H * 0.01;
-          document.documentElement.style.setProperty('--vh', vh + 'px');
-          index = 0;
-          count = 0;
-          percent = 0.00;
-          getJson().then(function (json) {
-            data = json;
-            return addItems();
-          });
-        };
-
-        var deleteItems = function () {
-          return new Promise(function (resolve, reject) {
-            main.textContent = null;
-            resolve();
-          });
-        };
-
-        var addItems = function () {
-          if (count > 1) {
-            count = 0;
-            return;
-          }
-          addItem(data, index).then(function (src) {
-            index++;
-            count++;
-            return loadImage(src);
-          }).then(function () {
-            return displayImage();
-          }).then(function () {
-            addItems();
-          });
-        };
-
-        window.addEventListener('load', function () {
-          init();
-
-          for (var i = 0; i < olLi.length; i++) {
-            olLi[i].addEventListener('click', function(e) {
-              for (var j = 0; j < olLi.length; j++) {
-                olLi[j].classList.remove('active');
-              }
-              this.classList.add('active');
-              var id = this.id;
-              e.preventDefault();
-              now.textContent = '0.00 %';
-              index = 0;
-              switch (id) {
-                case 'sortLovesToSmallBtn':
-                  deleteItems().then(function () {
-                    return sortJson(data, 'loves', 'small');
-                  }).then(function () {
-                    return addItems();
-                  });
-                  break;
-                case 'sortLovesToLargeBtn':
-                  deleteItems().then(function () {
-                    return sortJson(data, 'loves', 'large');
-                  }).then(function () {
-                    return addItems();
-                  });
-                  break;
-                case 'sortViewsToSmallBtn':
-                  deleteItems().then(function () {
-                    return sortJson(data, 'views', 'small');
-                  }).then(function () {
-                    return addItems();
-                  });
-                  break;
-                case 'sortViewsToLargeBtn':
-                  deleteItems().then(function () {
-                    return sortJson(data, 'views', 'large');
-                  }).then(function () {
-                    return addItems();
-                  });
-                  break;
-                default:
-                  break;
-              }
-            });
-          }
-
-          container.addEventListener('scroll', function (e) {
-            now.textContent = (index / data.length * 100).toFixed(2) + ' %';
-            if (container.scrollTop + 1 >= container.scrollHeight - window.innerHeight) {
-              var y = container.scrollTop;
-              addItems();
-              container.scrollTop = y;
-            }
-            displayImage();
-          }, false);
-
-          window.addEventListener('resize', function () {
-            W = window.innerWidth;
-            H = window.innerHeight;
-            vh = H * 0.01;
-            document.documentElement.style.setProperty('--vh', vh + 'px');
-          }, false);
-        }, false);
-      })();
-    </script>
+    <div class="container">
+      <header>
+        <h1>Something</h1>
+      </header>
+      <div class="main">
+        <div class="main-container" aria-live="polite" aria-atomic="true"></div>
+      </div>
+      <footer>
+        <p><small>&amp;copy; Toshiya Marukubo</small></p>
+      </footer>
+      <nav>
+        <ol>
+          <li><a class="return" href="./index.html" role="button" aria-label="return home" tabindex="4">
+              <svg class="feather feather-home" role="img" aria-label="home button image" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg></a></li>
+          <li><a class="sortButton" id="reset" href="#" role="button" aria-label="reset items" tabindex="1">
+              <svg class="feather feather-refresh-cw" role="img" aria-label="reset button image" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 4 23 10 17 10"></polyline>
+                <polyline points="1 20 1 14 7 14"></polyline>
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+              </svg></a></li>
+          <li><a class="sortButton" id="sortLovesToSmallBtn" href="#" role="button" aria-label="sort loves to small" tabindex="2">
+              <svg class="feather feather-heart" role="img" aria-label="heart button image" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+              </svg></a></li>
+          <li><a class="sortButton" id="sortViewsToSmallBtn" href="#" role="button" aria-label="sort views to small" tabindex="3">
+              <svg class="feather feather-eye" role="img" aria-label="view button image" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg></a></li>
+        </ol>
+      </nav>
+    </div>
+    <!-- end container-->
+    <script defer src="https://polyfill.io/v3/polyfill.min.js?features=Promise"></script>
+    <script defer src="./dist/js/works.bundle.js"></script>
   </body>
 </html>

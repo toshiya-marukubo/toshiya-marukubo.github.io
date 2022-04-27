@@ -1,0 +1,123 @@
+@import './modules/reset.styl';
+@import './modules/common.styl';
+@import './modules/loading.styl';
+@import './modules/study-of-webgl-common.styl';
+
+/********************
+ * header
+********************/
+.header-container
+  position: relative; 
+  min-height: 100vh; /* Fallback */
+  min-height: calc(var(--vh, 1vh) * 100);
+
+.description
+  white-space: nowrap;
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 32px;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: bottom 0.8s 2.0s ease-in-out, opacity 0.8s 2.0s ease-in-out;
+
+.loading.loaded + .body-container .description
+  bottom: 15%;
+  opacity: 1;
+
+.scroll-down
+  width: 12px;
+  height: 12px;
+  font-size: 1.6rem;
+  position: absolute;
+  border-right: 2px solid #FFF;
+  border-bottom: 2px solid #FFF;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(50%) rotate(45deg);
+  opacity: 0;
+
+.loading.loaded + .body-container .scroll-down
+  animation: scroll-down-animation 2.4s ease-in-out 2.2s infinite normal none running;
+  transform: translateX(50%) rotate(45deg);
+  opacity: 0;
+
+@keyframes scroll-down-animation
+  0%
+    opacity: 0;
+    transform: translate(-50%, -100%) rotate(45deg);
+  50%
+    opacity: 1;
+    transform: translate(-50%, 0) rotate(45deg);
+  100%
+    opacity: 0;
+    transform: translate(-50%, 100%) rotate(45deg);
+
+/********************
+ * main
+********************/
+.main-container
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+
+.work
+  position: relative;
+  width: 31.3%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 1%;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+  &::before
+    content: "";
+    display: block;
+    padding-top: 100%;
+  a
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    .infos
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      opacity: 0;
+      justify-content: center;
+      align-items: center;
+      flex-flow: column;
+      transition: opacity 0.4s ease-in-out;
+      &:hover
+        opacity: 1;
+      &:hover ul
+        transform: translateY(0);
+        opacity: 1;
+      h3
+        transform: translateY(50%);
+        transition: transform 0.2s 0.2s ease-in-out, opacity 0.2s 0.2s ease-in-out;
+        opacity: 0;
+        font-size: 1.6rem;
+        padding: 12px 4px;
+        color: #FFF;
+      &:hover h3
+        transform: translateY(0);
+        opacity: 1;
+      &:hover p
+        transform: translateY(0);
+        opacity: 1;
+      p
+        font-size: 1rem;
+        color: #FFF;
+        opacity: 0;
+        transform: translateY(-50%);
+        transition: transform 0.2s 0.2s ease-in-out, opacity 0.2s 0.2s ease-in-out;
+        border: solid 1px #FFF;
+        border-radius: 4px;
+        padding: 8px;
+
+.work.show
+  opacity: 1;
