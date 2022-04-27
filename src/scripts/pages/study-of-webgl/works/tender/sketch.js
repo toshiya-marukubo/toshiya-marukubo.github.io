@@ -52,7 +52,7 @@ export class Sketch {
 
     this.setupCanvas();
     this.setupCamera();
-    this.setupLight();
+    //this.setupLight();
     this.setupShape();
 
     this.draw();
@@ -100,7 +100,7 @@ export class Sketch {
     this.camera.position.set(
       this.cameraP.x * this.dist,
       Math.max(this.cameraP.y * 150, 0),
-      this.cameraP.z * this.dist * (1.0 + this.mouse.delta)
+      this.cameraP.z * this.dist
     );
     this.camera.lookAt(new THREE.Vector3());
   }
@@ -122,19 +122,6 @@ export class Sketch {
     this.scene.add(this.spotLight);
   }
 
-  updateLight() {
-    this.spotLightV.subVectors(this.mouse.mouse, this.spotLightP).multiplyScalar(0.05);
-    this.spotLightP.add(this.spotLightV);
-
-    this.spotLight.position.set(
-      this.spotLightP.x * this.dist,
-      this.spotLightP.y * this.dist,
-      this.dist
-    );
-
-    this.spotLight.lookAt(new THREE.Vector3());
-  }
-
   setupShape() {
     this.shape = new Shape(this, 0, 0, 0);
   }
@@ -145,7 +132,6 @@ export class Sketch {
     this.shape.render(time * 0.1);
 
     this.updateCamera(time);
-    this.updateLight(time);
 
     this.renderer.render(this.scene, this.camera);
 

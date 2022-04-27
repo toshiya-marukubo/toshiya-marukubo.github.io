@@ -94,7 +94,7 @@ export class Sketch {
     this.camera.position.set(
       this.cameraP.x * this.dist,
       Math.max(this.cameraP.y * this.dist, 10),
-      this.cameraP.z * this.dist * (1.0 + this.mouse.delta)
+      this.cameraP.z * this.dist
     );
     this.camera.lookAt(new THREE.Vector3());
   }
@@ -122,7 +122,7 @@ export class Sketch {
     this.spotLight.position.set(
       this.spotLightP.x * this.dist,
       Math.max(this.spotLightP.y * this.dist, 10),
-      this.spotLightP.z * this.dist * (1.0 + this.mouse.delta) 
+      this.spotLightP.z * this.dist
     );
 
     this.spotLight.lookAt(new THREE.Vector3());

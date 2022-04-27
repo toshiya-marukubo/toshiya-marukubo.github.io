@@ -65,7 +65,6 @@ export class Mouse {
 
     this.mouse.x = (touch.pageX / window.innerWidth) * 2 - 1;
     this.mouse.y = -(touch.pageY / window.innerHeight) * 2 + 1;
-    this.mouse.z = 1;
     
     this.speed =
       Math.sqrt((touch.pageX - this.lastX) **2 +

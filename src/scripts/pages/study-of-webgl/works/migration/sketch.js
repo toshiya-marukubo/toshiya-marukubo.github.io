@@ -303,7 +303,7 @@ export class Sketch {
     this.camera.position.set(
       this.cameraP.x * this.dist / 2,
       this.cameraP.y * this.dist / 2,
-      this.cameraP.z * this.dist / 2 * (1.0 + this.mouse.delta)
+      this.cameraP.z * this.dist / 2
     );
     this.camera.lookAt(new THREE.Vector3());
   }
