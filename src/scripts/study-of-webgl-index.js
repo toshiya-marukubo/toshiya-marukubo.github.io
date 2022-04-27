@@ -13,6 +13,6 @@ import {Sketch} from './pages/study-of-webgl/index/sketch';
     
     const F = new FullScreen(false);
     const S = new Sketch();
-    const G = new GetItemsDataFromJSON('../assets/json/study-of-webgl-images.json');
+    const G = new GetItemsDataFromJSON('../dist/assets/json/study-of-webgl-images.json');
   });
 })();
