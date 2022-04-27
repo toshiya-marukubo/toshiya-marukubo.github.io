@@ -20,9 +20,9 @@ export class Mouse {
     window.addEventListener('mousedown', this.onMouseDown.bind(this), false);
     window.addEventListener('mouseup', this.onMouseUp.bind(this), false);
     window.addEventListener('mousemove', this.onMouseMove.bind(this), false);
-    window.addEventListener('touchstart', this.onTouchStart.bind(this), false);
+    //window.addEventListener('touchstart', this.onTouchStart.bind(this), false);
     window.addEventListener('touchmove', this.onTouchMove.bind(this), false);
-    window.addEventListener('touchend', this.onTouchEnd.bind(this), false);
+    //window.addEventListener('touchend', this.onTouchEnd.bind(this), false);
   }
 
   onScroll(e) {
