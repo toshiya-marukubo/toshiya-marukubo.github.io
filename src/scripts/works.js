@@ -9,6 +9,7 @@ import {GetItemsDataFromJSON} from './pages/works/get-items-data-from-json';
     const loading = document.getElementsByClassName('loading')[0];
     loading.classList.add('loaded');
 
-    const getJSON = new GetItemsDataFromJSON('../assets/json/codepen.json');
+    //const getJSON = new GetItemsDataFromJSON('../assets/json/codepen.json');
+    const getJSON = new GetItemsDataFromJSON('./dist/assets/json/codepen.json');
   });
 })();
