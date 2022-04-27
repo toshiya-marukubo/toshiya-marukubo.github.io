@@ -53,15 +53,11 @@ export class Mouse {
   }
   
   onTouchStart(e) {
-    if (e.touches.length > 1) {
-      this.mouse.z = 1;
-    }
+    this.mouse.z = 1;
   }
   
   onTouchEnd(e) {
-    if (e.touches.length > 1) {
-      this.mouse.z = -1;
-    }
+    this.mouse.z = -1;
   }
   
   onTouchMove(e) {
@@ -75,5 +71,7 @@ export class Mouse {
                 (touch.pageY - this.lastY) **2) * 0.1;
     this.lastX = touch.pageX;
     this.lastY = touch.pageY;
+
+    console.log(this.mouse.x, this.mouse.y, this.mouse.z);
   }
 }
