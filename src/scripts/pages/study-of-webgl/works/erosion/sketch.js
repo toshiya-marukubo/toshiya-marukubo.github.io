@@ -82,7 +82,7 @@ export class Sketch {
       );
     
     this.cameraV = new THREE.Vector3();
-    this.cameraP = new THREE.Vector3(0, this.dist, this.dist);
+    this.cameraP = new THREE.Vector3(0, this.dist * 0.1, 0);
 
     this.camera.position.set(this.cameraP.x, this.cameraP.y, this.cameraP.z);
     this.camera.lookAt(new THREE.Vector3());

@@ -1,5 +1,11 @@
 [
   {
+    "image": "../dist/assets/images/study-of-webgl/menger.png",
+    "link": "./works/menger.html",
+    "title": "Menger",
+    "date": "Mar 03, 2022"
+  },
+  {
     "image": "../dist/assets/images/study-of-webgl/erosion.png",
     "link": "./works/erosion.html",
     "title": "Erosion",

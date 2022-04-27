@@ -11,6 +11,7 @@ const entries = {
   works: './src/scripts/works.js',
   'study-of-webgl-index': './src/scripts/study-of-webgl-index.js',
   'study-of-webgl-works': './src/styles/study-of-webgl-works.styl',
+  menger: './src/scripts/menger.js',
   erosion: './src/scripts/erosion.js',
   tender: './src/scripts/tender.js',
   amorphous: './src/scripts/amorphous.js',
