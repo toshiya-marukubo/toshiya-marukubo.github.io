@@ -1,384 +1,77 @@
-Html Webpack Plugin:
-<pre>
-  Error: Child compilation failed:
-  Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/Users/toshiyamarukubo  /study/git/toshiya-marukubo.github.io'
-  ModuleNotFoundError: Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/  Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io'
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/Compilation.js:2016:28
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:798:13
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:10:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:270:22
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:9:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:434:22
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:116:11
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:635:23
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2830:7
-      at done (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2925:13)
-  Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/Users/toshiyamarukubo  /study/git/toshiya-marukubo.github.io'
-  ModuleNotFoundError: Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/  Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io'
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/Compilation.js:2016:28
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:798:13
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:10:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:270:22
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:9:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:434:22
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:116:11
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:635:23
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2830:7
-      at done (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2925:13)
-  Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/Users/toshiyamarukubo  /study/git/toshiya-marukubo.github.io'
-  ModuleNotFoundError: Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/  Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io'
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/Compilation.js:2016:28
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:798:13
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:10:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:270:22
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:9:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:434:22
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:116:11
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:635:23
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2830:7
-      at done (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2925:13)
-  Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/Users/toshiyamarukubo  /study/git/toshiya-marukubo.github.io'
-  ModuleNotFoundError: Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/  Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io'
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/Compilation.js:2016:28
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:798:13
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:10:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:270:22
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:9:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:434:22
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:116:11
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:635:23
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2830:7
-      at done (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2925:13)
-  Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/Users/toshiyamarukubo  /study/git/toshiya-marukubo.github.io'
-  ModuleNotFoundError: Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/  Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io'
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/Compilation.js:2016:28
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:798:13
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:10:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:270:22
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:9:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:434:22
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:116:11
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:635:23
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2830:7
-      at done (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2925:13)
-  Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/Users/toshiyamarukubo  /study/git/toshiya-marukubo.github.io'
-  ModuleNotFoundError: Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/  Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io'
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/Compilation.js:2016:28
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:798:13
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:10:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:270:22
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:9:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:434:22
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:116:11
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:635:23
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2830:7
-      at done (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2925:13)
-  Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/Users/toshiyamarukubo  /study/git/toshiya-marukubo.github.io'
-  ModuleNotFoundError: Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/  Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io'
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/Compilation.js:2016:28
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:798:13
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:10:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:270:22
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:9:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:434:22
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:116:11
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:635:23
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2830:7
-      at done (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2925:13)
-  Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/Users/toshiyamarukubo  /study/git/toshiya-marukubo.github.io'
-  ModuleNotFoundError: Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/  Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io'
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/Compilation.js:2016:28
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:798:13
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:10:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:270:22
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:9:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:434:22
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:116:11
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:635:23
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2830:7
-      at done (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2925:13)
-  Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/Users/toshiyamarukubo  /study/git/toshiya-marukubo.github.io'
-  ModuleNotFoundError: Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/  Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io'
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/Compilation.js:2016:28
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:798:13
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:10:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:270:22
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:9:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:434:22
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:116:11
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:635:23
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2830:7
-      at done (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2925:13)
-  Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/Users/toshiyamarukubo  /study/git/toshiya-marukubo.github.io'
-  ModuleNotFoundError: Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/  Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io'
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/Compilation.js:2016:28
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:798:13
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:10:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:270:22
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:9:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:434:22
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:116:11
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:635:23
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2830:7
-      at done (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2925:13)
-  Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/Users/toshiyamarukubo  /study/git/toshiya-marukubo.github.io'
-  ModuleNotFoundError: Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/  Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io'
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/Compilation.js:2016:28
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:798:13
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:10:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:270:22
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:9:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:434:22
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:116:11
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:635:23
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2830:7
-      at done (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2925:13)
-  Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/Users/toshiyamarukubo  /study/git/toshiya-marukubo.github.io'
-  ModuleNotFoundError: Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/  Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io'
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/Compilation.js:2016:28
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:798:13
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:10:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:270:22
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:9:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:434:22
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:116:11
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:635:23
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2830:7
-      at done (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2925:13)
-  Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/Users/toshiyamarukubo  /study/git/toshiya-marukubo.github.io'
-  ModuleNotFoundError: Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/  Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io'
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/Compilation.js:2016:28
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:798:13
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:10:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:270:22
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:9:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:434:22
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:116:11
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:635:23
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2830:7
-      at done (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2925:13)
-  Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/Users/toshiyamarukubo  /study/git/toshiya-marukubo.github.io'
-  ModuleNotFoundError: Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/  Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io'
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/Compilation.js:2016:28
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:798:13
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:10:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:270:22
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:9:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:434:22
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:116:11
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:635:23
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2830:7
-      at done (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2925:13)
-  Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/Users/toshiyamarukubo  /study/git/toshiya-marukubo.github.io'
-  ModuleNotFoundError: Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/  Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io'
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/Compilation.js:2016:28
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:798:13
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:10:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:270:22
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:9:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:434:22
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:116:11
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:635:23
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2830:7
-      at done (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2925:13)
-  Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/Users/toshiyamarukubo  /study/git/toshiya-marukubo.github.io'
-  ModuleNotFoundError: Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/  Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io'
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/Compilation.js:2016:28
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:798:13
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:10:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:270:22
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:9:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:434:22
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:116:11
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:635:23
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2830:7
-      at done (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2925:13)
-  Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/Users/toshiyamarukubo  /study/git/toshiya-marukubo.github.io'
-  ModuleNotFoundError: Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/  Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io'
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/Compilation.js:2016:28
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:798:13
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:10:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:270:22
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:9:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:434:22
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:116:11
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:635:23
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2830:7
-      at done (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2925:13)
-  Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/Users/toshiyamarukubo  /study/git/toshiya-marukubo.github.io'
-  ModuleNotFoundError: Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/  Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io'
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/Compilation.js:2016:28
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:798:13
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:10:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:270:22
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:9:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:434:22
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:116:11
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:635:23
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2830:7
-      at done (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2925:13)
-  Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/Users/toshiyamarukubo  /study/git/toshiya-marukubo.github.io'
-  ModuleNotFoundError: Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/  Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io'
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/Compilation.js:2016:28
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:798:13
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:10:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:270:22
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:9:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:434:22
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:116:11
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:635:23
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2830:7
-      at done (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2925:13)
-  Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/Users/toshiyamarukubo  /study/git/toshiya-marukubo.github.io'
-  ModuleNotFoundError: Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/  Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io'
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/Compilation.js:2016:28
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:798:13
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:10:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:270:22
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:9:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:434:22
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:116:11
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:635:23
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2830:7
-      at done (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2925:13)
-  Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/Users/toshiyamarukubo  /study/git/toshiya-marukubo.github.io'
-  ModuleNotFoundError: Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/  Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io'
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/Compilation.js:2016:28
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:798:13
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:10:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:270:22
-      at eval (eval at create (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:9:1)
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:434:22
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:116:11
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/webpack/lib/NormalModuleFactory.js:635:23
-      at /Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2830:7
-      at done (/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/neo-async/async.js:2925:13)
-  
-  - Compilation.js:2016 
-    [toshiya-marukubo.github.io]/[webpack]/lib/Compilation.js:2016:28
-  
-  - NormalModuleFactory.js:798 
-    [toshiya-marukubo.github.io]/[webpack]/lib/NormalModuleFactory.js:798:13
-  
-  
-  - NormalModuleFactory.js:270 
-    [toshiya-marukubo.github.io]/[webpack]/lib/NormalModuleFactory.js:270:22
-  
-  
-  - NormalModuleFactory.js:434 
-    [toshiya-marukubo.github.io]/[webpack]/lib/NormalModuleFactory.js:434:22
-  
-  - NormalModuleFactory.js:116 
-    [toshiya-marukubo.github.io]/[webpack]/lib/NormalModuleFactory.js:116:11
-  
-  - NormalModuleFactory.js:635 
-    [toshiya-marukubo.github.io]/[webpack]/lib/NormalModuleFactory.js:635:23
-  
-  - async.js:2830 
-    [toshiya-marukubo.github.io]/[neo-async]/async.js:2830:7
-  
-  - async.js:2925 done
-    [toshiya-marukubo.github.io]/[neo-async]/async.js:2925:13
-  
-  - Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/Users/toshiyamaruku    bo/study/git/toshiya-marukubo.github.io'
-  
-  - ModuleNotFoundError: Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in     '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io'
-  
-  - Compilation.js:2016 
-    [toshiya-marukubo.github.io]/[webpack]/lib/Compilation.js:2016:28
-  
-  - NormalModuleFactory.js:798 
-    [toshiya-marukubo.github.io]/[webpack]/lib/NormalModuleFactory.js:798:13
-  
-  
-  - NormalModuleFactory.js:270 
-    [toshiya-marukubo.github.io]/[webpack]/lib/NormalModuleFactory.js:270:22
-  
-  
-  - NormalModuleFactory.js:434 
-    [toshiya-marukubo.github.io]/[webpack]/lib/NormalModuleFactory.js:434:22
-  
-  - NormalModuleFactory.js:116 
-    [toshiya-marukubo.github.io]/[webpack]/lib/NormalModuleFactory.js:116:11
-  
-  - NormalModuleFactory.js:635 
-    [toshiya-marukubo.github.io]/[webpack]/lib/NormalModuleFactory.js:635:23
-  
-  - async.js:2830 
-    [toshiya-marukubo.github.io]/[neo-async]/async.js:2830:7
-  
-  - async.js:2925 done
-    [toshiya-marukubo.github.io]/[neo-async]/async.js:2925:13
-  
-  - Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/Users/toshiyamaruku    bo/study/git/toshiya-marukubo.github.io'
-  
-  - ModuleNotFoundError: Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in     '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io'
-  
-  - Compilation.js:2016 
-    [toshiya-marukubo.github.io]/[webpack]/lib/Compilation.js:2016:28
-  
-  - NormalModuleFactory.js:798 
-    [toshiya-marukubo.github.io]/[webpack]/lib/NormalModuleFactory.js:798:13
-  
-  
-  - NormalModuleFactory.js:270 
-    [toshiya-marukubo.github.io]/[webpack]/lib/NormalModuleFactory.js:270:22
-  
-  
-  - NormalModuleFactory.js:434 
-    [toshiya-marukubo.github.io]/[webpack]/lib/NormalModuleFactory.js:434:22
-  
-  - NormalModuleFactory.js:116 
-    [toshiya-marukubo.github.io]/[webpack]/lib/NormalModuleFactory.js:116:11
-  
-  - NormalModuleFactory.js:635 
-    [toshiya-marukubo.github.io]/[webpack]/lib/NormalModuleFactory.js:635:23
-  
-  - async.js:2830 
-    [toshiya-marukubo.github.io]/[neo-async]/async.js:2830:7
-  
-  - async.js:2925 done
-    [toshiya-marukubo.github.io]/[neo-async]/async.js:2925:13
-  
-  - Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/Users/toshiyamaruku    bo/study/git/toshiya-marukubo.github.io'
-  
-  - ModuleNotFoundError: Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in     '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io'
-  
-  - Compilation.js:2016 
-    [toshiya-marukubo.github.io]/[webpack]/lib/Compilation.js:2016:28
-  
-  - NormalModuleFactory.js:798 
-    [toshiya-marukubo.github.io]/[webpack]/lib/NormalModuleFactory.js:798:13
-  
-  
-  - NormalModuleFactory.js:270 
-    [toshiya-marukubo.github.io]/[webpack]/lib/NormalModuleFactory.js:270:22
-  
-  
-  - NormalModuleFactory.js:434 
-    [toshiya-marukubo.github.io]/[webpack]/lib/NormalModuleFactory.js:434:22
-  
-  - NormalModuleFactory.js:116 
-    [toshiya-marukubo.github.io]/[webpack]/lib/NormalModuleFactory.js:116:11
-  
-  - NormalModuleFactory.js:635 
-    [toshiya-marukubo.github.io]/[webpack]/lib/NormalModuleFactory.js:635:23
-  
-  - async.js:2830 
-    [toshiya-marukubo.github.io]/[neo-async]/async.js:2830:7
-  
-  - async.js:2925 done
-    [toshiya-marukubo.github.io]/[neo-async]/async.js:2925:13
-  
-  - Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in '/Users/toshiyamaruku    bo/study/git/toshiya-marukubo.github.io'
-  
-  - ModuleNotFoundError: Module not found: Error: Can't resolve '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io/node_modules/html-webpack-plugin/lib/loader.js' in     '/Users/toshiyamarukubo/study/git/toshiya-marukubo.github.io'
-  
-  - Compilation.js:2016 
-    [toshiya-marukubo.github.io]/[webpack]/lib/Compilation.js:2016:28
-  
-  - NormalModuleFactory.js:798 
-    [toshiya-marukubo.github.io]/[webpack]/lib/NormalModuleFactory.js:798:13
-  
-  
-</pre>
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns#">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Toshiya Marukubo | Website">
+    <meta name="theme-color" content="#000000">
+    <!-- Open Graph Protocol-->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Toshiya Marukubo | Website">
+    <meta property="og:url" content="https://toshiya-marukubo.github.io/">
+    <meta property="og:title" content="Toshiya Marukubo | Website">
+    <meta property="og:image" content="https://toshiya-marukubo.github.io/dist/assets/images/og-home.png">
+    <meta property="og:description" content="Toshiya Marukubo | Website">
+    <!-- Twitter Card-->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@toshiyamarukubo">
+    <meta name="twitter:creator" content="@toshiyamarukubo">
+    <!-- Icons-->
+    <link rel="apple-touch-icon" type="image/png" href="./dist/assets/images/icons/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="./dist/assets/images/icons/icon-192x192.png">
+    <!-- style-->
+    <link rel="stylesheet" href="./dist/css/works.bundle.css">
+    <!-- Global site tag (gtag.js) - Google Analytics-->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-149600281-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-149600281-2');
+    </script>
+    <title>Toshiya Marukubo | Works</title>
+  </head>
+  <body>
+    <div class="loading">
+      <div class="circle"></div>
+    </div>
+    <div class="container">
+      <header>
+        <h1>Something</h1>
+      </header>
+      <div class="main">
+        <div class="main-container" aria-live="polite" aria-atomic="true"></div>
+      </div>
+      <footer>
+        <p><small>&amp;copy; Toshiya Marukubo</small></p>
+      </footer>
+      <nav>
+        <ol>
+          <li><a class="return" href="./index.html" role="button" aria-label="return home" tabindex="4">
+              <svg class="feather feather-home" role="img" aria-label="home button image" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg></a></li>
+          <li><a class="sortButton" id="reset" href="#" role="button" aria-label="reset items" tabindex="1">
+              <svg class="feather feather-refresh-cw" role="img" aria-label="reset button image" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 4 23 10 17 10"></polyline>
+                <polyline points="1 20 1 14 7 14"></polyline>
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+              </svg></a></li>
+          <li><a class="sortButton" id="sortLovesToSmallBtn" href="#" role="button" aria-label="sort loves to small" tabindex="2">
+              <svg class="feather feather-heart" role="img" aria-label="heart button image" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+              </svg></a></li>
+          <li><a class="sortButton" id="sortViewsToSmallBtn" href="#" role="button" aria-label="sort views to small" tabindex="3">
+              <svg class="feather feather-eye" role="img" aria-label="view button image" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg></a></li>
+        </ol>
+      </nav>
+    </div>
+    <!-- end container-->
+    <script defer src="https://polyfill.io/v3/polyfill.min.js?features=Promise"></script>
+    <script defer src="./dist/js/works.bundle.js"></script>
+  </body>
+</html>
