@@ -201,7 +201,7 @@ export class Sketch {
   setupSizes() {
     const ratio = Math.min(this.width, 1024) / 1024;
 
-    this.groundSize = Math.max(this.width, this.height);
+    this.groundSize = Math.max(this.width * 2, this.height * 2);
     this.sphereSize = Math.floor(200 * ratio);
     this.rainNumber = Math.floor(20000 * ratio);
   }
