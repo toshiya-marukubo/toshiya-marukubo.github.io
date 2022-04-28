@@ -55,7 +55,7 @@ export class Sketch {
   
   setupCanvas() {
     this.renderer.setSize(this.width, this.height);
-    this.renderer.setPixelRatio(window.devicePixelRatio);
+    this.renderer.setPixelRatio(window.devicePixelRatio / 2);
     this.renderer.setClearColor('#089DA0', 1.0);
     
     this.renderer.domElement.style.position = 'fixed';
