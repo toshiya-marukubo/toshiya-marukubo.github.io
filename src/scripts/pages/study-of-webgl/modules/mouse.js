@@ -7,6 +7,7 @@ export class Mouse {
   
   initialize() {
     this.delta = 0;
+    this.beta  = 0;
     this.lastX = 0;
     this.lastY = 0;
     this.speed = 0;
@@ -17,12 +18,13 @@ export class Mouse {
   
   setupEvents() {
     window.addEventListener('scroll', this.onScroll.bind(this), false);
+    window.addEventListener('wheel', this.onWheel.bind(this), false);
     window.addEventListener('mousedown', this.onMouseDown.bind(this), false);
     window.addEventListener('mouseup', this.onMouseUp.bind(this), false);
     window.addEventListener('mousemove', this.onMouseMove.bind(this), false);
-    //window.addEventListener('touchstart', this.onTouchStart.bind(this), false);
+    window.addEventListener('touchstart', this.onTouchStart.bind(this), false);
     window.addEventListener('touchmove', this.onTouchMove.bind(this), false);
-    //window.addEventListener('touchend', this.onTouchEnd.bind(this), false);
+    window.addEventListener('touchend', this.onTouchEnd.bind(this), false);
   }
 
   onScroll(e) {
@@ -31,6 +33,10 @@ export class Mouse {
     const scrollPercent = docScrollTop / docHeight;
 
     this.delta = scrollPercent;
+  }
+
+  onWheel(e) {
+    this.beta += e.deltaY * 0.01;
   }
   
   onMouseDown() {
@@ -53,11 +59,19 @@ export class Mouse {
   }
   
   onTouchStart(e) {
-    this.mouse.z = 1;
+    const touch = e.targetTouches[0];
+
+    if (e.touches.length === 2) {
+      this.mouse.z = -1;
+    }
   }
   
   onTouchEnd(e) {
-    this.mouse.z = -1;
+    const touch = e.targetTouches[0];
+
+    if (e.touches.length === 2) {
+      this.mouse.z = 1;
+    }
   }
   
   onTouchMove(e) {
