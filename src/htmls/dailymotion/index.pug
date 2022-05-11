@@ -17,7 +17,7 @@ html(lang="en")
       .container-inner
         h1 #{infos.name}
         ul
-          - for (let i = 1; i <= infos.days; i++)
+          - for (let i = infos.days; i > 0; i--)
             li
               a(href=`./days/${i}.html` class="call") Day-#{i}
     .closeButton
