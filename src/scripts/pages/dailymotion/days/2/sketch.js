@@ -216,11 +216,12 @@ export class Sketch {
 
     const geometry = new THREE.TorusGeometry(this.size + 20, 10, 10, 4, Math.PI * 2);
     const material = new THREE.MeshLambertMaterial({
-      color: 0xFFFFFF
+      color: 0xDDDDDD
     });
     const mesh = new THREE.Mesh(geometry, material);
     mesh.position.set(0, 0, -25);
     mesh.receiveShadow = true;
+    
     this.scene.add(mesh);
 
     if (num === 1) {
@@ -254,9 +255,9 @@ export class Sketch {
     for (let y = 0; y < 1; y++) {
       for (let x = 0; x < 1; x++) {
         for (let z = -num; z < num; z++) {
-          const nx = 50 * x;
-          const ny = 50 * y;
-          const nz = 50 * z;
+          const nx = scale / 2 * x;
+          const ny = scale / 2 * y;
+          const nz = scale / 2 * z;
           const d = new THREE.Vector3(nx, ny, nz).distanceTo(new THREE.Vector3());
           const s = new Shape(this, nx, ny, nz, size, d, index++, true);
 
@@ -328,9 +329,9 @@ export class Sketch {
     
     for (let i = 0; i < this.shapes.length; i++) {
       //const st = this.ease((t - (this.shapes[i].dist / this.maxDist / Math.PI * 2)) % 1);
-      const stt = this.ease((t - (i / this.shapes.length / Math.PI * 2)) % 1);
+      //const st = this.ease((t - (i / this.shapes.length / Math.PI * 2)) % 1);
       const st = this.ease(t % 1);
-      this.shapes[i].render(stt, st);
+      this.shapes[i].render(t, st);
     }
 
     this.updateCamera(t * 0.5);
@@ -381,7 +382,6 @@ class Shape {
   
   render(t, st) {
     let rotate = 0, moveZ = 0;
-
     if (st < 0.25) {
       rotate = Utilities.map(st, 0, 0.25, 0, Math.PI / 4);
       moveZ = Utilities.map(st, 0, 0.25, 0, 0);
@@ -403,4 +403,3 @@ class Shape {
     this.mesh.position.set(this.position.x, this.position.y, this.position.z + moveZ);
   }
 }
-
