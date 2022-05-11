@@ -1,0 +1,26 @@
+- 
+  const infos = {
+    name: '#dailymotion',
+    days: 2,
+  };
+
+doctype html
+html(lang="en")
+  head
+    meta(charset='utf-8')
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    link(href='../dist/css/dailymotion-index.bundle.css' rel='stylesheet')
+    title #{infos.name}
+  body
+    include ./modules/loading.pug
+    .container
+      .container-inner
+        h1 #{infos.name}
+        ul
+          - for (let i = 1; i <= infos.days; i++)
+            li
+              a(href=`./days/${i}.html` class="call") Day-#{i}
+    .closeButton
+      a(href="#")
+    iframe
+    script(src='../dist/js/dailymotion-index.bundle.js')

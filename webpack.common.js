@@ -6,30 +6,56 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const globule = require('globule');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const entries = {
-  index: './src/scripts/index.js',
-  works: './src/scripts/works.js',
-  'study-of-webgl-index': './src/scripts/study-of-webgl-index.js',
-  'study-of-webgl-works': './src/styles/study-of-webgl-works.styl',
-  menger: './src/scripts/menger.js',
-  erosion: './src/scripts/erosion.js',
-  tender: './src/scripts/tender.js',
-  amorphous: './src/scripts/amorphous.js',
-  noisy: './src/scripts/noisy.js',
-  cube: './src/scripts/cube.js',
-  jumping: './src/scripts/jumping.js',
-  monument: './src/scripts/monument.js',
-  liquid: './src/scripts/liquid.js',
-  cubes: './src/scripts/cubes.js',
-  afraid: './src/scripts/afraid.js',
-  lavos: './src/scripts/lavos.js',
-  breathing: './src/scripts/breathing.js',
-  migration: './src/scripts/migration.js',
-  blooming: './src/scripts/blooming.js',
-  rotation: './src/scripts/rotation.js',
-  castle: './src/scripts/castle.js',
-  '137-5': './src/scripts/137-5.js',
+/********************
+  functions
+********************/
+const getFiles = () => {
+  const objs = {};
+  const files = globule.find(['./src/scripts/*.js', './src/styles/study-of-webgl-works.styl']);
+  
+  for (let i = 0; i < files.length; i++) {
+    const dir = files[i];
+    const splited = dir.split('/');
+    const last = splited[splited.length - 1];
+    const replaced = last.substring(0, last.indexOf('.'));
+    
+    objs[replaced] = dir;
+  }
+
+  return objs;
 };
+
+// Amazing code!
+// Reference https://qiita.com/turmericN/items/28e8bc8fca07285ddffc
+// This code gets html files and directory.
+// Thank you so much.
+const searchFiles = (dirPath) => {
+  const allDirents = fs.readdirSync(dirPath, { withFileTypes: true });
+
+  const files = [];
+  for (const dirent of allDirents) {
+    if (dirent.isDirectory()) {
+      const fp = path.join(dirPath, dirent.name);
+      
+      files.push(searchFiles(fp));
+    } else if (dirent.isFile() && ['.pug'].includes(path.extname(dirent.name))) {
+      files.push(path.join(dirPath, dirent.name));
+      /*
+      files.push({
+        dir: path.join(dirPath, dirent.name),
+        name: dirent.name,
+      });
+      */
+    }
+  }
+
+  return files.flat();
+};
+
+/********************
+  settings
+********************/
+const entries = getFiles();
 
 const output = {
   path: path.resolve(__dirname, 'dist'),
@@ -118,33 +144,9 @@ const settings = {
   },
 };
 
-// Amazing code!
-// Reference https://qiita.com/turmericN/items/28e8bc8fca07285ddffc
-// This code gets html files and directory.
-// Thank you so much.
-const searchFiles = (dirPath) => {
-  const allDirents = fs.readdirSync(dirPath, { withFileTypes: true });
-
-  const files = [];
-  for (const dirent of allDirents) {
-    if (dirent.isDirectory()) {
-      const fp = path.join(dirPath, dirent.name);
-      
-      files.push(searchFiles(fp));
-    } else if (dirent.isFile() && ['.pug'].includes(path.extname(dirent.name))) {
-      files.push(path.join(dirPath, dirent.name));
-      /*
-      files.push({
-        dir: path.join(dirPath, dirent.name),
-        name: dirent.name,
-      });
-      */
-    }
-  }
-
-  return files.flat();
-};
-
+/********************
+  from pug to html
+********************/
 // get html files
 const htmls = searchFiles('./src');
 

@@ -1,0 +1,113 @@
+@import './modules/reset.styl';
+@import './modules/loading.styl';
+
+body
+  background: #FFF;
+  color: #000;
+  font-size: 62.5%;
+  text-align: right;
+
+a
+  color: #000;
+
+.loading
+  background: #FFF;
+
+.circle
+  background: #000;
+
+.container
+  overflow: hidden;
+
+.container-inner
+  padding: 32px;
+  h1
+    font-size: 2.4rem;
+    padding-bottom: 16px;
+  h2
+    font-size: 1.2rem;
+    padding-bottom: 16px;
+  p
+    font-size: 1rem;
+  ul li
+    font-size: 1.2rem;
+    padding-bottom: 16px;
+    a
+      position: relative;
+    a::before
+      content: '';
+      display: block;
+      width: 0;
+      height: 3px;
+      background: #000;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      transition: width 0.2s ease-in-out;
+    a:hover::before
+      width: 100%;
+
+iframe
+  background: #FFF;
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateX(-10%);
+  transition: visibility 0.4s ease-in-out, opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+  &.show
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+
+.closeButton
+  position: fixed;
+  z-index: 9999;
+  top: 32px;
+  right: 32px;
+  width: 64px;
+  height: 64px;
+  cursor: pointer;
+  visibility: hidden;
+  a
+    display: block;
+    height: 100%;
+    width: 100%;
+  &::before,
+  &::after
+    content: '';
+    display: block;
+    position: absolute;
+    width: 64px;
+    height: 3px;
+    background: #000;
+    transform: translateY(-50%) rotate(0deg);
+    top: 50%;
+    opacity: 0;
+    transition: visibility 0.4s ease-in-out, opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+  &.show
+    visibility: visible;
+    &::before
+      opacity: 1;
+      transform: translateY(-50%) rotate(45deg);
+    &::after
+      opacity: 1;
+      transform: translateY(-50%) rotate(-45deg);
+
+.title
+  position: fixed;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  p
+    font-size: 1.6rem;
+
+.disabled
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.3;
