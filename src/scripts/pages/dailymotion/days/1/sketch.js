@@ -75,7 +75,6 @@ export class Sketch {
   
   onResize() {
     if (this.preWidth === window.innerWidth && window.innerWidth < 480) {
-      console.log('return');
       return;
     }
 

@@ -26,7 +26,7 @@ export class Sketch {
 
     this.gui.params = {
       st: 0.4,
-      ease: 'easeInOutQuint',
+      ease: 'easeInOutExpo',
       number: 36,
       scale: 150,
       start: () => this.start(),
@@ -75,7 +75,6 @@ export class Sketch {
   
   onResize() {
     if (this.preWidth === window.innerWidth && window.innerWidth < 480) {
-      console.log('return');
       return;
     }
 
@@ -340,7 +339,7 @@ export class Sketch {
     
     for (let i = 0; i < this.shapes.length; i++) {
       //const st = this.ease((t - (this.shapes[i].dist / this.maxDist / Math.PI * 2)) % 1);
-      const st = this.ease((t - (i / this.shapes.length / Math.PI * 2)) % 1);
+      const st = this.ease((t - (i / this.shapes.length / 1)) % 1);
       //const st = this.ease(t % 1);
       this.shapes[i].render(t, st);
     }

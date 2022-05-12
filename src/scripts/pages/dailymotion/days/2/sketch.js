@@ -75,7 +75,6 @@ export class Sketch {
   
   onResize() {
     if (this.preWidth === window.innerWidth && window.innerWidth < 480) {
-      console.log('return');
       return;
     }
 
@@ -168,7 +167,7 @@ export class Sketch {
         0.01,
         this.dist * 10
       );
-    this.camera.position.set(this.dist / 2, 0, this.dist);
+    this.camera.position.set(0, 0, this.dist);
     this.camera.lookAt(new THREE.Vector3());
     
     this.scene.add(this.camera);
@@ -177,7 +176,7 @@ export class Sketch {
   updateCamera(t) {
     this.camera.position.set(
       Math.cos(-t) * this.dist,
-      Math.sin(-t) * this.dist / 2,
+      Math.sin(t) * this.dist / 2,
       Math.sin(-t) * this.dist
     );
     this.camera.lookAt(new THREE.Vector3());

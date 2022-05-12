@@ -9,8 +9,8 @@ import { Utilities } from '../../modules/utilities';
  * class Sketch
  */
 export class Sketch {
-  constructor(devMode) {
-    this.devMode = true;
+  constructor() {
+    this.devMode = false;
     this.setupGUI();
     this.createCanvas();
     this.setupEvents();
@@ -25,10 +25,10 @@ export class Sketch {
     this.gui = new dat.GUI();
 
     this.gui.params = {
-      st: 0.2,
-      ease: 'easeInOutSine',
-      number: 3,
-      scale: 50,
+      st: 1,
+      ease: 'easeInOutQuint',
+      number: 36,
+      scale: 200,
       start: () => this.start(),
       stop: () => this.stop()
     };
@@ -86,7 +86,14 @@ export class Sketch {
       cancelAnimationFrame(this.animationId);
     }
 
-    this.frameSize = Math.min(Math.floor(Math.min(window.innerWidth, window.innerHeight) * 0.9), 500);
+    this.frameSize =
+      Math.min(
+        Math.floor(
+          Math.min(
+            window.innerWidth,
+            window.innerHeight
+          ) * 0.9), 500
+      );
     this.width = this.preWidth = this.frameSize;
     this.height = this.frameSize;
     
@@ -94,15 +101,11 @@ export class Sketch {
 
     this.scene = new THREE.Scene();
     
-    if (this.devMode) {
-      this.scene.add(new THREE.AxesHelper(10000));
-    }
-    
     this.setupCanvas();
     this.setupCamera();
     this.setupLight();
     this.setupShape();
-    this.setupRest(this.dist);
+    this.setupRest();
     
     this.draw();
   }
@@ -118,32 +121,37 @@ export class Sketch {
     this.directionalLight.shadow.camera.bottom = this.dist;
     
     this.spotLight.castShadow = true;
-    this.spotLight.shadow.mapSize.width = 128;
-    this.spotLight.shadow.mapSize.height = 128;
-    this.scene.fog = new THREE.Fog(0x000000, 0, this.dist * 5);
+    this.spotLight.shadow.mapSize.width = 256;
+    this.spotLight.shadow.mapSize.height = 256;
+    
+    this.scene.fog = new THREE.Fog(0xFFFFFF, 0, this.dist * 2);
     
     if (this.devMode) {
       this.controls = new OrbitControls(this.camera, this.renderer.domElement);
       
       const cameraHelper = new THREE.CameraHelper(this.spotLight.shadow.camera);
       this.scene.add(cameraHelper);
+      
+      const axesHelper = new THREE.AxesHelper(10000);
+      this.scene.add(axesHelper);
+
       this.gui.open();
     }
   }
   
   setupCanvas() {
     this.renderer.setSize(this.width, this.height);
-    this.renderer.setPixelRatio(window.devicePixelRatio / 2);
-    this.renderer.setClearColor(0x000000, 1.0);
+    this.renderer.setPixelRatio(window.devicePixelRatio);
+    this.renderer.setClearColor(0xFFFFFF, 1.0);
     
     this.renderer.domElement.style.outline = 'none';
     this.renderer.domElement.style.position = 'fixed';
     this.renderer.domElement.style.top = '50%';
     this.renderer.domElement.style.left = '50%';
     this.renderer.domElement.style.transform = 'translate(-50%, -50%)';
-    this.renderer.domElement.style.background = '#000';
+    this.renderer.domElement.style.background = '#FFF';
     this.renderer.domElement.style.zIndex = '-1';
-    this.renderer.domElement.style.border = '3px solid #FFF';
+    this.renderer.domElement.style.border = '3px solid #000';
   }
   
   setupCamera() {
@@ -159,38 +167,63 @@ export class Sketch {
         0.01,
         this.dist * 10
       );
-    this.camera.position.set(0, 0, this.dist);
+    this.camera.position.set(this.dist, this.dist, this.dist);
     this.camera.lookAt(new THREE.Vector3());
+    
     this.scene.add(this.camera);
+  }
+
+  updateCamera(t) {
+    this.camera.position.set(
+      Math.cos(-t) * this.dist,
+      Math.abs(Math.sin(-t) * this.dist / 2),
+      Math.sin(-t) * this.dist
+    );
+    this.camera.lookAt(new THREE.Vector3());
   }
   
   setupLight() {
     // directinal light
     this.directionalLight = new THREE.DirectionalLight(0xffffff);
+    this.directionalLight.position.set(this.dist, this.dist, this.dist);
     this.scene.add(this.directionalLight);
 
     // point light
     this.spotLight = new THREE.SpotLight(0xFFFFFF, 1);
-    this.spotLight.position.set(0, 0, this.dist);
     this.spotLight.lookAt(new THREE.Vector3());
     this.scene.add(this.spotLight);
   }
 
   setupSizes() {
-    const ratio = Math.min(this.width, 1024) / 1024;
-
+    //const ratio = Math.min(this.width, 1024) / 1024;
     this.scale = this.gui.params.scale;
+    
+    // size
+    //this.size = Math.floor(this.scale * Math.sqrt(2));
+    this.size = Math.floor(this.scale); // square
+    //this.size = Math.floor(Math.sqrt(3) * this.scale / 2); // hex
+    //this.size = Math.floor(scale * 0.4 * 2 * Math.PI / num); // circle
   }
   
   setupShape() {
+    const num = this.gui.params.number;
+    this.maxDist = 0.0001;
+    this.shapes = [];
     this.setupSizes();
 
-    this.shapes = [];
-    this.maxDist = 0;
-    const num = this.gui.params.number;
-    
-    // floor
-    /*
+    //this.addFloor();
+
+    if (num === 1) {
+      this.shapes.push(new Shape(this, 0, 0, 0, this.size, 0.0001, 0, false));
+      this.maxDist = 0.0001;
+      
+      return;
+    }
+
+    this.shapes = this.getCircleGrid(num, this.scale, this.size);
+  }
+
+  addFloor() {
     const floorSize = Math.max(this.width * 10, this.height * 10);
     const geometry = new THREE.BoxGeometry(floorSize, this.scale, floorSize, 1, 1, 1);
     const material = new THREE.MeshLambertMaterial({
@@ -198,25 +231,54 @@ export class Sketch {
     });
     const mesh = new THREE.Mesh(geometry, material);
     
-    mesh.position.set(0, -this.scale - 50, 0);
+    mesh.position.set(0, -this.frameSize / 3, 0);
     mesh.receiveShadow = true;
     
     this.scene.add(mesh);
-    */
+  }
 
-    // size
-    //const size = Math.floor(this.scale * Math.sqrt(2) / 2);
-    const size = Math.floor(this.scale); // square
-    //const size = Math.floor(Math.sqrt(3) * this.scale / 2); // hex
-    //const size = Math.floor(scale * 0.4 * 2 * Math.PI / num); // circle
-    if (num === 1) {
-      this.shapes.push(new Shape(this, 0, 0, 0, size, 0.001, 0, false));
-      this.maxDist = 0.001;
-      
-      return;
+  getCircleGrid(num, scale, size) {
+    const tmp = [];
+
+    let index = 0;
+    for (let y = 0; y < 1; y++) {
+      for (let z = 0; z < num; z++) {
+        const rad = z / num * Math.PI * 2;
+        const ny = Math.cos(rad) * scale;
+        const nz = Math.sin(rad) * scale;
+        const d = new THREE.Vector3(0, ny, nz).distanceTo(new THREE.Vector3());
+        const s = new Shape(this, 0, ny, nz, scale, d, rad, true);
+        
+        tmp.push(s);
+
+        this.maxDist = Math.max(d, this.maxDist);
+      }
     }
 
-    this.shapes = this.getSquareGrid(num, this.scale, size);
+    return tmp;
+  }
+
+  getLineGrid(num, scale, size) {
+    const tmp = [];
+
+    let index = 0;
+    for (let y = 0; y < 1; y++) {
+      for (let x = 0; x < 1; x++) {
+        for (let z = -num; z < num; z++) {
+          const nx = scale / 2 * x;
+          const ny = scale / 2 * y;
+          const nz = scale / 2 * z;
+          const d = new THREE.Vector3(nx, ny, nz).distanceTo(new THREE.Vector3());
+          const s = new Shape(this, nx, ny, nz, size, d, index++, true);
+
+          tmp.push(s);
+
+          this.maxDist = Math.max(d, this.maxDist);
+        }
+      }
+    }
+
+    return tmp;
   }
   
   getSquareGrid(num, scale, size) {
@@ -226,9 +288,9 @@ export class Sketch {
     for (let y = -num; y < num; y++) {
       for (let x = -num; x < num; x++) {
         for (let z = 0; z < 1; z++) {
-          const nx = scale * x + scale / 2;
-          const ny = size * y + size / 2;
-          const nz = scale * z + scale / 2;
+          const nx = scale * x + size / 2;
+          const ny = scale * y + size / 2;
+          const nz = scale * z + size / 2;
           const d = new THREE.Vector3(nx, ny, nz).distanceTo(new THREE.Vector3()); 
           const s = new Shape(this, nx, ny, nz, size, d, index++, true);
           
@@ -273,13 +335,16 @@ export class Sketch {
   }
   
   draw() {
-    const time = this.time.getElapsedTime() * this.gui.params.st;
+    const t = this.time.getElapsedTime() * this.gui.params.st;
     
     for (let i = 0; i < this.shapes.length; i++) {
-      const st = this.ease((time - (this.shapes[i].dist / this.maxDist / Math.PI * 2)) % 1);
-      //const st = this.ease(time % 1);
-      this.shapes[i].render(time, st);
+      //const st = this.ease((t - (this.shapes[i].dist / this.maxDist / Math.PI * 2)) % 1);
+      //const st = this.ease((t - (i / this.shapes.length / 1)) % 1);
+      const st = this.ease(t % 1);
+      this.shapes[i].render(t, st);
     }
+
+    //this.updateCamera(t * 0.5);
     
     this.renderer.render(this.scene, this.camera);
     
@@ -294,68 +359,108 @@ class Shape {
   constructor(sketch, x, y, z, s, d, i, shadow) {
     this.sketch = sketch;
     this.position = new THREE.Vector3(x, y, z);
-    this.position2 = new THREE.Vector3();
-    this.size = s / 2;
+    this.size = s;
     this.dist = d;
     this.index = i;
     this.shadow = shadow;
-    this.atan = Math.atan2(y, x);
+    this.atan = Math.atan2(z, x);
     
     this.initialize();
   }
   
-  getGeometry(geoName, size, segments) {
-    let geometry;
-    
-    switch (geoName) {
-      case 'sphere':
-        geometry = new THREE.SphereGeometry(size, segments, segments);
-        break;
-      case 'torus':
-        geometry = new THREE.TorusGeometry(size - size / 2, size / 4, segments, segments);
-        break;
-      case 'cone':
-        geometry = new THREE.ConeGeometry(size, size, segments, segments);
-        break;
-      case 'cylinder':
-        geometry = new THREE.CylinderGeometry(size, size, size, segments, 1);
-        break;
-      case 'torusKnotGeometry':
-        geometry = new THREE.TorusKnotGeometry(size / 2, size / 5, segments, segments);
-        break;
-      case 'box':
-        geometry = new THREE.BoxGeometry(size * 2, size * 2, size * 2, segments, segments, segments);
-        break;
-      default:
-        console.log('not geometry name');
-    }
-    
-    return geometry;
-  }
-  
   initialize() {
+    this.texture = new createTexture(this.sketch);
+
     // geometry
-    const geometry = this.getGeometry('box', this.size, 4);
+    const geometry = new THREE.PlaneGeometry(this.size, this.size * 2, 1, 1);
     
     // material
     const material = new THREE.MeshPhongMaterial({
       //blending: THREE.AdditiveBlending,
       //transparent: true,
+      map: this.texture.getTexture(),
       side: THREE.DoubleSide,
-      color: `hsl(${Math.floor(360 * (this.sketch.maxDist / this.dist))}, 80%, 60%)`
+      color: 0xFFFFFF
     });
     material.fog = true;
     
     // mesh
     this.mesh = new THREE.Mesh(geometry, material);
-    this.mesh.position.set(this.position.x, this.position.y, this.position.z);
     this.mesh.castShadow = this.shadow;
-    
     this.sketch.scene.add(this.mesh);
   }
   
-  render(time, scaledTime) {
-    //this.mesh.scale.set(scale, scale, scale);
+  render(t, st) {
+    let moveX = 0;
+    let rotate = Utilities.lerp(st, 0, Math.PI * 2 / 18);
+    let y = Math.cos(this.index + rotate) * this.sketch.scale;
+    let z = Math.sin(this.index + rotate) * this.sketch.scale;
+
+    if (this.index === 0) {
+      if (st < 0.5) {
+        moveX = Utilities.map(st, 0, 0.5, 0, 1000);
+      } else {
+        moveX = Utilities.map(st, 0.5, 1.0, -1000, 0);
+      }
+    }
+    
+    this.mesh.position.set(moveX, y, z);
+    this.mesh.rotation.z = Math.PI / 2;
+    this.mesh.rotation.x = Math.atan2(z, y);
   }
 }
 
+class createTexture {
+  constructor(sketch) {
+    this.sketch = sketch;
+
+    this.initialize();
+  }
+
+  initialize() {
+    this.canvas = document.createElement('canvas');
+    this.ctx = this.canvas.getContext('2d');
+
+    this.length = 512;
+    this.fontSize = 512;
+
+    this.canvas.width = this.length;
+    this.canvas.height = this.length;
+
+    this.drawTexture();
+  }
+
+  drawTexture() {
+    const font = 'Impact';
+
+    this.ctx.font = this.fontSize + 'px "' + font + '"';
+
+    const measuredText = this.ctx.measureText('MOTION');
+
+    if (measuredText.width > this.length * 0.9) {
+      this.fontSize--;
+
+      return this.drawTexture();
+    }
+
+    this.ctx.clearRect(0, 0, this.length, this.length);
+
+    this.ctx.translate(this.length / 2, this.length / 2);
+    this.ctx.rotate(Math.PI / 2);
+    this.ctx.translate(-this.length / 2, -this.length / 2);
+    this.ctx.fillStyle = 'white';
+    this.ctx.fillRect(0, 0, this.length, this.length);
+    this.ctx.fillStyle = 'black';
+    this.ctx.textAlign = 'center';
+    this.ctx.textBaseline = 'top';
+    this.ctx.fillText('MOTION', this.length / 2, 0);
+  }
+
+  getTexture() {
+    const texture = new THREE.CanvasTexture(this.canvas);
+
+    texture.needsUpdate = true;
+
+    return texture;
+  }
+}
