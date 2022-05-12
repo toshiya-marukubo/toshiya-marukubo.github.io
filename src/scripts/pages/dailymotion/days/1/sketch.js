@@ -246,7 +246,7 @@ export class Sketch {
       for (let x = -num; x < num; x++) {
         for (let z = 0; z < 1; z++) {
           const nx = scale * x + size / 2;
-          const ny = size * y + size / 2;
+          const ny = scale * y + size / 2;
           const nz = scale * z + size / 2;
           const d = new THREE.Vector3(nx, ny, nz).distanceTo(new THREE.Vector3()); 
           const s = new Shape(this, nx, ny, nz, size, d, index++, true);

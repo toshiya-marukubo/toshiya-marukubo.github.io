@@ -25,10 +25,10 @@ export class Sketch {
     this.gui = new dat.GUI();
 
     this.gui.params = {
-      st: 0.8,
-      ease: 'easeInSine',
-      number: 20,
-      scale: 100,
+      st: 0.4,
+      ease: 'easeInOutQuint',
+      number: 36,
+      scale: 150,
       start: () => this.start(),
       stop: () => this.stop()
     };
@@ -122,8 +122,8 @@ export class Sketch {
     this.directionalLight.shadow.camera.bottom = this.dist;
     
     this.spotLight.castShadow = true;
-    this.spotLight.shadow.mapSize.width = 32;
-    this.spotLight.shadow.mapSize.height = 32;
+    this.spotLight.shadow.mapSize.width = 256;
+    this.spotLight.shadow.mapSize.height = 256;
     
     this.scene.fog = new THREE.Fog(0xFFFFFF, 0, this.dist * 2);
     
@@ -168,7 +168,7 @@ export class Sketch {
         0.01,
         this.dist * 10
       );
-    this.camera.position.set(this.dist / 2, 0, this.dist);
+    this.camera.position.set(0, 0, this.dist);
     this.camera.lookAt(new THREE.Vector3());
     
     this.scene.add(this.camera);
@@ -177,7 +177,7 @@ export class Sketch {
   updateCamera(t) {
     this.camera.position.set(
       Math.cos(-t) * this.dist,
-      Math.sin(-t) * this.dist / 2,
+      Math.abs(Math.sin(-t) * this.dist / 2),
       Math.sin(-t) * this.dist
     );
     this.camera.lookAt(new THREE.Vector3());
@@ -190,7 +190,6 @@ export class Sketch {
 
     // point light
     this.spotLight = new THREE.SpotLight(0xFFFFFF, 1);
-    this.spotLight.position.set(0, 0, this.dist);
     this.spotLight.lookAt(new THREE.Vector3());
     this.scene.add(this.spotLight);
   }
@@ -208,21 +207,11 @@ export class Sketch {
   
   setupShape() {
     const num = this.gui.params.number;
-    this.maxDist = 0;
+    this.maxDist = 0.0001;
     this.shapes = [];
     this.setupSizes();
 
-    //this.addFloor();
-
-    const geometry = new THREE.TorusGeometry(this.size + 20, 10, 10, 4, Math.PI * 2);
-    const material = new THREE.MeshLambertMaterial({
-      color: 0xDDDDDD
-    });
-    const mesh = new THREE.Mesh(geometry, material);
-    mesh.position.set(0, 0, -25);
-    mesh.receiveShadow = true;
-    
-    this.scene.add(mesh);
+    this.addFloor();
 
     if (num === 1) {
       this.shapes.push(new Shape(this, 0, 0, 0, this.size, 0.0001, 0, false));
@@ -231,21 +220,43 @@ export class Sketch {
       return;
     }
 
-    this.shapes = this.getLineGrid(num, this.scale, this.size);
+    this.shapes = this.getCircleGrid(num, this.scale, this.size);
   }
 
   addFloor() {
     const floorSize = Math.max(this.width * 10, this.height * 10);
-    const geometry = new THREE.BoxGeometry(floorSize, 100, floorSize, 1, 1, 1);
+    const geometry = new THREE.BoxGeometry(floorSize, this.scale, floorSize, 1, 1, 1);
     const material = new THREE.MeshLambertMaterial({
       color: 0xffffff,
     });
     const mesh = new THREE.Mesh(geometry, material);
     
-    mesh.position.set(0, -this.frameSize / 2, 0);
+    mesh.position.set(0, -this.frameSize / 3, 0);
     mesh.receiveShadow = true;
     
     this.scene.add(mesh);
+  }
+
+  getCircleGrid(num, scale, size) {
+    const tmp = [];
+
+    let index = 0;
+    for (let x = 0; x < 1; x++) {
+      for (let z = 0; z < num; z++) {
+        const rad = z / num * Math.PI * 2;
+        const nx = Math.cos(rad) * scale;
+        const nz = Math.sin(rad) * scale;
+        const d = new THREE.Vector3(nx, 0, nz).distanceTo(new THREE.Vector3());
+        const s = new Shape(this, nx, 0, nz, size, d, index++, true);
+
+        tmp.push(s);
+
+        this.maxDist = Math.max(d, this.maxDist);
+
+      }
+    }
+
+    return tmp;
   }
 
   getLineGrid(num, scale, size) {
@@ -329,8 +340,8 @@ export class Sketch {
     
     for (let i = 0; i < this.shapes.length; i++) {
       //const st = this.ease((t - (this.shapes[i].dist / this.maxDist / Math.PI * 2)) % 1);
-      //const st = this.ease((t - (i / this.shapes.length / Math.PI * 2)) % 1);
-      const st = this.ease(t % 1);
+      const st = this.ease((t - (i / this.shapes.length / Math.PI * 2)) % 1);
+      //const st = this.ease(t % 1);
       this.shapes[i].render(t, st);
     }
 
@@ -349,26 +360,26 @@ class Shape {
   constructor(sketch, x, y, z, s, d, i, shadow) {
     this.sketch = sketch;
     this.position = new THREE.Vector3(x, y, z);
-    this.position2 = new THREE.Vector3();
+    this.position2 = new THREE.Vector3(x / 2, y / 2, z / 2);
     this.size = s / 2;
     this.dist = d;
     this.index = i;
     this.shadow = shadow;
-    this.atan = Math.atan2(y, x);
+    this.atan = Math.atan2(z, x);
     
     this.initialize();
   }
   
   initialize() {
     // geometry
-    const geometry = new THREE.BoxGeometry(this.size * 3, this.size * 3, 5, 1, 1, 1);
+    const geometry = new THREE.BoxGeometry(this.size, this.size, 5, 1, 1, 1);
     
     // material
     const material = new THREE.MeshPhongMaterial({
       //blending: THREE.AdditiveBlending,
       //transparent: true,
       side: THREE.DoubleSide,
-      color: 0xDDDDDD,
+      color: 0xFFFFFF
     });
     material.fog = true;
     
@@ -376,30 +387,31 @@ class Shape {
     this.mesh = new THREE.Mesh(geometry, material);
     this.mesh.position.set(this.position.x, this.position.y, this.position.z);
     this.mesh.castShadow = this.shadow;
+    this.mesh.rotation.y = -this.atan;
     
     this.sketch.scene.add(this.mesh);
   }
   
   render(t, st) {
-    let rotate = 0, moveZ = 0;
-    if (st < 0.25) {
-      rotate = Utilities.map(st, 0, 0.25, 0, Math.PI / 4);
-      moveZ = Utilities.map(st, 0, 0.25, 0, 0);
-    } else if (st >= 0.25 && st < 0.5) {
-      rotate = Utilities.map(st, 0.25, 0.5, Math.PI / 4, Math.PI / 4);
-      moveZ = Utilities.map(st, 0.25, 0.5, 0, 25);
-    } else if (st >= 0.5 && st < 0.75) {
-      rotate = Utilities.map(st, 0.5, 0.75, Math.PI / 4, Math.PI / 4);
-      moveZ = Utilities.map(st, 0.5, 0.75, 25, 50);
+    let rotate = 0, x = 0, y = 0, z = 0;
+    if (st < 0.33) {
+      rotate = Utilities.map(st, 0, 0.33, 0, Math.PI);
+      x = Utilities.map(st, 0, 0.33, this.position.x, this.position2.x);
+      y = Utilities.map(st, 0, 0.33, this.position.y, this.position2.y);
+      z = Utilities.map(st, 0, 0.33, this.position.z, this.position2.z);
+    } else if (st >= 0.33 && st < 0.66) {
+      rotate = Utilities.map(st, 0.33, 0.66, Math.PI, Math.PI);
+      x = Utilities.map(st, 0.33, 0.66, this.position2.x, this.position2.x);
+      y = Utilities.map(st, 0.33, 0.66, this.position2.y, this.position2.y);
+      z = Utilities.map(st, 0.33, 0.66, this.position2.z, this.position2.z);
     } else {
-      rotate = Utilities.map(st, 0.75, 1, Math.PI / 4, 0);
-      moveZ = Utilities.map(st, 0.75, 1.0, 50, 50);
+      rotate = Utilities.map(st, 0.66, 1, Math.PI, 0);
+      x = Utilities.map(st, 0.66, 1, this.position2.x, this.position.x);
+      y = Utilities.map(st, 0.66, 1, this.position2.y, this.position.y);
+      z = Utilities.map(st, 0.66, 1, this.position2.z, this.position.z);
     }
-
-    if (this.index === 19) {
-      this.mesh.rotation.z = rotate;
-    }
-
-    this.mesh.position.set(this.position.x, this.position.y, this.position.z + moveZ);
+    
+    this.mesh.position.set(x, y, z);
+    this.mesh.rotation.z = rotate;
   }
 }

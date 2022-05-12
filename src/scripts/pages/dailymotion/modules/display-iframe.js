@@ -30,12 +30,12 @@ export class DisplayIframe {
 
   add(e) {
     e.preventDefault();
-    
+
     const path = this.getAttribute('href');
     const iframe = document.getElementsByTagName('iframe')[0];
     const closeButton = document.getElementsByClassName('closeButton')[0];
 
-    iframe.setAttribute('src', path);
+    iframe.contentWindow.location.replace(path);
     iframe.classList.add('show');
     closeButton.classList.add('show');
     closeButton.firstChild.focus();
@@ -44,7 +44,7 @@ export class DisplayIframe {
   remove(e) {
     e.preventDefault();
 
-    this.iframe.setAttribute('src', '');
+    this.iframe.contentWindow.location.replace('');
     this.iframe.classList.remove('show');
     this.closeButton.classList.remove('show');
     this.preFocus.focus();
