@@ -38,15 +38,15 @@ export class DisplayIframe {
     iframe.contentWindow.location.replace(path);
     iframe.classList.add('show');
     closeButton.classList.add('show');
-    closeButton.firstChild.focus();
+    //closeButton.firstChild.focus();
   }
 
   remove(e) {
     e.preventDefault();
 
-    this.iframe.contentWindow.location.replace('');
+    //this.iframe.contentWindow.location.replace('');
     this.iframe.classList.remove('show');
     this.closeButton.classList.remove('show');
-    this.preFocus.focus();
+    //this.preFocus.focus();
   }
 }
