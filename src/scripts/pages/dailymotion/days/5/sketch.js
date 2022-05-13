@@ -172,7 +172,7 @@ export class Sketch {
         0.01,
         this.dist * 10
       );
-    this.camera.position.set(0, 0, this.dist);
+    this.camera.position.set(this.dist / 3, -this.dist / 3, this.dist);
     this.camera.lookAt(new THREE.Vector3());
     
     this.scene.add(this.camera);
@@ -353,7 +353,7 @@ export class Sketch {
       this.shapes[i].render(t, st);
     }
 
-    this.updateCamera(t);
+    //this.updateCamera(t);
     
     this.renderer.render(this.scene, this.camera);
     
@@ -422,7 +422,7 @@ class Shape {
       }
     }
 
-    this.mesh.rotation.setFromRotationMatrix(this.sketch.camera.matrix);
+    //this.mesh.rotation.setFromRotationMatrix(this.sketch.camera.matrix);
     this.mesh.position.set(this.position.x, this.position.y - moveY, this.position.z);
   }
 }
