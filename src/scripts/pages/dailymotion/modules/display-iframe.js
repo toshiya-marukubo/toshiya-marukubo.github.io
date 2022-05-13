@@ -44,7 +44,7 @@ export class DisplayIframe {
   remove(e) {
     e.preventDefault();
 
-    //this.iframe.contentWindow.location.replace('');
+    this.iframe.contentWindow.location.replace('');
     this.iframe.classList.remove('show');
     this.closeButton.classList.remove('show');
     //this.preFocus.focus();
