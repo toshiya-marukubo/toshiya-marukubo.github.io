@@ -1,7 +1,7 @@
 - 
   const infos = {
     name: '#dailymotion',
-    days: 5,
+    days: 6,
   };
 
 doctype html
@@ -13,7 +13,7 @@ html(lang="en")
     script.
       console.log('(*^^)v');
     title #{infos.name}
-  body
+  body.preload
     include ./modules/loading.pug
     .container
       .container-inner

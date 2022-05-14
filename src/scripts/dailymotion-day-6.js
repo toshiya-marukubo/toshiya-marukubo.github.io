@@ -1,4 +1,4 @@
-import {Sketch} from './pages/dailymotion/days/2/sketch';
+import {Sketch} from './pages/dailymotion/days/6/sketch';
 
 (() => {
   window.addEventListener('load', () => {
