@@ -185,12 +185,14 @@ export class Sketch {
   setupLight() {
     // directinal light
     this.directionalLight = new THREE.DirectionalLight(0xffffff);
+    this.directionalLight.position.set(0, 300, 0);
     this.scene.add(this.directionalLight);
 
     // point light
     this.spotLight = new THREE.SpotLight(0xFFFFFF, 1);
-    this.spotLight.lookAt(new THREE.Vector3());
-    this.scene.add(this.spotLight);
+    //this.spotLight.position.set(0, 300, 0);
+    //this.spotLight.lookAt(new THREE.Vector3());
+    //this.scene.add(this.spotLight);
   }
 
   setupSizes() {
@@ -258,82 +260,6 @@ export class Sketch {
     return tmp;
   }
 
-  getLineGrid(num, scale, size) {
-    const tmp = [];
-
-    let index = 0;
-    for (let y = 0; y < 1; y++) {
-      for (let x = 0; x < 1; x++) {
-        for (let z = -num; z < num; z++) {
-          const nx = scale / 2 * x;
-          const ny = scale / 2 * y;
-          const nz = scale / 2 * z;
-          const d = new THREE.Vector3(nx, ny, nz).distanceTo(new THREE.Vector3());
-          const s = new Shape(this, nx, ny, nz, size, d, index++, true);
-
-          tmp.push(s);
-
-          this.maxDist = Math.max(d, this.maxDist);
-        }
-      }
-    }
-
-    return tmp;
-  }
-  
-  getSquareGrid(num, scale, size) {
-    const tmp = [];
-    
-    let index = 0;
-    for (let y = -num; y < num; y++) {
-      for (let x = -num; x < num; x++) {
-        for (let z = 0; z < 1; z++) {
-          const nx = scale * x + size / 2;
-          const ny = scale * y + size / 2;
-          const nz = scale * z + size / 2;
-          const d = new THREE.Vector3(nx, ny, nz).distanceTo(new THREE.Vector3()); 
-          const s = new Shape(this, nx, ny, nz, size, d, index++, true);
-          
-          tmp.push(s);
-          
-          this.maxDist = Math.max(d, this.maxDist);
-        }
-      }
-    }
-    
-    return tmp;
-  }
-  
-  getHexGrid(num, size) {
-    const tmp = [];
-    const vectors = [];
-
-    for (let x = -num; x <= num; x++) {
-      for (let y = -num; y <= num; y++) {
-        for (let z = -num; z <= num; z++) {
-          if (x + y + z === 0) {
-            const v = new THREE.Vector2(x, y);
-            
-            vectors.push(v);
-          }
-        } 
-      }
-    }
-    
-    for (let i = 0; i < vectors.length; i++) {
-      const x = Math.sqrt(3) * (vectors[i].x + vectors[i].y / 2) / 2 * size;
-      const y = 3 / 2 * vectors[i].y / 2 * size;
-      const d = new THREE.Vector3(x, y, 0).distanceTo(new THREE.Vector3()) || 0.0001;
-      const s = new Shape(this, x, y, 0, size, d, i, false);
-      
-      tmp.push(s);
-      
-      this.maxDist = Math.max(d, this.maxDist);
-    }
-    
-    return tmp;
-  }
-  
   draw() {
     const t = this.time.getElapsedTime() * this.gui.params.st;
     
