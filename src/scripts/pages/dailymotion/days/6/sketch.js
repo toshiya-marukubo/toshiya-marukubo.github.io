@@ -179,12 +179,11 @@ export class Sketch {
   updateCamera(t) {
     const noise = this.simplex.noise3D(this.camera.position.x * 0.001, this.camera.position.y * 0.001, t);
     
-    this.camera.position.set(
-      5 * noise,
-      20 * noise,
-      5 * noise + this.dist
-    );
-    this.camera.lookAt(new THREE.Vector3());
+    this.camera.lookAt(new THREE.Vector3(
+      0,
+      10 * noise,
+      0
+    ));
     
     /* 
     this.spotLight.position.set(

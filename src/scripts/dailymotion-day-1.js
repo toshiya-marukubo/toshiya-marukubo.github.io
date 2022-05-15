@@ -2,8 +2,6 @@ import {Sketch} from './pages/dailymotion/days/1/sketch';
 
 (() => {
   window.addEventListener('load', () => {
-    document.body.classList.remove('preload');
-
     const loading = document.getElementsByClassName('loading')[0];
     loading.classList.add('loaded');
     
