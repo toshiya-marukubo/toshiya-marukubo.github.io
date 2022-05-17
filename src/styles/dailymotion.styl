@@ -93,12 +93,11 @@ iframe
     transition: visibility 0.4s ease-in-out 0s, opacity 0.4s ease-in-out 0s, transform 0.4s ease-in-out 0s;
   &.show
     visibility: visible;
+    opacity: 1;
     &::before
-      visibility: visible;
       opacity: 1;
       transform: translateY(-50%) rotate(45deg);
     &::after
-      visibility: visible;
       opacity: 1;
       transform: translateY(-50%) rotate(-45deg);
 
