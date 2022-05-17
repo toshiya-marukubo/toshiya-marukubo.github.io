@@ -42,6 +42,7 @@ a
       top: 50%;
       left: 0;
       transform: translateY(-50%);
+      backface-visibility: hidden;
       transition: width 0.2s ease-in-out 0s;
     @media (hover: hover)
       a:hover::before
@@ -58,6 +59,7 @@ iframe
   height: 100%;
   visibility: hidden;
   opacity: 0;
+  backface-visibility: hidden;
   transition: opacity 0.2s ease-in-out 0s;
   &.show
     visibility: visible;
@@ -88,6 +90,7 @@ iframe
     transform: translateY(-50%) rotate(0deg);
     top: 50%;
     opacity: 0;
+    backface-visibility: hidden;
     transition: visibility 0.4s ease-in-out 0s, opacity 0.4s ease-in-out 0s, transform 0.4s ease-in-out 0s;
   &.show
     visibility: visible;
