@@ -83,7 +83,6 @@ iframe
     content: '';
     display: block;
     position: absolute;
-    visibility: hidden;
     width: 64px;
     height: 3px;
     background: #000;
@@ -91,15 +90,13 @@ iframe
     top: 50%;
     opacity: 0;
     backface-visibility: hidden;
-    transition: visibility 0.2s ease-in-out 0s, opacity 0.2s ease-in-out 0s, transform 0.2s ease-in-out 0s;
+    transition: visibility 0.4s ease-in-out 0s, opacity 0.4s ease-in-out 0s, transform 0.4s ease-in-out 0s;
   &.show
     visibility: visible;
     &::before
-      visibility: visible;
       opacity: 1;
       transform: translateY(-50%) rotate(45deg);
     &::after
-      visibility: visible;
       opacity: 1;
       transform: translateY(-50%) rotate(-45deg);
 
