@@ -20,7 +20,7 @@
   padding: 32px;
   transform: translateX(-50%);
   opacity: 0;
-  transition: bottom 0.8s 2.0s ease-in-out, opacity 0.8s 2.0s ease-in-out;
+  transition: bottom 0.8s ease-in-out 2.0s, opacity 0.8s ease-in-out 2.0s;
 
 .loading.loaded + .body-container .description
   bottom: 15%;
@@ -70,7 +70,7 @@
   background-repeat: no-repeat;
   margin: 1%;
   opacity: 0;
-  transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in-out 0s;
   &::before
     content: "";
     display: block;
@@ -90,7 +90,7 @@
       justify-content: center;
       align-items: center;
       flex-flow: column;
-      transition: opacity 0.4s ease-in-out;
+      transition: opacity 0.4s ease-in-out 0s;
       &:hover
         opacity: 1;
       &:hover ul
@@ -98,7 +98,7 @@
         opacity: 1;
       h3
         transform: translateY(50%);
-        transition: transform 0.2s 0.2s ease-in-out, opacity 0.2s 0.2s ease-in-out;
+        transition: transform 0.2s ease-in-out 0.2s, opacity 0.2s ease-in-out 0.2s;
         opacity: 0;
         font-size: 1.6rem;
         padding: 12px 4px;
@@ -114,7 +114,7 @@
         color: #FFF;
         opacity: 0;
         transform: translateY(-50%);
-        transition: transform 0.2s 0.2s ease-in-out, opacity 0.2s 0.2s ease-in-out;
+        transition: transform 0.2s ease-in-out 0.2s, opacity 0.2s ease-in-out 0.2s;
         border: solid 1px #FFF;
         border-radius: 4px;
         padding: 8px;

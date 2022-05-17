@@ -40,7 +40,7 @@ h1
   background-repeat: no-repeat;
   margin: 1%;
   opacity: 0;
-  transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in-out 0s;
   &::before
     content: "";
     display: block;
@@ -60,7 +60,7 @@ h1
       justify-content: center;
       align-items: center;
       flex-flow: column;
-      transition: opacity 0.4s ease-in-out;
+      transition: opacity 0.4s ease-in-out 0s;
       &:hover
         opacity: 1;
       &:hover ul
@@ -68,7 +68,7 @@ h1
         opacity: 1;
       ul
         transform: translateY(50%);
-        transition: transform 0.2s 0.2s ease-in-out, opacity 0.2s 0.2s ease-in-out;
+        transition: transform 0.2s ease-in-out 0.2s, opacity 0.2s ease-in-out 0.2s;
         opacity: 0;
       ul li
         font-size: 1.2rem;
@@ -83,7 +83,7 @@ h1
         color: #FFF;
         opacity: 0;
         transform: translateY(-50%);
-        transition: transform 0.2s 0.2s ease-in-out, opacity 0.2s 0.2s ease-in-out;
+        transition: transform 0.2s ease-in-out 0.2s, opacity 0.2s ease-in-out 0.2s;
         border: solid 1px #FFF;
         border-radius: 4px;
         padding: 8px;
@@ -107,7 +107,7 @@ nav
   ol li a:hover svg
       color: deeppink;
     svg
-      transition: color 0.4s ease-in-out;
+      transition: color 0.4s ease-in-out 0s;
       color: #FFF;
     svg.active
       color: deeppink;

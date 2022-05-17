@@ -27,7 +27,7 @@ body
   left: 0;
   transform: translate(-100%, -50%);
   opacity: 0;
-  transition: transform 0.4s 2.0s ease-in-out, opacity 0.4s 2.0s ease-in-out;
+  transition: transform 0.4s ease-in-out 2.0s, opacity 0.4s ease-in-out 2.0s;
 
 .loading.loaded + .body-container .back
   transform: translate(0, -50%);
@@ -40,7 +40,7 @@ body
   right: 0;
   transform: translate(100%, -50%);
   opacity: 0;
-  transition: transform 0.4s 2.0s ease-in-out, opacity 0.4s 2.0s ease-in-out;
+  transition: transform 0.4s ease-in-out 2.0s, opacity 0.4s ease-in-out 2.0s;
 
 .loading.loaded + .body-container .question
   transform: translate(0, -50%);
@@ -50,7 +50,7 @@ body
 .question a
   display: block;
   padding: 16px;
-  transition: color 0.8s ease-in-out;
+  transition: color 0.8s ease-in-out 0s;
 
 .back a
   padding-left: 0;
@@ -68,7 +68,7 @@ body
   bottom: 32px;
   transform: translateX(100%);
   opacity: 0;
-  transition: transform 0.4s 1.8s ease-in-out, opacity 0.4s 1.8s ease-in-out;
+  transition: transform 0.4s ease-in-out 1.8s, opacity 0.4s ease-in-out 1.8s;
 
 .loading.loaded + .body-container .works-description
   transform: translateX(0);
@@ -121,7 +121,7 @@ body
   padding: 32px;
   opacity: 0;
   visibility: hidden;
-  transition: opacity ease-in-out 0.4s, visibility ease-in-out 0.4s, transform ease-in-out 0.4s;
+  transition: opacity 0.4s ease-in-out 0s, visibility 0.4s ease-in-out 0s, transform 0.4s ease-in-out 0s;
 
 .what.show
   transform: translate(-50%, -50%);
@@ -154,7 +154,7 @@ h3::after
   width: 0;
   height: 2px;
   background: #FFF;
-  transition: width ease-in-out 0.4s 0.4s;
+  transition: width 0.4s ease-in-out 0s;
 
 .what p
   padding-bottom: 16px;
@@ -181,7 +181,7 @@ h4
   top: 0;
   right: 0;
   transform: rotate(0deg);
-  transition: transform ease-in-out 0.4s 0.8s;
+  transition: transform 0.4s ease-in-out 0s;
 
 .close a
   display: block;

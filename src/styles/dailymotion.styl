@@ -42,7 +42,7 @@ a
       top: 50%;
       left: 0;
       transform: translateY(-50%);
-      transition: width 0.2s ease-in-out;
+      transition: width 0.2s ease-in-out 0s;
     @media (hover: hover)
       a:hover::before
         width: 100%;
@@ -58,7 +58,7 @@ iframe
   height: 100%;
   visibility: hidden;
   opacity: 0;
-  transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out 0s;
   &.show
     visibility: visible;
     opacity: 1;
@@ -87,7 +87,7 @@ iframe
     transform: translateY(-50%) rotate(0deg);
     top: 50%;
     opacity: 0;
-    transition: visibility 0.4s ease-in-out, opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+    transition: visibility 0.4s ease-in-out 0s, opacity 0.4s ease-in-out 0s, transform 0.4s ease-in-out 0s;
   &.show
     visibility: visible;
     &::before
