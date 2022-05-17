@@ -13,12 +13,14 @@ export class DisplayIframe {
   }
 
   setupEvents() {
+    const click = (window.ontouchstart === undefined) ? 'click' : 'touchstart';
+
     for (let i = 0; i < this.targetElements.length; i++) {
       const target = this.targetElements[i];
       
-      target.addEventListener('click', this.add, false);
+      target.addEventListener(click, this.add, false);
 
-      target.addEventListener('click', (e) => {
+      target.addEventListener(click, (e) => {
         e.preventDefault();
         
         this.preFocus = target;
