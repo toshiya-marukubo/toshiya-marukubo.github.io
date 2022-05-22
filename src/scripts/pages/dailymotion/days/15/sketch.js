@@ -170,7 +170,7 @@ export class Sketch {
 
     // spot light
     this.spotLight = new THREE.SpotLight(0xFFFFFF, 1);
-    this.spotLight.position.set(0, this.dist * 0.8, 0);
+    this.spotLight.position.set(0, this.dist * 0.7, 0);
     this.spotLight.lookAt(new THREE.Vector3());
     this.scene.add(this.spotLight);
 
