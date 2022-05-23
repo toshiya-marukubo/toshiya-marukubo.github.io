@@ -433,6 +433,7 @@ class Shape {
 
     // times
     this.time = new THREE.Clock(true);
+    this.timeNum = 10;
     this.scale = 1;
     
     this.position = new THREE.Vector3(x, y, z);
@@ -472,108 +473,126 @@ class Shape {
   
   render() {
     const t = this.time.getElapsedTime() * this.scale - this.dist / this.sketch.maxDist / 1;
+    const IntT = Math.floor(t % this.timeNum);
 
+    let st;
     let moveX = 0, moveY = 0, moveZ = 0, rotate = 0, posScale = 1, scale = 1, opacity = 1;
 
-    if (Math.floor(t % 10) === 0) {
-      const st = this.sketch.ease2(t % 1);
+    switch (IntT) {
+      case 0:
+        st = this.sketch.ease2(t % 1);
+        
+        if (this.index % 2 === 0) {
+          moveY = Utilities.map(st, 0, 1, -this.sketch.frameSize, 0);
+        } else {
+          moveY = this.sketch.frameSize
+        }
+        
+        break;
+
+      case 1:
+        st = this.sketch.ease3(t % 1);
+        
+        if (this.index % 2 === 1) {
+          moveY = Utilities.map(st, 0, 1, this.sketch.frameSize, 0);
+        } else {
+          moveY = 0;
+        }
+
+        break;
       
-      if (this.index % 2 === 0) {
-        moveY = Utilities.map(st, 0, 1, -this.sketch.frameSize, 0);
-      } else {
-        moveY = this.sketch.frameSize
-      }
-    }
+      case 2:
+        st = this.sketch.ease2(t % 1);
 
-    if (Math.floor(t % 10) === 1) {
-      const st = this.sketch.ease3(t % 1);
+        if (st < 0.5) {
+          opacity = Utilities.map(st, 0, 0.5, 1, 0);
+        } else {
+          opacity = Utilities.map(st, 0.5, 1, 0, 1);
+        }
+
+        break;
+
+      case 3:
+        st = this.sketch.ease3(t % 1);
+
+        posScale = Utilities.map(st, 0, 1, 1, 0);
+        if (st < 0.5) {
+          opacity = Utilities.map(st, 0, 0.5, 1, 0);
+        } else {
+          opacity = Utilities.map(st, 0.5, 1, 0, 1);
+        }
+
+        break;
+
+      case 4:
+        st = this.sketch.ease(t % 1);
+
+        posScale = 0;
+        
+        break;
+
+      case 5:
+        st = this.sketch.ease3(t % 1);
+
+        posScale = 0;
+
+        scale = Utilities.map(st, 0, 1, 1, 8);
+
+        if (st < 0.5) {
+          opacity = Utilities.map(st, 0, 0.5, 1, 0);
+        } else {
+          opacity = Utilities.map(st, 0.5, 1, 0, 1);
+        }
+
+        break;
+
+      case 6:
+        st = this.sketch.ease3(t % 1);
+        
+        posScale = 0;
+        
+        break;
+
+      case 7:
+        st = this.sketch.ease3(t % 1);
+
+        posScale = 0;
+        if (st < 0.5) {
+          opacity = Utilities.map(st, 0, 0.5, 1, 0);
+        } else {
+          opacity = Utilities.map(st, 0.5, 1, 0, 1);
+        }
+
+        scale = Utilities.map(st, 0, 1, 8, 0);
+
+        break;
+
+      case 8:
+        st = this.sketch.ease3(t % 1);
+
+        posScale = 0;
+        scale = 0;
+        
+        break;
+
+      case 9:
+        st = this.sketch.ease5(t % 1);
+
+        moveX = Utilities.map(st, 0, 1, 0, this.position2.x * 2);
+        moveY = Utilities.map(st, 0, 1, 0, this.position2.y * 2);
+        moveZ = Utilities.map(st, 0, 1, 0, this.position2.z * 2);
+        posScale = 0;
+
+        scale = Utilities.map(st, 0, 1, 0, 1);
+        opacity = Utilities.map(st, 0, 1, 1, 0);
+
+        break;
       
-      if (this.index % 2 === 1) {
-        moveY = Utilities.map(st, 0, 1, this.sketch.frameSize, 0);
-      } else {
-        moveY = 0;
-      }
-    }
+      default:
 
-    if (Math.floor(t % 10) === 2) {
-      const st = this.sketch.ease2(t % 1);
-
-      if (st < 0.5) {
-        opacity = Utilities.map(st, 0, 0.5, 1, 0);
-      } else {
-        opacity = Utilities.map(st, 0.5, 1, 0, 1);
-      }
+        return;
     }
     
-    if (Math.floor(t % 10) === 3) {
-      const st = this.sketch.ease3(t % 1);
-
-      posScale = Utilities.map(st, 0, 1, 1, 0);
-      if (st < 0.5) {
-        opacity = Utilities.map(st, 0, 0.5, 1, 0);
-      } else {
-        opacity = Utilities.map(st, 0.5, 1, 0, 1);
-      }
-    }
-
-    if (Math.floor(t % 10) === 4) {
-      const st = this.sketch.ease(t % 1);
-
-      posScale = 0;
-    }
-
-    if (Math.floor(t % 10) === 5) {
-      const st = this.sketch.ease3(t % 1);
-
-      posScale = 0;
-
-      scale = Utilities.map(st, 0, 1, 1, 8);
-
-      if (st < 0.5) {
-        opacity = Utilities.map(st, 0, 0.5, 1, 0);
-      } else {
-        opacity = Utilities.map(st, 0.5, 1, 0, 1);
-      }
-    }
-
-    if (Math.floor(t % 10) === 6) {
-      const st = this.sketch.ease3(t % 1);
-      
-      posScale = 0;
-    }
-    
-    if (Math.floor(t % 10) === 7) {
-      const st = this.sketch.ease3(t % 1);
-
-      posScale = 0;
-      if (st < 0.5) {
-        opacity = Utilities.map(st, 0, 0.5, 1, 0);
-      } else {
-        opacity = Utilities.map(st, 0.5, 1, 0, 1);
-      }
-
-      scale = Utilities.map(st, 0, 1, 8, 0);
-    }
-
-    if (Math.floor(t % 10) === 8) {
-      const st = this.sketch.ease3(t % 1);
-
-      posScale = 0;
-      scale = 0;
-    }
-
-    if (Math.floor(t % 10) === 9) {
-      const st = this.sketch.ease5(t % 1);
-
-      moveX = Utilities.map(st, 0, 1, 0, this.position2.x * 2);
-      moveY = Utilities.map(st, 0, 1, 0, this.position2.y * 2);
-      moveZ = Utilities.map(st, 0, 1, 0, this.position2.z * 2);
-      posScale = 0;
-
-      scale = Utilities.map(st, 0, 1, 0, 1);
-      opacity = Utilities.map(st, 0, 1, 1, 0);
-    }
-
     this.mesh.position.set(this.position.x * posScale + moveX, this.position.y * posScale + moveY, this.position.z * posScale + moveZ);
     this.mesh.rotation.set(0, 0, 0);
     this.mesh.scale.set(scale, scale, scale);
