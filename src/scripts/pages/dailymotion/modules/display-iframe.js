@@ -20,11 +20,13 @@ export class DisplayIframe {
       
       target.addEventListener(click, this.add, false);
 
+      /*
       target.addEventListener(click, (e) => {
         e.preventDefault();
         
         this.preFocus = target;
       }, false);
+      */
     }
 
     this.closeButton.addEventListener('click', this.remove.bind(this), false);
