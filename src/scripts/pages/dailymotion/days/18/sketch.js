@@ -454,7 +454,7 @@ export class Sketch {
       this.shapes[i].render();
     }
 
-    this.updateEquipments(t * 0.3);
+    this.updateEquipments(t * 0.5);
     
     this.renderer.render(this.scene, this.camera);
     
@@ -578,6 +578,8 @@ class Shape {
        st = this.sketch.easeLinear(t % 1);
         
        this.mesh.material.uniforms.dashOffset.value = Utilities.map(st, 0, 1, 1, 0);
+
+       break;
 
       default:
         return;
