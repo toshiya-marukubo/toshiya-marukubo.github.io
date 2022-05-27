@@ -36,6 +36,7 @@
     "dat.gui": "^0.7.9",
     "lodash-es": "^4.17.21",
     "simplex-noise": "^3.0.1",
-    "three": "^0.139.2"
+    "three": "^0.139.2",
+    "three.meshline": "^1.4.0"
   }
 }
