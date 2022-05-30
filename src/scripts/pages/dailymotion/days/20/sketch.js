@@ -20,7 +20,7 @@ const font = require('three/examples/fonts/helvetiker_bold.typeface.json');
  */
 export class Sketch {
   constructor() {
-    this.devMode = true;
+    this.devMode = false;
     this.setupGUI();
     this.createCanvas();
     this.setupEvents();
@@ -42,9 +42,9 @@ export class Sketch {
 
     this.gui.params = {
       st: 0.3,
-      ease: 'linear',
-      number: 5,
-      scale: 50,
+      ease: 'easeOutBack',
+      number: 2,
+      scale: 70,
       start: () => this.start(),
       stop: () => this.stop()
     };
@@ -177,7 +177,7 @@ export class Sketch {
 
     // spot light
     this.spotLight = new THREE.SpotLight(0xFFFFFF, 1);
-    this.spotLight.position.set(0, this.dist * 0.7, 0);
+    this.spotLight.position.set(0, this.dist * 0.6, 0);
     this.spotLight.lookAt(new THREE.Vector3());
     this.scene.add(this.spotLight);
 
@@ -236,10 +236,24 @@ export class Sketch {
 
     this.shapes = [];
 
-    //this.addFloor();
+    this.addFloor();
 
     if (num === 1) {
-      this.shapes.push(new Shape(this, 0, 0, 0, this.size, this.maxDist, 0, true, null));
+      this.shapes.push(new Shape({
+        sketch: this,
+        position: {
+          x: 0,
+          y: 0,
+          z: 0
+        },
+        size: this.size,
+        dist: this.maxDist,
+        index: 0,
+        shadow: true,
+        geometry: geometry,
+        material: material,
+        others: null
+      }));
       
       return;
     }
@@ -260,14 +274,14 @@ export class Sketch {
     const material = new THREE.MeshPhongMaterial({color: 0xDDDDDD});
     const mesh = new THREE.Mesh(geometry, material);
     
-    mesh.position.set(0, 0 - 5, 0);
+    mesh.position.set(0, -this.scale * 1.8, 0);
     mesh.receiveShadow = true;
 
     this.scene.add(mesh);
   }
 
   getGeometry(size) {
-    const geometry = new THREE.BoxGeometry(size, size, size, 1, 1, 1);
+    const geometry = new THREE.TorusGeometry(size, size * 0.2, 36, 4, Math.PI * 2);
     
     return geometry;
   }
@@ -276,7 +290,7 @@ export class Sketch {
     const material = new THREE.MeshPhongMaterial({
       //side: THREE.DoubleSide,
       //transparent: true,
-      color: 0xffffff
+      color: 0x000000
     });
     material.fog = true;
     
@@ -289,6 +303,7 @@ export class Sketch {
     let index = 0;
 
     // main shape
+    /*
     this.mainShape = new MainShape({
       sketch: this,
       position: {
@@ -304,6 +319,7 @@ export class Sketch {
       material: null,
       others: null
     });
+    */
 
     // square
     /*
@@ -381,12 +397,11 @@ export class Sketch {
     */
 
     // line
-    /*
-    for (let x = -num; x <= num; x++) {
-      for (let y = 0; y < 1; y++) {
+    for (let x = 0; x < 1; x++) {
+      for (let y = -num; y <= num; y++) {
         for (let z = 0; z < 1; z++) {
           const nx = x * scale;
-          const ny = y * scale;
+          const ny = y * scale * 0.5;
           const nz = z * scale;
           const dist = new THREE.Vector3(nx, ny, nz).distanceTo(new THREE.Vector3());
           const others = {};
@@ -415,9 +430,9 @@ export class Sketch {
         }
       }
     }
-    */
 
     // stairs
+    /*
     for (let x = 0; x < 1; x++) {
       for (let y = -num; y <= num; y++) {
         for (let z = 0; z < 1; z++) {
@@ -451,6 +466,7 @@ export class Sketch {
         }
       }
     }
+    */
 
     // hex
     /*
@@ -505,7 +521,7 @@ export class Sketch {
     // camera
     this.camera.position.set(
       Math.cos(t) * this.dist,
-      Math.sin(t) * this.dist,
+      Math.abs(Math.sin(t)) * 300,
       Math.sin(t) * this.dist
     );
 
@@ -532,13 +548,13 @@ export class Sketch {
   draw() {
     const t = this.time.getElapsedTime() * this.gui.params.st;
   
-    this.mainShape.render();
+    //this.mainShape.render();
 
     for (let i = 0; i < this.shapes.length; i++) {
       this.shapes[i].render();
     }
 
-    //this.updateEquipments(t);
+    this.updateEquipments(t);
     
     this.renderer.render(this.scene, this.camera);
     
@@ -554,8 +570,8 @@ class Shape {
   constructor(params) {
     // times
     this.time      = new THREE.Clock(true);
-    this.timeNum   = 1;
-    this.timeScale = 1;
+    this.timeNum   = 3;
+    this.timeScale = 2;
     
     // parameters
     this.sketch   = params.sketch;
@@ -576,6 +592,7 @@ class Shape {
     this.mesh = new THREE.Mesh(this.geometry, this.material);
     this.mesh.castShadow = this.shadow;
     this.mesh.position.set(this.position.x, this.position.y, this.position.z);
+    this.mesh.rotation.x = Math.PI / 2;
 
     this.sketch.scene.add(this.mesh);
   }
@@ -596,21 +613,48 @@ class Shape {
     const intT = Math.floor(t % this.timeNum);
 
     let st;
-    let move = 0;
+    let scale = 1, moveY = 0, rotate = 0;
     switch (intT) {
       case 0:
         st = this.sketch.ease(t % 1);
-        
-        move = Utilities.map(st, 0, 1, 0, this.size);
-        
+
+        if (this.index === 0) {
+          scale = Utilities.map(st, 0, 1, 1, 2);
+        }
+
+        break;
+      
+      case 1:
+        st = this.sketch.ease(t % 1);
+
+        if (this.index === 0) {
+          scale = Utilities.map(st, 0, 1, 2, 2);
+          moveY = Utilities.map(st, 0, 1, 0, 4 * this.sketch.scale * 0.5);
+        } else {
+          scale = 1;
+          moveY = Utilities.map(st, 0, 1, 0, -this.sketch.scale * 0.5);
+        }
+
+        break;
+
+      case 2:
+        st = this.sketch.ease(t % 1);
+
+        if (this.index === 4) {
+          scale = Utilities.map(st, 0, 1, 2, 1);
+          rotate = Utilities.map(st, 0, 1, 0, Math.PI * 2);
+        }
+
         break;
 
       default:
         return;
     }
 
-    const newV = this.position.clone().add(new THREE.Vector3(0, move, -move));
+    const newV = this.position.clone().add(new THREE.Vector3(0, moveY, 0));
 
+    this.mesh.scale.set(scale, scale, 1);
+    this.mesh.rotation.set(Math.PI / 2, 0, rotate);
     this.mesh.position.set(newV.x, newV.y, newV.z);
   }
 }
@@ -618,6 +662,7 @@ class Shape {
 /**
  * main shape class
  */
+ /*
 class MainShape extends Shape {
   constructor(params) {
     super(params);
@@ -667,3 +712,4 @@ class MainShape extends Shape {
     this.mesh.position.set(newV.x, newV.y + this.size, newV.z);
   }
 }
+*/
