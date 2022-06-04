@@ -9,6 +9,7 @@ body
 
 a
   color: #000;
+  display: block;
 
 .loading
   background: #FFF;
@@ -23,31 +24,15 @@ a
   padding: 32px;
   h1
     font-size: 2.4rem;
-    padding-bottom: 24px;
+    padding-bottom: 16px;
   p
     font-size: 1.2rem;
-    padding-bottom: 24px;
+    a
+      padding: 16px 0;
   ul li
     font-size: 1.2rem;
-    padding-bottom: 24px;
     a
-      position: relative;
-    a::before
-      content: '';
-      display: block;
-      width: 0;
-      height: 3px;
-      background: #000;
-      position: absolute;
-      top: 50%;
-      left: 0;
-      transform: translateY(-50%);
-      backface-visibility: hidden;
-      transition: width 0.2s ease-in-out 0s;
-    @media (hover: hover)
-      a:hover::before
-        width: 100%;
-  
+      padding: 16px 0;
 
 iframe
   background: #FFF;
