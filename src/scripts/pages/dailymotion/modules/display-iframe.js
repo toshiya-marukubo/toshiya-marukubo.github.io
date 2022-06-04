@@ -13,7 +13,7 @@ export class DisplayIframe {
   }
 
   setupEvents() {
-    const click = (window.ontouchstart === undefined) ? 'click' : 'touchstart';
+    const click = (window.ontouchstart === undefined) ? 'click' : 'touchend';
 
     for (let i = 0; i < this.targetElements.length; i++) {
       const target = this.targetElements[i];
@@ -29,7 +29,7 @@ export class DisplayIframe {
       */
     }
 
-    this.closeButton.addEventListener('click', this.remove.bind(this), false);
+    this.closeButton.addEventListener(click, this.remove.bind(this), false);
   }
 
   add(e) {
