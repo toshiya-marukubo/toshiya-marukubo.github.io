@@ -27,7 +27,7 @@ export class Sketch {
   }
   
   onResize() {
-    this.initialize();
+    //this.initialize();
   }
   
   initialize() {
@@ -46,7 +46,7 @@ export class Sketch {
   }
 
   updateImageData(t) {
-    const rand = Math.random() * 0.01;
+    const rand = Math.random() * 0.02;
 
     for (let y = 0; y < this.height; y++) {
       for (let x = 0; x < this.width; x++) {
