@@ -27,7 +27,7 @@ export class Sketch {
   }
   
   onResize() {
-    //this.initialize();
+    this.initialize();
   }
   
   initialize() {
