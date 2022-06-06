@@ -43,8 +43,8 @@ export class Sketch {
     this.gui.params = {
       st: 0.3,
       ease: 'easeInSine',
-      number: 4,
-      scale: 200,
+      number: 1,
+      scale: 300,
       start: () => this.start(),
       stop: () => this.stop()
     };
