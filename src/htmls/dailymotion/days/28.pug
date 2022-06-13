@@ -1,0 +1,16 @@
+- 
+  const infos = {
+    name: 'Day-28',
+    path: '28',
+  };
+
+doctype html
+html
+  head
+    include ../modules/head.pug
+    title #{infos.name}
+  body
+    include ../modules/loading.pug
+    .title
+      p #{infos.name}
+    script(src=`../../dist/js/dailymotion-day-${infos.path}.bundle.js`)
