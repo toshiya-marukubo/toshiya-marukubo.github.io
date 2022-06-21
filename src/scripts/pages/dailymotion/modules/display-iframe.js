@@ -29,7 +29,7 @@ export class DisplayIframe {
       */
     }
 
-    this.closeButton.addEventListener(click, this.remove.bind(this), false);
+    this.closeButton.addEventListener('click', this.remove.bind(this), false);
   }
 
   add(e) {
