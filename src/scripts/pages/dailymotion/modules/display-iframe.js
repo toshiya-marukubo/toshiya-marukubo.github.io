@@ -13,12 +13,12 @@ export class DisplayIframe {
   }
 
   setupEvents() {
-    const click = (window.ontouchstart === undefined) ? 'click' : 'touchend';
+    //const click = (window.ontouchstart === undefined) ? 'click' : 'touchend';
 
     for (let i = 0; i < this.targetElements.length; i++) {
       const target = this.targetElements[i];
       
-      target.addEventListener(click, this.add, false);
+      target.addEventListener('click', this.add, false);
 
       /*
       target.addEventListener(click, (e) => {
