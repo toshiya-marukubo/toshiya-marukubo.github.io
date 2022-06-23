@@ -1,0 +1,49 @@
+.loading
+  position fixed
+  top 0
+  left 0
+  width 100%
+  min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
+  display flex
+  justify-content center
+  align-items center
+  opacity 1
+  visibility visible
+  transition all 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000)
+  z-index 9999
+  .rect-container
+    width 16px
+    height 32px
+    overflow hidden
+    display flex
+    flex-direction row
+    position relative
+    gap 0 3px
+    .rect
+      position absolute
+      background #000
+      width 3px
+      height 32px
+      top -100%
+      will-change top
+    .rect-1
+      left 0
+      animation rect-animation 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) 0.0s infinite normal both running;
+    .rect-2
+      left 50%
+      transform translateX(-1.5px)
+      animation rect-animation 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) 0.2s infinite normal both running;
+    .rect-3
+      right 0
+      animation rect-animation 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) 0.4s infinite normal both running;
+
+.loading.loaded
+  opacity 0
+  visibility hidden
+      
+@keyframes rect-animation
+  0%
+    top -100%
+  100%
+    top 100%

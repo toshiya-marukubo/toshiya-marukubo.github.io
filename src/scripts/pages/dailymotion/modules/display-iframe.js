@@ -9,27 +9,51 @@ export class DisplayIframe {
   }
 
   initialize() {
+    this.detectDeviceType();
     this.setupEvents();
   }
 
+  detectDeviceType() {
+    this.deviceType = event.changedTouches ? 'touch' : 'mouse';
+
+    window.removeEventListener ("touchstart", this.detectDeviceType);
+    window.removeEventListener ("mousemove", this.detectDeviceType);
+  }
+
   setupEvents() {
-    //const click = (window.ontouchstart === undefined) ? 'click' : 'touchend';
-
-    for (let i = 0; i < this.targetElements.length; i++) {
-      const target = this.targetElements[i];
-      
-      target.addEventListener('click', this.add, false);
-
-      /*
-      target.addEventListener(click, (e) => {
-        e.preventDefault();
+    if (this.deviceType === 'touch') {
+      for (let i = 0; i < this.targetElements.length; i++) {
+        const target = this.targetElements[i];
         
-        this.preFocus = target;
-      }, false);
-      */
-    }
+        target.addEventListener('touchstart', this.add, false);
 
-    this.closeButton.addEventListener('click', this.remove.bind(this), false);
+        /*
+        target.addEventListener(click, (e) => {
+          e.preventDefault();
+          
+          this.preFocus = target;
+        }, false);
+        */
+      }
+
+      this.closeButton.addEventListener('touchstart', this.remove.bind(this), false);
+    } else {
+      for (let i = 0; i < this.targetElements.length; i++) {
+        const target = this.targetElements[i];
+        
+        target.addEventListener('click', this.add, false);
+
+        /*
+        target.addEventListener(click, (e) => {
+          e.preventDefault();
+          
+          this.preFocus = target;
+        }, false);
+        */
+      }
+
+      this.closeButton.addEventListener('click', this.remove.bind(this), false);
+    }
   }
 
   add(e) {

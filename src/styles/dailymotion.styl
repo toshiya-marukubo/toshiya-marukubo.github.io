@@ -1,16 +1,18 @@
 @import './modules/reset.styl';
-@import './modules/loading.styl';
+@import './modules/loading-dailymotion.styl';
+
+html
+  overscroll-behavior: none;
 
 body
   background: #FFF;
   color: #000;
   font-size: 62.5%;
   text-align: right;
-
 a
   color: #000;
   display: inline-block;
-  transition: opacity 0.2s ease-in-out 0s;
+  transition: opacity 0.2s cubic-bezier(0.215, 0.610, 0.355, 1.000) 0s;
 @media (hover: hover)
   a:hover
     opacity: 0.4;
@@ -33,10 +35,15 @@ a
     font-size: 1.2rem;
     a
       padding: 16px 0;
-  ul li
+  ol li, ul li
     font-size: 1.2rem;
     a
       padding: 16px 0;
+  ol li
+    span
+      background: #000;
+    a
+      color: #FFF;
 
 iframe
   background: #FFF;
@@ -49,7 +56,7 @@ iframe
   visibility: hidden;
   opacity: 0;
   backface-visibility: hidden;
-  transition: opacity 0.2s ease-in-out 0s;
+  transition: opacity 0.2s cubic-bezier(0.215, 0.610, 0.355, 1.000) 0s;
   &.show
     visibility: visible;
     opacity: 1;
@@ -64,6 +71,8 @@ iframe
   cursor: pointer;
   visibility: hidden;
   backface-visibility: hidden;
+  border: 3px solid #000;
+  background: #FFF;
   a
     display: block;
     height: 100%;
@@ -73,14 +82,17 @@ iframe
     content: '';
     display: block;
     position: absolute;
-    width: 64px;
+    width: 58px;
     height: 3px;
     background: #000;
     transform: translateY(-50%) rotate(0deg);
     top: 50%;
     opacity: 0;
     backface-visibility: hidden;
-    transition: visibility 0.4s ease-in-out 0s, opacity 0.4s ease-in-out 0s, transform 0.4s ease-in-out 0s;
+    transition: 
+      visibility 0.4s cubic-bezier(0.215, 0.610, 0.355, 1.000) 0s,
+      opacity 0.4s cubic-bezier(0.215, 0.610, 0.355, 1.000) 0s,
+      transform 0.4s cubic-bezier(0.215, 0.610, 0.355, 1.000) 0s;
   &.show
     visibility: visible;
     opacity: 1;
@@ -96,6 +108,9 @@ iframe
   bottom: 36px;
   left: 50%;
   transform: translateX(-50%);
+  background: #FFF;
+  border: 3px solid #000;
+  padding: 8px;
   p
     font-size: 1.6rem;
 
