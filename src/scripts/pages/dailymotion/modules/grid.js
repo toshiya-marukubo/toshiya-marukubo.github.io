@@ -29,36 +29,6 @@ export class Grid {
     return tmp;
   }
   
-  static square2(vector, num, scale) {
-    const tmp = [];
-    const ajustV =
-            vector.create(num, num)
-              .multiply(scale / 2)
-              .subtract(vector.create(scale / 2, scale / 2));
-    
-    for (let y = 0; y < num; y++) {
-      for (let x = 0; x < num; x++) {
-        const params = {};
-        const v = vector.create(x, y).multiply(scale).subtract(ajustV);
-        const i = y * num + x;
-
-        if (y % 2 === 0) {
-          v.setX(v.getX() + scale / 2);
-        }
-
-        params.v = v;
-        params.d = v.getLength();
-        params.i = i;
-        params.c = x;
-        params.r = y;
-
-        tmp.push(params);
-      }
-    }
-
-    return tmp;
-  }
-  
   static hex(vector, num, scale) {
     const vectors = [];
 

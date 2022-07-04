@@ -1,0 +1,55 @@
+easeInQuint = cubic-bezier(0.755, 0.050, 0.855, 0.060)
+
+.load
+  background white
+  min-height 100vh
+  min-height calc(var(--vh, 1vh) * 100);
+  opacity 1
+  visibility visible
+  display flex
+  justify-content center
+  align-items center
+  transition opacity 0.8s easeInQuint, visibility 0.8s easeInQuint
+
+  .load-container
+    .counter
+      opacity 1
+      animation counter-animation-1 0.4s easeInQuint 0s 1 normal forwards running
+    
+    .counter.images-loaded
+      animation counter-animation-2 0.8s easeInQuint 0s 1 normal forwards running
+    
+    .counter.images-loaded.finished
+      span
+        display inline-block
+        opacity 1
+        transform none
+      for num in (1..4)
+        span:nth-of-type({num})
+          animation counter-animation-3 0.8s easeInQuint (num * 200)ms 1 normal forwards running
+
+.load.loaded
+  opacity 0
+  visibility hidden
+
+@keyframes counter-animation-1
+  0%
+    opacity 0
+  100%
+    opacity 1
+
+@keyframes counter-animation-2
+  0%
+    transform scale(1, 1)
+    opacity 1
+  100%
+    transform scale(2, 2)
+    opacity 1
+
+@keyframes counter-animation-3
+  0%
+    transform none
+    opacity 1
+  100%
+    transform translateY(-100%)
+    opacity 0

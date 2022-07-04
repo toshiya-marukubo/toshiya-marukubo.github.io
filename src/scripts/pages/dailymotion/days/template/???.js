@@ -5,7 +5,6 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { Mouse } from '../../modules/mouse';
 import { Ease } from '../../modules/ease';
 import { Utilities } from '../../modules/utilities';
-import { mergeGeometry } from '../../modules/mergeGeometry';
 
 import SimplexNoise from 'simplex-noise';
 
@@ -21,9 +20,7 @@ const font = require('three/examples/fonts/helvetiker_bold.typeface.json');
  */
 export class Sketch {
   constructor() {
-    mergeGeometry(THREE);
-
-    this.devMode = false;
+    this.devMode = true;
     this.setupGUI();
     this.createCanvas();
     this.setupEvents();
@@ -44,28 +41,23 @@ export class Sketch {
     this.gui = new dat.GUI();
 
     this.gui.params = {
-      st: 0.3,
-      ease: 'linear',
-      number: 2,
-      scale: 150,
+      st: 0.1,
+      ease: 'easeInOutCirc',
+      number: 1,
+      scale: 100,
       start: () => this.start(),
       stop: () => this.stop()
     };
 
     this.gui.ctrls = {
       st: this.gui.add(this.gui.params, 'st', 0.1, 1.0, 0.1),
-
       ease: this.gui.add(this.gui.params, 'ease', Ease.returnEaseType())
         .onChange(() => this.initialize()),
-
       number: this.gui.add(this.gui.params, 'number', 1, 10, 1)
         .onChange(() => this.initialize()),
-
       scale: this.gui.add(this.gui.params, 'scale', 1, 1000, 1)
         .onChange(() => this.initialize()),
-
       start: this.gui.add(this.gui.params, 'start'),
-
       stop: this.gui.add(this.gui.params, 'stop')
     };
 
@@ -110,7 +102,6 @@ export class Sketch {
       cancelAnimationFrame(this.animationId);
     }
 
-    this.linear = Ease.returnEaseFunc('linear');
     this.ease = Ease.returnEaseFunc(this.gui.params.ease);
 
     this.scene = new THREE.Scene();
@@ -166,7 +157,7 @@ export class Sketch {
         0.01,
         this.dist * 10
       );
-    this.camera.position.set(0, 0, this.dist);
+    this.camera.position.set(this.dist / 2, this.dist / 2, this.dist);
     this.camera.lookAt(new THREE.Vector3());
     
     this.scene.add(this.camera);
@@ -277,44 +268,48 @@ export class Sketch {
     const material = new THREE.MeshPhongMaterial({color: 0xDDDDDD});
     const mesh = new THREE.Mesh(geometry, material);
     
-    mesh.position.set(0, -this.scale * 1.8, 0);
+    mesh.position.set(0, -5, 0);
     mesh.receiveShadow = true;
 
     this.scene.add(mesh);
   }
 
   getGeometry(size) {
-    const lego = [];
+    const geometry = new THREE.BufferGeometry();
+    const sphere = new THREE.SphereGeometry(size, 4, 4, 4);
+    const vertices = new Float32Array(sphere.attributes.position.count * 3);
+    const indecies = new Uint16Array(sphere.index.count);
 
-    const base = new THREE.BoxGeometry(size, size * 0.5, size * 0.3, 1, 1, 1);
-    
-    lego.push(base);
+    for (let i = 0; i < sphere.attributes.position.count; i++) {
+      const x = sphere.attributes.position.array[i * 3 + 0];
+      const y = sphere.attributes.position.array[i * 3 + 1];
+      const z = sphere.attributes.position.array[i * 3 + 2];
 
-    for (let i = 0; i < 2; i++) {
-      for (let j = 0; j < 4; j++) {
-        const moveX = size * 0.25 * 1.5;
-        const moveY = size * 0.25 * 0.5;
-        const x = j * size * 0.25 - moveX;
-        const y = i * size * 0.25 - moveY;
-        const geo = new THREE.CylinderGeometry(size * 0.156 * 0.5, size * 0.156 * 0.5, size * 0.053, 36);
-
-        geo.rotateX(Math.PI / 2);
-        geo.translate(x, y, -size * 0.3 * 0.5 - size * 0.053 * 0.5);
-
-        lego.push(geo);
-      }
+      vertices[i * 3 + 0] = x;
+      vertices[i * 3 + 1] = y;
+      vertices[i * 3 + 2] = z;
     }
 
-    const geometry = THREE.BufferGeometryUtils.mergeBufferGeometries(lego);
+    for (let i = 0; i < sphere.index.count; i++) {
+      const j = sphere.index.array[i];
+
+      indecies[i] = j;
+    }
+
+
+    geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+    geometry.setIndex(new THREE.BufferAttribute(indecies, 1));
 
     return geometry;
   }
 
   getMaterial() {
-    const material = new THREE.MeshPhongMaterial({
-      //side: THREE.DoubleSide,
-      //transparent: true,
-      color: 0xFFFFFF
+    const texture = new CreateTexture(this).getTexture();
+    const material = new THREE.MeshBasicMaterial({
+      side: THREE.DoubleSide,
+      transparent: true,
+      color: 0x000000,
+      wireframe: true
     });
     material.fog = true;
     
@@ -346,13 +341,13 @@ export class Sketch {
     */
 
     // square
-    /*
     for (let x = -num; x <= num; x++) {
       for (let y = -num; y <= num; y++) {
-        for (let z = -num; z <= num; z++) {
-          const nx = x * scale;
-          const ny = y * scale * 0.3;
-          const nz = z * scale * 0.5;
+        for (let z = 0; z < 1; z++) {
+          const nx = x * scale * 3;
+          const ny = y * scale * 3;
+          const nz = z * scale;
+
           const dist = new THREE.Vector3(nx, ny, nz).distanceTo(new THREE.Vector3());
           const others = {};
           // sketch, position, size, dist, index, shadow, geometry, material, others
@@ -380,7 +375,6 @@ export class Sketch {
         }
       }
     }
-    */
 
     // circle
     /*
@@ -388,11 +382,13 @@ export class Sketch {
       for (let y = 0; y < 1; y++) {
         for (let z = 0; z < num; z++) {
           const rad = z / num * Math.PI * 2;
-          const nx = Math.cos(rad) * scale;
-          const nz = Math.sin(rad) * scale;
+          const nx = Math.cos(rad) * scale * 5;
+          const nz = Math.sin(rad) * scale * 5;
           const ny = scale * y;
           const dist = new THREE.Vector3(nx, ny, nz).distanceTo(new THREE.Vector3());
-          const others = {};
+          const others = {
+            angle: Math.atan2(nz, nx)
+          };
           // sketch, position, size, dist, index, shadow, geometry, material, others
           const params = {
             sketch: this,
@@ -421,11 +417,12 @@ export class Sketch {
     */
 
     // line
+    /*
     for (let x = 0; x < 1; x++) {
-      for (let y = -num; y <= num; y++) {
-        for (let z = 0; z < 1; z++) {
-          const nx = x * scale;
-          const ny = y * scale * 0.3;
+      for (let y = 0; y < 1; y++) {
+        for (let z = -num; z <= num; z++) {
+          const nx = x * scale * 0;
+          const ny = y * scale * 0;
           const nz = z * scale;
           const dist = new THREE.Vector3(nx, ny, nz).distanceTo(new THREE.Vector3());
           const others = {};
@@ -454,6 +451,7 @@ export class Sketch {
         }
       }
     }
+    */
 
     // stairs
     /*
@@ -545,7 +543,7 @@ export class Sketch {
     // camera
     this.camera.position.set(
       Math.cos(t) * this.dist,
-      Math.abs(Math.sin(t)) * 200,
+      Math.abs(Math.sin(t)) * this.dist * 0.5,
       Math.sin(t) * this.dist
     );
 
@@ -578,7 +576,7 @@ export class Sketch {
       this.shapes[i].render();
     }
 
-    this.updateEquipments(t);
+    //this.updateEquipments(t);
     
     this.renderer.render(this.scene, this.camera);
     
@@ -594,12 +592,11 @@ class Shape {
   constructor(params) {
     // times
     this.time      = new THREE.Clock(true);
-    this.timeNum   = 1;
-    this.timeScale = 0.8;
+    this.timeNum   = 3;
+    this.timeScale = 2;
     
     // parameters
     this.sketch   = params.sketch;
-    this.position = new THREE.Vector3(params.position.x, params.position.y, params.position.z);
     this.size     = params.size;
     this.dist     = params.dist;
     this.index    = params.index;
@@ -607,81 +604,94 @@ class Shape {
     this.geometry = params.geometry;
     this.material = params.material;
     this.others   = params.others;
-
+    this.position = new THREE.Vector3(params.position.x, params.position.y, params.position.z);
+    
+    this.initPositions = [];
+    
     this.initialize();
   }
 
   initialize() {
-    // mesh
-    this.mesh = new THREE.Mesh(this.geometry, this.material);
-    this.mesh.castShadow = this.shadow;
-    this.mesh.position.set(this.position.x, this.position.y, this.position.z);
-    this.mesh.rotation.x = Math.PI / 2;
-
+    this.mesh = new THREE.Mesh(this.geometry, this.material); 
     this.sketch.scene.add(this.mesh);
   }
 
-  getScaledTime(t) {
+  getScaledTime(t, i) {
     // based on index number
-    //const scaledTime = t * this.timeScale - this.index / this.sketch.shapes.length / 1;
+    const scaledTime = t * this.timeScale - this.index / this.sketch.shapes.length / 1;
     // based on mesh distance
-    //const scaledTime = t * this.timeScale + this.dist / this.sketch.maxDist / 1;
+    //const scaledTime = t * this.timeScale - i / this.group.children.length - this.dist / this.sketch.maxDist / 1;
     // same time
-    const scaledTime = t * this.timeScale;
+    //const scaledTime = t * this.timeScale;
 
     return scaledTime;
   }
   
   render() {
-    const t = this.getScaledTime(this.time.getElapsedTime());
-    const intT = Math.floor(t % this.timeNum);
+    /*
+    for (let i = 0; i < this.group.children.length; i++) {
+      const t = this.getScaledTime(this.time.getElapsedTime(), i);
+      const intT = Math.floor(t % this.timeNum);
+      const c = this.group.children[i];
 
-    let st;
-    let scale = 1, moveY = 0, rotate = 0;
-    switch (intT) {
-      case 0:
-        st = this.sketch.ease(t % 1);
+      let st, rotate, move;
 
-        moveY = Utilities.map(st, 0, 1, 0, -this.size * 0.3);
+      switch (intT) {
+        case 0:
+          st = this.sketch.ease(t % 1);
 
-        if (this.index === this.sketch.shapes.length - 1) {
-          rotate = Utilities.map(st, 0, 1, 0, Math.PI * 2);
-          moveY = Utilities.map(st, 0, 1, 500, - this.size * 0.3);
-        }
+          rotate = Utilities.map(st, 0, 1, -Math.PI / 2, 0);
 
-        if (this.index === 0) {
-          rotate = Utilities.map(st, 0, 1, 0, Math.PI * 2);
-          moveY = Utilities.map(st, 0, 1, 0, -500);
-        }
+          break;
 
-        break;
-      
-      default:
-        return;
+        case 1:
+          st = this.sketch.ease(t % 1);
+          
+          rotate = Utilities.map(st, 0, 1, 0, Math.PI / 2);
+
+          break;
+
+        case 2:
+          st = this.sketch.ease(t % 1);
+          
+          rotate = Math.PI / 2;
+          move = Utilities.map(st, 0, 1, 0, this.size);
+
+          break;
+
+        default:
+          break;
+      }
+
+      if (i === 0) c.rotation.x = rotate;
+      if (i === 1) c.rotation.y = -rotate;
+      if (i === 2) c.rotation.y = -rotate;
+      if (i === 3) c.rotation.x = -rotate;
+
+      const newV = this.initPositions[i].clone().add(new THREE.Vector3(0, 0, move));
+
+      c.position.set(newV.x, newV.y, newV.z);
     }
-
-    const newV = this.position.clone().add(new THREE.Vector3(0, moveY, 0));
-
-    //this.mesh.scale.set(scale, scale, 1);
-    this.mesh.rotation.set(Math.PI / 2, 0, rotate);
-    this.mesh.position.set(newV.x, newV.y, newV.z);
+    */
   }
 }
 
 /**
  * main shape class
  */
- /*
+/*
 class MainShape extends Shape {
   constructor(params) {
     super(params);
+
+    this.timeNum = 2;
   }
 
   initialize() {
-    const geometry = new THREE.SphereGeometry(this.size / 2, 36);
+    const geometry = new THREE.TorusGeometry(this.size * 2, this.size * 0.5, 36, 36);
     const material = new THREE.MeshPhongMaterial({
       //side: THREE.DoubleSide,
-      //transparent: true,
+      transparent: true,
       color: 0xffffff
     });
     material.fog = true;
@@ -690,6 +700,7 @@ class MainShape extends Shape {
     this.mesh = new THREE.Mesh(geometry, material);
     this.mesh.castShadow = this.shadow;
     this.mesh.position.set(this.position.x, this.position.y, this.position.z);
+    this.mesh.material.opacity = 0;
 
     this.sketch.scene.add(this.mesh);
   }
@@ -699,26 +710,63 @@ class MainShape extends Shape {
     const intT = Math.floor(t % this.timeNum);
 
     let st;
-    let move = 0;
+    let move = 0, rotate = 0;
     switch (intT) {
       case 0:
         st = this.sketch.linear(t % 1);
-        
-        if (st < 0.5) {
-          move = Utilities.map(st, 0, 0.5, 0, this.size);
-        } else {
-          move = Utilities.map(st, 0.5, 1, this.size, 0);
-        }
+
+        rotate = Utilities.map(st, 0, 1, 0, Math.PI / 2);
 
         break;
 
+      case 1:
+        st = this.sketch.linear(t % 1);
+        
+        rotate = Utilities.map(st, 0, 1, Math.PI / 2, Math.PI);
+
+        break;
+      
       default:
         return;
     }
 
     const newV = this.position.clone().add(new THREE.Vector3(0, move, 0));
 
-    this.mesh.position.set(newV.x, newV.y + this.size, newV.z);
+    //this.mesh.position.set(newV.x, newV.y + this.size, newV.z);
+
+    this.mesh.rotation.y = rotate;
   }
 }
 */
+
+class CreateTexture {
+  constructor(sketch) {
+    this.sketch = sketch;
+
+    this.initialize();
+  }
+
+  initialize() {
+    this.canvas = document.createElement('canvas');
+    this.ctx = this.canvas.getContext('2d');
+    this.canvas.width = this.sketch.width;
+    this.canvas.height = this.sketch.height;
+
+    this.drawTexture();
+  }
+
+  drawTexture() {
+    this.ctx.lineWidth = 20;
+    this.ctx.fillStyle = 'white';
+    this.ctx.fillRect(0, 0, this.sketch.width, this.sketch.height);
+    this.ctx.strokeRect(0, 0, this.sketch.width, this.sketch.height);
+  }
+
+  getTexture() {
+    const texture = new THREE.CanvasTexture(this.canvas);
+
+    texture.needsUpdate = true;
+
+    return texture;
+  }
+}
