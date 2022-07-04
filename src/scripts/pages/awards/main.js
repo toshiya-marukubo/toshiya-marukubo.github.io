@@ -2,8 +2,13 @@ import { FullScreen } from './modules/full-screen';
 import { Load } from './modules/load';
 
 const main = () => {
-  const f = new FullScreen();
-  const p = new Load();
+  const F = new FullScreen();
+  const P = new Load();
+  
+  P.initialize()
+    .then(() => {
+      alert('loaded');
+    });
 };
 
 export { main }

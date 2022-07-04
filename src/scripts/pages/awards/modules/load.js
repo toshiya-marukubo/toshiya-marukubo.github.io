@@ -8,14 +8,15 @@ export class Load {
     this.loadedNumber = 0;
     this.num = 0;
     this.time = Date.now();
-    this.initialize();
   }
 
   initialize() {
-    this.loadImages();
+    return new Promise((resolve, reject) => {
+      this.loadImages(resolve, reject);
+    });
   }
 
-  loadImages() {
+  loadImages(resolve, reject) {
     for (let i = 0; i < this.imagePaths.length; i++) {
       const path = this.imagePaths[i];
       const image = new Image();
@@ -27,17 +28,17 @@ export class Load {
         if (this.loadedNumber === this.imagePaths.length) {
           const elapsedTime = Date.now() - this.time;
           
-          if (elapsedTime < 100) {
-            this.drawLoopCounterNumber();
+          if (elapsedTime < 800) {
+            this.drawLoopCounterNumber(resolve, reject);
           } else {
-            this.addClass();
+            this.addClass(resolve, reject);
           }
         }
       });
     }
   }
 
-  addClass() {
+  addClass(resolve, reject) {
     this.delay(400)
       .then(() => {
         this.counter.classList.add('images-loaded');
@@ -55,6 +56,7 @@ export class Load {
 
             lastSpan.addEventListener('animationend', () => {
               this.load.classList.add('loaded');
+              resolve();
             });
           });
       });
@@ -75,22 +77,22 @@ export class Load {
     this.counter.textContent = num + '%';
   }
 
-  drawLoopCounterNumber() {
+  drawLoopCounterNumber(resolve, reject) {
     this.drawCounterNumber(this.num++, 100);
 
     if (this.num === 100) {
-      this.cancelDrawLoopCounterNumber();
+      this.cancelDrawLoopCounterNumber(resolve, reject);
 
       return;
     }
 
-    this.animationID = requestAnimationFrame(this.drawLoopCounterNumber.bind(this));
+    this.animationID = requestAnimationFrame(this.drawLoopCounterNumber.bind(this, resolve, reject));
   }
 
-  cancelDrawLoopCounterNumber() {
+  cancelDrawLoopCounterNumber(resolve, reject) {
     cancelAnimationFrame(this.animationID);
     
-    this.addClass();
+    this.addClass(resolve, reject);
   }
   
   delay(time) {
