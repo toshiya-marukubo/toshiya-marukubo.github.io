@@ -306,7 +306,7 @@ class Shape {
   render() {
     this.ctx.save();
     this.ctx.translate(this.vector.getX(), this.vector.getY());
-    this.ctx.lineWidth = 20;
+    this.ctx.lineWidth = 10;
     this.ctx.globalCompositeOperation = 'lighter';
     
     for (let i = 0; i < 3; i++) {
