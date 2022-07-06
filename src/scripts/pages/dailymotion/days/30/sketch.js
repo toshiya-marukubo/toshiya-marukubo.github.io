@@ -1,47 +1,14 @@
-import * as THREE from 'three';
 import * as dat from 'dat.gui';
-import { Stopwatch } from '../../modules/stopwatch'; 
 import { Ease } from '../../modules/ease';
+import { Vector } from '../../modules/vector';
+import { Points } from '../../modules/points';
+import { Grid } from '../../modules/grid';
 import { Utilities } from '../../modules/utilities';
-import { shaders } from  './shaders';
-
-class Mouse {
-  constructor() {
-    this.initialize();
-  }
-
-  initialize() {
-    this.setupEvents();
-  }
-
-  setupEvents() {
-    window.addEventListener('mousemove', this.onMousemove.bind(this), false);
-    window.addEventListener('touchmove', this.onTouchmove.bind(this), false);
-  }
-
-  onMousemove(e) {
-    this.x = e.clientX - window.innerWidth / 2;
-    this.y = -e.clientY + window.innerHeight / 2;
-  }
-
-  onTouchmove(e) {
-    const touch = e.targetTouches[0];
-
-    this.x = touch.pageX - window.innerWidth / 2;
-    this.y = -touch.pageY + window.innerHeight / 2;
-  }
-
-  getX() {
-    return this.x;
-  }
-
-  getY() {
-    return this.y;
-  }
-}
+import { Stopwatch } from '../../modules/stopwatch';
+//import SimplexNoise from 'simplex-noise';
 
 /**
- * Sketch class
+ * class Sketch
  */
 export class Sketch {
   constructor() {
@@ -53,34 +20,67 @@ export class Sketch {
 
   setupGUI() {
     this.gui = new dat.GUI();
+
     this.gui.params = {
-      st: 0.001,
+      timescale: 0.001,
+      ease: 'easeInOutCirc',
+      shapesNumber: 1,
+      gridScale: 200,
+      start: () => this.start(),
+      stop: () => this.stop()
     };
+
     this.gui.ctrls = {
-      st: this.gui.add(this.gui.params, 'st', 0.001, 1.0, 0.001),
+      timescale: this.gui.add(this.gui.params, 'timescale', 0.001, 0.01, 0.001)
+                   .onChange(() => this.initialize()),
+      ease: this.gui.add(this.gui.params, 'ease', Ease.returnEaseType())
+              .onChange(() => this.initialize()),
+      shapesNumber: this.gui.add(this.gui.params, 'shapesNumber', 1, 20, 1)
+                      .onChange(() => this.initialize()),
+      gridScale: this.gui.add(this.gui.params, 'gridScale', 1, 1000, 1)
+                   .onChange(() => this.initialize()),
+      start: this.gui.add(this.gui.params, 'start'),
+      stop: this.gui.add(this.gui.params, 'stop')
     };
+
     this.gui.hide();
+  }
+  
+  start() {
+    this.initialize();
+  }
+  
+  stop() {
+    if (this.animationId) {
+      cancelAnimationFrame(this.animationId);
+      this.animationId = null;
+    }
   }
 
   setupCanvas() {
     this.canvas = document.createElement('canvas');
     document.body.appendChild(this.canvas);
+    this.ctx = this.canvas.getContext('2d');
 
-    this.canvas.style.background = '#000';
     this.canvas.style.position = 'fixed';
     this.canvas.style.top = '0';
     this.canvas.style.left = '0';
-    this.canvas.style.display = 'block';
     this.canvas.style.width = '100%';
     this.canvas.style.height = '100%';
-    this.canvas.style.zIndex = '-1';
+    this.canvas.style.display = 'block';
+    this.canvas.style.background = '#000';
+    this.canvas.style.zIndex = '-1'; 
   }
-  
+
   setupEvents() {
     window.addEventListener('resize', this.onResize.bind(this), false);
   }
   
   onResize() {
+    if (this.preWidth === window.innerWidth && window.innerWidth < 480) {
+      return;
+    }
+
     this.initialize();
   }
 
@@ -89,162 +89,274 @@ export class Sketch {
       cancelAnimationFrame(this.animationId);
     }
 
+    this.vector = new Vector();
     this.time = new Stopwatch();
-    this.mouse = new Mouse();
-
-    this.gl = this.canvas.getContext("webgl");
-    this.width = this.canvas.width = window.innerWidth;
-    this.height = this.canvas.height = window.innerHeight;
-    this.gl.viewport(0, 0, this.width, this.height);
-
-    this.shader = new Shader(this);
+    this.timescale = this.gui.params.timescale;
+    this.ease = Ease.returnEaseFunc(this.gui.params.ease);
+    
+    this.setupSizes();
+    this.setupShapes();
 
     this.draw();
   }
 
-  draw() {
+  setupSizes() {
+    this.width = this.preWidth = this.canvas.width = window.innerWidth;
+    this.height = this.canvas.height = window.innerHeight;
+    this.scale = this.gui.params.gridScale;
+
+    // choise shape size
+    //this.size = Math.floor(this.scale * Math.sqrt(2) / 2);
+    this.size = Math.floor(this.scale / 2); // square
+    //this.size = Math.floor(Math.sqrt(3) * this.scale / 2 / 2); // hex
+    //this.size = Math.floor(this.scale * 0.4 * 2 * Math.PI / this.gui.params.number / 2); // circle
+  }
+
+  setupShapes() {
+    const params = Grid.square(this.vector, this.gui.params.shapesNumber, this.scale);
+    
+    this.maxDist = Grid.maxDist(params);
+    this.points = {
+      a: Points.polygon(this.vector, 360, 36),
+      b: Points.polygon(this.vector, 360, 4)
+    };
+    this.shapesNum = params.length;
+
+    this.shapes = [];
+    if (this.gui.params.shapesNumber === 1) {
+      const tmp = {
+        v: this.vector.create(0, 0),
+        d: Number.MIN_VALUE,
+        i: 0
+      };
+
+      const s = new Shape(this, tmp);
+  
+      this.shapes.push(s);
+
+      return;
+    }
+
+    for (let i = 0; i < params.length; i++) {
+      const s = new Shape(this, params[i]);
+      
+      this.shapes.push(s);
+    }
+  }
+
+  getTime() {
     this.time.calculateTime();
 
-    this.shader.render(this.time.getElapsedTime() * this.gui.params.st);
+    return this.time.getElapsedTime() * this.timescale;
+  }
 
+  draw() {
+    const t = this.getTime();
+    
+    this.ctx.save(); 
+    this.ctx.clearRect(0, 0, this.width, this.height);
+    this.ctx.translate(this.width / 2, this.height / 2);
+
+    for (let i = 0; i < this.shapes.length; i++) {
+      this.shapes[i].render(t);
+    }
+
+    this.ctx.restore();
     this.animationId = requestAnimationFrame(this.draw.bind(this));
   }
 }
 
-/**
- * Shader class
- */
-class Shader {
-  constructor(sketch) {
+class Shape {
+  constructor(sketch, params) {
+    this.time = new Stopwatch();
+    this.timeNum = 4;
+    this.timescale = sketch.timescale;
+    
     this.sketch = sketch;
-    this.mouse = this.sketch.mouse;
-    this.gl = this.sketch.gl;
-
-    this.position = [
-      -1.0,  1.0,  0.0,
-       1.0,  1.0,  0.0,
-      -1.0, -1.0,  0.0,
-       1.0, -1.0,  0.0
-    ];
-
-    this.index = [
-      0, 2, 1,
-      1, 2, 3
-    ];
-
-    this.initialize();
+    this.ctx = sketch.ctx;
+    this.points = sketch.points;
+    this.maxDist = sketch.maxDist;
+    this.shapesNum = sketch.shapesNum;
+    this.size = sketch.size;
+    
+    this.vector = params.v;
+    this.dist = params.d;
+    this.index = params.i;
   }
 
-  initialize() {
-    this.vertexShader = this.createVertexShader(shaders.vertex);
-    this.fragmentShader = this.createFragmentShader(shaders.fragment);
+  getTime(i) {
+    this.time.calculateTime();
+    const t = this.time.getElapsedTime();
+    //const scaledTime = t * this.timescale - this.index / this.shapesNum / Math.PI * 2;
+    const scaledTime = t * this.timescale - i - this.dist / this.maxDist / Math.PI * 2;
+    //const scaledTime = t * this.timescale;
 
-    this.program = this.createProgram(this.vertexShader, this.fragmentShader);
+    return Math.abs(scaledTime);
+  }
 
-    this.vertexIndex = this.createIbo(this.index);
-    this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.vertexIndex);
-
-    this.vertexPosition = this.createVbo(this.position);
-    this.setAttributes({
-      position: {
-        location: this.gl.getAttribLocation(this.program, 'aPosition'),
-        size: 3,
-        buffer: this.vertexPosition
+  drawShape(points, size) {
+    this.ctx.beginPath();
+    for (let i = 0; i < points.length; i++) {
+      if (i === 0) {
+        this.ctx.moveTo(points[i].getX() * size, points[i].getY() * size);
+      } else {
+        this.ctx.lineTo(points[i].getX() * size, points[i].getY() * size);
       }
-    });
-
-    this.uniLocation = [];
-    this.uniLocation[0] = this.gl.getUniformLocation(this.program, 'uTime');
-    this.uniLocation[1] = this.gl.getUniformLocation(this.program, 'uMouse');
-    this.uniLocation[2] = this.gl.getUniformLocation(this.program, 'uResolution');
-
-    this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
+    }
+    this.ctx.closePath();
+    //this.ctx.fill();
+    this.ctx.stroke();
   }
 
-  createVertexShader(src) {
-    const shader = this.gl.createShader(this.gl.VERTEX_SHADER);
-    
-    this.gl.shaderSource(shader, src);
-    this.gl.compileShader(shader);
-    
-    if (this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS)) {
-      
-      return shader;
-    } else {
-      console.log(this.gl.getShaderInfoLog(shader));
+  drawPoints(points, size, pointSize) {
+    for (let i = 0; i < points.length; i++) {
+      const nx = points[i].getX() * size;
+      const ny = points[i].getY() * size;
+
+      this.ctx.beginPath();
+      this.ctx.arc(nx, ny, pointSize, 0, Math.PI * 2, false);
+      this.ctx.fill();
+      //this.ctx.stroke();
     }
   }
 
-  createFragmentShader(src) {
-    const shader = this.gl.createShader(this.gl.FRAGMENT_SHADER);
-    
-    this.gl.shaderSource(shader, src);
-    this.gl.compileShader(shader);
-    
-    if (this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS)) {
-      
-      return shader;
-    } else {
-      console.log(this.gl.getShaderInfoLog(shader));
+  drawTrailLine(t, points, size) {
+    const index = Math.floor(Utilities.map(t, 0, 1, 0, points.length - 1));
+    const endex = Math.ceil(Utilities.map(t, 0, 1, index + 1, points.length - 1));
+
+    this.ctx.beginPath();
+    this.ctx.moveTo(points[index].getX() * size, points[index].getY() * size);
+    for (let i = index; i < endex; i++) {
+      const p = points[i];
+
+      this.ctx.lineTo(p.getX() * size, p.getY() * size);
     }
+    this.ctx.stroke();
   }
-  
-  createProgram(vs, fs) {
-    const program = this.gl.createProgram();
 
-    this.gl.attachShader(program, vs);
-    this.gl.attachShader(program, fs);
-    this.gl.linkProgram(program);
+  getNewPoints(intT, t, pointsA, pointsB) {
+    let tmp = [];
 
-    if (this.gl.getProgramParameter(program, this.gl.LINK_STATUS)) {
-      this.gl.useProgram(program);
+    let et;
+    switch (intT) {
+      case 0:
+        et = this.sketch.ease(t % 1);
+        
+        for (let i = 0; i < pointsA.length; i++) {
+          const x = Utilities.map(et, 0, 1, pointsA[i].getX(), pointsB[i].getX());
+          const y = Utilities.map(et, 0, 1, pointsA[i].getY(), pointsB[i].getY());
 
-      return program;
-    } else {
-      console.log(this.gl.getProgramInfoLog(program));
+          const v = this.sketch.vector.create(x, y);
+
+          tmp.push(v);
+        }
+
+        break;
+
+      case 1:
+        et = this.sketch.ease(t % 1);
+        
+        for (let i = 0; i < pointsA.length; i++) {
+          const x = Utilities.map(et, 0, 1, pointsB[i].getX(), pointsA[i].getX());
+          const y = Utilities.map(et, 0, 1, pointsB[i].getY(), pointsA[i].getY());
+
+          const v = this.sketch.vector.create(x, y);
+
+          tmp.push(v);
+        }
+
+        break;
+
+      case 2:
+        et = this.sketch.ease(t % 1);
+        
+        for (let i = 0; i < pointsA.length; i++) {
+          const x = Utilities.map(et, 0, 1, pointsA[i].getX(), pointsB[i].getX());
+          const y = Utilities.map(et, 0, 1, pointsA[i].getY(), pointsB[i].getY());
+
+          const v = this.sketch.vector.create(x, y);
+
+          tmp.push(v);
+        }
+
+        break;
+
+      case 3:
+        et = this.sketch.ease(t % 1);
+        
+        for (let i = 0; i < pointsA.length; i++) {
+          const x = Utilities.map(et, 0, 1, pointsB[i].getX(), pointsA[i].getX());
+          const y = Utilities.map(et, 0, 1, pointsB[i].getY(), pointsA[i].getY());
+
+          const v = this.sketch.vector.create(x, y);
+
+          tmp.push(v);
+        }
+
+        break;
+
+      default:
+
+        break;
     }
+
+    return tmp;
   }
 
-  createVbo(data) {
-    const vbo = this.gl.createBuffer();
+  render() {
+    this.ctx.save();
+    this.ctx.translate(this.vector.getX(), this.vector.getY());
+    this.ctx.lineWidth = 20;
+    this.ctx.globalCompositeOperation = 'lighter';
+    
+    for (let i = 0; i < 3; i++) {
+      if (i === 0) this.ctx.strokeStyle = 'rgb(255, 0, 0)';
+      if (i === 1) this.ctx.strokeStyle = 'rgb(0, 255, 0)';
+      if (i === 2) this.ctx.strokeStyle = 'rgb(0, 0, 255)';
+      const t = this.getTime(i * 0.05);
+      const intT = Math.floor(t % this.timeNum);
+      const newPoints = this.getNewPoints(intT, t, this.points.a, this.points.b);
 
-    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, vbo);
-    this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(data), this.gl.STATIC_DRAW);
-    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, null);
+      let et, scale = 1, rotate = 0;
+      switch (intT) {
+        case 0:
+          et = this.sketch.ease(t % 1);
+          scale = Utilities.map(et, 0, 1, 1, 1.1);
 
-    return vbo;
-  }
+          break;
 
-  createIbo(data) {
-    const ibo = this.gl.createBuffer();
+        case 1:
+          et = this.sketch.ease(t % 1);
+          rotate = Utilities.map(et, 0, 1, 0, Math.PI / 4);
+          scale = Utilities.map(et, 0, 1, 1.1, 1);
 
-    this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, ibo);
-    this.gl.bufferData(this.gl.ELEMENT_ARRAY_BUFFER, new Int16Array(data), this.gl.STATIC_DRAW);
-    this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, null);
+          break;
 
-    return ibo;
-  }
+        case 2:
+          et = this.sketch.ease(t % 1);
+          rotate = Math.PI / 4;
+          scale = 1;
 
-  setAttributes(attributes) {
-    Object.keys(attributes).forEach((name) => {
-      const attribute = attributes[name];
+          break;
 
-      this.gl.bindBuffer(this.gl.ARRAY_BUFFER, attribute.buffer);
-      this.gl.enableVertexAttribArray(attribute.location);
-      this.gl.vertexAttribPointer(attribute.location, attribute.size, this.gl.FLOAT, false, 0, 0);
-    });
+        case 3:
+          et = this.sketch.ease(t % 1);
+          rotate = Utilities.map(et, 0, 1, Math.PI / 4, Math.PI / 2);
+          scale = 1;
 
-    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, null);
-  }
+          break;
 
-  render(time) {
-    this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+        default:
+          break;
+      }
 
-    this.gl.uniform1f(this.uniLocation[0], time);
-    this.gl.uniform2fv(this.uniLocation[1], [this.mouse.getX(), this.mouse.getY()]);
-    this.gl.uniform2fv(this.uniLocation[2], [this.sketch.width, this.sketch.height]);
+      this.ctx.save();
+      this.ctx.scale(scale, scale);
+      this.ctx.rotate(rotate);
+      this.drawShape(newPoints, this.size, 1);
+      this.ctx.restore();
+    }
 
-    this.gl.drawElements(this.gl.TRIANGLES, 6, this.gl.UNSIGNED_SHORT, 0);
-    this.gl.flush();
+    this.ctx.restore();
   }
 }

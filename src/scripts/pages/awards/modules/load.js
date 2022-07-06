@@ -56,6 +56,7 @@ export class Load {
 
             lastSpan.addEventListener('animationend', () => {
               this.load.classList.add('loaded');
+              
               resolve();
             });
           });

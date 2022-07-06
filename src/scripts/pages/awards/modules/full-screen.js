@@ -21,7 +21,7 @@ export class FullScreen {
   onResize() {
     const w = window.innerWidth;
 
-    if (this.preWidth === w) {
+    if (this.preWidth === w ) {
       return;
     }
 
