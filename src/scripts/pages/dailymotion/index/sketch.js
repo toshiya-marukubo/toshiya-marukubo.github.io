@@ -15,7 +15,8 @@ export class Sketch {
     this.canvas.style.top = '0';
     this.canvas.style.left = '0';
     this.canvas.style.width = '100%';
-    this.canvas.style.height = '100%';
+    this.canvas.style.minHeight = '100vh';
+    this.canvas.style.minHeight = 'calc(var(--vh, 1vh) * 100)';
     this.canvas.style.background = '#FFF';
     this.canvas.style.zIndex = '-1';
     
@@ -27,6 +28,12 @@ export class Sketch {
   }
   
   onResize() {
+    if (this.preWidth === window.innerWidth) {
+      this.height = this.canvas.height = window.innerHeight;
+
+      return;
+    }
+    
     this.initialize();
   }
   
