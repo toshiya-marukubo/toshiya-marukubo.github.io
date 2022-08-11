@@ -1,6 +1,10 @@
 easeInQuint = cubic-bezier(0.755, 0.050, 0.855, 0.060)
 
 .load
+  z-index 9999
+  text-align center
+  position fixed
+  width 100%
   background #fff
   min-height 100vh
   min-height calc(var(--vh, 1vh) * 100);
@@ -9,6 +13,7 @@ easeInQuint = cubic-bezier(0.755, 0.050, 0.855, 0.060)
   display flex
   justify-content center
   align-items center
+  overflow hidden
   transition opacity 0.8s easeInQuint, visibility 0.8s easeInQuint
 
   .load-container
@@ -19,15 +24,15 @@ easeInQuint = cubic-bezier(0.755, 0.050, 0.855, 0.060)
     .counter.images-loaded
       animation counter-animation-2 0.8s easeInQuint 0s 1 normal forwards running
     
-    .counter.images-loaded.finished
-      transform scale(2, 2)
-      span
-        display inline-block
-        opacity 1
-        transform none
-      for num in (1..4)
-        span:nth-of-type({num})
-          animation counter-animation-3 0.8s easeInQuint (num * 200)ms 1 normal forwards running
+      &.finished
+        transform scale(2, 2)
+        span
+          display inline-block
+          opacity 1
+          transform none
+        for num in (1..4)
+          span:nth-of-type({num})
+            animation counter-animation-3 0.8s easeInQuint (num * 200)ms 1 normal forwards running
 
 .load.loaded
   opacity 0

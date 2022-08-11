@@ -14,9 +14,6 @@ export class FullScreen {
     const vh = window.innerHeight * 0.01;
     
     document.documentElement.style.setProperty('--vh', `${vh}px`);
-    
-    // if on pc
-    this.hasHover = window.matchMedia('(hover: hover)').matches;
   }
 
   setupEvents() {
@@ -27,7 +24,7 @@ export class FullScreen {
     const w = window.innerWidth;
 
     if (this.preWidth === w) {
-      return;
+      //return;
     }
 
     this.preWidth = w;

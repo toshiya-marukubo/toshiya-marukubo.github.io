@@ -1,7 +1,10 @@
-import {Sketch} from './pages/dailymotion/days/30/sketch';
+import { FullScreen } from './pages/dailymotion/modules/full-screen';
+import { Sketch } from './pages/dailymotion/days/30/sketch';
 
 (() => {
   window.addEventListener('load', () => {
+    const F = new FullScreen();
+
     const loading = document.getElementsByClassName('loading')[0];
     loading.classList.add('loaded');
     

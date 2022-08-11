@@ -3,6 +3,7 @@ import { imagePaths } from './image-paths';
 export class Load {
   constructor() {
     this.load = document.getElementById('js-load');
+    this.slider = document.getElementById('js-slider');
     this.counter = document.getElementById('js-counter');
     this.imagePaths = imagePaths;
     this.loadedNumber = 0;
@@ -42,7 +43,7 @@ export class Load {
     this.delay(400)
       .then(() => {
         this.counter.classList.add('images-loaded');
-
+        
         this.delay(800)
           .then(() => {
             this.counter.classList.add('finished');
