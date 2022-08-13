@@ -25,14 +25,16 @@ export class Sketch {
   
   setupEvents() {
     window.addEventListener('resize', this.onResize.bind(this));
+    window.addEventListener('scroll', this.render.bind(this));
   }
   
   onResize() {
     if (this.preWidth === window.innerWidth) {
-      this.height = this.canvas.height = window.innerHeight;
 
       return;
     }
+
+    this.preWidth = window.innerWidth;
     
     this.initialize();
   }
@@ -44,7 +46,8 @@ export class Sketch {
     
     this.simplex = new SimplexNoise();
 
-    this.width = this.canvas.width = Math.floor(window.innerWidth);
+    this.rand = Math.random() * 0.01;
+    this.width = this.canvas.width = this.preWidth = Math.floor(window.innerWidth);
     this.height = this.canvas.height = Math.floor(window.innerHeight);
     
     this.d = this.ctx.createImageData(this.width, this.height);
@@ -53,11 +56,9 @@ export class Sketch {
   }
 
   updateImageData(t) {
-    const rand = Math.random() * 0.01;
-
     for (let y = 0; y < this.height; y++) {
       for (let x = 0; x < this.width; x++) {
-        const noise = this.simplex.noise3D(x * rand, y * rand, t * 0.001);
+        const noise = this.simplex.noise3D(x * this.rand, y * this.rand, t * 0.001);
         const i = y * this.width + x;
         const c = x / this.width * 384;
 
@@ -70,8 +71,7 @@ export class Sketch {
   }
   
   render(t) {
-    this.updateImageData(t);
+    this.updateImageData(window.pageYOffset);
     this.ctx.putImageData(this.d, 0, 0);
-    //this.id = requestAnimationFrame(this.render.bind(this));
   }
 }
