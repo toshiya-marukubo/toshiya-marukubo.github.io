@@ -1,0 +1,13 @@
+- 
+  const day = 20230205;
+
+doctype html
+html(lang="en", prefix="og: http://ogp.me/ns#")
+  head
+    include ./days-components/head.pug
+    title ##{day}
+  body
+    .body-container
+      include ../../index-components/loading.pug
+      include ./days-components/back.pug
+    script(src=`../../dist/js/${day}.bundle.js`)

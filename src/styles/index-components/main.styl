@@ -1,0 +1,23 @@
+main
+  .js-smile
+    position fixed
+    top 50%
+    left 50%
+    transform translate(-50%, -50%) rotate(90deg) scale(0, 0)
+    &.smile-displayed
+      animation smile-first-animation 0.8s easeInOutQuint 0.4s 1 normal forwards running,
+                smile-second-animation 0.4s easeInOutQuint 1.2s 1 normal forwards running
+
+ @keyframes smile-first-animation
+   0%
+    transform translate(-50%, -50%) rotate(90deg) scale(0, 0)
+   100%
+    transform translate(-50%, -50%) rotate(90deg) scale(3, 3)
+ 
+ @keyframes smile-second-animation
+   0%
+    transform translate(-50%, -50%) rotate(90deg) scale(3, 3)
+    left 50%
+   100%
+    left 200%
+    transform translate(-50%, -50%) rotate(90deg) scale(3, 3)

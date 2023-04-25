@@ -1,0 +1,65 @@
+.loading
+  z-index 9999
+  background #FAFAFA
+  text-align center
+  position fixed
+  width 100%
+  min-height 100vh
+  min-height calc(var(--vh, 1vh) * 100)
+  overflow hidden
+  display flex
+  justify-content center
+  align-items center
+  opacity 1
+  visibility visible
+  transition opacity 0.8s 0.8s easeInOutQuint, visibility 0.8s 0.8s easeInOutQuint
+  &.loading-loaded
+    opacity 0
+    visibility hidden
+  
+  .loading-container
+    position relative
+    width 80%
+    overflow hidden
+    
+    .loading-counter
+      padding 0.8rem
+      transform scale(0, 0)
+      opacity 0
+      animation loading-counter-start-animation 0.8s easeInOutQuint 0s 1 normal forwards running
+      &.loading-loaded
+        transform scale(1, 1)
+        opacity 1
+        animation loading-counter-animation 0.8s easeInOutQuint 0.8s 1 normal forwards running
+    
+    .loading-line
+      position absolute
+      background #000000
+      left 0
+      bottom 0
+      width 0
+      height 1px
+      &.loading-loaded
+        animation loading-line-animation 1.6s easeInOutQuint 0s 1 normal forwards running
+
+@keyframes loading-counter-start-animation
+  0%
+    opacity 0
+    transform scale(0, 0);
+  100%
+    opacity 1
+    transform scale(1, 1);
+
+@keyframes loading-counter-animation
+  0%
+    opacity 1
+    transform scale(1, 1);
+  100%
+    opacity 0
+    transform scale(0, 0);
+
+@keyframes loading-line-animation
+  0%
+    left 0
+  100%
+    left 100%

@@ -1,0 +1,47 @@
+[href^="http"]:not([href*="toshiya-marukubo.github.io"])::after                                                                                                             
+  display inline-block
+  background-image url('../assets/images/external-link-icon.svg')
+  background-repeat no-repeat
+  width 16px 
+  height 16px 
+  background-size contain
+  /* alt text */
+  content '(External link)'
+  overflow hidden
+  white-space nowrap
+  text-indent 1.2rem
+
+a
+  white-space nowrap
+
+.visually-hidden
+  display inline-block
+  width 0px
+  height 0px
+  overflow hidden
+  clip rect(1px, 1px, 1px, 1px)
+
+img
+  vertical-align top
+
+html, body, ul, li
+  padding 0
+  margin 0
+
+body
+  text-align center
+
+.body-container
+  overflow-x hidden
+
+marquee
+  color red
+  font-size 64px
+
+table
+  width 100%
+  tr:nth-child(odd) td
+    background #eeeeee
+
+main
+  overflow-X scroll

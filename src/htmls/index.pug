@@ -1,0 +1,12 @@
+doctype html
+html(lang="en", prefix="og: http://ogp.me/ns#")
+  head
+    include ./index-components/head.pug
+  body
+    .body-container
+      include ./index-components/skip-link.pug
+      include ./index-components/loading.pug
+      include ./index-components/header.pug
+      include ./index-components/main.pug
+      include ./index-components/iframe.pug
+    script(defer, src="./dist/js/index.bundle.js")

@@ -1,0 +1,11 @@
+doctype html
+html(lang="en", prefix="og: http://ogp.me/ns#")
+  head
+    include ./summary-components/head.pug
+  body
+    .body-container
+      include ./summary-components/skip-link.pug
+      include ./summary-components/header.pug
+      include ./summary-components/main.pug
+      include ./summary-components/footer.pug
+    script(defer, src="./dist/js/summary.bundle.js")

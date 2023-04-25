@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Montserrat:wght@200&display=swap')
+@import './index-components/reset.styl';
+@import './index-components/common.styl';
+@import './index-components/loading.styl';
+@import './index-components/header.styl';
+@import './index-components/iframe.styl';
+
+html
+  background #FAFAFA
+
+html, body
+  overscroll-behavior none
+  font-family Montserrat, sans-serif
+
+body
+  color #000000
+
+a
+  background #FAFAFA
+  color #000000
+  transition background 0.2s easeInOutQuint, color 0.2s easeInOutQuint
+  &:hover
+    background #000
+    color #FAFAFA
+
+.body-container
+  overflow hidden

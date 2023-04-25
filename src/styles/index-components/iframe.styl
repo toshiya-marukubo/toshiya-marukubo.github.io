@@ -1,0 +1,157 @@
+.iframe
+  position fixed
+  background rgba(0, 0, 0, 0.9)
+  top 0
+  left 0
+  width 100%
+  min-height 100vh
+  min-height calc(var(--vh, 1vh) * 100)
+  display flex
+  justify-content center
+  align-items center
+  visibility hidden
+  opacity 0
+  transform translateY(5%);
+  &.iframe-show
+    animation iframe-show-animation 0.4s easeInOutQuint 0s 1 normal both running
+  &.iframe-hide
+    animation iframe-hide-animation 0.4s easeInOutQuint 0.8s 1 normal both running
+
+  .frame
+    display flex
+    justify-content center
+    align-items center
+    border solid 1px #FAFAFA
+    width 82vmin
+    height 82vmin
+    visibility hidden
+    opacity 0
+    transform translateY(5%);
+    &.iframe-show
+      animation iframe-show-animation 0.4s easeInOutQuint 0.2s 1 normal both running
+    &.iframe-hide
+      animation iframe-hide-animation 0.4s easeInOutQuint 0.6s 1 normal both running
+
+    iframe
+      background rgba(0, 0, 0, 0.9)
+      width 80vmin
+      height 80vmin
+
+  .iframe-title
+    font-size 2.4rem
+    position fixed
+    top 32px
+    left 32px
+    color #FAFAFA
+    visibility hidden
+    transform translateY(5%)
+    text-indent 0.8rem
+    opacity 0
+    overflow hidden
+    outline none
+    &::after
+      content ''
+      display block
+      width 1px
+      height 100%
+      position absolute
+      left 0
+      top 100%
+      background #FAFAFA
+    &.iframe-show::after
+      animation iframe-line-show-animation 0.4s easeInOutQuint 0.8s 1 normal both running
+    &.iframe-hide::after
+      animation iframe-line-hide-animation 0.4s easeInOutQuint 0s 1 normal both running
+    &.iframe-show
+      animation iframe-show-animation 0.4s easeInOutQuint 0.6s 1 normal both running
+    &.iframe-hide
+      animation iframe-hide-animation 0.4s easeInOutQuint 0.2s 1 normal both running
+    p:last-child
+      font-size 0.8rem
+      text-align right
+
+  .iframe-lists
+    display: flex;
+    position fixed
+    bottom 32px
+    right 32px
+    visibility hidden
+    opacity 0
+    transform translateY(5%)
+    &.iframe-show
+      animation iframe-show-animation 0.4s easeInOutQuint 0.4s 1 normal both running
+    &.iframe-hide
+      animation iframe-hide-animation 0.4s easeInOutQuint 0.4s 1 normal both running
+    li
+      width 64px
+      height 64px
+      border solid 1px #FAFAFA
+      a
+        display flex
+        align-items center
+        justify-content center
+        width 100%
+        height 100%
+      a.iframe-git
+        background-color transparent
+        transition 0.2s 0s easeInOutQuint
+        &:hover svg
+          stroke #000000 
+        &:hover
+          background #FAFAFA
+      a.iframe-closeButton
+        background-color transparent
+        position relative
+        transition 0.2s 0s easeInOutQuint
+        &:hover
+          background #FAFAFA
+          &::before, &::after
+            background #000000
+        &::before, &::after
+          position absolute
+          top 50%
+          left 50%
+          content ''
+          display block
+          height 1px
+          width 40px
+          background #FAFAFA
+        &::before
+          transform translate(-50%, -50%) rotate(45deg)
+        &::after
+          transform translate(-50%, -50%) rotate(-45deg)
+          
+    li:last-child
+      margin-left 16px
+
+@keyframes iframe-show-animation
+  0%
+    visibility hidden
+    opacity 0
+    transform translateY(5%);
+  100%
+    visibility visible
+    opacity 1
+    transform none;
+
+@keyframes iframe-hide-animation
+  0%
+    visibility visible
+    opacity 1
+    transform none;
+  100%
+    visibility hidden
+    opacity 0
+    transform translateY(-5%);
+
+@keyframes iframe-line-show-animation
+  0%
+    top 100%
+  100%
+    top 0
+
+@keyframes iframe-line-hide-animation
+  0%
+    top 0
+  100%
+    top -100%

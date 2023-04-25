@@ -1,0 +1,74 @@
+num = 64
+
+header
+  border solid 1px #000
+  position fixed
+  bottom 32px
+  right 32px
+  width num px
+  height num px
+  text-align center
+  overflow hidden
+  &.header-open
+    animation header-width-open-animation 0.4s easeInOutQuint 0s 1 normal forwards running,
+              header-height-open-animation 0.4s easeInOutQuint 0.4s 1 normal forwards running
+  &.header-close
+    animation header-height-close-animation 0.4s easeInOutQuint 0s 1 normal forwards running,
+              header-width-close-animation 0.4s easeInOutQuint 0.4s 1 normal forwards running
+  
+  h1
+    line-height num px
+
+  ul
+    li
+      line-height num px
+    li.js-picture
+      pointer-events none
+    li.js-icons
+      transition transform 0.8s easeInOutQuint
+      ul
+        for number in (0..4)
+          li:nth-child({number})
+            transition transform (number * 0.2)s easeInOutQuint
+    li.js-about.show + li.js-icons ul li
+      transform translateY(-(num)px)
+
+    li.js-icons ul
+      display flex
+      li
+        position relative
+        width 25%
+        a svg
+          vertical-align: middle;
+
+@keyframes js-icons-show-animation
+  0%
+    transform translateY(0)
+  100%
+    transform translateY(-(num)px)
+
+@keyframes header-width-open-animation
+  0%
+    width num px
+  100%
+    width num * 4 + 2 px
+
+@keyframes header-height-open-animation
+  0%
+    height num px
+  100%
+    height num * 4 + 2 px
+
+@keyframes header-width-close-animation
+  0%
+    width num * 4 + 2 px
+  100%
+    width num px
+
+@keyframes header-height-close-animation
+  0%
+    width num * 4 + 2 px
+    height num * 4 + 2 px
+  100%
+    width num * 4 + 2 px
+    height num px

@@ -1,0 +1,71 @@
+easeInOutQuint = cubic-bezier(0.83, 0, 0.17, 1)
+
+:root
+  font-size calc(1rem + 0.5vw)
+
+html,
+body
+  overflow-x hidden
+  overscroll-behavior none
+
+.visually-hidden
+  position absolute
+  width 1px
+  height 1px
+  overflow hidden                                                                                                                                                             
+  clip rect(1px, 1px, 1px, 1px)
+
+a
+  display block
+  background #FAFAFA
+  color #000000
+  transition background 0.2s easeInOutQuint, color 0.2s easeInOutQuint
+
+[href^="http"]:not([href*="toshiya-marukubo.github.io"])::after
+  display block
+  position absolute
+  background-image url('../../assets/images/external-link-icon.svg')
+  background-repeat no-repeat
+  top 8px
+  right 8px
+  width 8px
+  height 8px
+  background-size contain
+  /* alt text */
+  content '(External link)'
+  overflow hidden
+  white-space nowrap
+  text-indent 1.2rem
+
+[href="#"]::after
+  background-image none
+
+p
+  line-height 1.5
+
+img
+  max-width 100%
+  width 100%
+  height auto
+  vertical-align bottom
+
+@media (hover: hover)
+  a:hover
+    background #000
+    color #FAFAFA
+
+@media (hover: none)
+  a:active
+    background #000
+    color #FAFAFA
+
+@media print
+  body > *:not(main)
+    display none
+
+.skip-link
+  position absolute
+  top 0
+  right 100%
+  &:focus
+    right auto
