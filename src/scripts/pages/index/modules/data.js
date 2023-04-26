@@ -1,5 +1,17 @@
 const data = [
   {
+    day: '20230215',
+    imagePath: '../dist/assets/images/20230215.png',
+    href: './works/days/20230215.html',
+    category: 'Canvas2D',
+    description: 'Girih',
+    git: 'https://github.com/toshiya-marukubo/toshiya-marukubo.github.io/tree/main/src/scripts/pages/works/days/20230215/',
+    reference: {
+      text: 'Not',
+      link: ''
+    }
+  },
+  {
     day: '20230214',
     imagePath: '../dist/assets/images/20230214.png',
     href: './works/days/20230214.html',

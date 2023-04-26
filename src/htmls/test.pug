@@ -1,0 +1,8 @@
+doctype html
+html(lang="en", prefix="og: http://ogp.me/ns#")
+  head
+    include ./index-components/head.pug
+  body
+    .body-container
+      include ./index-components/loading.pug
+    script(defer, src="./dist/js/test.bundle.js")
