@@ -19,6 +19,7 @@
     "json-loader": "^0.5.7",
     "json-minimizer-webpack-plugin": "^3.3.0",
     "json5-loader": "^4.0.1",
+    "lil-gui": "^0.18.1",
     "mini-css-extract-plugin": "^2.6.0",
     "postcss": "^8.4.12",
     "postcss-loader": "^6.2.1",

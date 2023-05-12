@@ -1,5 +1,17 @@
 const data = [
   {
+    day: '20230216',
+    imagePath: '../dist/assets/images/20230216.png',
+    href: './works/days/20230216.html',
+    category: 'WebGL with Three.js',
+    description: 'Matrix Rain',
+    git: 'https://github.com/toshiya-marukubo/toshiya-marukubo.github.io/tree/main/src/scripts/pages/works/days/20230216/',
+    reference: {
+      text: 'Shader Studies Matrix Effect',
+      link: 'https://shahriyarshahrabi.medium.com/shader-studies-matrix-effect-3d2ead3a84c5'
+    }
+  },
+  {
     day: '20230215',
     imagePath: '../dist/assets/images/20230215.png',
     href: './works/days/20230215.html',

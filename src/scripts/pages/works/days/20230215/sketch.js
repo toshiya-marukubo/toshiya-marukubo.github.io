@@ -1,10 +1,10 @@
-import { Stopwatch } from './stopwatch';
-import { AnimationTimer } from './animation-timer';
-import { Easings } from './easings';
-import { Utilities } from './utilities';
-import { Points } from './points';
-import { Grid } from './grid';
-import { Vector } from './vector';
+import { Stopwatch } from '../template-from-20230215/stopwatch';
+import { AnimationTimer } from '../template-from-20230215/animation-timer';
+import { Easings } from '../template-from-20230215/easings';
+import { Utilities } from '../template-from-20230215/utilities';
+import { Points } from '../template-from-20230215/points';
+import { Grid } from '../template-from-20230215/grid';
+import { Vector } from '../template-from-20230215/vector';
 
 export class Sketch {
   constructor(data) {

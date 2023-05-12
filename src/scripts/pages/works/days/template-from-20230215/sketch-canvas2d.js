@@ -1,18 +1,37 @@
-import { Stopwatch } from './stopwatch';
-import { AnimationTimer } from './animation-timer';
-import { Easings } from './easings';
-import { Utilities } from './utilities';
-import { Points } from './points';
-import { Grid } from './grid';
-import { Vector } from './vector';
+import GUI from 'lil-gui';
+import { Stopwatch } from '../template-from-20230215/stopwatch';
+import { AnimationTimer } from '../template-from-20230215/animation-timer';
+import { Easings } from '../template-from-20230215/easings';
+import { Utilities } from '../template-from-20230215/utilities';
+import { Points } from '../template-from-20230215/points';
+import { Grid } from '../template-from-20230215/grid';
+import { Vector } from '../template-from-20230215/vector';
 
 export class Sketch {
   constructor(data) {
     this.vector = new Vector();
+    this.setupGUI();
     this.setupCanvas();
     this.setupEvents();
     
     this.initialize();
+  }
+
+  setupGUI() {
+    this.gui = new GUI();
+    
+    this.obj = {
+      ease: 'easeInOutExpo',
+      gridScale: 30
+    };
+
+    this.gui.add(this.obj, 'ease', Easings.returnEaseType()).onChange(() => {
+      this.initialize();
+    });
+
+    this.gui.add(this.obj, 'gridScale', 0, 100, 1).onChange(() => {
+      this.initialize();
+    });
   }
 
   setupCanvas() {
@@ -61,6 +80,8 @@ export class Sketch {
     
     this.time = new Stopwatch();
     this.time.start();
+
+    this.ease = Easings.returnEaseFunc(this.obj.ease);
     
     this.render(0);
   }
@@ -72,19 +93,14 @@ export class Sketch {
 
   setupShapes() {
     this.shapes = [];
-    
-    const size = 50;
-    const hexSize = size;
-    const squareSize = hexSize * (1 / Math.sqrt(2));
-    const triangleSize = squareSize * (1 / Math.sqrt(2)) * (2 / Math.sqrt(3));
+    this.gridScale = this.obj.gridScale;
+    //this.size = Math.floor(this.gridScale * Math.sqrt(2) / 2);
+    this.size = Math.floor(this.gridScale / 2);
+    //this.size = Math.floor(Math.sqrt(3) * this.scale / 2 / 2);
 
-    this.sizes = {
-      hex: hexSize,
-      square: squareSize,
-      triangle: triangleSize
-    };
+    const params = Grid.square(this.vector, 2, this.gridScale);
 
-    const params = Grid.hex(this.vector, 50, (hexSize + triangleSize) * 2);
+    this.maxDist = Grid.maxDist(params);
 
     for (let i = 0; i < params.length; i++) {
       const s = new Shape(this, params[i]);
@@ -102,9 +118,10 @@ export class Sketch {
     for (let i = 0; i < this.shapes.length; i++) {
       this.shapes[i].draw();
     }
+    
     this.ctx.restore();
 
-    //this.animationId = requestAnimationFrame(this.render.bind(this));
+    this.animationId = requestAnimationFrame(this.render.bind(this));
   }
 }
 
@@ -112,24 +129,32 @@ class Shape {
   constructor(sketch, params) {
     this.sketch = sketch;
     this.ctx = this.sketch.ctx;
+    this.maxDist = this.sketch.maxDist;
+    this.size = this.sketch.size;
 
     this.vector = params.v;
+    this.dist = params.d;
+    this.index = params.i;
 
     this.initialize();
   }
 
   initialize() {
-    this.hexSize = this.sketch.sizes.hex;
-    this.squareSize = this.sketch.sizes.square;
-    this.triangleSize = this.sketch.sizes.triangle;
+    this.time = new Stopwatch();
+    this.time.start();
+    this.timeScale = 0.001;
+    this.timeNum = 2 + 1;
     
-    this.hex = Points.polygon(this.sketch.vector, 6, 6);
-    this.square = Points.polygon(this.sketch.vector, 4, 4);
-    this.triangle = Points.polygon(this.sketch.vector, 3, 3);
-    
-    this.tx = (this.hexSize * (Math.sqrt(3) / 2) + this.squareSize * (1 / Math.sqrt(2))) * (1 / 2); 
-    this.ty = (this.hexSize * (Math.sqrt(3) / 2) + this.squareSize * (1 / Math.sqrt(2))) * (Math.sqrt(3) / 2);
-    this.dxy = Math.sqrt(this.tx * this.tx + this.ty * this.ty);
+    this.circle = Points.polygon(this.sketch.vector, 36, 36);
+  }
+
+  getTime(i) {
+    const t = this.time.getElapsedTime() / 1000;
+    //const scaledTime = t * this.timeScale - i / this.shapesNum / Math.PI * 2;
+    const scaledTime = t - this.dist / this.maxDist / Math.PI * 2;
+    //const scaledTime = t * this.timeScale;
+
+    return Math.abs(scaledTime);
   }
 
   drawShape(points, size) {
@@ -146,47 +171,44 @@ class Shape {
     this.ctx.stroke();
   }
 
+  updateParams() {
+    const t = this.getTime();
+    const intT = Math.floor(t % this.timeNum);
+
+    let et, scale;
+    switch (intT) {
+      case 0:
+        et = this.sketch.ease(t % 1);
+        scale = Utilities.map(et, 0, 1, 0, 1);
+
+        break;
+      
+      case 1:
+        et = this.sketch.ease(t % 1);
+        scale = Utilities.map(et, 0, 1, 1, 1);
+
+        break;
+      
+      case 2:
+        et = this.sketch.ease(t % 1);
+        scale = Utilities.map(et, 0, 1, 1, 0);
+
+        break;
+      
+      default:
+        break;
+    }
+
+    this.ctx.scale(scale, scale);
+  }
+
   draw() {
     this.ctx.save();
     this.ctx.translate(this.vector.getX(), this.vector.getY());
 
-    // hex
-    this.ctx.save();
-    this.ctx.rotate(Math.PI / 2);
-    this.drawShape(this.hex, this.hexSize);
-    this.ctx.restore();
-    
-    // square
-    this.ctx.save();
-    this.ctx.translate(this.tx, this.ty);
-    this.ctx.rotate(Math.PI / 12);
-    this.drawShape(this.square, this.squareSize);
-    this.ctx.restore();
-    
-    this.ctx.save();
-    this.ctx.translate(-this.tx, this.ty);
-    this.ctx.rotate(-Math.PI / 12);
-    this.drawShape(this.square, this.squareSize);
-    this.ctx.restore();
-    
-    this.ctx.save();
-    this.ctx.translate(-this.dxy, 0);
-    this.ctx.rotate(Math.PI / 4);
-    this.drawShape(this.square, this.squareSize);
-    this.ctx.restore();
+    this.updateParams();
 
-    // triangle
-    this.ctx.save();
-    this.ctx.translate(0, this.hexSize + this.triangleSize);
-    this.ctx.rotate(Math.PI / 6);
-    this.drawShape(this.triangle, this.triangleSize);
-    this.ctx.restore();
-    
-    this.ctx.save();
-    this.ctx.translate(-this.dxy, this.dxy * (2 / Math.sqrt(3) * (1 / 2)));
-    this.ctx.rotate(-Math.PI / 6);
-    this.drawShape(this.triangle, this.triangleSize);
-    this.ctx.restore();
+    this.drawShape(this.circle, this.size);
 
     this.ctx.restore();
   }
