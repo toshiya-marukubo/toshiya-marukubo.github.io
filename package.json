@@ -21,7 +21,7 @@
     "json5-loader": "^4.0.1",
     "lil-gui": "^0.18.1",
     "mini-css-extract-plugin": "^2.6.0",
-    "postcss": "^8.4.12",
+    "postcss": "^8.4.31",
     "postcss-loader": "^6.2.1",
     "pug-loader": "^2.4.0",
     "style-loader": "^3.3.1",
